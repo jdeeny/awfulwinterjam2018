@@ -1,4 +1,9 @@
+lovetoys = require("lib/lovetoys/lovetoys")
+lovetoys.initialize({globals = true, debug = true})
+
 require "requires"
+
+
 
 local input = baton.new {
   controls = {
@@ -15,68 +20,39 @@ local input = baton.new {
   joystick = love.joystick.getJoysticks()[1],
 }
 
-local playerCar = {}
-local road = {}
-local camera = {}
-
-
-
+local MenuState = require("states/MenuState")
 
 function love.load()
-  playerCar.x = 100
-  playerCar.y = 100
-  playerCar.anim_image = love.graphics.newImage('assets/sprites/redcar.png')
-  playerCar.anim_grid = anim8.newGrid(96, 64, playerCar.anim_image:getWidth(), playerCar.anim_image:getHeight())
-  playerCar.animation = anim8.newAnimation(playerCar.anim_grid('1-2', 1), 0.4)
+    resources = Resources()
+
+    -- Add your resources here:
+    resources:addImage("circle", "assets/sprites/redcar.png")
+
+    resources:load()
+
+    stack = StackHelper()
+    stack:push(MenuState())
 end
-
-
-
-local function update_car(dt)
-
-  local x, y = input:get 'move'
-
-  if x < -0.2 then
-    playerCar.x = playerCar.x - 1
-  elseif x > 0.2 then
-    playerCar.x = playerCar.x + 1
-  end
-
-  if y < -0.2 then
-    playerCar.y = playerCar.y - 1
-  elseif y > 0.2 then
-    playerCar.y = playerCar.y + 1
-  end
-
---[[
-  if input:pressed 'accel' then
-    playerCar.speed = playerCar.speed + 10 * dt
-  elseif input:pressed 'brake' then
-    playerCar.speed = playerCar.speed - 10 * dt
-  else
-    playerCar.speed = playerCar.speed - 1 * dt
-  end
---]]
-  playerCar.x = cpml.utils.clamp(playerCar.x, 0, love.graphics.getWidth())
-  playerCar.y = cpml.utils.clamp(playerCar.y, 0, love.graphics.getHeight())
-
-end
-
 
 function love.update(dt)
-	input:update()
-  update_car(dt)
-  playerCar.animation:update(dt)
+    input:update()
+    stack:current():update(dt)
 end
-
-
-local function draw_road()
-  love.graphics.setColor(50, 50, 50)
-  love.graphics.polygon('fill', 0, 200, 50, 200, 100, 300)
-end
-
 
 function love.draw()
-  draw_road()
-  playerCar.animation:draw(playerCar.anim_image, playerCar.x, playerCar.y)
+    stack:current():draw()
 end
+
+--[[ Using baton but left this in for later reference]]
+function love.keypressed(key, isrepeat)
+    stack:current():keypressed(key, isrepeat)
+end
+
+function love.keyreleased(key, isrepeat)
+    stack:current():keyreleased(key, isrepeat)
+end
+
+function love.mousepressed(x, y, button)
+    stack:current():mousepressed(x, y, button)
+end
+--]]

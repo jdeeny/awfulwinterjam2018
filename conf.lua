@@ -1,11 +1,17 @@
 --  https://love2d.org/wiki/Config_Files
 
 function love.conf(t)
+  t.title = "the-game"        -- The title of the window the game is in (string)
+  t.author = ""        -- The author of the game (string)
+  t.url = ""                 -- The website of the game (string)
+  t.identity = nil            -- The name of the save directory (string)
+
   t.accelerometerjoystick = false      -- Enable the accelerometer on iOS and Android by exposing it as a Joystick (boolean)
 
   t.window.resizable = true           -- Let the window be user-resizable (boolean)
   t.window.minwidth = 400               -- Minimum window width if the window is resizable (number)
   t.window.minheight = 300              -- Minimum window height if the window is resizable (number)
+  t.window.vsync = true               -- Enable vertical sync (boolean)
 
   --[[
   t.identity = nil                    -- The name of the save directory (string)
