@@ -32,7 +32,7 @@ local input = baton.new {
     aimup = {'key:up', 'axis:righty-'},
     aimdown = {'key:down', 'axis:righty+'},
 
-    --fire = {'key:space', 'axis:triggerright', 'button:a'},
+    fire = {'key:space', 'button:a', 'axis:triggerright+'},
   },
   pairs = {
     move = {'moveleft', 'moveright', 'moveup', 'movedown'},
