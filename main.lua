@@ -1,6 +1,6 @@
 require 'math'
 
-local baton = require 'lib/baton/baton' -- the baton input library https://github.com/tesselode/baton
+local baton = require 'lib/baton/baton' -- the baton player_input library https://github.com/tesselode/baton
 local anim8 = require 'lib/anim8/anim8' -- anim8 animation library https://github.com/kikito/anim8
 local cpml = require 'lib/cpml'-- Cirno's Perfect Math Library https://github.com/excessive/cpml (Docs: http://excessive.github.io/cpml/)
 local HC = require 'lib/HC' -- General purpose collision detection library for the use with LÖVE. https://github.com/vrld/HC (Docs: http://hc.readthedocs.org)
@@ -20,7 +20,7 @@ lovetoys.initialize({
 -- sound synth lib https://github.com/vrld/Moan
 
 
-local input = baton.new {
+local player_input = baton.new {
   controls = {
     moveleft = {'key:a', 'axis:leftx-'},
     moveright = {'key:d', 'axis:leftx+'},
@@ -62,7 +62,7 @@ end
 
 local function update_car(dt)
 
-  local x, y = input:get 'move'
+  local x, y = player_input:get 'move'
 
   if x < -0.2 then
     dude.x = dude.x - 1
@@ -77,9 +77,9 @@ local function update_car(dt)
   end
 
 --[[
-  if input:pressed 'accel' then
+  if player_input:pressed 'accel' then
     dude.speed = dude.speed + 10 * dt
-  elseif input:pressed 'brake' then
+  elseif player_input:pressed 'brake' then
     dude.speed = dude.speed - 10 * dt
   else
     dude.speed = dude.speed - 1 * dt
@@ -92,7 +92,7 @@ end
 
 
 function love.update(dt)
-	input:update()
+	player_input:update()
   engine:update(dt)
   --world:update(dt)
 
