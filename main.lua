@@ -41,74 +41,69 @@ local player_input = baton.new {
   joystick = love.joystick.getJoysticks()[1],
 }
 
+local dude = {
+  sprite = love.graphics.newImage("assets/sprites/dude.png")
+}
 
-local Fruit = class('Fruit') -- 'Fruit' is the class' name
-
-local dude = {}
-
-function love.load()
-  engine = Engine()
-  dude.x = 100
-  dude.y = 100
-  dude.anim_image = love.graphics.newImage('assets/sprites/dude.png')
-  dude.anim_grid = anim8.newGrid(75, 52, dude.anim_image:getWidth(), dude.anim_image:getHeight())
-  dude.animation = anim8.newAnimation(dude.anim_grid(1, 1), 0.4)
+dude.draw = function()
+  love.graphics.draw(dude.sprite, dude.x, dude.y, dude.rot-math.pi/2, 1, 1, 
+    dude.sprite:getWidth()/2, dude.sprite:getHeight()/2)
 end
 
-
-local function shoot()
-
-end
-
-local function update_car(dt)
-
+dude.update = function(dt)
   local x, y = player_input:get 'move'
 
-  if x < -0.2 then
-    dude.x = dude.x - 1
-  elseif x > 0.2 then
-    dude.x = dude.x + 1
+  local DEADBAND = 0.2
+
+  if x < -DEADBAND then
+    dude.x = dude.x - dude.speed*dt
+  elseif x > DEADBAND then
+    dude.x = dude.x + dude.speed*dt
   end
 
-  if y < -0.2 then
-    dude.y = dude.y - 1
-  elseif y > 0.2 then
-    dude.y = dude.y + 1
+  if y < -DEADBAND then
+    dude.y = dude.y - dude.speed*dt
+  elseif y > DEADBAND then
+    dude.y = dude.y + dude.speed*dt
   end
 
---[[
-  if player_input:pressed 'accel' then
-    dude.speed = dude.speed + 10 * dt
-  elseif player_input:pressed 'brake' then
-    dude.speed = dude.speed - 10 * dt
-  else
-    dude.speed = dude.speed - 1 * dt
+  -- limit movement to the screen
+  local dude_radius = math.max(dude.sprite:getHeight()/2,dude.sprite:getWidth()/2)
+  if dude.x > love.graphics.getWidth()-dude_radius then
+    dude.x = love.graphics.getWidth()-dude_radius
+  elseif dude.x < dude_radius then
+    dude.x = dude_radius
   end
---]]
-  dude.x = cpml.utils.clamp(dude.x, 0, love.graphics.getWidth())
-  dude.y = cpml.utils.clamp(dude.y, 0, love.graphics.getHeight())
+
+  if dude.y > love.graphics.getHeight()-dude_radius then
+    dude.y = love.graphics.getHeight()-dude_radius
+  elseif dude.y < dude_radius then
+    dude.y = dude_radius
+  end
+
+  -- rotation only using the mouse postion, for now, I dont know how to
+  -- do it with the keys...still learning.
+  local mx, my = love.mouse.getPosition()
+  dude.rot = math.atan2(dude.y-my, dude.x-mx)
+  print(dude.y,my,dude.x,mx,dude.rot)
 
 end
 
+function love.load()
+  dude.x = 100
+  dude.y = 100
+  dude.speed = 300
+  dude.rot = 0
+
+  love.mouse.setVisible(true)
+
+end
 
 function love.update(dt)
 	player_input:update()
-  engine:update(dt)
-  --world:update(dt)
-
---  update_car(dt)
---  dude.animation:update(dt)
+  dude.update(dt)
 end
-
-
-local function draw_road()
-  love.graphics.setColor(50, 50, 50)
-  love.graphics.polygon('fill', 0, 200, 50, 200, 100, 300)
-end
-
 
 function love.draw()
-  engine:draw()
---  draw_road()
---  dude.animation:draw(dude.anim_image, dude.x, dude.y)
+  dude.draw()
 end
