@@ -1,23 +1,9 @@
-require 'math'
+require "requires"
 
-local baton = require 'lib/baton/baton' -- the baton player_input library https://github.com/tesselode/baton
-local anim8 = require 'lib/anim8/anim8' -- anim8 animation library https://github.com/kikito/anim8
-local cpml = require 'lib/cpml'-- Cirno's Perfect Math Library https://github.com/excessive/cpml (Docs: http://excessive.github.io/cpml/)
-local HC = require 'lib/HC' -- General purpose collision detection library for the use with LÖVE. https://github.com/vrld/HC (Docs: http://hc.readthedocs.org)
---local class = require 'lib/middleclass/middleclass' -- OOP https://github.com/kikito/middleclass
-local lovetoys = require('lib/lovetoys/lovetoys') -- Entity-Componet System https://github.com/Lovetoys/lovetoys
 lovetoys.initialize({
     globals = true,
     debug = true
 })
-
-
---require 'lib/autobatch/autobatch'                 -- autobatch automatic SpriteBatch https://github.com/rxi/autobatch
--- nice scaling for pixel graphics (might be fixed in git version?) https://github.com/SystemLogoff/lovePixel
--- interesting text library that allows control per letter https://github.com/mzrinsky/popo https://github.com/EntranceJew/popo
--- neural net that generates text that looks like source data https://github.com/karpathy/char-rnn
--- https://github.com/tastyminerals/coherent-text-generation-limited
--- sound synth lib https://github.com/vrld/Moan
 
 
 local player_input = baton.new {
@@ -85,7 +71,6 @@ dude.update = function(dt)
   -- do it with the keys...still learning.
   local mx, my = love.mouse.getPosition()
   dude.rot = math.atan2(dude.y-my, dude.x-mx)
-  print(dude.y,my,dude.x,mx,dude.rot)
 
 end
 
