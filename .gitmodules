@@ -1,0 +1,9 @@
+[submodule "lib/baton"]
+	path = lib/baton
+	url = https://github.com/tesselode/baton
+[submodule "lib/anim8"]
+	path = lib/anim8
+	url = https://github.com/kikito/anim8
+[submodule "lib/cpml"]
+	path = lib/cpml
+	url = https://github.com/excessive/cpml
