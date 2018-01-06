@@ -47,15 +47,15 @@ local function update_car(dt)
 
   local x, y = input:get 'move'
 
-  if x < 0.0 then
+  if x < -0.2 then
     playerCar.x = playerCar.x - 1
-  elseif x > 0.0 then
+  elseif x > 0.2 then
     playerCar.x = playerCar.x + 1
   end
 
-  if y < 0.0 then
+  if y < -0.2 then
     playerCar.y = playerCar.y - 1
-  elseif y > 0.0 then
+  elseif y > 0.2 then
     playerCar.y = playerCar.y + 1
   end
 
