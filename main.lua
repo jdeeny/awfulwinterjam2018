@@ -1,4 +1,6 @@
 require "requires"
+require "reticle"
+require "input"
 
 lovetoys.initialize({
     globals = true,
@@ -6,26 +8,7 @@ lovetoys.initialize({
 })
 
 
-local player_input = baton.new {
-  controls = {
-    moveleft = {'key:a', 'axis:leftx-'},
-    moveright = {'key:d', 'axis:leftx+'},
-    moveup = {'key:w', 'axis:lefty-'},
-    movedown = {'key:s', 'axis:lefty+'},
 
-    aimleft = {'key:left', 'axis:rightx-'},
-    aimright = {'key:right', 'axis:rightx+'},
-    aimup = {'key:up', 'axis:righty-'},
-    aimdown = {'key:down', 'axis:righty+'},
-
-    fire = {'key:space', 'button:a', 'axis:triggerright+'},
-  },
-  pairs = {
-    move = {'moveleft', 'moveright', 'moveup', 'movedown'},
-    aim = {'aimleft', 'aimright', 'aimup', 'aimdown'},
-  },
-  joystick = love.joystick.getJoysticks()[1],
-}
 
 local dude = {
   sprite = love.graphics.newImage("assets/sprites/dude.png")
@@ -55,22 +38,11 @@ dude.update = function(dt)
 
   -- limit movement to the screen
   local dude_radius = math.max(dude.sprite:getHeight()/2,dude.sprite:getWidth()/2)
-  if dude.x > love.graphics.getWidth()-dude_radius then
-    dude.x = love.graphics.getWidth()-dude_radius
-  elseif dude.x < dude_radius then
-    dude.x = dude_radius
-  end
+  dude.x = cpml.utils.clamp(dude.x, dude_radius, love.graphics.getWidth() - dude_radius)
+  dude.y = cpml.utils.clamp(dude.y, dude_radius, love.graphics.getHeight() - dude_radius)
 
-  if dude.y > love.graphics.getHeight()-dude_radius then
-    dude.y = love.graphics.getHeight()-dude_radius
-  elseif dude.y < dude_radius then
-    dude.y = dude_radius
-  end
-
-  -- rotation only using the mouse postion, for now, I dont know how to
-  -- do it with the keys...still learning.
-  local mx, my = love.mouse.getPosition()
-  dude.rot = math.atan2(dude.y-my, dude.x-mx)
+  -- rotate to face the reticle
+  dude.rot = math.atan2(dude.y-reticle.y, dude.x-reticle.x)
 
 end
 
@@ -80,15 +52,16 @@ function love.load()
   dude.speed = 300
   dude.rot = 0
 
-  love.mouse.setVisible(true)
-
+  reticle.initialize()
 end
 
 function love.update(dt)
 	player_input:update()
+  reticle.update(dt)
   dude.update(dt)
 end
 
 function love.draw()
   dude.draw()
+  reticle.draw()
 end
