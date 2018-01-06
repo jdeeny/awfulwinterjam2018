@@ -34,37 +34,32 @@ local camera = {}
 
 
 function love.load()
-  playerCar.x = 0 -- vehicles position across the track, normalized -1 to 1
-  playerCar.position = 0	-- position on the track (actually camera's position)
-  playerCar.speed = 0
-  playerCar.max_speed = 200
+  playerCar.x = 100
+  playerCar.y = 100
   playerCar.anim_image = love.graphics.newImage('assets/sprites/redcar.png')
   playerCar.anim_grid = anim8.newGrid(96, 64, playerCar.anim_image:getWidth(), playerCar.anim_image:getHeight())
   playerCar.animation = anim8.newAnimation(playerCar.anim_grid('1-2', 1), 0.4)
-
-  road.lanes = 3
-  road.segment_length = 200
-  road.rumble_segments = 3
-
-  camera.fov = 110
-  camera.height = 1000
-  camera.draw_distance = 300
-
 end
 
 
 
 local function update_car(dt)
-  local dx = dt * 2 * (playerCar.speed / playerCar.max_speed) -- at top speed, should be able to cross from left to right (-1 to 1) in 1 second
 
   local x, y = input:get 'move'
 
   if x < 0.0 then
-    playerCar.x = playerCar.x - dx
+    playerCar.x = playerCar.x - 1
   elseif x > 0.0 then
-    playerCar.x = playerCar.x + dx
+    playerCar.x = playerCar.x + 1
   end
 
+  if y < 0.0 then
+    playerCar.y = playerCar.y - 1
+  elseif y > 0.0 then
+    playerCar.y = playerCar.y + 1
+  end
+
+--[[
   if input:pressed 'accel' then
     playerCar.speed = playerCar.speed + 10 * dt
   elseif input:pressed 'brake' then
@@ -72,12 +67,10 @@ local function update_car(dt)
   else
     playerCar.speed = playerCar.speed - 1 * dt
   end
+--]]
+  playerCar.x = cpml.utils.clamp(playerCar.x, 0, love.graphics.getWidth())
+  playerCar.y = cpml.utils.clamp(playerCar.y, 0, love.graphics.getHeight())
 
-  if ( playerCar.x < -1.0 or playerCar.x > 1.0 ) and playerCar.speed > playerCar.offroad_maxspeed then
-    playerCar.speed = playerCar.speed + playerCar.offroad_decel * dt
-    playerCar.x = cpml.utils.clamp(playerCar.x, -2.0, 2.0)
-    playerCar.speed = cpml.utils.clamp(playerCar.speed, 0.0, playerCar.maxSpeed)
-  end
 end
 
 
@@ -96,5 +89,5 @@ end
 
 function love.draw()
   draw_road()
-  playerCar.animation:draw(playerCar.anim_image, 100, 200)
+  playerCar.animation:draw(playerCar.anim_image, playerCar.x, playerCar.y)
 end
