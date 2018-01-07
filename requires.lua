@@ -14,6 +14,7 @@ lovetoys = require('lib/lovetoys/lovetoys') -- Entity-Componet System https://gi
 -- https://github.com/tastyminerals/coherent-text-generation-limited
 -- sound synth lib https://github.com/vrld/Moan
 
+camera = require "camera"
 collision = require "collision"
 map = require "map"
 player = require "player"

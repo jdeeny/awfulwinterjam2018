@@ -1,4 +1,9 @@
-local map = {}
+local map = {
+  sprites = {
+    wall = love.graphics.newImage("assets/sprites/wall.png"),
+    floor = love.graphics.newImage("assets/sprites/floor.png"),
+  }
+}
 
 function map:new(w, h)
   o = {width = w, height = h}
@@ -18,7 +23,7 @@ end
 function map:init_main()
   for gx = 1, self.width do
     for gy = 1, self.height do
-      if gx == 1 or gy == 1 or gx == self.width or gy == self.height or (gx == 10 or gx == 16 and gy > 10 and gy < 24) then
+      if gx == 1 or gy == 1 or gx == self.width or gy == self.height or ((gx == 6 or gx == 9) and gy > 3 and gy < 24) then
         self[gx][gy].block = "wall"
       else
         self[gx][gy].block = "floor"
@@ -49,6 +54,18 @@ end
 
 function map.pos_to_grid(p)
   return math.floor(p / TILESIZE)
+end
+
+function map:draw()
+  local block
+  for gx = 1, self.width do
+    for gy = 1, self.height do
+      block = self:block_at(gx, gy)
+      if block ~= "void" then
+        love.graphics.draw(map.sprites[block], gx * TILESIZE - camera.x, gy * TILESIZE - camera.y)
+      end
+    end
+  end
 end
 
 return map

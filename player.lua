@@ -1,11 +1,11 @@
 local player = {
   sprite = love.graphics.newImage("assets/sprites/dude.png"),
   speed = 300,
-  radius = 64,
+  radius = 40,
   }
 
 function player.draw()
-  love.graphics.draw(player.sprite, player.x, player.y, player.rot-math.pi/2, 1, 1,
+  love.graphics.draw(player.sprite, camera.view_x(player), camera.view_y(player), player.rot-math.pi/2, 1, 1,
     player.sprite:getWidth()/2, player.sprite:getHeight()/2)
 end
 
@@ -43,7 +43,7 @@ function player.update(dt)
   player.y = my
 
   -- rotate to face the reticle
-  player.rot = math.atan2(player.y-reticle.y, player.x-reticle.x)
+  player.rot = math.atan2(player.y - reticle.y - camera.y, player.x - reticle.x - camera.x)
 end
 
 return player

@@ -8,13 +8,14 @@ lovetoys.initialize({
 })
 
 function love.load()
-  TILESIZE = 128
+  TILESIZE = 64
+  window = {w = love.graphics.getWidth(), h = love.graphics.getHeight()}
 
-  mainmap = map:new(50, 30)
+  mainmap = map:new(12, 16)
   mainmap:init_main()
 
-  player.x = 100
-  player.y = 100
+  player.x = 300
+  player.y = 300
   player.rot = 0
 
   reticle.initialize()
@@ -24,9 +25,11 @@ function love.update(dt)
 	player_input:update()
   reticle.update(dt)
   player.update(dt)
+  camera.update(dt)
 end
 
 function love.draw()
+  mainmap:draw()
   player.draw()
   reticle.draw()
 end
