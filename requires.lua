@@ -13,3 +13,5 @@ lovetoys = require('lib/lovetoys/lovetoys') -- Entity-Componet System https://gi
 -- neural net that generates text that looks like source data https://github.com/karpathy/char-rnn
 -- https://github.com/tastyminerals/coherent-text-generation-limited
 -- sound synth lib https://github.com/vrld/Moan
+
+player = require "player"
