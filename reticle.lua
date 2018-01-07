@@ -2,7 +2,7 @@ local reticle = {
   x = 0,
   y = 0,
   speed = 600,
-  sprite = love.graphics.newImage("assets/sprites/opengameart/crosshairs/circle-02.png")
+  sprite = "reticle"
 }
 
 function reticle.init()
@@ -11,8 +11,8 @@ end
 
 function reticle.draw()
   local SCALE = 0.1
-  love.graphics.draw(reticle.sprite, reticle.x, reticle.y, 0, SCALE, SCALE,
-    reticle.sprite:getWidth()/2, reticle.sprite:getHeight()/2)
+  love.graphics.draw(image[reticle.sprite], reticle.x, reticle.y, 0, SCALE, SCALE,
+    image[reticle.sprite]:getWidth()/2, image[reticle.sprite]:getHeight()/2)
 end
 
 function reticle.update(dt)

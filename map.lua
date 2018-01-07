@@ -1,8 +1,4 @@
 local map = {
-  sprites = {
-    wall = love.graphics.newImage("assets/sprites/wall.png"),
-    floor = love.graphics.newImage("assets/sprites/floor.png"),
-  }
 }
 
 function map:new(w, h)
@@ -64,7 +60,7 @@ function map:draw()
           gy * TILESIZE - camera.y > -TILESIZE and gy * TILESIZE - camera.y < window.h then
         block = self:block_at(gx, gy)
         if block ~= "void" then
-          love.graphics.draw(map.sprites[block], gx * TILESIZE - camera.x, gy * TILESIZE - camera.y)
+          love.graphics.draw(image[block], gx * TILESIZE - camera.x, gy * TILESIZE - camera.y)
         end
       end
     end

@@ -1,12 +1,15 @@
 local player = {
-  sprite = love.graphics.newImage("assets/sprites/dude.png"),
+  sprite = "dude",
   speed = 300,
   radius = 40,
+  next_shot_time = 0,
+  shot_delay = 0.1,
+  shot_speed = 800,
   }
 
 function player.draw()
-  love.graphics.draw(player.sprite, camera.view_x(player), camera.view_y(player), player.rot-math.pi/2, 1, 1,
-    player.sprite:getWidth()/2, player.sprite:getHeight()/2)
+  love.graphics.draw(image[player.sprite], camera.view_x(player), camera.view_y(player), player.rot, 1, 1,
+    image[player.sprite]:getWidth()/2, image[player.sprite]:getHeight()/2)
 end
 
 function player.update(dt)
@@ -43,7 +46,13 @@ function player.update(dt)
   player.y = my
 
   -- rotate to face the reticle
-  player.rot = math.atan2(player.y - reticle.y - camera.y, player.x - reticle.x - camera.x)
+  player.rot = math.atan2(reticle.y + camera.y - player.y, reticle.x + camera.x - player.x)
+
+  if game_time >= player.next_shot_time and player_input:down('fire') then
+    -- pew pew
+    shot_data.spawn("bullet", player.x, player.y, math.cos(player.rot) * player.shot_speed, math.sin(player.rot) * player.shot_speed, "player")
+    player.next_shot_time = game_time + player.shot_delay
+  end
 end
 
 return player
