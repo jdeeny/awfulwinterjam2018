@@ -8,6 +8,11 @@ lovetoys.initialize({
 })
 
 function love.load()
+  TILESIZE = 128
+
+  mainmap = map:new(50, 30)
+  mainmap:init_main()
+
   player.x = 100
   player.y = 100
   player.rot = 0

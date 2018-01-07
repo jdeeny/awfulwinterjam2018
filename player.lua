@@ -1,7 +1,8 @@
 local player = {
-	sprite = love.graphics.newImage("assets/sprites/dude.png"),
-	speed = 300,
-	}
+  sprite = love.graphics.newImage("assets/sprites/dude.png"),
+  speed = 300,
+  radius = 64,
+  }
 
 function player.draw()
   love.graphics.draw(player.sprite, player.x, player.y, player.rot-math.pi/2, 1, 1,
@@ -9,26 +10,37 @@ function player.draw()
 end
 
 function player.update(dt)
-  local x, y = player_input:get 'move'
+  local input_x, input_y = player_input:get 'move'
 
   local DEADBAND = 0.2
 
-  if x < -DEADBAND then
-    player.x = player.x - player.speed*dt
-  elseif x > DEADBAND then
-    player.x = player.x + player.speed*dt
+  player.dx = input_x > DEADBAND and player.speed or input_x < -DEADBAND and -player.speed or 0
+  player.dy = input_y > DEADBAND and player.speed or input_y < -DEADBAND and -player.speed or 0
+
+  if player.dx ~= 0 and player.dy ~= 0 then
+    -- 1/sqrt(2)
+    player.dx = player.dx * 0.7071
+    player.dy = player.dy * 0.7071
   end
 
-  if y < -DEADBAND then
-    player.y = player.y - player.speed*dt
-  elseif y > DEADBAND then
-    player.y = player.y + player.speed*dt
+  -- collide with the map
+  hit, mx, my, m_time, nx, ny = collision.aabb_map_sweep(player, player.dx * dt, player.dy * dt)
+
+  if hit then
+    dot = player.dx * ny - player.dy * nx
+
+    player.dx = dot * ny
+    player.dy = dot * (-nx)
+
+    if m_time < 1 then
+      -- now try continuing our movement along the new vector
+      hit, mx, my, m_time, nx, ny = collision.aabb_map_sweep({x = mx, y = my, radius = player.radius},
+                                       player.dx * dt * (1 - m_time), player.dy * dt * (1 - m_time))
+    end
   end
 
-  -- limit movement to the screen
-  local player_radius = math.max(player.sprite:getHeight()/2,player.sprite:getWidth()/2)
-  player.x = cpml.utils.clamp(player.x, player_radius, love.graphics.getWidth() - player_radius)
-  player.y = cpml.utils.clamp(player.y, player_radius, love.graphics.getHeight() - player_radius)
+  player.x = mx
+  player.y = my
 
   -- rotate to face the reticle
   player.rot = math.atan2(player.y-reticle.y, player.x-reticle.x)
