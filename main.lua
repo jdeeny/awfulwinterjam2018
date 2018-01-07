@@ -18,7 +18,7 @@ function love.load()
   player.y = 300
   player.rot = 0
 
-  reticle.initialize()
+  reticle.init()
 end
 
 function love.update(dt)
