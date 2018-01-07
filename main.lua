@@ -1,6 +1,4 @@
 require "requires"
-require "reticle"
-require "input"
 
 lovetoys.initialize({
     globals = true,
@@ -18,6 +16,7 @@ function love.load()
   player.y = 300
   player.rot = 0
 
+  player_input = controls.init()
   reticle.init()
 end
 

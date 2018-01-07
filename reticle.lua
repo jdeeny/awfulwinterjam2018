@@ -1,8 +1,4 @@
-require "requires"
-require "input"
-
-
-reticle = {
+local reticle = {
   x = 0,
   y = 0,
   speed = 600,
@@ -13,7 +9,7 @@ function reticle.init()
   love.mouse.setRelativeMode(true)
 end
 
-reticle.draw = function()
+function reticle.draw()
   local SCALE = 0.1
   love.graphics.draw(reticle.sprite, reticle.x, reticle.y, 0, SCALE, SCALE,
     reticle.sprite:getWidth()/2, reticle.sprite:getHeight()/2)
@@ -44,3 +40,5 @@ function reticle.update(dt)
     reticle.x, reticle.y = love.mouse.getX(), love.mouse.getY()
   end
 end
+
+return reticle

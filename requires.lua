@@ -16,5 +16,7 @@ lovetoys = require('lib/lovetoys/lovetoys') -- Entity-Componet System https://gi
 
 camera = require "camera"
 collision = require "collision"
+controls = require "controls"
 map = require "map"
 player = require "player"
+reticle = require "reticle"
