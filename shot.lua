@@ -1,11 +1,4 @@
-local shot = {}
-
-function shot:new(o)
-  o = o or {}
-  setmetatable(o, self)
-  self.__index = self
-  return o
-end
+local shot = class('shot')
 
 local hit, mx, mt, mt, nx, ny
 function shot:update(dt)
@@ -19,15 +12,15 @@ function shot:update(dt)
     nx, ny = 0, 0
   end
 
-  -- if self.collides_with_enemies then
-  --  for j,z in pairs(enemies) do
-  --    hx, hy, ht = collision.aabb_sweep(self, z, self.dx * dt, self.dy * dt)
-  --    if ht and ht < mt then
-  --      hit = {"enemy", j}
-  --      mt, mx, my = ht, hx, hy
-  --    end
-  --  end
-  -- end
+  if self.collides_with_enemies then
+   for j,z in pairs(enemies) do
+     hx, hy, ht = collision.aabb_sweep(self, z, self.dx * dt, self.dy * dt)
+     if ht and ht < mt then
+       hit = {"enemy", j}
+       mt, mx, my = ht, hx, hy
+     end
+   end
+  end
 
   -- if self.collides_with_player then
   --  hx, hy, ht = collision.aabb_sweep(self, player, self.dx * dt, self.dy * dt)

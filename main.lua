@@ -21,6 +21,9 @@ function love.load()
   player_input = controls.init()
   reticle.init()
 
+  enemies = {}
+  enemy_data.spawn("schmuck", 200, 200)
+  enemy_data.spawn("schmuck", 300, 100)
   shots = {}
 
   game_time = 0
@@ -32,6 +35,9 @@ function love.update(dt)
 	player_input:update()
   reticle.update(dt)
   player.update(dt)
+  for _,z in pairs(enemies) do
+    z:update(dt)
+  end
   for _,z in pairs(shots) do
     z:update(dt)
   end
@@ -41,11 +47,14 @@ end
 function love.draw()
   mainmap:draw()
 
+  for _,z in pairs(enemies) do
+    z:draw()
+  end
   for _,z in pairs(shots) do
     z:draw()
   end
 
-  player.draw()
+  player:draw()
 
   reticle.draw()
 end
