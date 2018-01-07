@@ -60,9 +60,12 @@ function map:draw()
   local block
   for gx = 1, self.width do
     for gy = 1, self.height do
-      block = self:block_at(gx, gy)
-      if block ~= "void" then
-        love.graphics.draw(map.sprites[block], gx * TILESIZE - camera.x, gy * TILESIZE - camera.y)
+      if gx * TILESIZE - camera.x > -TILESIZE and gx * TILESIZE - camera.x < window.w and
+          gy * TILESIZE - camera.y > -TILESIZE and gy * TILESIZE - camera.y < window.h then
+        block = self:block_at(gx, gy)
+        if block ~= "void" then
+          love.graphics.draw(map.sprites[block], gx * TILESIZE - camera.x, gy * TILESIZE - camera.y)
+        end
       end
     end
   end
