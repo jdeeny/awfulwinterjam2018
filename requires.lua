@@ -25,6 +25,7 @@ mob = require "mob"
   player = require "player"
 reticle = require "reticle"
 shot = require "shot"
+timer = require "timer"
 
 enemy_data = require "enemy_data"
 shot_data = require "shot_data"

@@ -27,6 +27,7 @@ function love.load()
   shots = {}
 
   game_time = 0
+  timer.init()
 end
 
 function love.update(dt)
@@ -42,6 +43,7 @@ function love.update(dt)
     z:update(dt)
   end
   camera.update(dt)
+  timer.update(dt)
 end
 
 function love.draw()
@@ -57,4 +59,5 @@ function love.draw()
   player:draw()
 
   reticle.draw()
+  timer.draw()
 end
