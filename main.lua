@@ -19,7 +19,9 @@ function love.load()
   player.rot = 0
 
   player_input = controls.init()
-  reticle.init()
+  player_input.deadband = 0.2
+  love.mouse.setCursor(love.mouse.getSystemCursor('crosshair'))
+  love.mouse.setVisible(false)
 
   enemies = {}
   enemy_data.spawn("schmuck", 200, 200)
@@ -34,7 +36,6 @@ function love.update(dt)
   game_time = game_time + dt
 
 	player_input:update()
-  reticle.update(dt)
   player.update(dt)
   for _,z in pairs(enemies) do
     z:update(dt)
@@ -58,6 +59,5 @@ function love.draw()
 
   player:draw()
 
-  reticle.draw()
   timer.draw()
 end

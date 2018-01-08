@@ -13,7 +13,7 @@ function controls.init()
       aimup = {'key:up', 'axis:righty-'},
       aimdown = {'key:down', 'axis:righty+'},
 
-      fire = {'key:space', 'button:a', 'axis:triggerright+'},
+      fire = {'key:space', 'button:a', 'axis:triggerright+', 'mouse:1'},
     },
     pairs = {
       move = {'moveleft', 'moveright', 'moveup', 'movedown'},
@@ -22,5 +22,7 @@ function controls.init()
     joystick = love.joystick.getJoysticks()[1],
   }
 end
+
+
 
 return controls

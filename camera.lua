@@ -3,8 +3,8 @@ local camera = { x=0, y=0, rx=0, ry=0, tx=0, ty=0 }
 local CAMERA_SPEED = 5
 function camera.update(dt)
 	-- lerp the camera
-  camera.tx = player.x - 1.3 * window.w/2 + 0.3 * reticle.x
-	camera.ty = player.y - 1.3 * window.h/2 + 0.3 * reticle.y
+	camera.tx = player.x - window.w/2
+	camera.ty = player.y - window.h/2
 
 	-- don't move if it's only a 1px adjustment; this avoids irritating little twitches due to rounding error in some cases
 	if math.abs(camera.tx - camera.rx) >= 2 then
