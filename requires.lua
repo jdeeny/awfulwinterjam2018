@@ -25,6 +25,7 @@ enemy = require "enemy"
 player = require "player"
 shot = require "shot"
 timer = require "timer"
+menu = require "menu"
 
 enemy_data = require "enemy_data"
 shot_data = require "shot_data"

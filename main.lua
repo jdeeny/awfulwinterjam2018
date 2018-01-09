@@ -18,7 +18,7 @@ function love.load()
   player.y = 300
   player.rot = 0
 
-  player_input = controls.init()
+  player_input, menu_input = controls.init()
   player_input.deadband = 0.2
   love.mouse.setCursor(love.mouse.getSystemCursor('crosshair'))
   love.mouse.setVisible(false)
@@ -29,25 +29,48 @@ function love.load()
   shots = {}
 
   game_time = 0
+  game_state = 'play'
   timer.init()
 end
 
 function love.update(dt)
-  game_time = game_time + dt
+  -- handle state change on menu input
+  menu_input:update()
+  if menu_input:pressed('pause') then
+    if game_state == 'play' then
+      game_state = 'pause'
+    elseif game_state == 'pause' then
+      game_state = 'play'
+    end
+  end
 
-	player_input:update()
-  player.update(dt)
-  for _,z in pairs(enemies) do
-    z:update(dt)
+
+  if game_state == 'play' then
+    game_time = game_time + dt
+
+  	player_input:update()
+    player.update(dt)
+    
+    for _,z in pairs(enemies) do
+      z:update(dt)
+    end
+    
+    for _,z in pairs(shots) do
+      z:update(dt)
+    end
+    
+    camera.update(dt)
+    timer.update(dt)
+  
+  elseif game_state == 'pause' then
+    menu.update(dt)
   end
-  for _,z in pairs(shots) do
-    z:update(dt)
-  end
-  camera.update(dt)
-  timer.update(dt)
 end
 
 function love.draw()
+  if game_state == 'pause' then
+    love.graphics.setShader(menu.background_shader)
+  end
   mainmap:draw()
 
   for _,z in pairs(enemies) do
@@ -60,4 +83,11 @@ function love.draw()
   player:draw()
 
   timer.draw()
+
+  
+  if game_state == 'pause' then
+    love.graphics.setShader()
+    menu.draw()
+  end
+
 end
