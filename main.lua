@@ -53,12 +53,13 @@ function love.update(dt)
       end
       
       camera.update(dt)
-      timer.update(dt)
+      timer.update()
     end
 
   elseif game_state == 'pause' then
       menu_input:update()
       menu.update(dt)
+      timer.update()
   end
 end
 
