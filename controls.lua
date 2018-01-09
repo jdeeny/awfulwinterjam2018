@@ -15,7 +15,7 @@ function controls.init()
 
       fire = {'key:space', 'button:a', 'axis:triggerright+', 'mouse:1'},
       
-      pause = {'key:escape'},
+      pause = {'key:escape', 'button:start'},
     },
     pairs = {
       move = {'moveleft', 'moveright', 'moveup', 'movedown'},
@@ -26,15 +26,20 @@ function controls.init()
 
   local menu = baton.new {
     controls = {
-      left = {'key:a', 'axis:leftx-'},
-      right = {'key:d', 'axis:leftx+'},
-      up = {'key:w', 'axis:lefty-'},
-      down = {'key:s', 'axis:lefty+'},
+      left = {'key:a', 'axis:leftx-', 'button:dpleft'},
+      right = {'key:d', 'axis:leftx+', 'button:dpright'},
+      up = {'key:w', 'axis:lefty-', 'button:dpup'},
+      down = {'key:s', 'axis:lefty+', 'button:dpdown'},
 
-      pause = {'key:escape'},
-      sel = {'key:space', 'button:a', 'axis:triggerright+', 'mouse:1'},
-      quit = {'key:q'}
-    }  
+      unpause = {'button:start'},
+      back = {'key:escape', 'button:b'},
+      sel = {'key:space', 'button:a', 'axis:triggerright+', 'key:enter'},
+      quit = {'key:q', 'button:back'},
+    },
+    pairs = {
+      dir = {'left', 'right', 'up', 'down'},
+    },
+    joystick = love.joystick.getJoysticks()[1],
   }
 
   return player, menu

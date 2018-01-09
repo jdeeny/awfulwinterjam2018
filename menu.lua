@@ -1,8 +1,7 @@
 
 local menu = {
 	font = love.graphics.newFont(
-		'assets/fonts/babes-in-toyland-nf/BabesInToylandNF.ttf', 50),
-		
+		'assets/fonts/babes-in-toyland-nf/BabesInToylandNF.ttf', 50),	
 }
 
 menu.background_shader = love.graphics.newShader[[
@@ -18,7 +17,9 @@ menu.background_shader = love.graphics.newShader[[
 ]]
 
 function menu.update(dt)
-	if menu_input:pressed('quit') then
+	if menu_input:pressed('unpause') or menu_input:pressed('back') then
+    game_state = 'play'
+	elseif menu_input:pressed('quit') then
 		love.event.push("quit")
 	end
 end
@@ -26,8 +27,8 @@ end
 function menu.draw()
 	love.graphics.setFont(menu.font)
 
-	local text = "PAUSED\nPress Q to quit"
-	local th = menu.font:getHeight()*2
+	local text = "PAUSED\nPress Q/Select to quit\nPress Esc/Start/B to return"
+	local th = menu.font:getHeight()*3
 
 	love.graphics.printf(text, 0, love.graphics.getHeight()/2-th/2, 
 		love.graphics.getWidth(), 'center')

@@ -34,36 +34,31 @@ function love.load()
 end
 
 function love.update(dt)
-  -- handle state change on menu input
-  menu_input:update()
-  if menu_input:pressed('pause') then
-    if game_state == 'play' then
-      game_state = 'pause'
-    elseif game_state == 'pause' then
-      game_state = 'play'
-    end
-  end
-
-
   if game_state == 'play' then
-    game_time = game_time + dt
+	  player_input:update()
+    
+    if player_input:pressed('pause') then
+      game_state = 'pause'      
+    else
+      game_time = game_time + dt
 
-  	player_input:update()
-    player.update(dt)
-    
-    for _,z in pairs(enemies) do
-      z:update(dt)
+      player.update(dt)
+      
+      for _,z in pairs(enemies) do
+        z:update(dt)
+      end
+      
+      for _,z in pairs(shots) do
+        z:update(dt)
+      end
+      
+      camera.update(dt)
+      timer.update(dt)
     end
-    
-    for _,z in pairs(shots) do
-      z:update(dt)
-    end
-    
-    camera.update(dt)
-    timer.update(dt)
-  
+
   elseif game_state == 'pause' then
-    menu.update(dt)
+      menu_input:update()
+      menu.update(dt)
   end
 end
 
