@@ -2,8 +2,10 @@ local timer = {
   timestamp = "0:00"
 }
 
+
 function timer.init()
   startTime = love.timer.getTime()
+  timeStamp = string.format("%d:%02d",0,0)
 end
 
 function timer.update(dt)
