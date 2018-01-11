@@ -7,7 +7,7 @@ end
 
 function mob:update_position(dt)
   -- collide with the map
-  hit, mx, my, m_time, nx, ny = collision.aabb_map_sweep(self, self.dx * dt, self.dy * dt)
+  hit, mx, my, m_time, nx, ny = collision.aabb_room_sweep(self, self.dx * dt, self.dy * dt)
 
   if hit then
     dot = self.dx * ny - self.dy * nx
@@ -17,7 +17,7 @@ function mob:update_position(dt)
 
     if m_time < 1 then
       -- now try continuing our movement along the new vector
-      hit, mx, my, m_time, nx, ny = collision.aabb_map_sweep({x = mx, y = my, radius = self.radius},
+      hit, mx, my, m_time, nx, ny = collision.aabb_room_sweep({x = mx, y = my, radius = self.radius},
                                        self.dx * dt * (1 - m_time), self.dy * dt * (1 - m_time))
     end
   end

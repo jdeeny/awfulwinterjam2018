@@ -1,7 +1,7 @@
 
 local menu = {
 	font = love.graphics.newFont(
-		'assets/fonts/babes-in-toyland-nf/BabesInToylandNF.ttf', 50),	
+		'assets/fonts/babes-in-toyland-nf/BabesInToylandNF.ttf', 50),
 }
 
 menu.background_shader = love.graphics.newShader[[
@@ -30,9 +30,9 @@ function menu.draw()
 	local text = "PAUSED\nPress Q/Select to quit\nPress Esc/Start/B to return"
 	local th = menu.font:getHeight()*3
 
-	love.graphics.printf(text, 0, love.graphics.getHeight()/2-th/2, 
+	love.graphics.printf(text, 0, love.graphics.getHeight()/2-th/2,
 		love.graphics.getWidth(), 'center')
-	
+
 	love.graphics.setFont(love.graphics.newFont()) --reset to default
 end
 
