@@ -33,15 +33,20 @@ function player.update(dt)
   end
 
   player:update_position(dt)
+  -- check if we're standing on a doodad
+  for _,z in pairs(doodads) do
+    if collision.aabb_aabb(player, z) then
+      z:trigger()
+    end
+  end
 
-  
   -- get aiming vector
   local aim_x, aim_y = player_input:get('aim')
 
   if math.abs(aim_x) < DEADBAND then
     aim_x = 0
   end
-  
+
   if math.abs(aim_y) < DEADBAND then
     aim_y = 0
   end
@@ -51,12 +56,12 @@ function player.update(dt)
   local r, theta
   if aim_x ~= 0 or aim_y ~= 0 then
     love.mouse.setVisible(false)
-    r, theta = cpml.vec2.to_polar(cpml.vec2.new(aim_x, aim_y)) 
+    r, theta = cpml.vec2.to_polar(cpml.vec2.new(aim_x, aim_y))
     player.rot = theta
   elseif mousemoved then
     love.mouse.setVisible(true)
     mousemoved = false
-    
+
     mx, my = love.mouse.getPosition()
     pvec = cpml.vec2.new(player.x-camera.x, player.y-camera.y)
     mvec = cpml.vec2.new(mx, my)

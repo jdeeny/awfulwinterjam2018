@@ -14,6 +14,7 @@ function love.load()
   enemies = nil
   enemy_count = nil
   shots = nil
+  doodads = nil
   current_dungeon = dungeon:new()
   dungeon.move_to_room()
 
@@ -67,6 +68,9 @@ function love.draw()
   end
   current_room:draw()
 
+  for _,z in pairs(doodads) do
+  	z:draw()
+  end
   for _,z in pairs(enemies) do
     z:draw()
   end

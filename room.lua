@@ -16,12 +16,16 @@ end
 function room:setup_main()
   for gx = 1, self.width do
     for gy = 1, self.height do
-      if gx == 1 or gy == 1 or gx == self.width or gy == self.height or ((gx == 6 or gx == 9) and gy > 3 and gy < 24) then
+      if gx == 1 or gy == 1 or gx == self.width or gy == self.height then
         self[gx][gy].block = "wall"
       else
         self[gx][gy].block = "floor"
       end
     end
+  end
+
+  for x = 1, 16 do
+    self[love.math.random(6, self.width - 5)][love.math.random(6, self.height - 5)].block = "wall"
   end
 end
 
@@ -43,7 +47,7 @@ end
 
 function room:coda()
   -- we're done in this room; open doors and let the player move on
-  dungeon.move_to_room()
+  doodad_data.spawn("exit_east", 500, 500, 20)
 end
 
 function room.bounding_box(gx, gy)

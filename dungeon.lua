@@ -5,6 +5,7 @@ function dungeon.move_to_room()
   enemies = {}
   enemy_count = 0
   shots = {}
+  doodads = {}
 
   current_room = room:new()
   current_room:init(20, 15)
@@ -14,8 +15,8 @@ function dungeon.move_to_room()
   player.x = 300
   player.y = 300
 
-  enemy_data.spawn("schmuck", 200, 200)
-  enemy_data.spawn("schmuck", 300, 100)
+  enemy_data.spawn("schmuck", 600, 600)
+  enemy_data.spawn("schmuck", 300, 800)
 end
 
 return dungeon

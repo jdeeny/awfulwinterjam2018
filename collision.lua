@@ -4,6 +4,11 @@ local ax, bx, pad_x, sign_x, ay, by, pad_y, sign_y
 local near_time_x, far_time_x, near_time_y, far_time_y, far_time
 local hit_time, hit_x, hit_y, nx, ny
 
+-- simple intersection of boxes
+function collision.aabb_aabb(a, b)
+  return math.abs(a.x - b.x) < a.radius + b.radius and math.abs(a.y - b.y) < a.radius + b.radius
+end
+
 --- test if moving a by (vx,vy) will cause it to hit b
 -- if so, return x,y (point of impact), 0 <= t <= 1 ("time" of impact), nx,ny (normal of the surface we ran into)
 function collision.aabb_sweep(a, b, vx, vy)
