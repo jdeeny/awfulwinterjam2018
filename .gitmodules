@@ -7,6 +7,12 @@
 [submodule "lib/cpml"]
 	path = lib/cpml
 	url = https://github.com/excessive/cpml
+[submodule "lib/hc"]
+	path = lib/HC
+	url = https://github.com/vrld/HC.git
+[submodule "lib/middleclass"]
+	path = lib/middleclass
+	url = https://github.com/kikito/middleclass
 [submodule "lib/lovetoys"]
 	path = lib/lovetoys
-	url = https://github.com/lovetoys/lovetoys.git
+	url = https://github.com/Lovetoys/lovetoys
