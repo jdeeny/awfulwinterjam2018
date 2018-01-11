@@ -50,7 +50,7 @@ function shot:draw()
 end
 
 function shot:playSound()
-	sound[self.sound]:play()
+	sound[self.sound]:clone():play()
 end
 
 return shot
