@@ -12,6 +12,8 @@ function enemy:update(dt)
     self.rot = angle
 
     self.wake_time = game_time + love.math.random() * 3
+
+    self:run_ai()
   end
 
   self:update_position(dt)
@@ -24,5 +26,19 @@ function enemy:die()
   end
   enemies[self.id] = nil
 end
+
+
+function enemy:run_ai()
+    -- if we are adjacent to player, attack
+    playerloc = cpml.vec2(player.x, player.y)
+    meloc = cpml.vec2(self.x, self.y)
+    if playerloc:dist(meloc) < 40 then
+        -- attack
+    end
+    -- else try to pathfind to player
+
+    -- if we can, move towards player
+end
+
 
 return enemy
