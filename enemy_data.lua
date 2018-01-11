@@ -16,6 +16,7 @@ function enemy_data.spawn(kind, x, y)
   end
 
   enemies[new_id].hp = enemies[new_id].max_hp
+  enemy_count = enemy_count + 1
 
   return new_id
 end

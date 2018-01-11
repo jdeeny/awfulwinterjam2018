@@ -18,6 +18,10 @@ function enemy:update(dt)
 end
 
 function enemy:die()
+  enemy_count = enemy_count - 1
+  if enemy_count == 0 then
+    current_room:coda()
+  end
   enemies[self.id] = nil
 end
 

@@ -1,38 +1,39 @@
-local map = {
-}
+local room = class('room')
 
-function map:new(w, h)
-  o = {width = w, height = h}
-  setmetatable(o, self)
-  self.__index = self
+-- XXX replace with room_data
+function room:init(w, h)
+  self.width = w
+  self.height = h
 
   for gx = 1, w do
-    o[gx] = {}
+    self[gx] = {}
     for gy=1, h do
-      o[gx][gy] = {block = "void"}
+      self[gx][gy] = {block = "void"}
     end
   end
-
-  return o
 end
 
-function map:init_main()
+function room:setup_main()
   for gx = 1, self.width do
     for gy = 1, self.height do
-      if gx == 1 or gy == 1 or gx == self.width or gy == self.height or ((gx == 6 or gx == 9) and gy > 3 and gy < 24) then
+      if gx == 1 or gy == 1 or gx == self.width or gy == self.height then
         self[gx][gy].block = "wall"
       else
         self[gx][gy].block = "floor"
       end
     end
   end
+
+  for x = 1, 16 do
+    self[love.math.random(6, self.width - 5)][love.math.random(6, self.height - 5)].block = "wall"
+  end
 end
 
-function map:in_bounds(gx, gy)
+function room:in_bounds(gx, gy)
   return gx >= 1 and gx <= self.width and gy >= 1 and gy <= self.height
 end
 
-function map:block_at(gx, gy)
+function room:block_at(gx, gy)
   if not self:in_bounds(gx, gy) then
     return "void" -- the void
   else
@@ -40,19 +41,24 @@ function map:block_at(gx, gy)
   end
 end
 
-function map:is_solid(gx, gy)
+function room:is_solid(gx, gy)
   return (not self:in_bounds(gx, gy)) or self[gx][gy].block == "wall" or self[gx][gy].block == "void"
 end
 
-function map.bounding_box(gx, gy)
+function room:coda()
+  -- we're done in this room; open doors and let the player move on
+  doodad_data.spawn("exit_east", 500, 500, 20)
+end
+
+function room.bounding_box(gx, gy)
   return {x = TILESIZE * (gx + 0.5), y = TILESIZE * (gy + 0.5), radius = TILESIZE / 2}
 end
 
-function map.pos_to_grid(p)
+function room.pos_to_grid(p)
   return math.floor(p / TILESIZE)
 end
 
-function map:draw()
+function room:draw()
   local block
   for gx = 1, self.width do
     for gy = 1, self.height do
@@ -67,4 +73,4 @@ function map:draw()
   end
 end
 
-return map
+return room

@@ -4,7 +4,7 @@ local hit, mx, mt, mt, nx, ny
 function shot:update(dt)
   -- collide: first with tiles, then mobs
   if self.collides_with_map then
-    hit, mx, my, mt, nx, ny = collision.aabb_map_sweep(self, self.dx * dt, self.dy * dt)
+    hit, mx, my, mt, nx, ny = collision.aabb_room_sweep(self, self.dx * dt, self.dy * dt)
   else
     hit = nil
     mx, my = self.x + self.dx * dt, self.y + self.dy * dt
