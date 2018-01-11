@@ -32,6 +32,7 @@ room = require "room"
 shot = require "shot"
 timer = require "timer"
 menu = require "menu"
+sound = require "sound"
 
 doodad_data = require "doodad_data"
 enemy_data = require "enemy_data"

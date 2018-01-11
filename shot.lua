@@ -40,12 +40,17 @@ function shot:update(dt)
 end
 
 function shot:die()
+	--sound[self.sound]:stop()
   shots[self.id] = nil
 end
 
 function shot:draw()
   love.graphics.draw(image[self.sprite], camera.view_x(self), camera.view_y(self), 0, 1, 1,
     image[self.sprite]:getWidth()/2, image[self.sprite]:getHeight()/2)
+end
+
+function shot:playSound()
+	sound[self.sound]:play()
 end
 
 return shot

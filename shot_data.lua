@@ -28,6 +28,7 @@ shot_data["bullet"] =
   radius = 8,
   collides_with_map = true,
   collides_with_enemies = true,
+  sound = "snapgun",
 
   collide = function(self, hit, mx, my, mt, nx, ny)
     if hit and hit[1] == "enemy" then

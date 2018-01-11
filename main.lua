@@ -13,6 +13,7 @@ function love.load()
   window = {w = love.graphics.getWidth(), h = love.graphics.getHeight()}
 
   image.init()
+  sound.init()
 
   enemies = nil
   enemy_count = nil

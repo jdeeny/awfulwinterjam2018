@@ -28,7 +28,8 @@ function player.update(dt)
 
   if game_time >= player.next_shot_time and player_input:down('fire') then
     -- pew pew
-    shot_data.spawn("bullet", player.x, player.y, math.cos(player.rot) * player.shot_speed, math.sin(player.rot) * player.shot_speed, "player")
+    last_fired = shot_data.spawn("bullet", player.x, player.y, math.cos(player.rot) * player.shot_speed, math.sin(player.rot) * player.shot_speed, "player")
+	shots[last_fired]:playSound() 
     player.next_shot_time = game_time + player.shot_delay
   end
 
