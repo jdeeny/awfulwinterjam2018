@@ -16,3 +16,6 @@
 [submodule "lib/lovetoys"]
 	path = lib/lovetoys
 	url = https://github.com/Lovetoys/lovetoys
+[submodule "lib/a-star-lua"]
+	path = lib/a-star-lua
+	url = https://github.com/lattejed/a-star-lua.git

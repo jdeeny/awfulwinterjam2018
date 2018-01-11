@@ -36,3 +36,5 @@ menu = require "menu"
 doodad_data = require "doodad_data"
 enemy_data = require "enemy_data"
 shot_data = require "shot_data"
+
+require "lib/a-star-lua/a-star"
