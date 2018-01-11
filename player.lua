@@ -2,7 +2,7 @@ local player = mob:new()
 
 player.sprite = "dude"
 player.speed = 300
-player.radius = 40
+player.radius = 20
 player.max_hp = 100
 player.hp = 100
 player.next_shot_time = 0
