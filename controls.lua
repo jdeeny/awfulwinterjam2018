@@ -14,7 +14,7 @@ function controls.init()
       aimdown = {'key:down', 'axis:righty+'},
 
       fire = {'key:space', 'button:a', 'axis:triggerright+', 'mouse:1'},
-      
+
       pause = {'key:escape', 'button:start'},
     },
     pairs = {
@@ -31,9 +31,9 @@ function controls.init()
       up = {'key:w', 'axis:lefty-', 'button:dpup'},
       down = {'key:s', 'axis:lefty+', 'button:dpdown'},
 
-      unpause = {'button:start'},
+      unpause = {'key:escape', 'button:start'},
       back = {'key:escape', 'button:b'},
-      sel = {'key:space', 'button:a', 'axis:triggerright+', 'key:enter'},
+      sel = {'key:space', 'button:a', 'axis:triggerright+', 'key:return'},
       quit = {'key:q', 'button:back'},
     },
     pairs = {
