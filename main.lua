@@ -29,6 +29,7 @@ function love.load()
   player_input.deadband = 0.2
   love.mouse.setCursor(love.mouse.getSystemCursor('crosshair'))
   love.mouse.setVisible(false)
+  love.mouse.setGrabbed(true)
 
   game_time = 0
   game_state = 'play'
