@@ -79,4 +79,13 @@ function player.die()
   love.events.push("quit")
 end
 
+function player:be_attacked(damage)
+    self.hp = math.max(self.hp - damage, 0)
+end
+
+function player:draw_hp()
+	--love.graphics.setFont(timer.font)
+	love.graphics.print(self.hp, 690, 50)
+end
+
 return player

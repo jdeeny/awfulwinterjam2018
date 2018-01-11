@@ -32,8 +32,10 @@ function enemy:run_ai()
     -- if we are adjacent to player, attack
     playerloc = cpml.vec2(player.x, player.y)
     meloc = cpml.vec2(self.x, self.y)
-    if playerloc:dist(meloc) < 40 then
+    if playerloc:dist(meloc) < 100 then
         -- attack
+        player:be_attacked(10)
+        self.next_attack = game_time + .4 + love.math.random(.1)
     end
     -- else try to pathfind to player
 

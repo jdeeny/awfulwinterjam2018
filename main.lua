@@ -85,6 +85,7 @@ function love.draw()
   player:draw()
 
   timer.draw()
+  player:draw_hp()
 
 
   if game_state == 'pause' then
