@@ -9,6 +9,12 @@ function intro.init()
   filmgrain_effect.desaturate.tint = {138, 111, 48}
 end
 
+function intro.update()
+  player_input:update()
+
+    if player_input:pressed('pause') then game_state = 'play' end
+  end
+
 function intro.draw()
   if love.math.random() > 0.7 then filmgrain_effect.filmgrain.size = love.math.random() * 10 + 5 end
   if love.math.random() > 0.7 then filmgrain_effect.filmgrain.opacity = love.math.random() end

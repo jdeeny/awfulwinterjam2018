@@ -36,8 +36,10 @@ intro = require 'intro'
 room = require "room"
 shot = require "shot"
 timer = require "timer"
-menu = require "menu"
+pause = require "pause"
+play = require "play"
 sound = require "sound"
+state = require "state"
 weapon = require "weapon"
 
 doodad_data = require "doodad_data"
