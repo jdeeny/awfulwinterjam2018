@@ -59,10 +59,12 @@ function player.update(dt)
   end
 
   -- player actions
-
   if player_input:down('fire') and player.equipped_items['weapon'] then
     player.equipped_items['weapon']:fire()
   end
+  player.equipped_items['weapon']:update(dt)
+  
+
   
   -- check if we're standing on a doodad
   for _,z in pairs(doodads) do

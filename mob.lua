@@ -11,7 +11,7 @@ function mob:draw()
   
   if self.equipped_items then
     for _ , x in pairs(self.equipped_items) do
-      if x.draw then x:draw() end
+      x:draw() 
     end
   end
 end
