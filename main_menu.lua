@@ -1,10 +1,9 @@
-
-local pause = {
+local main_menu = {
 	font = love.graphics.newFont(
 		'assets/fonts/babes-in-toyland-nf/BabesInToylandNF.ttf', 50),
 }
 
-pause.background_shader = love.graphics.newShader[[
+main_menu.background_shader = love.graphics.newShader[[
 	vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ){
 		vec4 pixel = Texel(texture, texture_coords );//This is the current pixel color
 		number average = (pixel.r+pixel.b+pixel.g)/3.0;
@@ -16,25 +15,23 @@ pause.background_shader = love.graphics.newShader[[
 	}
 ]]
 
-function pause.update()
+function main_menu.update(dt)
 	menu_input:update()
 
-	if menu_input:pressed('unpause') or menu_input:pressed('back') then
-    game_state = 'play'
-	elseif menu_input:pressed('quit') then
+	if menu_input:pressed('sel') then
+    game_state = 'intro'
+	elseif menu_input:pressed('quit') or menu_input:pressed('back') then
 		love.event.push("quit")
 	end
-	timer.update()
 end
 
-function pause.draw()
-	love.graphics.setShader(pause.background_shader)
-	play.draw()
-	love.graphics.setFont(pause.font)
+function main_menu.draw()
+	love.graphics.setShader(main_menu.background_shader)
+	love.graphics.setFont(main_menu.font)
 	
 
-	local text = "PAUSED\nPress Q/Select to quit\nPress Esc/Start/B to return"
-	local th = pause.font:getHeight()*3
+	local text = "A Tesla Game\nPress Spacebar to Play\nPress Escape to Quit"
+	local th = main_menu.font:getHeight()*3
 
 	love.graphics.printf(text, 0, love.graphics.getHeight()/2-th/2,
 		love.graphics.getWidth(), 'center')
@@ -43,4 +40,4 @@ function pause.draw()
 	love.graphics.setShader()
 end
 
-return pause
+return main_menu

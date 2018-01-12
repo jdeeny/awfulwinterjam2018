@@ -31,7 +31,7 @@ function love.load()
   love.mouse.setGrabbed(true)
 
   game_time = 0
-  game_state = 'intro'
+  game_state = 'main_menu'
   timer.init()
 end
 

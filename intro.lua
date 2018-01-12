@@ -10,9 +10,9 @@ function intro.init()
 end
 
 function intro.update()
-  player_input:update()
+  menu_input:update()
 
-    if player_input:pressed('pause') then game_state = 'play' end
+    if menu_input:pressed('sel') then game_state = 'play' end
   end
 
 function intro.draw()
