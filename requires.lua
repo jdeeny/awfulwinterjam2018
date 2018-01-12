@@ -1,9 +1,5 @@
 math = require 'math'
 
--- Framework Requirements
-require("core/Stackhelper")
-require("core/Resources")
-
 baton = require 'lib/baton/baton' -- the baton player_input library https://github.com/tesselode/baton
 anim8 = require 'lib/anim8/anim8' -- anim8 animation library https://github.com/kikito/anim8
 cpml = require 'lib/cpml'-- Cirno's Perfect Math Library https://github.com/excessive/cpml (Docs: http://excessive.github.io/cpml/)
