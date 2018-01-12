@@ -30,12 +30,19 @@ function love.load()
   love.mouse.setGrabbed(true)
 
   game_time = 0
-  game_state = 'play'
+  game_state = 'intro'
   timer.init()
 end
 
 function love.update(dt)
-  if game_state == 'play' then
+  if game_state == 'intro' then
+    player_input:update()
+    if player_input:pressed('pause') then
+      game_state = 'play'
+    else
+
+    end
+  elseif game_state == 'play' then
 	  player_input:update()
 
     if player_input:pressed('pause') then
@@ -65,31 +72,32 @@ function love.update(dt)
 end
 
 function love.draw()
-  if game_state == 'pause' then
-    love.graphics.setShader(menu.background_shader)
+  if game_state == 'intro' then
+    intro.draw()
+  else
+    if game_state == 'pause' then
+      love.graphics.setShader(menu.background_shader)
+    end
+    current_room:draw()
+
+    for _,z in pairs(doodads) do
+  	   z:draw()
+     end
+    for _,z in pairs(enemies) do
+      z:draw()
+    end
+    for _,z in pairs(shots) do
+      z:draw()
+    end
+
+    player:draw()
+    timer.draw()
+    player:draw_hp()
+
+    if game_state == 'pause' then
+      love.graphics.setShader()
+      menu.draw()
+    end
   end
-  current_room:draw()
-
-  for _,z in pairs(doodads) do
-  	z:draw()
-  end
-  for _,z in pairs(enemies) do
-    z:draw()
-  end
-  for _,z in pairs(shots) do
-    z:draw()
-  end
-
-  player:draw()
-
-  timer.draw()
-  player:draw_hp()
-
-
-  if game_state == 'pause' then
-    love.graphics.setShader()
-    menu.draw()
-  end
-
 end
 --]]

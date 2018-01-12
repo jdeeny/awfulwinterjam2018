@@ -9,6 +9,8 @@ function image.init()
 
   image.bullet = love.graphics.newImage("assets/sprites/bullet.png")
   image.tesla_se = love.graphics.newImage("assets/sprites/tesla-se.png")
+
+  image.intro = love.graphics.newImage("assets/fullscreen/silentFilmBack_tesla1.jpg")
 end
 
 return image
