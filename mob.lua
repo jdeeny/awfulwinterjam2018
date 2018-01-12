@@ -1,8 +1,19 @@
 local mob = class('mob')
 
+function mob:initialize()
+
+  self.equipped_items = {}
+end
+
 function mob:draw()
   love.graphics.draw(image[self.sprite], camera.view_x(self), camera.view_y(self), self.rot, 1, 1,
     image[self.sprite]:getWidth()/2, image[self.sprite]:getHeight()/2)
+  
+  if self.equipped_items then
+    for _ , x in pairs(self.equipped_items) do
+      if x.draw then x:draw() end
+    end
+  end
 end
 
 function mob:update_position(dt)
@@ -33,6 +44,17 @@ function mob:take_damage(n)
       self:die()
     end
   end
+end
+
+function mob:equip(id, item)
+  self.equipped_items[id] = item
+  self.equipped_items[id]:equipped(self)
+end
+
+function mob.unequip(id)
+  local tmp = self.equipped_items[id]
+  self.equipped_items[id] = nil
+  return tmp
 end
 
 return mob

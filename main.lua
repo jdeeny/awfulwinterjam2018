@@ -3,11 +3,6 @@ lovetoys.initialize({globals = true, debug = true})
 
 require "requires"
 
-lovetoys.initialize({
-    globals = true,
-    debug = true
-})
-
 function love.load()
   TILESIZE = 64
   window = {w = love.graphics.getWidth(), h = love.graphics.getHeight()}
@@ -25,6 +20,7 @@ function love.load()
   player.x = 300
   player.y = 300
   player.rot = 0
+  --player:equip('weapon', weapon.ProjectileGun:new())
 
   player_input, menu_input = controls.init()
   player_input.deadband = 0.2

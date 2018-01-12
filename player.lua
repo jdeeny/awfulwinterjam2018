@@ -1,3 +1,5 @@
+
+
 local player = mob:new()
 
 player.sprite = "dude"
@@ -8,7 +10,6 @@ player.hp = 100
 player.next_shot_time = 0
 player.shot_delay = 0.1
 player.shot_speed = 800
-
 
 local mousemoved = false
 
@@ -26,21 +27,8 @@ function player.update(dt)
     player.dy = player.dy * 0.7071
   end
 
-  if game_time >= player.next_shot_time and player_input:down('fire') then
-    -- pew pew
-    last_fired = shot_data.spawn("bullet", player.x, player.y, math.cos(player.rot) * player.shot_speed, math.sin(player.rot) * player.shot_speed, "player")
-	shots[last_fired]:playSound() 
-    player.next_shot_time = game_time + player.shot_delay
-  end
-
   player:update_position(dt)
-  -- check if we're standing on a doodad
-  for _,z in pairs(doodads) do
-    if collision.aabb_aabb(player, z) then
-      z:trigger()
-    end
-  end
-
+  
   -- get aiming vector
   local aim_x, aim_y = player_input:get('aim')
 
@@ -69,6 +57,20 @@ function player.update(dt)
     r, theta = cpml.vec2.to_polar(mvec-pvec)
     player.rot = theta
   end
+
+  -- player actions
+
+  if player_input:down('fire') and player.equipped_items['weapon'] then
+    player.equipped_items['weapon']:fire()
+  end
+  
+  -- check if we're standing on a doodad
+  for _,z in pairs(doodads) do
+    if collision.aabb_aabb(player, z) then
+      z:trigger()
+    end
+  end
+
 end
 
 
@@ -88,5 +90,7 @@ function player:draw_hp()
 	--love.graphics.setFont(timer.font)
 	love.graphics.print(self.hp, 690, 50)
 end
+
+
 
 return player
