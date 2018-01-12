@@ -20,7 +20,7 @@ function love.load()
   player.x = 300
   player.y = 300
   player.rot = 0
-  --player:equip('weapon', weapon.ProjectileGun:new())
+  player:equip('weapon', weapon.ProjectileGun:new())
 
   player_input, menu_input = controls.init()
   player_input.deadband = 0.2
