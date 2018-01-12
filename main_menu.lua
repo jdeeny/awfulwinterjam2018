@@ -19,7 +19,8 @@ function main_menu.update(dt)
 	menu_input:update()
 
 	if menu_input:pressed('sel') then
-    game_state = 'intro'
+    film.set_title("Tesla \n Arrives in \n America")
+    game_state = 'film'
 	elseif menu_input:pressed('quit') or menu_input:pressed('back') then
 		love.event.push("quit")
 	end
