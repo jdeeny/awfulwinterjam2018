@@ -10,6 +10,7 @@ cpml = require 'lib/cpml'-- Cirno's Perfect Math Library https://github.com/exce
 HC = require 'lib/HC' -- General purpose collision detection library for the use with LÖVE. https://github.com/vrld/HC (Docs: http://hc.readthedocs.org)
 lovetoys = require('lib/lovetoys/lovetoys') -- Entity-Componet System https://github.com/Lovetoys/lovetoys
 class = require 'lib/middleclass/middleclass' -- OOP https://github.com/kikito/middleclass
+moonshine = require 'lib/moonshine/'
 
 --require 'lib/autobatch/autobatch'                 -- autobatch automatic SpriteBatch https://github.com/rxi/autobatch
 -- nice scaling for pixel graphics (might be fixed in git version?) https://github.com/SystemLogoff/lovePixel

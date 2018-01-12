@@ -7,6 +7,7 @@ function love.load()
   TILESIZE = 64
   window = {w = love.graphics.getWidth(), h = love.graphics.getHeight()}
 
+  intro.init()
   image.init()
   animation.init()
   sound.init()
