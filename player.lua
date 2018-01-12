@@ -2,7 +2,7 @@
 
 local player = mob:new()
 
-player.sprite = "dude"
+player.sprite = "tesla_se"
 player.speed = 300
 player.radius = 20
 player.max_hp = 100
@@ -10,10 +10,12 @@ player.hp = 100
 player.next_shot_time = 0
 player.shot_delay = 0.1
 player.shot_speed = 800
+player.animation = animation.tesla_run_se
 
 local mousemoved = false
 
 function player.update(dt)
+  player.animation:update(dt)
   local move_x, move_y = player_input:get('move')
 
   local DEADBAND = 0.2
@@ -28,7 +30,7 @@ function player.update(dt)
   end
 
   player:update_position(dt)
-  
+
   -- get aiming vector
   local aim_x, aim_y = player_input:get('aim')
 
@@ -63,7 +65,7 @@ function player.update(dt)
   if player_input:down('fire') and player.equipped_items['weapon'] then
     player.equipped_items['weapon']:fire()
   end
-  
+
   -- check if we're standing on a doodad
   for _,z in pairs(doodads) do
     if collision.aabb_aabb(player, z) then

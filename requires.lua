@@ -25,6 +25,9 @@ dungeon = require "dungeon"
 doodad = require "doodad"
 idcounter = require "idcounter"
 image = require "image"
+image.init()
+animation = require "animation"
+animation.init()
 mob = require "mob"
 enemy = require "enemy"
 player = require "player"

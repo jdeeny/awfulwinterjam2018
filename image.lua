@@ -8,6 +8,7 @@ function image.init()
   image.floor = love.graphics.newImage("assets/sprites/floor.png")
 
   image.bullet = love.graphics.newImage("assets/sprites/bullet.png")
+  image.tesla_se = love.graphics.newImage("assets/sprites/tesla-se.png")
 end
 
 return image

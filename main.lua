@@ -8,6 +8,7 @@ function love.load()
   window = {w = love.graphics.getWidth(), h = love.graphics.getHeight()}
 
   image.init()
+  animation.init()
   sound.init()
 
   enemies = nil
