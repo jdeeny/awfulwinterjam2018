@@ -14,9 +14,12 @@ function play.update(dt)
       for _,z in pairs(sparks) do
         z:update(mdt)
       end
+
+      spawner.process()
       for _,z in pairs(enemies) do
         z:update(mdt)
       end
+
       for _,z in pairs(shots) do
         z:update(mdt)
       end

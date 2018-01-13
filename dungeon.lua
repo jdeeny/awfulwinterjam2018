@@ -3,7 +3,7 @@ local dungeon = class("dungeon", grid)
 function dungeon.move_to_room(rx, ry, from_dir)
   -- unload current map, load new one, place player appropriately, setup fights i guess
   enemies = {}
-  enemy_count = 0
+  enemy_value = 0
   shots = {}
   doodads = {}
   sparks = {}
@@ -39,6 +39,9 @@ function dungeon.move_to_room(rx, ry, from_dir)
 
   enemy_data.spawn("fodder", 400, 600)
   enemy_data.spawn("fodder", 200, 600)
+
+  spawner.reset()
+  spawner.wave_data.test()
 end
 
 function dungeon:setup_main()

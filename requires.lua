@@ -39,6 +39,7 @@ animation.init()
 mob = require "enemies/mob"
 enemy = require "enemies/enemy"
 player = require "player"
+spawner = require "enemies/spawner"
 room = require "room"
 shot = require "shot"
 timer = require "timer"

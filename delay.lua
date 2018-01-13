@@ -4,16 +4,13 @@ delay.events = {}
 
 function delay.start(time, f)
 	-- run function f after a delay
-	local new_id = idcounter.get_id("delay")
-	delay.events[new_id] = {}
-	delay.events[new_id].duration = duration.start(time)
-	delay.events[new_id].f = f
+	delay.events[game_time + time] = f
 end
 
 function delay.process()
 	for j,z in pairs(delay.events) do
-		if z.duration:finished() then
-			z.f()
+		if game_time > j then
+			z()
 			delay.events[j] = nil
 		end
 	end

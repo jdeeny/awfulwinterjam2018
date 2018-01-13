@@ -39,7 +39,7 @@ function new_game()
   player.init()
 
   enemies = nil
-  enemy_count = nil
+  enemy_value = nil
   shots = nil
   doodads = nil
   sparks = nil

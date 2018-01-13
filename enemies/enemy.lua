@@ -41,9 +41,9 @@ angle = playerloc:angle_to(meloc)
 end
 
 function enemy:die()
-  enemy_count = enemy_count - 1
+  enemy_value = enemy_value - self.value
   sound_manager.play(self.death_sound)
-  if enemy_count == 0 then
+  if enemy_value <= 0.01 and spawner.wave_count == 0 then
     -- end the room after a brief delay
     delay.start(1, function() current_room:coda() end)
   end
