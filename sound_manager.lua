@@ -7,6 +7,8 @@ function sound_manager.init()
 	-- Short sound effects should be loaded with static to store in memory. 
   sound_manager.loaded_sounds.snap = love.audio.newSource("assets/sfx/snap.wav", "static")
   sound_manager.loaded_sounds.unh  = love.audio.newSource("assets/sfx/unh.wav", "static")
+  sound_manager.loaded_sounds.unlatch  = love.audio.newSource("assets/sfx/unlatch.wav", "static")
+  sound_manager.loaded_sounds.crackle  = love.audio.newSource("assets/sfx/crackle.wav", "static")
 end
 
 -- Make a playable sound, play it
@@ -51,7 +53,7 @@ end
 function sound_manager.update(dt)
 	-- Cull sounds that aren't playing
 	for i,p in ipairs(sound_manager.playing) do
-		if p:isStopped() then
+		if (p ~= nil) and p:isStopped() then
 			sound_manager.playing[i] = nil
 		end
 	end
