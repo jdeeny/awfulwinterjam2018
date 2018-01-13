@@ -10,10 +10,12 @@ function play.update(dt)
       game_time = game_time + dt
       player.update(dt)
 
+      for _,z in pairs(sparks) do
+        z:update(dt)
+      end
       for _,z in pairs(enemies) do
         z:update(dt)
       end
-
       for _,z in pairs(shots) do
         z:update(dt)
       end
@@ -26,6 +28,9 @@ end
 function play.draw()
 	current_room:draw()
 
+  for _,z in pairs(sparks) do
+    z:draw(dt)
+  end
 	for _,z in pairs(doodads) do
 	   z:draw()
    end
