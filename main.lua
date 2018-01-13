@@ -59,8 +59,8 @@ function new_game()
   player.rot = 0
   player.aim = player.rot
   player.equipped_items = {}
-  -- player:equip('weapon', weapon.LightningGun:new())
-  player:equip('weapon', weapon.ProjectileGun:new())
+  player:equip('weapon', weapon.LightningGun:new())
+  -- player:equip('weapon', weapon.ProjectileGun:new())
 
   enemies = nil
   enemy_count = nil
