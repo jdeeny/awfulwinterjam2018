@@ -3,6 +3,38 @@ local player = mob:new()
 local mousemoved = false
 local DEADBAND = 0.2
 
+function player.init()
+  player.sprite = 'tesla'
+  player.facing_north = false
+  player.facing_east = false
+  player.speed = 300
+  player.radius = 20
+  player.max_hp = 100
+  player.hp = 100
+  player.next_shot_time = 0
+  player.shot_delay = 0.1
+  player.shot_speed = 800
+  player.weapon = 1
+  player.weapon_max = 2
+  player.weapons = { weapon.ProjectileGun:new(), weapon.LightningGun:new() }
+
+  player.animations = {}
+  player.animations['run_ne'] = animation.tesla_run_ne
+  player.animations['run_se'] = animation.tesla_run_se
+  player.animations['run_sw'] = animation.tesla_run_sw
+  player.animations['run_nw'] = animation.tesla_run_nw
+  player.animations['idle_ne'] = animation.tesla_idle_se
+  player.animations['idle_se'] = animation.tesla_idle_se
+  player.animations['idle_sw'] = animation.tesla_idle_sw
+  player.animations['idle_nw'] = animation.tesla_idle_sw
+  player.animation = player.animations['run_se']
+
+  player.rot = 0
+  player.aim = player.rot
+  player.equipped_items = {}
+  player:equip('weapon', player.weapons[player.weapon])
+end
+
 function player.update(dt)
   for _, anim in pairs(player.animations) do
     anim:update(dt)
@@ -89,6 +121,10 @@ function player.update(dt)
         player.equipped_items['weapon']:fire()
       end
 
+      if player_input:down('swap') and player.equipped_items['weapon'] then
+        player.weapon_switch()
+      end
+
       -- check if we're standing on a doodad
       for _,z in pairs(doodads) do
         if collision.aabb_aabb(player, z) then
@@ -129,6 +165,14 @@ function player.be_stunned(duration, dx, dy)
   player.stun = {start_time = game_time, end_time = game_time + duration,
                   dx = dx or 0, dy = dy or 0}
 end
+
+function player.weapon_switch()
+  --player:unequip('weapon')
+  player.weapon = player.weapon + 1
+  if player.weapon > player.weapon_max then player.weapon = 1 end
+  player:equip('weapon', player.weapons[player.weapon])
+end
+
 
 function player.be_invincible(duration)
   player.iframe_end_time = game_time + duration

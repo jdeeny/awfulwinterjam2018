@@ -13,7 +13,9 @@ function controls.init()
       aimup = {'key:up', 'axis:righty-'},
       aimdown = {'key:down', 'axis:righty+'},
 
-      fire = {'key:space', 'button:a', 'axis:triggerright+', 'mouse:1'},
+      swap = {'key:q', 'button:a'},
+
+      fire = {'key:space', 'axis:triggerright+', 'mouse:1'},
 
       pause = {'key:escape', 'button:start'},
     },

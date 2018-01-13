@@ -34,37 +34,8 @@ function love.draw()
 end
 
 function new_game()
-  player.sprite = 'tesla'
-  player.facing_north = false
-  player.facing_east = false
-  player.speed = 300
-  player.radius = 20
-  player.max_hp = 30
-  player.hp = 30
-  player.stun = nil
-  player.dying = false
-  player.iframe_end_time = 0
-  player.next_shot_time = 0
-  player.shot_delay = 0.1
-  player.shot_speed = 800
-
-  player.animations = {}
-  player.animations['run_ne'] = animation.tesla_run_ne
-  player.animations['run_se'] = animation.tesla_run_se
-  player.animations['run_sw'] = animation.tesla_run_sw
-  player.animations['run_nw'] = animation.tesla_run_nw
-  player.animations['idle_ne'] = animation.tesla_idle_se
-  player.animations['idle_se'] = animation.tesla_idle_se
-  player.animations['idle_sw'] = animation.tesla_idle_sw
-  player.animations['idle_nw'] = animation.tesla_idle_sw
-  player.animation = player.animations['run_se']
-
-  player.rot = 0
-  player.aim = player.rot
-  player.equipped_items = {}
-  player:equip('weapon', weapon.LightningGun:new())
-  -- player:equip('weapon', weapon.ProjectileGun:new())
-
+  player.init()
+  
   enemies = nil
   enemy_count = nil
   shots = nil
