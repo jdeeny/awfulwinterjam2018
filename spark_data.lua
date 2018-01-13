@@ -16,7 +16,9 @@ function spark_data.spawn(class, color, x, y, dx, dy)
   end
 
   if sparks[new_id]["duration_variance"] then
-    sparks[new_id]["duration"] = sparks[new_id]["duration"] + sparks[new_id]["duration_variance"] * love.math.random()
+    sparks[new_id].duration = duration.start(sparks[new_id]["duration"] + sparks[new_id]["duration_variance"] * love.math.random())
+  else
+    sparks[new_id].duration = duration.start(sparks[new_id]["duration"])
   end
 
   return new_id

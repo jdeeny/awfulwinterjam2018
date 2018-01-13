@@ -1,4 +1,6 @@
 math = require 'math'
+duration = require "duration"
+delay = require "delay"
 
 baton = require 'lib/baton/baton' -- the baton player_input library https://github.com/tesselode/baton
 anim8 = require 'lib/anim8/anim8' -- anim8 animation library https://github.com/kikito/anim8
@@ -24,7 +26,8 @@ play = require "states/play"
 
 camera = require "camera"
 collision = require "collision"
-controls = require "controls"grid = require "grid"
+controls = require "controls"
+grid = require "grid"
 dungeon = require "dungeon"
 doodad = require "doodad"
 fade = require "fade"

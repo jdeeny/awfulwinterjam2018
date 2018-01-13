@@ -1,7 +1,7 @@
 local spark = class('spark')
 
 function spark:update(dt)
-  if game_time > self.birth_time + self.duration then
+  if self.duration:finished() then
     self:die()
   else
     self.x = self.x + self.dx * dt
@@ -22,7 +22,7 @@ function spark:die()
 end
 
 function spark:draw()
-  love.graphics.setColor(self.color.r, self.color.g, self.color.b, 255 - 255 * (game_time - self.birth_time) / self.duration)
+  love.graphics.setColor(self.color.r, self.color.g, self.color.b, 255 - 255 * self.duration:t())
   love.graphics.draw(image[self.sprite], camera.view_x(self), camera.view_y(self), self.r, self.sx, self.sy)
   love.graphics.setColor(255, 255, 255, 255)
 end
