@@ -45,7 +45,6 @@ spawner = require "enemies/spawner"
 room = require "room"
 shot = require "shot"
 timer = require "timer"
-sound_manager = require "sound_manager"
 spark = require "spark"
 weapon = require "weapon"
 

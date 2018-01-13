@@ -35,7 +35,6 @@ end
 function love.update(dt)
   gui_time = love.timer.getTime()
   gamestates[state].update(dt)
-  sound_manager.update(dt)
 end
 
 function love.draw()
