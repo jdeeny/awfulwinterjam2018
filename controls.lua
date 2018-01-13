@@ -15,11 +15,11 @@ function controls.init()
 
       swap = {'key:q', 'button:a'},
 
-      fire = {'key:space', 'axis:triggerright+', 'mouse:1'},
+      fire = {'mouse:1'},
 
       pause = {'key:escape', 'button:start'},
       back = {'key:backspace', 'button:b'},
-      sel = {'button:a', 'key:return'},  --use "sel or fire" for menu inputs
+      sel = {'key:space', 'button:a', 'key:return'},
       quit = {'key:q', 'button:back'},
     },
     pairs = {

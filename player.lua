@@ -120,7 +120,7 @@ function player.update(dt)
 
       player.equipped_items['weapon']:update(dt)
 
-      if player_input:down('fire') and player.equipped_items['weapon'] then
+      if (aim_x ~= 0 or aim_y ~= 0 or player_input:down('fire')) and player.equipped_items['weapon'] then
         player.equipped_items['weapon']:fire()
       end
 
