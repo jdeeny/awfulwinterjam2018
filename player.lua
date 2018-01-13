@@ -195,7 +195,7 @@ end
 
 function player:draw_hp()
 	--love.graphics.setFont(timer.font)
-	love.graphics.print(self.hp, 500, 0)
+	love.graphics.print(self.hp, 725, 525)
 end
 
 return player

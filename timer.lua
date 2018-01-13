@@ -15,7 +15,7 @@ function timer.init()
 end
 
 function timer.update()
-	if game_state == 'play' then
+	if state == STATE_PLAY then
 		currentPlayState = true
 	else
 		currentPlayState = false
@@ -41,7 +41,7 @@ function timer.update()
 		timeleft = math.floor(timeleft/24)
 
 		local days = timeleft
-		timeStamp = string.format("%d:%d:%02d:%02d",days,h,m,s)
+		timeStamp = string.format("%dd %dh %02dm %02ds",days,h,m,s)
 	end
 
 	if currentPlayState == false and priorPlayState == true then --pause initiated
@@ -57,9 +57,9 @@ function timer.update()
 
 end
 
-function timer.draw(x, y)
+function timer.draw()
 	love.graphics.setFont(timer.font)
-	love.graphics.print(timeStamp, 600, 0)
+	love.graphics.print(timeStamp, 550, 0)
 end
 
 return timer
