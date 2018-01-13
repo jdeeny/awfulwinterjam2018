@@ -59,7 +59,7 @@ end
 
 function timer.draw()
 	love.graphics.setFont(timer.font)
-	love.graphics.print(timeStamp, 550, 0)
+	love.graphics.print(timeStamp, 500, 0)
 end
 
 return timer
