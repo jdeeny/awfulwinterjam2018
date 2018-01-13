@@ -5,14 +5,14 @@ local pause = {
 }
 
 pause.background_shader = love.graphics.newShader[[
-	vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ){
-		vec4 pixel = Texel(texture, texture_coords );//This is the current pixel color
-		number average = (pixel.r+pixel.b+pixel.g)/3.0;
-	  pixel.r = average;
-	  pixel.g = average;
-	  pixel.b = average;
-	  pixel.w = pixel.w/2;
-		return pixel;
+	vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords )
+	{
+		vec4 pixel = Texel(texture, texture_coords) * color; //This is the current pixel color
+	  	number luma = 0.5 * dot(vec3(0.299f, 0.587f, 0.114f), pixel.rgb);
+	  	pixel.r = luma;
+	  	pixel.g = luma;
+	  	pixel.b = luma;
+	  	return pixel;
 	}
 ]]
 
@@ -30,6 +30,8 @@ end
 function pause.draw()
 	love.graphics.setShader(pause.background_shader)
 	play.draw()
+	love.graphics.setShader()
+
 	love.graphics.setFont(pause.font)
 
 	local text
@@ -45,7 +47,6 @@ function pause.draw()
 		love.graphics.getWidth(), 'center')
 
 	love.graphics.setFont(love.graphics.newFont()) --reset to default
-	love.graphics.setShader()
 end
 
 return pause
