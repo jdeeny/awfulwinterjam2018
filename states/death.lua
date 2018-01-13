@@ -5,7 +5,7 @@ function death.update()
 end
 
 function death.draw()
-
+	fade.draw(gui_time)
 end
 
 return death
