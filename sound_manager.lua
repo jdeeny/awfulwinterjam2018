@@ -50,9 +50,13 @@ function sound_manager.resume_all()
 	love.audio.resume()
 end
 
+function sound_manager.isPlaying(id)
+	sound_manager.playing[id] and sound_manager[id].isPlaying()
+end
+
 function sound_manager.update(dt)
 	-- Cull sounds that aren't playing
-	for i,p in ipairs(sound_manager.playing) do
+	for i,p in pairs(sound_manager.playing) do
 		if (p ~= nil) and p:isStopped() then
 			sound_manager.playing[i] = nil
 		end
