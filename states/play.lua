@@ -23,6 +23,11 @@ function play.update(dt)
 
       camera.update(mdt)
       timer.update()
+
+      if play.coda_time and play.coda_time <= game_time then
+        current_room:coda()
+        play.coda_time = nil
+      end
     end
 end
 

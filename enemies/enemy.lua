@@ -44,7 +44,8 @@ function enemy:die()
   enemy_count = enemy_count - 1
   sound_manager.play(self.death_sound)
   if enemy_count == 0 then
-    current_room:coda()
+    -- end the room after a brief delay
+    play.coda_time = game_time + 1
   end
   enemies[self.id] = nil
 end
