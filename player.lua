@@ -37,6 +37,9 @@ function player.update(dt)
 
     local DEADBAND = 0.2
 
+    player.dx = move_x > DEADBAND and player.speed or move_x < -DEADBAND and -player.speed or 0
+    player.dy = move_y > DEADBAND and player.speed or move_y < -DEADBAND and -player.speed or 0
+
   if math.abs(player.dx) >= 0.01 or math.abs(player.dy) >= 0.01 then
     -- 1/sqrt(2)
     player.dx = player.dx * 0.7071
