@@ -15,9 +15,9 @@ end
 function ProjectileGun:fire()
   if not self.next_shot_time or game_time > self.next_shot_time then
 
-    self.next_shot_time = shot_data.spawn("bullet", self.owner.x, self.owner.y, 
-        math.cos(self.owner.rot)*self.owner.shot_speed, 
-        math.sin(player.rot)*self.shot_speed, self.owner)
+    self.next_shot_time = shot_data.spawn("bullet", self.owner.x, self.owner.y,
+        math.cos(player.aim)*self.owner.shot_speed,
+        math.sin(player.aim)*self.shot_speed, self.owner)
 
     self.next_shot_time = game_time + self.firing_rate
   end

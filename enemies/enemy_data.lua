@@ -35,7 +35,7 @@ enemy_data["fodder"] =
 {
   kind = "fodder", name = "Test Fodder",
   sprite = "gear",
-  animation = animation.gear_spin_cw,
+  animation = animation.gear_spin_ccw,
   max_hp = 30,
   speed = 200,
   radius = 15,
