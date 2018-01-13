@@ -16,12 +16,12 @@ main_menu.background_shader = love.graphics.newShader[[
 ]]
 
 function main_menu.update(dt)
-	menu_input:update()
+	player_input:update()
 
-	if menu_input:pressed('sel') then
+	if player_input:pressed('fire') or player_input:pressed('sel') then
     film.set_title("Tesla \n Arrives in \n America")
     game_state = 'film'
-	elseif menu_input:pressed('quit') or menu_input:pressed('back') then
+	elseif player_input:pressed('quit') or player_input:pressed('back') then
 		love.event.push("quit")
 	end
 end

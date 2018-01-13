@@ -17,11 +17,11 @@ pause.background_shader = love.graphics.newShader[[
 ]]
 
 function pause.update()
-	menu_input:update()
+	player_input:update()
 
-	if menu_input:pressed('unpause') or menu_input:pressed('back') then
+	if player_input:pressed('pause') or player_input:pressed('back') then
     game_state = 'play'
-	elseif menu_input:pressed('quit') then
+	elseif player_input:pressed('quit') then
 		love.event.push("quit")
 	end
 	timer.update()

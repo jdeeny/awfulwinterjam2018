@@ -124,7 +124,7 @@ function player.update(dt)
         player.equipped_items['weapon']:fire()
       end
 
-      if player_input:down('swap') and player.equipped_items['weapon'] then
+      if player_input:pressed('swap') and player.equipped_items['weapon'] then
         player.weapon_switch()
       end
 

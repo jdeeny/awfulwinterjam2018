@@ -19,9 +19,9 @@ function film.set_title(text)
 end
 
 function film.update()
-  menu_input:update()
+  player_input:update()
 
-    if menu_input:pressed('sel') then
+    if player_input:pressed('fire') or player_input:pressed('sel') then
       new_game()
       game_state = 'play'
     end

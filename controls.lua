@@ -3,10 +3,10 @@ local controls = {}
 function controls.init()
   local player = baton.new {
     controls = {
-      moveleft = {'key:a', 'axis:leftx-'},
-      moveright = {'key:d', 'axis:leftx+'},
-      moveup = {'key:w', 'axis:lefty-'},
-      movedown = {'key:s', 'axis:lefty+'},
+      moveleft = {'key:a', 'axis:leftx-', 'button:dpleft'},
+      moveright = {'key:d', 'axis:leftx+', 'button:dpright'},
+      moveup = {'key:w', 'axis:lefty-', 'button:dpup'},
+      movedown = {'key:s', 'axis:lefty+', 'button:dpdown'},
 
       aimleft = {'key:left', 'axis:rightx-'},
       aimright = {'key:right', 'axis:rightx+'},
@@ -18,6 +18,9 @@ function controls.init()
       fire = {'key:space', 'axis:triggerright+', 'mouse:1'},
 
       pause = {'key:escape', 'button:start'},
+      back = {'key:backspace', 'button:b'},
+      sel = {'button:a', 'key:return'},  --use "sel or fire" for menu inputs
+      quit = {'key:q', 'button:back'},
     },
     pairs = {
       move = {'moveleft', 'moveright', 'moveup', 'movedown'},
@@ -25,7 +28,7 @@ function controls.init()
     },
     joystick = love.joystick.getJoysticks()[1],
   }
-
+--[[
   local menu = baton.new {
     controls = {
       left = {'key:a', 'axis:leftx-', 'button:dpleft'},
@@ -43,8 +46,8 @@ function controls.init()
     },
     joystick = love.joystick.getJoysticks()[1],
   }
-
-  return player, menu
+]]
+  return player --, menu
 end
 
 
