@@ -19,7 +19,8 @@ function continue.update(dt)
 	menu_input:update()
 
 	if menu_input:pressed('sel') then
-    game_state = 'play'
+    	game_state = 'main_menu'
+    	fade.state = nil
 	elseif menu_input:pressed('quit') or menu_input:pressed('back') then
 		love.event.push("quit")
 	end
@@ -28,7 +29,7 @@ end
 function continue.draw()
 	love.graphics.setShader(continue.background_shader)
 	love.graphics.setFont(continue.font)
-	
+
 
 	local text = "You Have Died!\n\nPress Spacebar to Continue\nPress Escape to Quit"
 	local th = continue.font:getHeight()*3
@@ -38,6 +39,8 @@ function continue.draw()
 
 	love.graphics.setFont(love.graphics.newFont()) --reset to default
 	love.graphics.setShader()
+
+	fade.draw(gui_time)
 end
 
 return continue

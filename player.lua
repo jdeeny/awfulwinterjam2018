@@ -1,28 +1,4 @@
-
-
 local player = mob:new()
-
-player.sprite = 'tesla'
-player.facing_north = false
-player.facing_east = false
-player.speed = 300
-player.radius = 20
-player.max_hp = 100
-player.hp = 100
-player.next_shot_time = 0
-player.shot_delay = 0.1
-player.shot_speed = 800
-
-player.animations = {}
-player.animations['run_ne'] = animation.tesla_run_ne
-player.animations['run_se'] = animation.tesla_run_se
-player.animations['run_sw'] = animation.tesla_run_sw
-player.animations['run_nw'] = animation.tesla_run_nw
-player.animations['idle_ne'] = animation.tesla_idle_se
-player.animations['idle_se'] = animation.tesla_idle_se
-player.animations['idle_sw'] = animation.tesla_idle_sw
-player.animations['idle_nw'] = animation.tesla_idle_sw
-player.animation = player.animations['run_se']
 
 local mousemoved = false
 
@@ -46,10 +22,6 @@ function player.update(dt)
     player.dy = move_y > DEADBAND and player.speed or move_y < -DEADBAND and -player.speed or 0
 
     if math.abs(player.dx) >= 0.01 or math.abs(player.dy) >= 0.01 then
-      -- 1/sqrt(2)
-      player.dx = player.dx * 0.7071
-      player.dy = player.dy * 0.7071
-
       if player.dy >= 0.01 then
         player.facing_north = false
       elseif player.dy <= -0.01 then
@@ -67,7 +39,7 @@ function player.update(dt)
       player.animation = player.animations['idle_' .. player.get_facing_string(player.facing_north, player.facing_east)]
     end
 
-    if player.dx ~= 0 and player.dy ~= 0 then
+    if math.abs(player.dx) >= 0.01 and math.abs(player.dy) >= 0.01 then
       -- 1/sqrt(2)
       player.dx = player.dx * 0.7071
       player.dy = player.dy * 0.7071
@@ -119,11 +91,20 @@ function love.mousemoved( x, y, dx, dy, istouch )
 end
 
 function player.die()
-  love.events.push("quit")
+  player.start_force_move(0, 0)
+  fade.start_fade("fadeout", game_time, game_time + 3, function()
+      fade.start_fade("fadein", gui_time, gui_time + 3)
+      game_state = 'death'
+    end)
 end
 
 function player:be_attacked(damage)
+  if self.hp > 0 then
     self.hp = math.max(self.hp - damage, 0)
+    if self.hp <= 0 then
+      self.die()
+    end
+  end
 end
 
 function player.start_force_move(dx, dy)
@@ -140,7 +121,5 @@ function player:draw_hp()
 	--love.graphics.setFont(timer.font)
 	love.graphics.print(self.hp, 690, 50)
 end
-
-
 
 return player

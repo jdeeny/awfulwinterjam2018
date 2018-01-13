@@ -21,7 +21,10 @@ end
 function film.update()
   menu_input:update()
 
-    if menu_input:pressed('sel') then game_state = 'play' end
+    if menu_input:pressed('sel') then
+      new_game()
+      game_state = 'play'
+    end
   end
 
 function film.draw()

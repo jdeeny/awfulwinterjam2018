@@ -6,8 +6,6 @@ function play.update(dt)
 
     if player_input:pressed('pause') then
       game_state = 'pause'
-    elseif player.hp == 0 then
-      game_state = 'death'
     else
       game_time = game_time + dt
       player.update(dt)
@@ -26,7 +24,6 @@ function play.update(dt)
 end
 
 function play.draw()
-
 	current_room:draw()
 
 	for _,z in pairs(doodads) do
