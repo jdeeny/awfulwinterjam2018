@@ -9,8 +9,11 @@ function player.init()
   player.facing_east = false
   player.speed = 300
   player.radius = 20
-  player.max_hp = 100
-  player.hp = 100
+  player.max_hp = 40
+  player.hp = 40
+  player.dying = false
+  player.stun = nil
+  player.iframe_end_time = 1
   player.next_shot_time = 0
   player.shot_delay = 0.1
   player.shot_speed = 800
