@@ -51,7 +51,7 @@ function sound_manager.resume_all()
 end
 
 function sound_manager.isPlaying(id)
-	sound_manager.playing[id] and sound_manager[id].isPlaying()
+	return (sound_manager.playing[id]) and (sound_manager[id].isPlaying())
 end
 
 function sound_manager.update(dt)
