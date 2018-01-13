@@ -1,7 +1,7 @@
 local controls = {}
 
 function controls.init()
-  local player = baton.new {
+  local player_input = baton.new {
     controls = {
       moveleft = {'key:a', 'axis:leftx-', 'button:dpleft'},
       moveright = {'key:d', 'axis:leftx+', 'button:dpright'},
@@ -26,7 +26,6 @@ function controls.init()
       move = {'moveleft', 'moveright', 'moveup', 'movedown'},
       aim = {'aimleft', 'aimright', 'aimup', 'aimdown'},
     },
-    joystick = love.joystick.getJoysticks()[1],
   }
 --[[
   local menu = baton.new {
@@ -47,9 +46,11 @@ function controls.init()
     joystick = love.joystick.getJoysticks()[1],
   }
 ]]
-  return player --, menu
+  return player_input
 end
 
-
+function love.joystickadded(j)
+  player_input.joystick = j
+end
 
 return controls

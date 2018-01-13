@@ -31,9 +31,14 @@ function pause.draw()
 	love.graphics.setShader(pause.background_shader)
 	play.draw()
 	love.graphics.setFont(pause.font)
-	
 
-	local text = "PAUSED\nPress Q/Select to quit\nPress Esc/Start/B to return"
+	local text
+	if player_input:getActiveDevice() == 'joystick' then
+		text = "PAUSED\nPress Back to quit\nPress B to continue"
+	else
+		text = "PAUSED\nPress Q to quit\nPress Esc to continue"
+	end
+
 	local th = pause.font:getHeight()*3
 
 	love.graphics.printf(text, 0, love.graphics.getHeight()/2-th/2,

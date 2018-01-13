@@ -30,8 +30,12 @@ function main_menu.draw()
 	love.graphics.setShader(main_menu.background_shader)
 	love.graphics.setFont(main_menu.font)
 
-
-	local text = "A Tesla Game\nPress Spacebar to Play\nPress Q to Quit"
+	local text
+	if player_input:getActiveDevice() == 'joystick' then
+		text = "A Tesla Game\nPress A to Play\nPress Back to Quit"
+	else
+		text = "A Tesla Game\nPress Spacebar to Play\nPress Q to Quit"
+	end
 	local th = main_menu.font:getHeight()*3
 
 	love.graphics.printf(text, 0, love.graphics.getHeight()/2-th/2,

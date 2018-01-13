@@ -30,8 +30,13 @@ function continue.draw()
 	love.graphics.setShader(continue.background_shader)
 	love.graphics.setFont(continue.font)
 
+	local text
+	if player_input:getActiveDevice() == 'joystick' then
+		text = "You Have Died!\n\nPress A to Restart\nPress Back to Quit"
+	else
+		text = "You Have Died!\n\nPress Spacebar to Restart\nPress Q to Quit"
+	end
 
-	local text = "You Have Died!\n\nPress Spacebar to Continue\nPress Q to Quit"
 	local th = continue.font:getHeight()*3
 
 	love.graphics.printf(text, 0, love.graphics.getHeight()/2-th/2,
