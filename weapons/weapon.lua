@@ -59,12 +59,13 @@ local LightningGun = class("LightningGun", Weapon)
 
 function LightningGun:initialize()
   Weapon.initialize(self)
-  self.range = 300
+  self.range = 400
   self.firing_arc = math.pi/6
   self.bolts = {}
   self.draw_time = 0.1
   self.damage = 100
   self.firing_rate = 0.1
+  self.chain_targets = 1
   -- self.sound = "tesla_coil_long"
   self.icon = "lightning_icon"
 end
@@ -91,7 +92,7 @@ end
 function LightningGun:_fire(targets)
   if not self.owner.x then return end
 
-  local newbolt = lovelightning:new(255,255,255)
+  self.fork_targets = {}
 
   -- if no targets shoot straight ahead at nothing
   if not targets or #targets == 0 then
@@ -99,24 +100,39 @@ function LightningGun:_fire(targets)
     local aim_vec = cpml.vec2.new(math.cos(self.owner.aim),math.sin(self.owner.aim))
     local pos_vec = cpml.vec2.new(self.owner.x, self.owner.y)
 
-    local vtarg = pos_vec+aim_vec*self.range/3
+    local vtarg = pos_vec+aim_vec*50
 
+    local newbolt = lovelightning:new(255,255,255)
     newbolt.jitter_factor = 0.75
     newbolt.fork_chance = 0.9
     newbolt.max_fork_angle = math.pi/3
     newbolt.iterations = 4
 
-    newbolt:create(camera.view_x(self.owner), camera.view_y(self.owner),
-      camera.view_x(vtarg), camera.view_y(vtarg))
+    newbolt:setSource({x=camera.view_x(self.owner), y=camera.view_y(self.owner)})
+    newbolt:setPrimaryTarget({x=camera.view_x(vtarg), y=camera.view_y(vtarg)})
+    newbolt:create()
 
+    table.insert(self.bolts, newbolt)
+  
   else
-    for _, t in ipairs(targets) do
-      newbolt:create(camera.view_x(self.owner), camera.view_y(self.owner),
-        camera.view_x(t), camera.view_y(t))
+    local last_target = self.owner
+    for i, t in ipairs(targets) do
+      if i <= self.chain_targets then
+        local newbolt = lovelightning:new(255,255,255)
+
+        newbolt:setForkTargets(targets)
+        newbolt:setSource({x=camera.view_x(last_target), y=camera.view_y(last_target)})
+        newbolt:setPrimaryTarget({x=camera.view_x(t), y=camera.view_y(t)})
+
+        newbolt:create(function (ftarg, level)
+            table.insert(self.fork_targets,{target=ftarg,level=level})  
+          end)
+        table.insert(self.bolts, newbolt)
+        last_target = t
+      end      
     end
   end
 
-  table.insert(self.bolts, newbolt)
 
   self.fired_at = game_time
   self.targets = targets
