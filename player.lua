@@ -96,8 +96,6 @@ function player.update(dt)
   end
   player.equipped_items['weapon']:update(dt)
 
-    -- player actions
-
     if player_input:down('fire') and player.equipped_items['weapon'] then
       player.equipped_items['weapon']:fire()
     end
