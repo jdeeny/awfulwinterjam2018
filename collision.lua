@@ -91,7 +91,7 @@ function collision.aabb_room_sweep(a, vx, vy)
   for i = grid_x1, grid_x2 do
     for j = grid_y1, grid_y2 do
       if current_room:is_solid(i, j) then
-        block_type = current_room:block_at(i, j)
+        block_type = current_room:feature_at(i, j)
         box = room.bounding_box(i, j)
 
         hx, hy, ht, nx, ny = collision.aabb_sweep(a, box, vx, vy)

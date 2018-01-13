@@ -17,10 +17,10 @@ function love.load()
   shots = nil
   doodads = nil
   current_dungeon = dungeon:new()
-  dungeon.move_to_room()
+  current_dungeon:init(5, 4)
+  current_dungeon:setup_main()
+  dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
 
-  player.x = 300
-  player.y = 300
   player.rot = 0
   player:equip('weapon', weapon.ProjectileGun:new())
 

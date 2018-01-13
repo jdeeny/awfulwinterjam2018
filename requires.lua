@@ -18,6 +18,7 @@ moonshine = require 'lib/moonshine/'
 camera = require "camera"
 collision = require "collision"
 controls = require "controls"
+grid = require "grid"
 dungeon = require "dungeon"
 doodad = require "doodad"
 film = require "film"
