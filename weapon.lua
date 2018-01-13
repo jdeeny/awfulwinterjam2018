@@ -62,6 +62,9 @@ function LightningGun:initialize()
   self.firing_arc = math.pi/6
   self.bolts = {}
   self.draw_time = 0.1
+  self.damage = 100
+  self.firing_rate = 0.1
+  -- self.sound = "tesla_coil_long"
 end
 
 function LightningGun:_aquire_targets()
@@ -85,39 +88,53 @@ end
 
 function LightningGun:_fire(targets)
   if not self.owner.x then return end
-
-  -- if no targets shoot straight ahead at nothing
+  
+  local newbolt = lovelightning:new(255,255,255)
+  
+  -- if no targets shoot straight ahead at nothing 
   if not targets or #targets == 0 then
 
     local aim_vec = cpml.vec2.new(math.cos(self.owner.aim),math.sin(self.owner.aim))
     local pos_vec = cpml.vec2.new(self.owner.x, self.owner.y)
+    
+    local vtarg = pos_vec+aim_vec*self.range/3
+    
+    newbolt.jitter_factor = 0.75
+    newbolt.fork_chance = 0.9
+    newbolt.max_fork_angle = math.pi/3
+    newbolt.iterations = 4
+    
+    newbolt:create(camera.view_x(self.owner), camera.view_y(self.owner), 
+      camera.view_x(vtarg), camera.view_y(vtarg))
 
-    local vtarg = pos_vec+aim_vec*self.range
-    table.insert(targets,{x=vtarg.x, y=vtarg.y})
-
-    local newbolt = lovelightning:new(255,255,255)
-
+  else
+    for _, t in ipairs(targets) do
+      newbolt:create(camera.view_x(self.owner), camera.view_y(self.owner),
+        camera.view_x(t), camera.view_y(t))
+    end
   end
-
-  for _, t in ipairs(targets) do
-
-    newbolt:create(camera.view_x(self.owner), camera.view_y(self.owner),
-      camera.view_x(t), camera.view_y(t))
-
-    table.insert(self.bolts, newbolt)
-  end
-
+  
+  table.insert(self.bolts, newbolt)
+  
   self.fired_at = game_time
+  self.targets = targets
 end
 
 function LightningGun:update(dt)
   if self.bolts and self.fired_at then
     if game_time < self.fired_at + self.draw_time then
+      
       for _, b in pairs(self.bolts) do
         b:update(dt)
       end
+
     else
-      self.bolts = nil
+      if self.targets and #self.targets > 0 then
+        for _, t in pairs(self.targets) do
+          if t.take_damage then t:take_damage(self.damage) end
+        end
+      end
+      self.bolts = {}
     end
   end
 end
