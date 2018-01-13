@@ -1,6 +1,6 @@
 local camera = { x=0, y=0, rx=0, ry=0, tx=0, ty=0 }
 
-local CAMERA_SPEED = 5
+local CAMERA_SPEED = 3
 function camera.update(dt)
 	-- lerp the camera
 	camera.tx = player.x - window.w/2
@@ -32,6 +32,12 @@ function camera.on_screen(a)
 	vx = camera.view_x(a)
 	vy = camera.view_y(a)
 	return vx > -64 and vx < window.w + 64 and vy > -64 and window.h + 64
+end
+
+function camera.shake(amount, angle)
+	angle = angle or love.math.random() * 2 * math.pi
+	camera.rx = camera.rx + amount * math.cos(angle)
+	camera.ry = camera.ry + amount * math.sin(angle)
 end
 
 return camera

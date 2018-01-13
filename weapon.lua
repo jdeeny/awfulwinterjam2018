@@ -45,10 +45,11 @@ end
 
 
 function ProjectileGun:_fire(targets)
-  self.next_shot_time = shot_data.spawn("bullet", self.owner.x, self.owner.y, 
-      math.cos(self.owner.aim)*self.owner.shot_speed, 
+  self.next_shot_time = shot_data.spawn("bullet", self.owner.x, self.owner.y,
+      math.cos(self.owner.aim)*self.owner.shot_speed,
       math.sin(player.aim)*self.shot_speed, self.owner)
   sound_manager.play(self.sound)
+  camera.shake(6, self.owner.aim)
 end
 
 -------------------------------------------------------------------------------
@@ -64,17 +65,17 @@ end
 
 function LightningGun:_aquire_targets()
   local targets = {}
-  
+
   -- player vectors
   local aim_vec = cpml.vec2.new(math.cos(self.owner.aim),math.sin(self.owner.aim))
   local pos_vec = cpml.vec2.new(self.owner.x, self.owner.y)
-  
+
   -- search for targets
   for _, z in pairs(enemies) do
     local ven = cpml.vec2.new(z.x, z.y)-pos_vec -- vector to the enemy
-    if cpml.vec2.angle_between(aim_vec, ven) < self.firing_arc/2 and 
+    if cpml.vec2.angle_between(aim_vec, ven) < self.firing_arc/2 and
         cpml.vec2.len(ven) < self.range then
-      table.insert(targets,z)  
+      table.insert(targets,z)
     end
   end
 
@@ -84,27 +85,27 @@ end
 function LightningGun:_fire(targets)
   if not self.owner.x then return end
 
-  -- if no targets shoot straight ahead at nothing 
+  -- if no targets shoot straight ahead at nothing
   if not targets or #targets == 0 then
 
     local aim_vec = cpml.vec2.new(math.cos(self.owner.aim),math.sin(self.owner.aim))
     local pos_vec = cpml.vec2.new(self.owner.x, self.owner.y)
-    
+
     local vtarg = pos_vec+aim_vec*self.range
     table.insert(targets,{x=vtarg.x, y=vtarg.y})
 
     local newbolt = lovelightning:new(255,255,255)
-    
+
   end
-  
+
   for _, t in ipairs(targets) do
-    
-    newbolt:create(camera.view_x(self.owner), camera.view_y(self.owner), 
+
+    newbolt:create(camera.view_x(self.owner), camera.view_y(self.owner),
       camera.view_x(t), camera.view_y(t))
-    
+
     table.insert(self.bolts, newbolt)
   end
-  
+
   self.fired_at = game_time
 end
 
