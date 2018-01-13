@@ -45,8 +45,8 @@ end
 
 function ProjectileGun:_fire(targets)
   self.next_shot_time = shot_data.spawn("bullet", self.owner.x, self.owner.y, 
-      math.cos(self.owner.rot)*self.owner.shot_speed, 
-      math.sin(player.rot)*self.shot_speed, self.owner)
+      math.cos(self.owner.aim)*self.owner.shot_speed, 
+      math.sin(player.aim)*self.shot_speed, self.owner)
 end
 
 -------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ function LightningGun:_aquire_targets()
   local targets = {}
   
   -- get 2 unit vectors reprending your firing arc
-  local aim_vec = cpml.vec2.new(math.cos(self.owner.rot),math.sin(self.owner.rot))
+  local aim_vec = cpml.vec2.new(math.cos(self.owner.aim),math.sin(self.owner.aim))
   local pos_vec = cpml.vec2.new(self.owner.x, self.owner.y)
   
   for _, z in ipairs(enemies) do 
