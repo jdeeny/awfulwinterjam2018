@@ -151,7 +151,7 @@ function player.die()
 end
 
 function player:be_attacked(damage, direction)
-  if player.iframe_end_time < game_time then
+  if player.iframe_end_time and player.iframe_end_time < game_time then
     self.hp = math.max(self.hp - damage, 0)
     if self.hp <= 0 then
       player.be_stunned(1, 1000 * math.cos(direction), 1000 * math.sin(direction))
