@@ -2,7 +2,7 @@
 
 local player = mob:new()
 
-player.sprite = "tesla_se"
+player.sprite = 'tesla'
 player.speed = 300
 player.radius = 20
 player.max_hp = 100
@@ -11,16 +11,21 @@ player.next_shot_time = 0
 player.shot_delay = 0.1
 player.shot_speed = 800
 
-player.animation = {}
-player.animation['ne'] = animation.tesla_run_ne
-player.animation['se'] = animation.tesla_run_se
-player.animation['sw'] = animation.tesla_run_sw
-player.animation['nw'] = animation.tesla_run_nw
+player.animations = {}
+player.animations['ne'] = animation.tesla_run_ne
+player.animations['se'] = animation.tesla_run_se
+player.animations['sw'] = animation.tesla_run_sw
+player.animations['nw'] = animation.tesla_run_nw
+player.animations['idle'] = animation.tesla_idle
+player.animation = player.animations['se']
 
 local mousemoved = false
 
 function player.update(dt)
-  player.animation:update(dt)
+  for _, anim in pairs(player.animations) do
+    anim:update(dt)
+  end
+
   local move_x, move_y = player_input:get('move')
 
   local DEADBAND = 0.2
@@ -28,10 +33,26 @@ function player.update(dt)
   player.dx = move_x > DEADBAND and player.speed or move_x < -DEADBAND and -player.speed or 0
   player.dy = move_y > DEADBAND and player.speed or move_y < -DEADBAND and -player.speed or 0
 
-  if player.dx ~= 0 and player.dy ~= 0 then
+  if math.abs(player.dx) >= 0.01 or math.abs(player.dy) >= 0.01 then
     -- 1/sqrt(2)
     player.dx = player.dx * 0.7071
     player.dy = player.dy * 0.7071
+
+    if player.dy >= 0.0 then
+      if player.dx >= 0.0 then
+        player.animation = player.animations['se']
+      else
+        player.animation = player.animations['sw']
+      end
+    else
+      if player.dx >= 0.0 then
+        player.animation = player.animations['ne']
+      else
+        player.animation = player.animations['nw']
+      end
+    end
+  else
+    player.animation = player.animations['idle']
   end
 
   player:update_position(dt)
