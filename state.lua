@@ -1,5 +1,5 @@
 local state = {
-	-- stateOptions = {"film", "main_menu", "play", "pause", "continue"}
+	-- stateOptions = {"film", "main_menu", "play", "pause", "death", "continue"}
 }
 
 function state.update(dt)

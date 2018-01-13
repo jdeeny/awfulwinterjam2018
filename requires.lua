@@ -15,30 +15,30 @@ moonshine = require 'lib/moonshine/'
 -- https://github.com/tastyminerals/coherent-text-generation-limited
 -- sound synth lib https://github.com/vrld/Moan
 
+continue = require "states/continue"
+death = require "states/death"
+film = require "states/film"
+main_menu = require "states/main_menu"
+pause = require "states/pause"
+play = require "states/play"
+
 camera = require "camera"
 collision = require "collision"
-controls = require "controls"
-continue = require "continue"
-death = require "death"
-grid = require "grid"
+controls = require "controls"grid = require "grid"
 dungeon = require "dungeon"
 doodad = require "doodad"
 fade = require "fade"
-film = require "film"
 idcounter = require "idcounter"
 image = require "image"
 image.init()
 animation = require "animation"
 animation.init()
-main_menu = require "main_menu"
 mob = require "enemies/mob"
 enemy = require "enemies/enemy"
 player = require "player"
 room = require "room"
 shot = require "shot"
 timer = require "timer"
-pause = require "pause"
-play = require "play"
 sound = require "sound"
 state = require "state"
 weapon = require "weapon"
