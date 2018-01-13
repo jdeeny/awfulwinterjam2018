@@ -27,25 +27,7 @@ function controls.init()
       aim = {'aimleft', 'aimright', 'aimup', 'aimdown'},
     },
   }
---[[
-  local menu = baton.new {
-    controls = {
-      left = {'key:a', 'axis:leftx-', 'button:dpleft'},
-      right = {'key:d', 'axis:leftx+', 'button:dpright'},
-      up = {'key:w', 'axis:lefty-', 'button:dpup'},
-      down = {'key:s', 'axis:lefty+', 'button:dpdown'},
 
-      unpause = {'key:escape', 'button:start'},
-      back = {'key:escape', 'button:b'},
-      sel = {'key:space', 'button:a', 'axis:triggerright+', 'key:return'},
-      quit = {'key:q', 'button:back'},
-    },
-    pairs = {
-      dir = {'left', 'right', 'up', 'down'},
-    },
-    joystick = love.joystick.getJoysticks()[1],
-  }
-]]
   return player_input
 end
 
