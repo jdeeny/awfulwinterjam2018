@@ -5,13 +5,14 @@ local film = {
     'assets/fonts/babes-in-toyland-nf/BabesInToylandNF.ttf', 50),
 }
 
-function film.init()
+function film.enter()
   filmgrain_effect = moonshine(moonshine.effects.desaturate)
                       .chain(moonshine.effects.filmgrain)
                       .chain(moonshine.effects.vignette)
   filmgrain_effect.filmgrain.size = 10
   filmgrain_effect.filmgrain.opacity = .6
   filmgrain_effect.desaturate.tint = {138, 111, 48}
+  state = STATE_FILM
 end
 
 function film.set_title(text)
@@ -23,7 +24,7 @@ function film.update()
 
     if player_input:pressed('fire') or player_input:pressed('sel') then
       new_game()
-      game_state = 'play'
+      play.enter()
     end
   end
 
@@ -34,7 +35,7 @@ function film.draw()
   filmgrain_effect(function()
     love.graphics.draw(image.intro, 0, 0, 0, window.w / image.intro:getWidth(), window.h / image.intro:getHeight())
     love.graphics.setFont(film.font)
-    local th = main_menu.font:getHeight()*3
+    local th = mainmenu.font:getHeight()*3
     love.graphics.printf(film.film_text, 0, love.graphics.getHeight()/2-th/2,
       love.graphics.getWidth(), 'center')
     love.graphics.setFont(love.graphics.newFont())

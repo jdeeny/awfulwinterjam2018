@@ -3,13 +3,19 @@ lovetoys.initialize({globals = true, debug = true})
 
 require "requires"
 
+STATE_SPLASH, STATE_MAINMENU, STATE_FILM, STATE_PLAY, 
+    STATE_PAUSE, STATE_DEATH, STATE_CONTINUE, STATE_WIN = 0,1,2,3,4,5,6,7
+
+gamestates = {[0]=splash, [1]=mainmenu, [2]=film, [3]=play,
+    [4]=pause, [5]=death, [6]=continue, [7]=win}
+
+
 function love.load()
   TILESIZE = 64
   window = {w = love.graphics.getWidth(), h = love.graphics.getHeight()}
 
   gui_time = love.timer.getTime()
 
-  film.init()
   image.init()
   animation.init()
   audiomanager = AudioManager:new()
@@ -22,16 +28,18 @@ function love.load()
   love.mouse.setVisible(false)
   love.mouse.setGrabbed(true)
 
-  game_state = 'main_menu'
+  splash.enter()
   timer.init()
 end
 
 function love.update(dt)
-  state.update(dt)
+  gui_time = love.timer.getTime()
+  gamestates[state].update(dt)
+  sound_manager.update(dt)
 end
 
 function love.draw()
-  state.draw()
+  gamestates[state].draw()
 end
 
 function new_game()

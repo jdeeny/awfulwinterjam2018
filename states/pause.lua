@@ -16,11 +16,15 @@ pause.background_shader = love.graphics.newShader[[
 	}
 ]]
 
+function pause.enter()
+	state = STATE_PAUSE
+end
+
 function pause.update()
 	player_input:update()
 
 	if player_input:pressed('pause') or player_input:pressed('back') then
-    game_state = 'play'
+    play.enter()
 	elseif player_input:pressed('quit') then
 		love.event.push("quit")
 	end

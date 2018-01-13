@@ -1,7 +1,11 @@
 local death = {}
 
+function death.enter()
+	state = STATE_DEATH
+end
+
 function death.update()
-	game_state = 'continue'
+	continue.enter()
 end
 
 function death.draw()

@@ -15,11 +15,15 @@ continue.background_shader = love.graphics.newShader[[
 	}
 ]]
 
+function continue.enter()
+	state = STATE_CONTINUE
+end
+
 function continue.update(dt)
 	player_input:update()
 
 	if player_input:pressed('fire') or player_input:pressed('sel') then
-    	game_state = 'main_menu'
+    	mainmenu.enter()
     	fade.state = nil
 	elseif player_input:pressed('quit') then
 		love.event.push("quit")

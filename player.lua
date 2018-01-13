@@ -144,7 +144,7 @@ function player.die()
   player.dying = true
   fade.start_fade("fadeout", 3, true, function()
       fade.start_fade("fadein", 3, true)
-      game_state = 'death'
+      death.enter()
     end)
 end
 

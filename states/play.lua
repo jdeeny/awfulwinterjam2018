@@ -1,11 +1,15 @@
 local play = { freezeframe_start_time = 0, freezeframe_end_time = 0}
 
+function play.enter()
+  state = STATE_PLAY
+end
+
 function play.update(dt)
 
 	player_input:update()
 
     if player_input:pressed('pause') then
-      game_state = 'pause'
+      pause.enter()
     else
       mdt = dt * play.game_speed()
       game_time = game_time + mdt
