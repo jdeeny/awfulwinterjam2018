@@ -24,7 +24,6 @@ function play.update(dt)
 end
 
 function play.draw()
-
 	current_room:draw()
 
 	for _,z in pairs(doodads) do

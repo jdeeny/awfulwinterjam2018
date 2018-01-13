@@ -19,7 +19,8 @@ function continue.update(dt)
 	menu_input:update()
 
 	if menu_input:pressed('sel') then
-    game_state = 'play'
+    	game_state = 'main_menu'
+    	fade.state = nil
 	elseif menu_input:pressed('quit') or menu_input:pressed('back') then
 		love.event.push("quit")
 	end
