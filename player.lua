@@ -43,8 +43,6 @@ function player.update(dt)
     anim:update(dt)
   end
 
-  local move_x, move_y = player_input:get('move')
-
   if player.force_move then
     -- cutscene movement
     player.x = player.x + player.force_move.dx * dt
