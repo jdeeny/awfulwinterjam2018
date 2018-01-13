@@ -46,8 +46,8 @@ end
 
 function ProjectileGun:_fire(targets)
   self.next_shot_time = shot_data.spawn("bullet", self.owner.x, self.owner.y, 
-      math.cos(self.owner.rot)*self.owner.shot_speed, 
-      math.sin(player.rot)*self.shot_speed, self.owner)
+      math.cos(self.owner.aim)*self.owner.shot_speed, 
+      math.sin(player.aim)*self.shot_speed, self.owner)
   sound_manager.play(self.sound)
 end
 
@@ -65,30 +65,39 @@ end
 function LightningGun:_aquire_targets()
   local targets = {}
   
-  -- get 2 unit vectors reprending your firing arc
-  local aim_vec = cpml.vec2.new(math.cos(self.owner.rot),math.sin(self.owner.rot))
+  -- player vectors
+  local aim_vec = cpml.vec2.new(math.cos(self.owner.aim),math.sin(self.owner.aim))
   local pos_vec = cpml.vec2.new(self.owner.x, self.owner.y)
   
   -- search for targets
-
-  -- if no targets shoot straight ahead at nothing 
-  if #targets == 0 then
-
-    local vtarg = pos_vec+aim_vec*self.range
-    table.insert(targets,{x=vtarg.x, y=vtarg.y})
-
+  for _, z in pairs(enemies) do
+    local ven = cpml.vec2.new(z.x, z.y)-pos_vec -- vector to the enemy
+    if cpml.vec2.angle_between(aim_vec, ven) < self.firing_arc/2 and 
+        cpml.vec2.len(ven) < self.range then
+      table.insert(targets,z)  
+    end
   end
-  
+
   return targets
 end
 
 function LightningGun:_fire(targets)
-  if not self.owner.x or not targets then return end
+  if not self.owner.x then return end
 
-  self.bolts = {}
+  -- if no targets shoot straight ahead at nothing 
+  if not targets or #targets == 0 then
+
+    local aim_vec = cpml.vec2.new(math.cos(self.owner.aim),math.sin(self.owner.aim))
+    local pos_vec = cpml.vec2.new(self.owner.x, self.owner.y)
+    
+    local vtarg = pos_vec+aim_vec*self.range
+    table.insert(targets,{x=vtarg.x, y=vtarg.y})
+
+    local newbolt = lovelightning:new(255,255,255)
+    
+  end
   
   for _, t in ipairs(targets) do
-    local newbolt = lovelightning:new(255,255,255)
     
     newbolt:create(camera.view_x(self.owner), camera.view_y(self.owner), 
       camera.view_x(t), camera.view_y(t))
