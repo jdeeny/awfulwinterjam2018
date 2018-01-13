@@ -42,6 +42,13 @@ function mob:update_position(dt)
   self.y = my
 end
 
+function mob:update_animation(dt)
+  if self.animation ~= nil then
+    self.animation:update(dt)
+  end
+end
+
+
 function mob:take_damage(n)
   if self.hp then
     self.hp = self.hp - n

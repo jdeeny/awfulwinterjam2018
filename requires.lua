@@ -27,7 +27,7 @@ image.init()
 animation = require "animation"
 animation.init()
 main_menu = require "main_menu"
-mob = require "mob"
+mob = require "enemies/mob"
 enemy = require "enemies/enemy"
 player = require "player"
 room = require "room"
