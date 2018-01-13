@@ -10,7 +10,12 @@ player.hp = 100
 player.next_shot_time = 0
 player.shot_delay = 0.1
 player.shot_speed = 800
-player.animation = animation.tesla_run_se
+
+player.animation = {}
+player.animation['ne'] = animation.tesla_run_ne
+player.animation['se'] = animation.tesla_run_se
+player.animation['sw'] = animation.tesla_run_sw
+player.animation['nw'] = animation.tesla_run_nw
 
 local mousemoved = false
 
@@ -58,7 +63,7 @@ function player.update(dt)
     mvec = cpml.vec2.new(mx, my)
     r, theta = cpml.vec2.to_polar(mvec-pvec)
   end
-  
+
   player.aim = theta
 
   -- player actions
