@@ -14,7 +14,7 @@ function image.init()
   image.exit_east = love.graphics.newImage("assets/tiles/exit_east.png")
 
   image.bullet = love.graphics.newImage("assets/sprites/bullet.png")
-  image.tesla_se = love.graphics.newImage("assets/sprites/tesla-se.png")
+  image.tesla = love.graphics.newImage("assets/sprites/tesla_sprite_sheet.png")
 
   image.intro = love.graphics.newImage("assets/fullscreen/silentFilmBack_template.png")
 end

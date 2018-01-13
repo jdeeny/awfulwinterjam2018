@@ -8,6 +8,10 @@ function Item:uneqipped()
     self.owner = nil
 end
 
+function Item:draw()
+    -- override me
+end
+
 item = {}
 item.Item = Item
 
