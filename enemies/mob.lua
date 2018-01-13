@@ -16,7 +16,7 @@ function mob:draw()
 
   if self.equipped_items then
     for _ , x in pairs(self.equipped_items) do
-      x:draw() 
+      x:draw()
     end
   end
 end
@@ -67,6 +67,22 @@ function mob.unequip(id)
   local tmp = self.equipped_items[id]
   self.equipped_items[id] = nil
   return tmp
+end
+
+function mob.get_facing_string(north, east)
+  if north then
+    if east then
+      return 'ne'
+    else
+      return 'nw'
+    end
+  else
+    if east then
+      return 'se'
+    else
+      return 'sw'
+    end
+  end
 end
 
 return mob

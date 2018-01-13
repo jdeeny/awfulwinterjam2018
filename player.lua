@@ -3,6 +3,8 @@
 local player = mob:new()
 
 player.sprite = 'tesla'
+player.facing_north = false
+player.facing_east = false
 player.speed = 300
 player.radius = 20
 player.max_hp = 100
@@ -12,12 +14,15 @@ player.shot_delay = 0.1
 player.shot_speed = 800
 
 player.animations = {}
-player.animations['ne'] = animation.tesla_run_ne
-player.animations['se'] = animation.tesla_run_se
-player.animations['sw'] = animation.tesla_run_sw
-player.animations['nw'] = animation.tesla_run_nw
-player.animations['idle'] = animation.tesla_idle
-player.animation = player.animations['se']
+player.animations['run_ne'] = animation.tesla_run_ne
+player.animations['run_se'] = animation.tesla_run_se
+player.animations['run_sw'] = animation.tesla_run_sw
+player.animations['run_nw'] = animation.tesla_run_nw
+player.animations['idle_ne'] = animation.tesla_idle_se
+player.animations['idle_se'] = animation.tesla_idle_se
+player.animations['idle_sw'] = animation.tesla_idle_sw
+player.animations['idle_nw'] = animation.tesla_idle_sw
+player.animation = player.animations['run_se']
 
 local mousemoved = false
 
@@ -40,27 +45,27 @@ function player.update(dt)
     player.dx = move_x > DEADBAND and player.speed or move_x < -DEADBAND and -player.speed or 0
     player.dy = move_y > DEADBAND and player.speed or move_y < -DEADBAND and -player.speed or 0
 
-  if math.abs(player.dx) >= 0.01 or math.abs(player.dy) >= 0.01 then
-    -- 1/sqrt(2)
-    player.dx = player.dx * 0.7071
-    player.dy = player.dy * 0.7071
+    if math.abs(player.dx) >= 0.01 or math.abs(player.dy) >= 0.01 then
+      -- 1/sqrt(2)
+      player.dx = player.dx * 0.7071
+      player.dy = player.dy * 0.7071
 
-    if player.dy >= 0.0 then
-      if player.dx >= 0.0 then
-        player.animation = player.animations['se']
-      else
-        player.animation = player.animations['sw']
+      if player.dy >= 0.01 then
+        player.facing_north = false
+      elseif player.dy <= -0.01 then
+        player.facing_north = true
       end
+
+      if player.dx >= 0.01 then
+        player.facing_east = true
+      elseif player.dx <= -0.01 then
+        player.facing_east = false
+      end
+
+      player.animation = player.animations['run_' .. player.get_facing_string(player.facing_north, player.facing_east)]
     else
-      if player.dx >= 0.0 then
-        player.animation = player.animations['ne']
-      else
-        player.animation = player.animations['nw']
-      end
+      player.animation = player.animations['idle_' .. player.get_facing_string(player.facing_north, player.facing_east)]
     end
-  else
-    player.animation = player.animations['idle']
-  end
 
     if player.dx ~= 0 and player.dy ~= 0 then
       -- 1/sqrt(2)
@@ -77,27 +82,23 @@ function player.update(dt)
       aim_x = 0
     end
 
-  -- rotate to direction we're aiming. if the mouse has moved, face the mouse
-  -- position, otherwise update the rotation from keyboard and gamepad
+    -- rotate to direction we're aiming. if the mouse has moved, face the mouse
+    -- position, otherwise update the rotation from keyboard and gamepad
 
-  if aim_x ~= 0 or aim_y ~= 0 then
-    love.mouse.setVisible(false)
-    _, player.aim = cpml.vec2.to_polar(cpml.vec2.new(aim_x, aim_y)) -- joystick angle is new aim
-  elseif mousemoved then
-    love.mouse.setVisible(true)
-    mousemoved = false
+    if aim_x ~= 0 or aim_y ~= 0 then
+      love.mouse.setVisible(false)
+      _, player.aim = cpml.vec2.to_polar(cpml.vec2.new(aim_x, aim_y)) -- joystick angle is new aim
+    elseif mousemoved then
+      love.mouse.setVisible(true)
+      mousemoved = false
 
-    mx, my = love.mouse.getPosition()
-    pvec = cpml.vec2.new(player.x-camera.x, player.y-camera.y)
-    mvec = cpml.vec2.new(mx, my)
-    _, player.aim = cpml.vec2.to_polar(mvec-pvec) -- angle to mouse pos. is new aim
-  end
+      mx, my = love.mouse.getPosition()
+      pvec = cpml.vec2.new(player.x-camera.x, player.y-camera.y)
+      mvec = cpml.vec2.new(mx, my)
+      _, player.aim = cpml.vec2.to_polar(mvec-pvec) -- angle to mouse pos. is new aim
+    end
 
-  -- player actions
-  if player_input:down('fire') and player.equipped_items['weapon'] then
-    player.equipped_items['weapon']:fire()
-  end
-  player.equipped_items['weapon']:update(dt)
+    player.equipped_items['weapon']:update(dt)
 
     if player_input:down('fire') and player.equipped_items['weapon'] then
       player.equipped_items['weapon']:fire()
@@ -118,11 +119,20 @@ function love.mousemoved( x, y, dx, dy, istouch )
 end
 
 function player.die()
-  love.events.push("quit")
+  player.start_force_move(0, 0)
+  fade.start_fade("fadeout", game_time, game_time + 3, function()
+      fade.start_fade("fadein", gui_time, gui_time + 3)
+      game_state = 'death'
+    end)
 end
 
 function player:be_attacked(damage)
+  if self.hp > 0 then
     self.hp = math.max(self.hp - damage, 0)
+    if self.hp <= 0 then
+      self.die()
+    end
+  end
 end
 
 function player.start_force_move(dx, dy)
@@ -139,7 +149,5 @@ function player:draw_hp()
 	--love.graphics.setFont(timer.font)
 	love.graphics.print(self.hp, 690, 50)
 end
-
-
 
 return player
