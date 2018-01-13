@@ -28,7 +28,6 @@ angle = playerloc:angle_to(meloc)
 
     self.dx = math.cos(angle) * self.speed
     self.dy = math.sin(angle) * self.speed
-    self.rot = angle
 
     -- face the direction we're going
 
