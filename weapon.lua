@@ -56,7 +56,8 @@ function LightningGun:initialize()
   Weapon.initialize(self)
   self.range = 300
   self.firing_arc = math.pi/6
-  self.bolts = {} 
+  self.bolts = {}
+  self.draw_time = 0.1
 end
 
 function LightningGun:_aquire_targets()
@@ -66,16 +67,13 @@ function LightningGun:_aquire_targets()
   local aim_vec = cpml.vec2.new(math.cos(self.owner.aim),math.sin(self.owner.aim))
   local pos_vec = cpml.vec2.new(self.owner.x, self.owner.y)
   
-  for _, z in ipairs(enemies) do 
-      local they_vec = cpml.vec2.new(z.x,z.y)
-      
-  end
+  -- search for targets
 
+  -- if no targets shoot straight ahead at nothing 
   if #targets == 0 then
 
-    local unit_rot = cpml.vec2.new(co)
-    -- make up a fake target range pixes ahead
-    table.insert(targets,{x=self.owner.x+300,y=self.owner.y+300})
+    local vtarg = pos_vec+aim_vec*self.range
+    table.insert(targets,{x=vtarg.x, y=vtarg.y})
 
   end
   
@@ -83,28 +81,36 @@ function LightningGun:_aquire_targets()
 end
 
 function LightningGun:_fire(targets)
+  if not self.owner.x or not targets then return end
+
   self.bolts = {}
+  
   for _, t in ipairs(targets) do
     local newbolt = lovelightning:new(255,255,255)
-    local as = {x = self.owner.x, y = self.owner.y}
-    local at = {x = t.x, y = t.y}
-    newbolt:create(camera.view_x(as), camera.view_y(as), 
-      camera.view_x(at), camera.view_y(at))
+    
+    newbolt:create(camera.view_x(self.owner), camera.view_y(self.owner), 
+      camera.view_x(t), camera.view_y(t))
     
     table.insert(self.bolts, newbolt)
   end
-  -- body
+  
+  self.fired_at = game_time
 end
 
 function LightningGun:update(dt)
-  for _, b in pairs(self.bolts) do
-    b:update(dt)
+  if self.bolts and self.fired_at then
+    if game_time < self.fired_at + self.draw_time then
+      for _, b in pairs(self.bolts) do
+        b:update(dt)
+      end
+    else
+      self.bolts = nil
+    end
   end
 end
 
-
 function LightningGun:draw()
-  if self.bolts ~= nil then
+  if self.bolts then
     for _, b in pairs(self.bolts) do
         b:draw()
     end
