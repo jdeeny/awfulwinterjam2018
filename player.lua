@@ -46,10 +46,6 @@ function player.update(dt)
     player.dy = move_y > DEADBAND and player.speed or move_y < -DEADBAND and -player.speed or 0
 
     if math.abs(player.dx) >= 0.01 or math.abs(player.dy) >= 0.01 then
-      -- 1/sqrt(2)
-      player.dx = player.dx * 0.7071
-      player.dy = player.dy * 0.7071
-
       if player.dy >= 0.01 then
         player.facing_north = false
       elseif player.dy <= -0.01 then
@@ -67,7 +63,7 @@ function player.update(dt)
       player.animation = player.animations['idle_' .. player.get_facing_string(player.facing_north, player.facing_east)]
     end
 
-    if player.dx ~= 0 and player.dy ~= 0 then
+    if math.abs(player.dx) >= 0.01 and math.abs(player.dy) >= 0.01 then
       -- 1/sqrt(2)
       player.dx = player.dx * 0.7071
       player.dy = player.dy * 0.7071
