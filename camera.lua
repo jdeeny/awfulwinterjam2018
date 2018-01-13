@@ -48,17 +48,16 @@ function camera.shake(amount, duration, f)
 	camera.shake_amount = amount
 end
 
-function camera.clear_shake()
-	camera.shake_function = nil
-	camera.shake_start_time = nil
-	camera.shake_end_time = nil
-	camera.shake_amount = nil
-end
-
 function camera.apply_shake()
-	camera.bump(camera.shake_amount * camera.shake_function(
-		cpml.utils.clamp((gui_time - camera.shake_start_time) / (camera.shake_end_time - camera.shake_start_time), 0, 1)))
+	if camera.shake_duration then
+		if camera.shake_duration:finished() then
+			camera.shake_function = nil
+			camera.shake_duration = nil
+			camera.shake_amount = nil
+		else
+			camera.bump(camera.shake_amount * camera.shake_function(camera.shake_duration:t()))
+		end
+	end
 end
-
 
 return camera

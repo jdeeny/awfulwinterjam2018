@@ -26,10 +26,10 @@ doodad_data["exit_east"] =
   trigger = function(self)
     if not fade.state then
       player.start_force_move(player.speed, 0)
-      fade.start_fade("fadeout", game_time, game_time + 0.5,
+      fade.start_fade("fadeout", 0.5, false,
         function()
           dungeon.move_to_room(player.dungeon_x + 1, player.dungeon_y, "west")
-          fade.start_fade("fadein", game_time, game_time + 0.5,
+          fade.start_fade("fadein", 0.5, false,
             function()
               player.end_force_move()
             end)
@@ -47,13 +47,10 @@ doodad_data["exit_north"] =
   trigger = function(self)
     if not fade.state then
       player.start_force_move(0, -(player.speed))
-      fade.start_fade("fadeout", game_time, game_time + 0.5,
+      fade.start_fade("fadeout", 0.5, false,
         function()
           dungeon.move_to_room(player.dungeon_x, player.dungeon_y - 1, "south")
-          fade.start_fade("fadein", game_time, game_time + 0.5,
-            function()
-              player.end_force_move()
-            end)
+          fade.start_fade("fadein", 0.5, false, function() player.end_force_move() end)
         end)
     end
   end,

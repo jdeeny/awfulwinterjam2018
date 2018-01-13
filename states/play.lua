@@ -14,9 +14,12 @@ function play.update(dt)
       for _,z in pairs(sparks) do
         z:update(mdt)
       end
+
+      spawner.process()
       for _,z in pairs(enemies) do
         z:update(mdt)
       end
+
       for _,z in pairs(shots) do
         z:update(mdt)
       end
@@ -24,21 +27,12 @@ function play.update(dt)
       camera.update(mdt)
       timer.update()
 
-      if play.coda_time and play.coda_time <= game_time then
-        current_room:coda()
-        play.coda_time = nil
-      end
+      delay.process()
     end
 end
 
 function play.draw()
-  if camera.shake_end_time then
-    if camera.shake_end_time > gui_time then
-      camera.apply_shake()
-    else
-      camera.clear_shake()
-    end
-  end
+  camera.apply_shake()
 
 	current_room:draw()
 

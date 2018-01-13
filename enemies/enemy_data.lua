@@ -16,7 +16,7 @@ function enemy_data.spawn(kind, x, y)
   end
 
   enemies[new_id].hp = enemies[new_id].max_hp
-  enemy_count = enemy_count + 1
+  enemy_value = enemy_value + enemies[new_id].value
 
   return new_id
 end
@@ -28,7 +28,7 @@ enemy_data["schmuck"] =
   max_hp = 60,
   speed = 100,
   radius = 30,
-
+  value = 1,
 }
 
 enemy_data["fodder"] =
@@ -39,7 +39,7 @@ enemy_data["fodder"] =
   max_hp = 30,
   speed = 200,
   radius = 15,
-  
+  value = 0.5,
 }
 
 return enemy_data

@@ -51,8 +51,8 @@ function player.update(dt)
     player.y = player.y + player.force_move.dy * dt
   else
     if player.stun then
-      if player.stun.end_time > game_time then
-        t = 1 - (game_time - player.stun.start_time) / (player.stun.end_time - player.stun.start_time)
+      if not player.stun.duration:finished() then
+        t = 1 - player.stun.duration:t()
         player.dx = player.stun.dx * t
         player.dy = player.stun.dy * t
       else
@@ -144,8 +144,8 @@ end
 
 function player.die()
   player.dying = true
-  fade.start_fade("fadeout", game_time, game_time + 3, function()
-      fade.start_fade("fadein", gui_time, gui_time + 3)
+  fade.start_fade("fadeout", 3, true, function()
+      fade.start_fade("fadein", 3, true)
       game_state = 'death'
     end)
 end
@@ -168,8 +168,8 @@ function player:be_attacked(damage, direction)
   end
 end
 
-function player.be_stunned(duration, dx, dy)
-  player.stun = {start_time = game_time, end_time = game_time + duration,
+function player.be_stunned(dur, dx, dy)
+  player.stun = {duration = duration.start(dur),
                   dx = dx or 0, dy = dy or 0}
 end
 

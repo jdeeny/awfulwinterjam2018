@@ -7,6 +7,8 @@ function love.load()
   TILESIZE = 64
   window = {w = love.graphics.getWidth(), h = love.graphics.getHeight()}
 
+  gui_time = love.timer.getTime()
+
   film.init()
   image.init()
   animation.init()
@@ -35,9 +37,9 @@ end
 
 function new_game()
   player.init()
-  
+
   enemies = nil
-  enemy_count = nil
+  enemy_value = nil
   shots = nil
   doodads = nil
   sparks = nil
@@ -49,7 +51,7 @@ function new_game()
 
   game_time = 0
   player.start_force_move(player.speed, 0)
-  fade.start_fade("fadein", 0, 0.5,
+  fade.start_fade("fadein", 0.5, true,
             function()
               player.end_force_move()
             end)
