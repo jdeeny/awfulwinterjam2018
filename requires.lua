@@ -43,10 +43,12 @@ spawner = require "enemies/spawner"
 room = require "room"
 shot = require "shot"
 timer = require "timer"
-sound_manager = require "sound_manager"
 state = require "state"
 spark = require "spark"
 weapon = require "weapon"
+
+PooledSource = require "audio/pooledsource"
+AudioManager = require "audio/audiomanager"
 
 doodad_data = require "doodad_data"
 enemy_data = require "enemies/enemy_data"

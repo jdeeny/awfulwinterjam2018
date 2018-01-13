@@ -49,7 +49,7 @@ function ProjectileGun:_fire(targets)
   self.next_shot_time = shot_data.spawn("bullet", self.owner.x, self.owner.y,
       math.cos(angle)*self.owner.shot_speed,
       math.sin(angle)*self.shot_speed, self.owner)
-  sound_manager.play(self.sound)
+  audiomanager:playOnce(self.sound)
   camera.bump(6, self.owner.aim)
 end
 

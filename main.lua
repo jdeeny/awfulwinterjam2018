@@ -12,8 +12,8 @@ function love.load()
   film.init()
   image.init()
   animation.init()
-  sound_manager.init()
-
+  audiomanager = AudioManager:new()
+  
   new_game()
 
   player_input, menu_input = controls.init()
@@ -28,7 +28,6 @@ end
 
 function love.update(dt)
   state.update(dt)
-  sound_manager.update(dt)
 end
 
 function love.draw()
