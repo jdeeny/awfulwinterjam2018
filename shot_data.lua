@@ -31,7 +31,7 @@ shot_data["bullet"] =
 
   collide = function(self, hit, mx, my, mt, nx, ny)
     if hit and hit[1] == "enemy" then
-      camera.shake(10)
+      camera.bump(10)
       enemies[hit[2]]:take_damage(self.damage)
     end
     for i = 1, 6 do

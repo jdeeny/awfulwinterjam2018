@@ -50,7 +50,7 @@ function ProjectileGun:_fire(targets)
       math.cos(angle)*self.owner.shot_speed,
       math.sin(angle)*self.shot_speed, self.owner)
   sound_manager.play(self.sound)
-  camera.shake(6, self.owner.aim)
+  camera.bump(6, self.owner.aim)
 end
 
 -------------------------------------------------------------------------------
@@ -88,23 +88,23 @@ end
 
 function LightningGun:_fire(targets)
   if not self.owner.x then return end
-  
+
   local newbolt = lovelightning:new(255,255,255)
-  
-  -- if no targets shoot straight ahead at nothing 
+
+  -- if no targets shoot straight ahead at nothing
   if not targets or #targets == 0 then
 
     local aim_vec = cpml.vec2.new(math.cos(self.owner.aim),math.sin(self.owner.aim))
     local pos_vec = cpml.vec2.new(self.owner.x, self.owner.y)
-    
+
     local vtarg = pos_vec+aim_vec*self.range/3
-    
+
     newbolt.jitter_factor = 0.75
     newbolt.fork_chance = 0.9
     newbolt.max_fork_angle = math.pi/3
     newbolt.iterations = 4
-    
-    newbolt:create(camera.view_x(self.owner), camera.view_y(self.owner), 
+
+    newbolt:create(camera.view_x(self.owner), camera.view_y(self.owner),
       camera.view_x(vtarg), camera.view_y(vtarg))
 
   else
@@ -113,9 +113,9 @@ function LightningGun:_fire(targets)
         camera.view_x(t), camera.view_y(t))
     end
   end
-  
+
   table.insert(self.bolts, newbolt)
-  
+
   self.fired_at = game_time
   self.targets = targets
 end
@@ -123,7 +123,7 @@ end
 function LightningGun:update(dt)
   if self.bolts and self.fired_at then
     if game_time < self.fired_at + self.draw_time then
-      
+
       for _, b in pairs(self.bolts) do
         b:update(dt)
       end

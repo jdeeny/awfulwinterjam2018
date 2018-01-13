@@ -154,12 +154,14 @@ function player:be_attacked(damage, direction)
   if player.iframe_end_time and player.iframe_end_time < game_time then
     self.hp = math.max(self.hp - damage, 0)
     if self.hp <= 0 then
-      play.freezeframe(0.3)
+      play.freezeframe(0.5)
+      camera.shake(15, 1)
       player.be_stunned(1, 1000 * math.cos(direction), 1000 * math.sin(direction))
       player.be_invincible(99999)
       self.die()
     else
-      play.freezeframe(0.1)
+      play.freezeframe(0.2)
+      camera.shake(5, 0.5)
       player.be_stunned(0.5, 500 * math.cos(direction), 500 * math.sin(direction))
       player.be_invincible(1)
     end

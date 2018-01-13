@@ -32,6 +32,14 @@ function play.update(dt)
 end
 
 function play.draw()
+  if camera.shake_end_time then
+    if camera.shake_end_time > gui_time then
+      camera.apply_shake()
+    else
+      camera.clear_shake()
+    end
+  end
+
 	current_room:draw()
 
   for _,z in pairs(sparks) do

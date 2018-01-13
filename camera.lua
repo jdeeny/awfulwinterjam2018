@@ -34,10 +34,31 @@ function camera.on_screen(a)
 	return vx > -64 and vx < window.w + 64 and vy > -64 and window.h + 64
 end
 
-function camera.shake(amount, angle)
+function camera.bump(amount, angle)
 	angle = angle or love.math.random() * 2 * math.pi
 	camera.rx = camera.rx + amount * math.cos(angle)
 	camera.ry = camera.ry + amount * math.sin(angle)
 end
+
+function camera.shake(amount, duration, f)
+	-- f is a function that determines the multiplier for amount, given 0 <= t <= 1
+	camera.shake_function = f or function(t) return 1 - t end
+	camera.shake_start_time = gui_time
+	camera.shake_end_time = gui_time + duration
+	camera.shake_amount = amount
+end
+
+function camera.clear_shake()
+	camera.shake_function = nil
+	camera.shake_start_time = nil
+	camera.shake_end_time = nil
+	camera.shake_amount = nil
+end
+
+function camera.apply_shake()
+	camera.bump(camera.shake_amount * camera.shake_function(
+		cpml.utils.clamp((gui_time - camera.shake_start_time) / (camera.shake_end_time - camera.shake_start_time), 0, 1)))
+end
+
 
 return camera
