@@ -12,7 +12,6 @@ function timer.init()
 end
 
 function timer.update()
-	
 	if game_state == 'play' then
 		currentPlayState = true
 	else
