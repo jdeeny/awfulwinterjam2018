@@ -22,8 +22,10 @@ function love.load()
   dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
 
   player.rot = 0
-  player:equip('weapon', weapon.ProjectileGun:new())
   player.aim = player.rot
+  -- player:equip('weapon', weapon.LightningGun:new())
+  player:equip('weapon', weapon.ProjectileGun:new())
+
 
   player_input, menu_input = controls.init()
   player_input.deadband = 0.2

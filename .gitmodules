@@ -22,6 +22,10 @@
 [submodule "lib/lovelightning"]
 	path = lib/lovelightning
 	url = https://github.com/therealpickle/lovelightning.git
+[submodule "lib/hump"]
+	path = lib/hump
+	url = https://github.com/vrld/hump.git
 [submodule "lib/moonshine"]
 	path = lib/moonshine
 	url = https://github.com/vrld/moonshine.git
+
