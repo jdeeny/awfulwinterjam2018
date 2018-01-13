@@ -40,6 +40,7 @@ local ProjectileGun = class("ProjectileGun", Weapon)
 function ProjectileGun:initialize()
   Weapon.initialize(self)
   self.shot_speed = 800
+  self.sound = "snap"
 end
 
 
@@ -47,6 +48,7 @@ function ProjectileGun:_fire(targets)
   self.next_shot_time = shot_data.spawn("bullet", self.owner.x, self.owner.y, 
       math.cos(self.owner.rot)*self.owner.shot_speed, 
       math.sin(player.rot)*self.shot_speed, self.owner)
+  sound_manager.play(self.sound)
 end
 
 -------------------------------------------------------------------------------

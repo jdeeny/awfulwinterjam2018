@@ -40,7 +40,6 @@ function shot:update(dt)
 end
 
 function shot:die()
-	--sound[self.sound]:stop()
   shots[self.id] = nil
 end
 
@@ -49,8 +48,5 @@ function shot:draw()
     image[self.sprite]:getWidth()/2, image[self.sprite]:getHeight()/2)
 end
 
-function shot:playSound()
-	sound[self.sound]:clone():play()
-end
 
 return shot

@@ -28,6 +28,7 @@ enemy_data["schmuck"] =
   max_hp = 60,
   speed = 100,
   radius = 30,
+  death_sound = "unh",
 
 }
 
