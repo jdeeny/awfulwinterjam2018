@@ -28,10 +28,17 @@ function player.update(dt)
 
   local move_x, move_y = player_input:get('move')
 
-  local DEADBAND = 0.2
+  if player.force_move then
+    -- cutscene movement
+    player.x = player.x + player.force_move.dx * dt
+    player.y = player.y + player.force_move.dy * dt
+  else
+    local move_x, move_y = player_input:get('move')
 
-  player.dx = move_x > DEADBAND and player.speed or move_x < -DEADBAND and -player.speed or 0
-  player.dy = move_y > DEADBAND and player.speed or move_y < -DEADBAND and -player.speed or 0
+    local DEADBAND = 0.2
+
+    player.dx = move_x > DEADBAND and player.speed or move_x < -DEADBAND and -player.speed or 0
+    player.dy = move_y > DEADBAND and player.speed or move_y < -DEADBAND and -player.speed or 0
 
   if math.abs(player.dx) >= 0.01 or math.abs(player.dy) >= 0.01 then
     -- 1/sqrt(2)
@@ -55,18 +62,20 @@ function player.update(dt)
     player.animation = player.animations['idle']
   end
 
-  player:update_position(dt)
+    if player.dx ~= 0 and player.dy ~= 0 then
+      -- 1/sqrt(2)
+      player.dx = player.dx * 0.7071
+      player.dy = player.dy * 0.7071
+    end
 
-  -- get aiming vector
-  local aim_x, aim_y = player_input:get('aim')
+    player:update_position(dt)
 
-  if math.abs(aim_x) < DEADBAND then
-    aim_x = 0
-  end
+    -- get aiming vector
+    local aim_x, aim_y = player_input:get('aim')
 
-  if math.abs(aim_y) < DEADBAND then
-    aim_y = 0
-  end
+    if math.abs(aim_x) < DEADBAND then
+      aim_x = 0
+    end
 
   -- rotate to direction we're aiming. if the mouse has moved, face the mouse
   -- position, otherwise update the rotation from keyboard and gamepad
@@ -90,13 +99,17 @@ function player.update(dt)
   end
   player.equipped_items['weapon']:update(dt)
 
-  -- check if we're standing on a doodad
-  for _,z in pairs(doodads) do
-    if collision.aabb_aabb(player, z) then
-      z:trigger()
+    if player_input:down('fire') and player.equipped_items['weapon'] then
+      player.equipped_items['weapon']:fire()
+    end
+
+    -- check if we're standing on a doodad
+    for _,z in pairs(doodads) do
+      if collision.aabb_aabb(player, z) then
+        z:trigger()
+      end
     end
   end
-
 end
 
 
@@ -110,6 +123,16 @@ end
 
 function player:be_attacked(damage)
     self.hp = math.max(self.hp - damage, 0)
+end
+
+function player.start_force_move(dx, dy)
+  player.force_move = {}
+  player.force_move.dx = dx
+  player.force_move.dy = dy
+end
+
+function player.end_force_move()
+  player.force_move = nil
 end
 
 function player:draw_hp()

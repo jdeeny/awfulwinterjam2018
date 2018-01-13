@@ -20,6 +20,11 @@ function love.load()
   current_dungeon:init(5, 4)
   current_dungeon:setup_main()
   dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
+  player.start_force_move(player.speed, 0)
+  fade.start_fade("fadein", 0, 0.5,
+            function()
+              player.end_force_move()
+            end)
 
   player.rot = 0
   player.aim = player.rot

@@ -24,7 +24,17 @@ doodad_data["exit_east"] =
   radius = 64,
 
   trigger = function(self)
-    dungeon.move_to_room(player.dungeon_x + 1, player.dungeon_y, "west")
+    if not fade.state then
+      player.start_force_move(player.speed, 0)
+      fade.start_fade("fadeout", game_time, game_time + 0.5,
+        function()
+          dungeon.move_to_room(player.dungeon_x + 1, player.dungeon_y, "west")
+          fade.start_fade("fadein", game_time, game_time + 0.5,
+            function()
+              player.end_force_move()
+            end)
+        end)
+    end
   end,
 }
 
@@ -35,7 +45,17 @@ doodad_data["exit_north"] =
   radius = 64,
 
   trigger = function(self)
-    dungeon.move_to_room(player.dungeon_x, player.dungeon_y - 1, "south")
+    if not fade.state then
+      player.start_force_move(0, -(player.speed))
+      fade.start_fade("fadeout", game_time, game_time + 0.5,
+        function()
+          dungeon.move_to_room(player.dungeon_x, player.dungeon_y - 1, "south")
+          fade.start_fade("fadein", game_time, game_time + 0.5,
+            function()
+              player.end_force_move()
+            end)
+        end)
+    end
   end,
 }
 
