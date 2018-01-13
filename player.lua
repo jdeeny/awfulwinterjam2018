@@ -119,11 +119,20 @@ function love.mousemoved( x, y, dx, dy, istouch )
 end
 
 function player.die()
-  love.events.push("quit")
+  player.start_force_move(0, 0)
+  fade.start_fade("fadeout", game_time, game_time + 3, function()
+      fade.start_fade("fadein", gui_time, gui_time + 3)
+      game_state = 'death'
+    end)
 end
 
 function player:be_attacked(damage)
+  if self.hp > 0 then
     self.hp = math.max(self.hp - damage, 0)
+    if self.hp <= 0 then
+      self.die()
+    end
+  end
 end
 
 function player.start_force_move(dx, dy)
@@ -140,7 +149,5 @@ function player:draw_hp()
 	--love.graphics.setFont(timer.font)
 	love.graphics.print(self.hp, 690, 50)
 end
-
-
 
 return player

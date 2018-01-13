@@ -28,7 +28,7 @@ end
 function continue.draw()
 	love.graphics.setShader(continue.background_shader)
 	love.graphics.setFont(continue.font)
-	
+
 
 	local text = "You Have Died!\n\nPress Spacebar to Continue\nPress Escape to Quit"
 	local th = continue.font:getHeight()*3
@@ -38,6 +38,7 @@ function continue.draw()
 
 	love.graphics.setFont(love.graphics.newFont()) --reset to default
 	love.graphics.setShader()
+	fade.draw(gui_time)
 end
 
 return continue
