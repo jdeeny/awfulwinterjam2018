@@ -17,6 +17,13 @@ function camera.update(dt)
 	camera.x, camera.y = math.floor(camera.rx), math.floor(camera.ry)
 end
 
+function camera.recenter()
+	camera.tx = player.x - window.w/2
+	camera.ty = player.y - window.h/2
+
+	camera.rx, camera.ry = camera.tx, camera.ty
+end
+
 function camera.view_x(a) return math.floor(a.x - camera.x) end
 function camera.view_y(a) return math.floor(a.y - camera.y) end
 

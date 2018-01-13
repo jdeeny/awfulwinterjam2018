@@ -26,7 +26,7 @@ function play.update(dt)
 end
 
 function play.draw()
-	
+
 	current_room:draw()
 
 	for _,z in pairs(doodads) do
@@ -40,6 +40,9 @@ function play.draw()
   end
 
   player:draw()
+
+  fade.draw(game_time)
+
   timer.draw()
   player:draw_hp()
 end
