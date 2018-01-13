@@ -35,6 +35,7 @@ function room:coda()
     self[self.width][1 + self.height / 2].kind = "floor"
     doodad_data.spawn("exit_east", current_room:pixel_width() - (TILESIZE / 2), current_room:pixel_height() / 2)
   end
+  sound_manager.play("unlatch") -- open the doors
   self:setup_tiles()
 end
 
