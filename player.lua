@@ -70,11 +70,10 @@ function player.update(dt)
 
   -- rotate to direction we're aiming. if the mouse has moved, face the mouse
   -- position, otherwise update the rotation from keyboard and gamepad
-  -- default values for r, theta cover cases when no input has been received
-  local r, theta = 0,0
+
   if aim_x ~= 0 or aim_y ~= 0 then
     love.mouse.setVisible(false)
-    r, theta = cpml.vec2.to_polar(cpml.vec2.new(aim_x, aim_y))
+    _, player.aim = cpml.vec2.to_polar(cpml.vec2.new(aim_x, aim_y)) -- joystick angle is new aim
   elseif mousemoved then
     love.mouse.setVisible(true)
     mousemoved = false
@@ -82,10 +81,8 @@ function player.update(dt)
     mx, my = love.mouse.getPosition()
     pvec = cpml.vec2.new(player.x-camera.x, player.y-camera.y)
     mvec = cpml.vec2.new(mx, my)
-    r, theta = cpml.vec2.to_polar(mvec-pvec)
+    _, player.aim = cpml.vec2.to_polar(mvec-pvec) -- angle to mouse pos. is new aim
   end
-
-  player.aim = theta
 
   -- player actions
 
