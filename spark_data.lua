@@ -26,8 +26,8 @@ spark_data["spark"] =
 {
   class = "spark",
   sprite = "spark",
-  duration = 0.05,
-  duration_variance = 0.3,
+  duration = 0.1,
+  duration_variance = 0.4,
   radius = 4,
 }
 
