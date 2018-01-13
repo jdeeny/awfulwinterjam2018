@@ -3,6 +3,7 @@ local state = {
 }
 
 function state.update(dt)
+	gui_time = love.timer.getTime()
 	if game_state == "main_menu" then main_menu.update()
 	elseif game_state == "film" then	film.update()
 	elseif game_state == "play" then play.update(dt)
