@@ -35,7 +35,7 @@ end
 	
 -- Stops a sound. Do this if the sound is no longer needed.
 function sound_manager.stop(playing_id)
-	if sound_manger.playing[playing_id] then
+	if sound_manager.playing[playing_id] then
 		sound_manager.playing[playing_id]:stop()
 	end
 end
@@ -50,7 +50,7 @@ end
 
 function sound_manager.update(dt)
 	-- Cull sounds that aren't playing
-	for i,p in sound_manager.playing do
+	for i,p in ipairs(sound_manager.playing) do
 		if p:isStopped() then
 			sound_manager.playing[i] = nil
 		end

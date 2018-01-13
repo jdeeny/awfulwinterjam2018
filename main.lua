@@ -10,7 +10,7 @@ function love.load()
   film.init()
   image.init()
   animation.init()
-  sound_manger.init()
+  sound_manager.init()
 
   enemies = nil
   enemy_count = nil

@@ -39,7 +39,7 @@ shot = require "shot"
 timer = require "timer"
 pause = require "pause"
 play = require "play"
-sound_manager = require "sound"
+sound_manager = require "sound_manager"
 state = require "state"
 weapon = require "weapon"
 
