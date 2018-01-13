@@ -45,9 +45,10 @@ end
 
 
 function ProjectileGun:_fire(targets)
+  angle = self.owner.aim + (love.math.random() - 0.5) * math.pi * 0.1
   self.next_shot_time = shot_data.spawn("bullet", self.owner.x, self.owner.y,
-      math.cos(self.owner.aim)*self.owner.shot_speed,
-      math.sin(player.aim)*self.shot_speed, self.owner)
+      math.cos(angle)*self.owner.shot_speed,
+      math.sin(angle)*self.shot_speed, self.owner)
   sound_manager.play(self.sound)
   camera.shake(6, self.owner.aim)
 end
