@@ -26,8 +26,19 @@ enemy_data["schmuck"] =
   kind = "schmuck", name = "Test Loser",
   sprite = "dude",
   max_hp = 60,
+  speed = 100,
+  radius = 30,
+
+}
+
+enemy_data["fodder"] =
+{
+  kind = "fodder", name = "Test Fodder",
+  sprite = "gear",
+  animation = animation.gear_spin_ccw,
+  max_hp = 30,
   speed = 200,
-  radius = 40,
+  radius = 15,
 }
 
 return enemy_data

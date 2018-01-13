@@ -12,7 +12,7 @@ function enemy:update(dt)
 
     playerloc = cpml.vec2(player.x, player.y)
     meloc = cpml.vec2(self.x, self.y)
-    if playerloc:dist(meloc) <= 100 then
+    if playerloc:dist(meloc) <= 10 then
       if game_time >= self.next_attack or 0 then
         -- attack
         player:be_attacked(10)
@@ -28,7 +28,6 @@ angle = playerloc:angle_to(meloc)
 
     self.dx = math.cos(angle) * self.speed
     self.dy = math.sin(angle) * self.speed
-    self.rot = angle
 
     -- face the direction we're going
 
@@ -38,6 +37,7 @@ angle = playerloc:angle_to(meloc)
   self:run_ai()
 
   self:update_position(dt)
+  self:update_animation(dt)
 end
 
 function enemy:die()

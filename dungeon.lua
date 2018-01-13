@@ -17,6 +17,10 @@ function dungeon.move_to_room()
 
   enemy_data.spawn("schmuck", 600, 600)
   enemy_data.spawn("schmuck", 300, 800)
+
+  enemy_data.spawn("fodder", 400, 600)
+  enemy_data.spawn("fodder", 200, 600)
+
 end
 
 return dungeon

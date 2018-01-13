@@ -1,15 +1,12 @@
 math = require 'math'
 
--- Framework Requirements
-require("core/Stackhelper")
-require("core/Resources")
-
 baton = require 'lib/baton/baton' -- the baton player_input library https://github.com/tesselode/baton
 anim8 = require 'lib/anim8/anim8' -- anim8 animation library https://github.com/kikito/anim8
 cpml = require 'lib/cpml'-- Cirno's Perfect Math Library https://github.com/excessive/cpml (Docs: http://excessive.github.io/cpml/)
 HC = require 'lib/HC' -- General purpose collision detection library for the use with LÖVE. https://github.com/vrld/HC (Docs: http://hc.readthedocs.org)
 lovetoys = require('lib/lovetoys/lovetoys') -- Entity-Componet System https://github.com/Lovetoys/lovetoys
 class = require 'lib/middleclass/middleclass' -- OOP https://github.com/kikito/middleclass
+moonshine = require 'lib/moonshine/'
 
 --require 'lib/autobatch/autobatch'                 -- autobatch automatic SpriteBatch https://github.com/rxi/autobatch
 -- nice scaling for pixel graphics (might be fixed in git version?) https://github.com/SystemLogoff/lovePixel
@@ -23,20 +20,27 @@ collision = require "collision"
 controls = require "controls"
 dungeon = require "dungeon"
 doodad = require "doodad"
+film = require "film"
 idcounter = require "idcounter"
 image = require "image"
-mob = require "mob"
-enemy = require "enemy"
+image.init()
+animation = require "animation"
+animation.init()
+main_menu = require "main_menu"
+mob = require "enemies/mob"
+enemy = require "enemies/enemy"
 player = require "player"
 room = require "room"
 shot = require "shot"
 timer = require "timer"
-menu = require "menu"
+pause = require "pause"
+play = require "play"
 sound = require "sound"
+state = require "state"
 weapon = require "weapon"
 
 doodad_data = require "doodad_data"
-enemy_data = require "enemy_data"
+enemy_data = require "enemies/enemy_data"
 shot_data = require "shot_data"
 
 require "lib/a-star-lua/a-star"

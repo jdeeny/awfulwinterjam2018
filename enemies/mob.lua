@@ -6,9 +6,14 @@ function mob:initialize()
 end
 
 function mob:draw()
-  love.graphics.draw(image[self.sprite], camera.view_x(self), camera.view_y(self), self.rot, 1, 1,
-    image[self.sprite]:getWidth()/2, image[self.sprite]:getHeight()/2)
-  
+  if self.animation == nil then
+    love.graphics.draw(image[self.sprite], camera.view_x(self), camera.view_y(self), self.rot, 1, 1,
+      image[self.sprite]:getWidth()/2, image[self.sprite]:getHeight()/2)
+  else
+    self.animation:draw(image[self.sprite], camera.view_x(self), camera.view_y(self), self.rot, 1, 1,
+      64/2, 72/2)
+  end
+
   if self.equipped_items then
     for _ , x in pairs(self.equipped_items) do
       x:draw() 
@@ -36,6 +41,13 @@ function mob:update_position(dt)
   self.x = mx
   self.y = my
 end
+
+function mob:update_animation(dt)
+  if self.animation ~= nil then
+    self.animation:update(dt)
+  end
+end
+
 
 function mob:take_damage(n)
   if self.hp then

@@ -2,7 +2,7 @@
 
 local player = mob:new()
 
-player.sprite = "dude"
+player.sprite = "tesla_se"
 player.speed = 300
 player.radius = 20
 player.max_hp = 100
@@ -10,10 +10,12 @@ player.hp = 100
 player.next_shot_time = 0
 player.shot_delay = 0.1
 player.shot_speed = 800
+player.animation = animation.tesla_run_se
 
 local mousemoved = false
 
 function player.update(dt)
+  player.animation:update(dt)
   local move_x, move_y = player_input:get('move')
 
   local DEADBAND = 0.2
@@ -28,7 +30,7 @@ function player.update(dt)
   end
 
   player:update_position(dt)
-  
+
   -- get aiming vector
   local aim_x, aim_y = player_input:get('aim')
 
@@ -42,11 +44,11 @@ function player.update(dt)
 
   -- rotate to direction we're aiming. if the mouse has moved, face the mouse
   -- position, otherwise update the rotation from keyboard and gamepad
-  local r, theta
+  -- default values for r, theta cover cases when no input has been received
+  local r, theta = 0,0
   if aim_x ~= 0 or aim_y ~= 0 then
     love.mouse.setVisible(false)
     r, theta = cpml.vec2.to_polar(cpml.vec2.new(aim_x, aim_y))
-    player.rot = theta
   elseif mousemoved then
     love.mouse.setVisible(true)
     mousemoved = false
@@ -55,17 +57,16 @@ function player.update(dt)
     pvec = cpml.vec2.new(player.x-camera.x, player.y-camera.y)
     mvec = cpml.vec2.new(mx, my)
     r, theta = cpml.vec2.to_polar(mvec-pvec)
-    player.rot = theta
   end
+  
+  player.aim = theta
 
   -- player actions
   if player_input:down('fire') and player.equipped_items['weapon'] then
     player.equipped_items['weapon']:fire()
   end
   player.equipped_items['weapon']:update(dt)
-  
 
-  
   -- check if we're standing on a doodad
   for _,z in pairs(doodads) do
     if collision.aabb_aabb(player, z) then

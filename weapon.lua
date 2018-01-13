@@ -4,7 +4,9 @@ item = require "item"
 cpml = require 'lib/cpml'
 lovelightning = require "lib/lovelightning/lovelightning"
 camera = require "camera"
-weapon = {}
+
+local weapon = {}
+
 -------------------------------------------------------------------------------
 local Weapon = class("Weapon", item.Item)
 
@@ -23,9 +25,7 @@ end
 
 function Weapon:fire()
   if not self.next_shot_time or game_time > self.next_shot_time then
-
     self:_fire(self:_aquire_targets())
-
     self.next_shot_time = game_time + self.firing_rate
   end
 end
