@@ -28,7 +28,7 @@ animation = require "animation"
 animation.init()
 main_menu = require "main_menu"
 mob = require "mob"
-enemy = require "enemy"
+enemy = require "enemies/enemy"
 player = require "player"
 room = require "room"
 shot = require "shot"
@@ -40,7 +40,7 @@ state = require "state"
 weapon = require "weapon"
 
 doodad_data = require "doodad_data"
-enemy_data = require "enemy_data"
+enemy_data = require "enemies/enemy_data"
 shot_data = require "shot_data"
 
 require "lib/a-star-lua/a-star"
