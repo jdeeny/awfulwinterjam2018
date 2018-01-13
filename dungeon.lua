@@ -6,6 +6,7 @@ function dungeon.move_to_room(rx, ry, from_dir)
   enemy_count = 0
   shots = {}
   doodads = {}
+  sparks = {}
 
   current_room = room:new()
   current_room:init(20, 16)

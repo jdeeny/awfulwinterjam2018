@@ -41,10 +41,12 @@ shot = require "shot"
 timer = require "timer"
 sound_manager = require "sound_manager"
 state = require "state"
+spark = require "spark"
 weapon = require "weapon"
 
 doodad_data = require "doodad_data"
 enemy_data = require "enemies/enemy_data"
 shot_data = require "shot_data"
+spark_data = require "spark_data"
 
 require "lib/a-star-lua/a-star"

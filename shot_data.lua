@@ -33,6 +33,11 @@ shot_data["bullet"] =
     if hit and hit[1] == "enemy" then
       enemies[hit[2]]:take_damage(self.damage)
     end
+    for i = 1, 6 do
+      angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
+      speed = 200 + 1800 * love.math.random()
+      spark_data.spawn("spark", {250, 200, 30}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
+    end
     self:die()
   end,
 }

@@ -66,6 +66,7 @@ function new_game()
   enemy_count = nil
   shots = nil
   doodads = nil
+  sparks = nil
 
   current_dungeon = dungeon:new()
   current_dungeon:init(5, 4)
