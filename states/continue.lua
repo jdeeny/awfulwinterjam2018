@@ -21,7 +21,7 @@ function continue.update(dt)
 	if player_input:pressed('fire') or player_input:pressed('sel') then
     	game_state = 'main_menu'
     	fade.state = nil
-	elseif player_input:pressed('quit') or player_input:pressed('back') then
+	elseif player_input:pressed('quit') then
 		love.event.push("quit")
 	end
 end
@@ -31,7 +31,7 @@ function continue.draw()
 	love.graphics.setFont(continue.font)
 
 
-	local text = "You Have Died!\n\nPress Spacebar to Continue\nPress Escape to Quit"
+	local text = "You Have Died!\n\nPress Spacebar to Continue\nPress Q to Quit"
 	local th = continue.font:getHeight()*3
 
 	love.graphics.printf(text, 0, love.graphics.getHeight()/2-th/2,
