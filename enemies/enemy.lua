@@ -15,7 +15,7 @@ function enemy:update(dt)
     if playerloc:dist(meloc) <= 10 then
       if game_time >= self.next_attack or 0 then
         -- attack
-        player:be_attacked(10)
+        player:be_attacked(10, math.atan2(player.y - self.y, player.x - self.x))
         self.next_attack = game_time + .4 + love.math.random(.1)
       end
     end

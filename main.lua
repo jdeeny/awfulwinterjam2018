@@ -39,8 +39,11 @@ function new_game()
   player.facing_east = false
   player.speed = 300
   player.radius = 20
-  player.max_hp = 100
-  player.hp = 100
+  player.max_hp = 30
+  player.hp = 30
+  player.stun = nil
+  player.dying = false
+  player.iframe_end_time = 0
   player.next_shot_time = 0
   player.shot_delay = 0.1
   player.shot_speed = 800
