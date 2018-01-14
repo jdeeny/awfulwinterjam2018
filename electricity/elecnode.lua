@@ -1,6 +1,8 @@
 local ElecNode = class("ElecNode")
 
-function ElecNode:initialize()
+function ElecNode:initialize(x, y)
+  self.x = x
+  self.y = y
   self.charge = 0.0
   self.autocharge = 0.0
   self.arcs = 0.5 -- average arcs per second
@@ -26,9 +28,13 @@ function ElecNode:setAutocharge(chargepersec)
   return self
 end
 
+function ElectricSim:nodesinradius(radius)
+  return ElectricSim.nodesincircle(self.x, self.y, radius)
+end
+
+
 -- Try to find a nearby node to arc to
 function ElecNode:attemptArc()
-  for id, n in electricity.nodes , electricityfindNearby
 end
 
 
