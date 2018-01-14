@@ -1,6 +1,7 @@
 local ElecNode = class("ElecNode")
 
 function ElecNode:initialize(x, y)
+  self.sim = electricity --hardcoded for simplicity
   self.x = x
   self.y = y
   self.charge = 0.0
@@ -28,13 +29,19 @@ function ElecNode:setAutocharge(chargepersec)
   return self
 end
 
-function ElectricSim:nodesinradius(radius)
-  return ElectricSim.nodesincircle(self.x, self.y, radius)
+function ElecNode:nodesinradius(radius)
+  return self.sim:nodesincircle(self.x, self.y, radius)
 end
 
 
 -- Try to find a nearby node to arc to
 function ElecNode:attemptArc()
+  local nodes = self:nodesinradius(radius)
+  if #nodes > 0 then
+    local target = nodes[math.random(#nodes)]
+  else
+    return
+  end
 end
 
 
