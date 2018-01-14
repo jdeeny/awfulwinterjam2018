@@ -128,6 +128,8 @@ function room:setup_tiles()
 end
 
 function room:draw()
+  water_effect(function()
+
   local kind
   for gx = 1, self.width do
     for gy = 1, self.height do
@@ -140,6 +142,7 @@ function room:draw()
       end
     end
   end
+end)
 end
 
 return room
