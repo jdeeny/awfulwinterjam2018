@@ -21,6 +21,9 @@ function spark_data.spawn(class, color, x, y, dx, dy)
     sparks[new_id].duration = duration.start(sparks[new_id]["duration"])
   end
 
+  sparks[new_id].sprite_hwidth = image[sparks[new_id].sprite]:getWidth()/2
+  sparks[new_id].sprite_hheight = image[sparks[new_id].sprite]:getHeight()/2
+
   return new_id
 end
 
