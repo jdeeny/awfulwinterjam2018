@@ -2,6 +2,7 @@ local fade = {}
 
 function fade.draw()
   if fade.state then
+	  print(fade.alpha) -- DBG
     love.graphics.setColor(0,0,0, fade.alpha)
     love.graphics.rectangle("fill", 0, 0, window.w, window.h)
     love.graphics.setColor(255,255,255,255)

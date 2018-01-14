@@ -13,7 +13,10 @@ function play.update(dt)
     else
       mdt = dt * play.game_speed()
       game_time = game_time + mdt
-      player.update(mdt)
+	  
+	  game_flux.update(mdt)
+      
+	  player.update(mdt)
 
       for _,z in pairs(sparks) do
         z:update(mdt)
