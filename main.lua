@@ -3,7 +3,7 @@ lovetoys.initialize({globals = true, debug = true})
 
 require "requires"
 
-STATE_SPLASH, STATE_MAINMENU, STATE_FILM, STATE_PLAY, 
+STATE_SPLASH, STATE_MAINMENU, STATE_FILM, STATE_PLAY,
     STATE_PAUSE, STATE_DEATH, STATE_CONTINUE, STATE_WIN = 0,1,2,3,4,5,6,7
 
 gamestates = {[0]=splash, [1]=mainmenu, [2]=film, [3]=play,
@@ -19,7 +19,8 @@ function love.load()
   image.init()
   animation.init()
   audiomanager = AudioManager:new()
-  
+  electricity = ElectricSim:new()
+
   new_game()
 
   player_input, menu_input = controls.init()

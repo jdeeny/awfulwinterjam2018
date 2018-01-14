@@ -5,6 +5,12 @@ function ElectricSim:initialize()
   self.count = 0
 end
 
+function ElectricSim:update(dt)
+  for _, n in pairs(self.nodes) do
+    n.update(dt)
+  end
+end
+
 function ElectricSim:addNode(node)
   self.count = self.count + 1
   self.nodes[self.count] = node
