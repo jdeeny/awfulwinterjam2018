@@ -7,6 +7,7 @@ function dungeon.move_to_room(rx, ry, from_dir)
   shots = {}
   doodads = {}
   sparks = {}
+  spawner.reset()
 
   current_room = room:new()
   current_room:init(20, 16)
@@ -40,7 +41,6 @@ function dungeon.move_to_room(rx, ry, from_dir)
   enemy_data.spawn("fodder", 400, 600)
   enemy_data.spawn("fodder", 200, 600)
 
-  spawner.reset()
   spawner.wave_data.test()
 end
 

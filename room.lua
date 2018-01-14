@@ -6,6 +6,9 @@ function room:setup_main()
     for gy = 1, self.height do
       if gx == 1 or gy == 1 or gx == self.width or gy == self.height then
         self[gx][gy].kind = "wall"
+      elseif (gx == 3 or gx == self.width - 2) and (gy == 3 or gy == self.height - 2) then
+        self[gx][gy].kind = "teleporter"
+        table.insert(spawner.teleporters, {x=gx, y=gy})
       else
         self[gx][gy].kind = "floor"
       end
@@ -63,6 +66,8 @@ function room:setup_tiles()
       self[gx][gy].tile, self[gx][gy].tile_rotation, self[gx][gy].tile_sx, self[gx][gy].tile_sy = nil, nil, nil, nil
       if kind == "floor" then
         self[gx][gy].tile = "floor"
+      elseif kind == "teleporter" then
+        self[gx][gy].tile = "teleporter"
       elseif kind == "wall" then
         -- XXX do better at picking which tile
         if gx == 1 and gy == 1 then

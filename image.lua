@@ -12,6 +12,7 @@ function image.init()
   image.wallcorner_transition = love.graphics.newImage("assets/tiles/wallStoneCTransition.png")
   image.exit_north = love.graphics.newImage("assets/tiles/exit_north.png")
   image.exit_east = love.graphics.newImage("assets/tiles/exit_east.png")
+  image.teleporter = love.graphics.newImage("assets/tiles/teleporter.png")
 
   image.bullet = love.graphics.newImage("assets/sprites/bullet.png")
 
