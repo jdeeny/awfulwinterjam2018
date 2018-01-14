@@ -1,47 +1,54 @@
-local moonshine = require('lib/moonshine')
-local moonwater = function(moonshine)
+local moonwater = function()
   local shader = love.graphics.newShader[[
-    extern Image watertex;
+    extern Image watermask;
     extern float time;
-    extern vec4 darkColor;
+    extern vec2 mapoffset;
     vec4 effect(vec4 color, Image texture, vec2 tc, vec2 sc) {
-      tc = sc.xy / love_ScreenSize.xy;
 
-       float x = ( sin( time + 25 * tc.x + 30 * tc.y)
-                 + sin(-time + 20 * tc.x + 35 * tc.y + 1)
+      float timex = time * 3;
+
+      vec2 mapc = (sc.xy + mapoffset) / love_ScreenSize.xy;
+
+       float x = ( sin( timex + 25 * mapc.x + 30 * mapc.y)
+                 + sin(-timex + 20 * mapc.x + 35 * mapc.y + 1)
                  ) / 2;
-       float y = ( sin( time + 25 * tc.x + 30 * tc.y)
-                 + sin(-time + 16 * tc.x + 3 * tc.y + 1.5)
+       float y = ( sin( timex + 25 * mapc.x + 30 * mapc.y)
+                 + sin(-timex + 16 * mapc.x + 3 * mapc.y + 1.5)
                  ) / 2;
 
        vec2 off = vec2(x,y) * 0.08 + 1;
-       vec2 wc  = 3 * (tc + 0.15 * off);
+       vec2 wc  = 3 * (mapc + 0.15 * off);
 
-       vec4 light = Texel(watertex, wc);
-       vec4 dark  = Texel(watertex, wc + 0.3);
+       wc = wc * 3;
 
-       return mix(mix(color, color * 0.9, dark), color * 2.2, light);
+       vec4 light = Texel(watermask, wc);
+       vec4 dark  = Texel(watermask, wc + 0.3);
+       vec4 base = Texel(texture, tc);
+       vec4 mask = mix(mix(color, color * 0.9, dark), color * 2.2, light);
+       return base * mask;
     }]]
 
   local setters = {}
 
-  setters.watertex = function(v)
-    shader:send("watertex", v)
+  setters.watermask = function(v)
+    shader:send("watermask", v)
   end
-  setters.darkcolor = function(v)
-    shader:send("darkcolor", math.min(1, math.max(0, tonumber(v) or 0)))
+  setters.time = function(v)
+    shader:send("time", v)
+  end
+  setters.mapoffset = function(v)
+    shader:send("mapoffset", v)
   end
 
-  local draw = function(buffer)
-    shader:send("time", game_time)
-    moonshine.draw_shader(buffer, shader)
-  end
+  --setters.darkcolor = function(v)
+    --shader:send("darkcolor", math.min(1, math.max(0, tonumber(v) or 0)))
+  --end
 
   return moonshine.Effect{
-    name = "water",
-    draw = draw,
+    name = "moonwater",
+    shader = shader,
     setters = setters,
-    defaults = {watertex = nil, darkcolor = {50,50,50}}
+    defaults = { watermask = image.watermask, time = 0.0, mapoffset = {0,0} },
   }
 end
 

@@ -61,6 +61,7 @@ spark_data = require "spark_data"
 
 moonwater = require 'water'
 water_effect = moonshine(moonwater)
-print(water_effect)
+water_effect.moonwater.watermask = image['watermask']
+--water_effect.moonwater.waterbase = image['waterbase']
 
 require "lib/a-star-lua/a-star"

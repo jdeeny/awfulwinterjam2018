@@ -65,7 +65,11 @@ function room:setup_tiles()
       kind = self[gx][gy].kind
       self[gx][gy].tile, self[gx][gy].tile_rotation, self[gx][gy].tile_sx, self[gx][gy].tile_sy = nil, nil, nil, nil
       if kind == "floor" then
-        self[gx][gy].tile = "floor"
+        if math.random() < 0.1 then
+          self[gx][gy].tile = "water"
+        else
+          self[gx][gy].tile = "floor"
+        end
       elseif kind == "teleporter" then
         self[gx][gy].tile = "teleporter"
       elseif kind == "wall" then
@@ -128,21 +132,29 @@ function room:setup_tiles()
 end
 
 function room:draw()
-  water_effect(function()
-
   local kind
   for gx = 1, self.width do
     for gy = 1, self.height do
       if gx * TILESIZE - camera.x > -TILESIZE and gx * TILESIZE - camera.x < window.w and
           gy * TILESIZE - camera.y > -TILESIZE and gy * TILESIZE - camera.y < window.h then
         if self[gx][gy].tile then
-          love.graphics.draw(image[self[gx][gy].tile], (gx + 0.5) * TILESIZE - camera.x, (gy + 0.5) * TILESIZE - camera.y,
-            self[gx][gy].tile_rotation or 0, self[gx][gy].tile_sx or 1, self[gx][gy].tile_sy or 1, TILESIZE / 2, TILESIZE / 2)
+          if self[gx][gy].tile == "water" then
+            water_effect.moonwater.time = game_time
+            water_effect.moonwater.mapoffset = { camera.x, camera.y }
+            water_effect(function()
+              love.graphics.setBackgroundColor({0,0,0,0})
+              love.graphics.draw(image[self[gx][gy].tile], (gx + 0.5) * TILESIZE - camera.x, (gy + 0.5) * TILESIZE - camera.y,
+                self[gx][gy].tile_rotation or 0, self[gx][gy].tile_sx or 1, self[gx][gy].tile_sy or 1, TILESIZE / 2, TILESIZE / 2)
+            end)
+            love.graphics.setBackgroundColor({0,0,0,255})
+          else
+            love.graphics.draw(image[self[gx][gy].tile], (gx + 0.5) * TILESIZE - camera.x, (gy + 0.5) * TILESIZE - camera.y,
+              self[gx][gy].tile_rotation or 0, self[gx][gy].tile_sx or 1, self[gx][gy].tile_sy or 1, TILESIZE / 2, TILESIZE / 2)
+          end
         end
       end
     end
   end
-end)
 end
 
 return room
