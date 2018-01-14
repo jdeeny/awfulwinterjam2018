@@ -9,7 +9,7 @@ function death.update()
 end
 
 function death.draw()
-	fade.draw(gui_time)
+	fade.draw()
 end
 
 return death

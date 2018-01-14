@@ -46,9 +46,9 @@ function play.draw()
   for _,z in pairs(sparks) do
     z:draw()
   end
-	for _,z in pairs(doodads) do
-	   z:draw()
-   end
+  for _,z in pairs(doodads) do
+     z:draw()
+  end
   for _,z in pairs(enemies) do
     z:draw()
   end
@@ -58,7 +58,7 @@ function play.draw()
 
   player:draw()
 
-  fade.draw(game_time)
+  fade.draw()
 
   timer.draw()
   player:draw_hp()
