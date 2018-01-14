@@ -14,6 +14,7 @@ end
 
 function fade.start_fade(state, time, gui_based, end_function)
   local tween, target
+  
   fade.state = state
   
   if fade.state == "fadein" then
