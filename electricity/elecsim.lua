@@ -5,8 +5,8 @@ function ElectricSim:initialize()
   self.count = 0
 
 
-  local n1 = TileElecNode:new(image['chargemap'], 50, 50):setAutocharge(0.5)
-  local n2 = TileElecNode:new(image['chargemap'], 150, 150):setAutocharge(-0.5)
+  local n1 = TileElecNode:new(image['chargemap'], 2, 2):setAutocharge(0.5)
+  local n2 = TileElecNode:new(image['chargemap'], 5, 5):setAutocharge(-0.5)
 
   self:addNode(n1)
   self:addNode(n2)
@@ -30,7 +30,7 @@ function ElectricSim:removeNode(node)
 end
 
 function ElectricSim:nodesincircle(x, y, radius)
-  local p1 = cpml.vec2:new(x, y)
+  local p1 = cpml.vec2.new(x, y)
   local nodes = {}
 --[[  for id, n in pairs(self.nodes) do
     local p2 = cpml.vec2:new(n.x, n.y)
