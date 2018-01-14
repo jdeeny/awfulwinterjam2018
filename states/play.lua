@@ -57,11 +57,10 @@ function play.draw()
   end
 
   player:draw()
-
-  fade.draw()
-
-  timer.draw()
-  player:draw_hp()
+   
+  hud:draw()
+  fade:draw()
+  
 end
 
 function play.game_speed()

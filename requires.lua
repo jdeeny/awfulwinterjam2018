@@ -10,7 +10,7 @@ lovetoys = require('lib/lovetoys/lovetoys') -- Entity-Componet System https://gi
 class = require 'lib/middleclass/middleclass' -- OOP https://github.com/kikito/middleclass
 moonshine = require 'lib/moonshine/'
 gui_flux = require 'lib/flux/flux'  -- Simple tweening system https://github.com/rxi/flux
-game_flux = require 'lib/flux/flux'  -- Flux as above using game time units
+game_flux = require 'lib/flux/flux'  -- Flux as above, but using game time units
 
 --require 'lib/autobatch/autobatch'                 -- autobatch automatic SpriteBatch https://github.com/rxi/autobatch
 -- nice scaling for pixel graphics (might be fixed in git version?) https://github.com/SystemLogoff/lovePixel
@@ -35,6 +35,7 @@ grid = require "grid"
 dungeon = require "dungeon"
 doodad = require "doodad"
 fade = require "fade"
+hud = require "hud"
 idcounter = require "idcounter"
 image = require "image"
 image.init()
