@@ -58,7 +58,7 @@ function new_game()
 
   game_time = 0
   player:start_force_move(10, player.speed, 0)
-  fade.start_fade("fadein", 0.7, true, function() player:end_force_move() end)
+  fade.start_fade("fadein", 1.0, true, function() player:end_force_move() end)
 end
 
 --]]
