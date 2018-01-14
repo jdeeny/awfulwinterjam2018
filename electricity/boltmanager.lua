@@ -10,6 +10,7 @@ function BoltManager:add(source, target, intensity, time)
   bolt.lightning = LoveLightning:new(255, 255, 255, intensity)
   bolt.lightning:setSource(source)
   bolt.lightning:setPrimaryTarget(target)
+  bolt.lightning:create()
   bolt.id = self.count
   bolt.timeout = game_time + time
   self.count = self.count + 1

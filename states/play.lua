@@ -60,6 +60,7 @@ function play.draw()
   end
 
   player:draw()
+  electricity:draw()
 
   hud:draw()
 
