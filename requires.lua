@@ -50,6 +50,7 @@ weapon = require "weapon"
 
 PooledSource = require "audio/pooledsource"
 AudioManager = require "audio/audiomanager"
+LoopedAudio = require "audio/loopedaudio"
 
 doodad_data = require "doodad_data"
 enemy_data = require "enemies/enemy_data"
