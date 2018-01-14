@@ -32,13 +32,13 @@ end
 function ElectricSim:nodesincircle(x, y, radius)
   local p1 = cpml.vec2.new(x, y)
   local nodes = {}
---[[  for id, n in pairs(self.nodes) do
-    local p2 = cpml.vec2:new(n.x, n.y)
+  for id, n in pairs(self.nodes) do
+    local p2 = cpml.vec2.new(n.x, n.y)
     if p1:dist(p2) <= radius then
       nodes[id] = n
     end
   end
-]]
+
   return nodes
 end
 
