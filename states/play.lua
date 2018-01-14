@@ -59,6 +59,7 @@ function play.draw()
   player:draw()
    
   hud:draw()
+  
   fade:draw()
 end
 
