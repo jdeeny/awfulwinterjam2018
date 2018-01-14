@@ -2,33 +2,38 @@ local fade = {}
 
 function fade.draw()
   if fade.state then
-    if fade.state == "fadein" then
-      alpha = 255 - 255 * fade.duration:t()
-    else
-      alpha = 255 * fade.duration:t()
-    end
-    love.graphics.setColor(0,0,0, alpha)
+    love.graphics.setColor(0,0,0, fade.alpha)
     love.graphics.rectangle("fill", 0, 0, window.w, window.h)
     love.graphics.setColor(255,255,255,255)
-
-    if fade.duration:finished() then
-      fade.state = nil
-      fade.duration = nil
-      if fade.end_function then
-        fade.end_function()
-      end
-    end
   end
 end
 
+function fade.finish()
+  fade.state = nil
+end
+
 function fade.start_fade(state, time, gui_based, end_function)
+  local end_fn, tween, target
   fade.state = state
-  fade.duration = duration.start(time, gui_based)
-  if end_function then
-    fade.end_function = end_function
+  
+  if fade.state == "fadein" then
+	  fade.alpha = 255
+	  target = 0
   else
-    fade.end_function = nil
+	  fade.alpha = 0
+	  target = 255
   end
+
+  if gui_based then
+  	tween = gui_flux.to(fade, time, {alpha = target}):oncomplete(fade.finish)
+  else
+	tween = game_flux.to(fade, time, {alpha = target}):oncomplete(fade.finish)
+  end
+  
+  if end_function then
+	  tween:oncomplete(end_function)
+  end
+ 
 end
 
 return fade

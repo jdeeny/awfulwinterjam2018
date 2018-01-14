@@ -34,6 +34,7 @@ end
 
 function love.update(dt)
   gui_time = love.timer.getTime()
+  gui_flux.update(gui_time)
   gamestates[state].update(dt)
 end
 

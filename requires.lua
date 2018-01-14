@@ -9,6 +9,8 @@ HC = require 'lib/HC' -- General purpose collision detection library for the use
 lovetoys = require('lib/lovetoys/lovetoys') -- Entity-Componet System https://github.com/Lovetoys/lovetoys
 class = require 'lib/middleclass/middleclass' -- OOP https://github.com/kikito/middleclass
 moonshine = require 'lib/moonshine/'
+gui_flux = require 'lib/flux/flux'  -- Simple tweening system https://github.com/rxi/flux
+game_flux = require 'lib/flux/flux'  -- Flux as above using game time units
 
 --require 'lib/autobatch/autobatch'                 -- autobatch automatic SpriteBatch https://github.com/rxi/autobatch
 -- nice scaling for pixel graphics (might be fixed in git version?) https://github.com/SystemLogoff/lovePixel
