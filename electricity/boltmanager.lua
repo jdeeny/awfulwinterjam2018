@@ -18,12 +18,14 @@ function BoltManager:add(source, target, intensity, time)
 end
 
 function BoltManager:update(dt)
-  if math.random() < 0.001 * dt then
+  if math.random() < (5.0 * dt) then
+    print("added")
     self:add(cpml.vec2.new(math.random() * 500, math.random() * 500),
               cpml.vec2.new(math.random() * 500, math.random() * 500),
               math.random(),
               math.random() * 1 + 1)
   end
+
   for id, b in pairs(self.bolts) do
     if b.timeout < game_time then
       self.bolts[id] = nil
