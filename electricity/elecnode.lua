@@ -36,9 +36,12 @@ end
 
 -- Try to find a nearby node to arc to
 function ElecNode:attemptArc()
-  local nodes = self:nodesinradius(radius)
-  --if #nodes = 0 then return end
-  --local target = nodes[math.random(#nodes)]
+  local nodes = self:nodesinradius(100)
+  if #nodes == 0 then return end
+  local target = nodes[math.random(#nodes)]
+  if target == self then print "!!" end
+  print("x")
+  print(target)
 end
 
 
