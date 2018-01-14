@@ -19,6 +19,7 @@ function love.load()
   image.init()
   animation.init()
   audiomanager = AudioManager:new()
+  electricity = ElectricSim:new()
 
   new_game()
 

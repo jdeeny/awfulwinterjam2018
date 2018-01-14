@@ -34,8 +34,8 @@ function play.update(dt)
       camera.update(mdt)
       timer.update()
 
-      delay.process()
-      water.update(mdt)
+      delay.process()      water.update(mdt)
+      electricity:update()
     end
 end
 
