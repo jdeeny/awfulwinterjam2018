@@ -9,6 +9,8 @@ HC = require 'lib/HC' -- General purpose collision detection library for the use
 lovetoys = require('lib/lovetoys/lovetoys') -- Entity-Componet System https://github.com/Lovetoys/lovetoys
 class = require 'lib/middleclass/middleclass' -- OOP https://github.com/kikito/middleclass
 moonshine = require 'lib/moonshine/'
+gui_flux = require 'lib/flux/flux'  -- Simple tweening system https://github.com/rxi/flux
+game_flux = require 'lib/flux/flux'  -- Flux as above, but using game time units
 
 --require 'lib/autobatch/autobatch'                 -- autobatch automatic SpriteBatch https://github.com/rxi/autobatch
 -- nice scaling for pixel graphics (might be fixed in git version?) https://github.com/SystemLogoff/lovePixel
@@ -33,6 +35,7 @@ grid = require "grid"
 dungeon = require "dungeon"
 doodad = require "doodad"
 fade = require "fade"
+hud = require "hud"
 idcounter = require "idcounter"
 image = require "image"
 image.init()
@@ -43,17 +46,18 @@ enemy = require "enemies/enemy"
 player = require "player"
 spawner = require "enemies/spawner"
 room = require "room"
-shot = require "shot"
 timer = require "timer"
 spark = require "spark"
-weapon = require "weapon"
+
+weapon = require "weapons/weapon"
+shot = require "weapons/shot"
 
 PooledSource = require "audio/pooledsource"
 AudioManager = require "audio/audiomanager"
 
 doodad_data = require "doodad_data"
 enemy_data = require "enemies/enemy_data"
-shot_data = require "shot_data"
+shot_data = require "weapons/shot_data"
 spark_data = require "spark_data"
 
 require "lib/a-star-lua/a-star"

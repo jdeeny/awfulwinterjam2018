@@ -13,7 +13,10 @@ function play.update(dt)
     else
       mdt = dt * play.game_speed()
       game_time = game_time + mdt
-      player.update(mdt)
+	  
+	  game_flux.update(mdt)
+      
+	  player.update(mdt)
 
       for _,z in pairs(sparks) do
         z:update(mdt)
@@ -43,9 +46,9 @@ function play.draw()
   for _,z in pairs(sparks) do
     z:draw()
   end
-	for _,z in pairs(doodads) do
-	   z:draw()
-   end
+  for _,z in pairs(doodads) do
+     z:draw()
+  end
   for _,z in pairs(enemies) do
     z:draw()
   end
@@ -54,11 +57,10 @@ function play.draw()
   end
 
   player:draw()
-
-  fade.draw(game_time)
-
-  timer.draw()
-  player:draw_hp()
+   
+  hud:draw()
+  
+  fade:draw()
 end
 
 function play.game_speed()

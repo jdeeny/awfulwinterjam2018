@@ -34,6 +34,7 @@ end
 
 function love.update(dt)
   gui_time = love.timer.getTime()
+  gui_flux.update(dt)
   gamestates[state].update(dt)
 end
 
@@ -57,7 +58,8 @@ function new_game()
 
   game_time = 0
   player:start_force_move(10, player.speed, 0)
-  fade.start_fade("fadein", 0.5, true, function() player:end_force_move() end)
+
+  fade.start_fade("fadein", 1.0, true, function() player:end_force_move() end)
 end
 
 --]]

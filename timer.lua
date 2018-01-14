@@ -1,9 +1,6 @@
 os = require "os"
 
-local timer = {
-	font = love.graphics.newFont(
-		'assets/fonts/babes-in-toyland-nf/BabesInToylandNF.ttf', 50),
-}
+local timer = {}
 
 local deadline = os.time({year=2018,month=1,day=21,hour=22,min=59,sec=59})
 
@@ -57,9 +54,8 @@ function timer.update()
 
 end
 
-function timer.draw()
-	love.graphics.setFont(timer.font)
-	love.graphics.print(timeStamp, 500, 0)
+function timer.draw(xloc, yloc)
+	love.graphics.print(timeStamp, xloc, yloc)
 end
 
 return timer

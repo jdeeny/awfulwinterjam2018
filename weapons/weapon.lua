@@ -41,6 +41,7 @@ function ProjectileGun:initialize()
   Weapon.initialize(self)
   self.shot_speed = 800
   self.sound = "snap"
+  self.icon = "gun_icon"
 end
 
 
@@ -65,6 +66,7 @@ function LightningGun:initialize()
   self.damage = 100
   self.firing_rate = 0.1
   -- self.sound = "tesla_coil_long"
+  self.icon = "lightning_icon"
 end
 
 function LightningGun:_aquire_targets()

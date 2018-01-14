@@ -49,7 +49,7 @@ function continue.draw()
 	love.graphics.setFont(love.graphics.newFont()) --reset to default
 	love.graphics.setShader()
 
-	fade.draw(gui_time)
+	fade.draw()
 end
 
 return continue
