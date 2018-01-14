@@ -11,7 +11,6 @@ class = require 'lib/middleclass/middleclass' -- OOP https://github.com/kikito/m
 moonshine = require 'lib/moonshine/'
 gui_flux = require 'lib/flux/flux'  -- Simple tweening system https://github.com/rxi/flux
 game_flux = require 'lib/flux/flux'  -- Flux as above, but using game time units
-
 --require 'lib/autobatch/autobatch'                 -- autobatch automatic SpriteBatch https://github.com/rxi/autobatch
 -- nice scaling for pixel graphics (might be fixed in git version?) https://github.com/SystemLogoff/lovePixel
 -- interesting text library that allows control per letter https://github.com/mzrinsky/popo https://github.com/EntranceJew/popo
@@ -59,5 +58,7 @@ doodad_data = require "doodad_data"
 enemy_data = require "enemies/enemy_data"
 shot_data = require "weapons/shot_data"
 spark_data = require "spark_data"
+
+water = require 'water'
 
 require "lib/a-star-lua/a-star"
