@@ -19,7 +19,10 @@ function love.load()
   image.init()
   animation.init()
   audiomanager = AudioManager:new()
+<<<<<<< ab6f48649a9364f5053d4aeefa056832280b3ad6
   electricity = ElectricSim:new()
+=======
+>>>>>>> Spawn enemies from "doors"
 
   new_game()
 
@@ -57,11 +60,8 @@ function new_game()
   dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
 
   game_time = 0
-  player.start_force_move(player.speed, 0)
-  fade.start_fade("fadein", 0.5, true,
-            function()
-              player.end_force_move()
-            end)
+  player:start_force_move(10, player.speed, 0)
+  fade.start_fade("fadein", 0.5, true, function() player:end_force_move() end)
 end
 
 --]]

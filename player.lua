@@ -144,16 +144,6 @@ function player.be_invincible(duration)
   player.iframe_end_time = game_time + duration
 end
 
-function player.start_force_move(dx, dy)
-  player.force_move = {}
-  player.force_move.dx = dx
-  player.force_move.dy = dy
-end
-
-function player.end_force_move()
-  player.force_move = nil
-end
-
 function player:draw_hp()
 	--love.graphics.setFont(timer.font)
 	love.graphics.print(self.hp, 725, 525)

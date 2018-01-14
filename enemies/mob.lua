@@ -26,6 +26,10 @@ function mob:update_position(dt)
     -- ignore everything else and just go
     self.x = self.x + self.force_move.dx * dt
     self.y = self.y + self.force_move.dy * dt
+
+    if self.force_move.duration:finished() then
+      self.force_move = nil
+    end
   else
     if self.stun then
       if not self.stun.duration:finished() then
@@ -101,6 +105,15 @@ end
 function mob:be_stunned(dur, dx, dy)
   self.stun = {duration = duration.start(dur),
                   dx = dx or 0, dy = dy or 0}
+end
+
+function mob:start_force_move(dur, dx, dy)
+  self.force_move = {duration = duration.start(dur),
+                  dx = dx or 0, dy = dy or 0}
+end
+
+function mob:end_force_move()
+  self.force_move = nil
 end
 
 function mob:equip(id, item)
