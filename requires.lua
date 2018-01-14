@@ -58,7 +58,7 @@ spark_data = require "spark_data"
 
 require "lib/a-star-lua/a-star"
 
+ElectricSim = require "electricity/elecsim"
 ElecNode = require "electricity/elecnode"
 TileElecNode = require "electricity/tileelecnode"
 MobElecNode = require "electricity/mobelecnode"
-ElectricSim = require "electricity/elecsim"
