@@ -3,7 +3,7 @@ local ElectricSim = class("ElectricSim")
 function ElectricSim:initialize()
   self.nodes = {}
   self.count = 0
-
+  self.boltmanager = BoltManager:new()
 
   local n1 = TileElecNode:new(image['chargemap'], 2, 2):setAutocharge(0.5)
   local n2 = TileElecNode:new(image['chargemap'], 5, 5):setAutocharge(-0.5)
@@ -16,6 +16,11 @@ function ElectricSim:update(dt)
   for _, n in pairs(self.nodes) do
     n:update(dt)
   end
+  self.boltmanager:update(dt)
+end
+
+function ElectricSim:draw()
+  self.boltmanager:draw()
 end
 
 function ElectricSim:addNode(node)
