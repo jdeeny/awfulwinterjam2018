@@ -95,6 +95,9 @@ function LightningGun:_fire(targets)
   
   local fired_at_targets = {}
 
+  local nodes = electricity:nodesincircle(self.owner.x, self.owner.y, self.range)
+
+        
   -- if no targets shoot straight ahead at nothing
   if not targets or #targets == 0 then
 
@@ -127,8 +130,8 @@ function LightningGun:_fire(targets)
       if i <= self.chain_targets then
         local newbolt = lovelightning:new(255,255,255)
     
-        newbolt:setForkTargets(electricity:nodesincircle(
-          last_target.x, last_target.y, range))
+        newbolt:setForkTargets(nodes)
+
 
         newbolt:setSource({x=camera.view_x(last_target), y=camera.view_y(last_target)})
         newbolt:setPrimaryTarget({x=camera.view_x(t), y=camera.view_y(t)})
