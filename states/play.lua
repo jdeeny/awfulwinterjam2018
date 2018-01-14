@@ -55,6 +55,7 @@ function play.draw()
   end
 
   player:draw()
+  electricity:draw()
 
   fade.draw(game_time)
 
