@@ -46,17 +46,18 @@ enemy = require "enemies/enemy"
 player = require "player"
 spawner = require "enemies/spawner"
 room = require "room"
-shot = require "shot"
 timer = require "timer"
 spark = require "spark"
-weapon = require "weapon"
+
+weapon = require "weapons/weapon"
+shot = require "weapons/shot"
 
 PooledSource = require "audio/pooledsource"
 AudioManager = require "audio/audiomanager"
 
 doodad_data = require "doodad_data"
 enemy_data = require "enemies/enemy_data"
-shot_data = require "shot_data"
+shot_data = require "weapons/shot_data"
 spark_data = require "spark_data"
 
 require "lib/a-star-lua/a-star"
