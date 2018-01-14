@@ -24,6 +24,7 @@ function image.init()
   image.intro = love.graphics.newImage("assets/fullscreen/silentFilmBack_template.png")
   image.gun_icon = love.graphics.newImage("assets/icons/gun.png")
   image.lightning_icon = love.graphics.newImage("assets/icons/lightning.png")
+
   image.watermask = love.graphics.newImage("assets/tiles/water/watermask.jpg")
   image.watermask:setWrap('repeat', 'repeat')
   image.water = love.graphics.newImage("assets/tiles/water/waterbase.png")
