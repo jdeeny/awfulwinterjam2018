@@ -9,7 +9,8 @@ function enemy_data.spawn(kind, x, y)
   enemies[new_id].y = y
 
   enemies[new_id].birth_time = game_time
-  enemies[new_id].wake_time = 0
+  enemies[new_id].wake_time = game_time
+  enemies[new_id].attack_time = game_time
 
   for i, v in pairs(enemy_data[kind]) do
     enemies[new_id][i] = v
