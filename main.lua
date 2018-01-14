@@ -3,7 +3,7 @@ lovetoys.initialize({globals = true, debug = true})
 
 require "requires"
 
-STATE_SPLASH, STATE_MAINMENU, STATE_FILM, STATE_PLAY, 
+STATE_SPLASH, STATE_MAINMENU, STATE_FILM, STATE_PLAY,
     STATE_PAUSE, STATE_DEATH, STATE_CONTINUE, STATE_WIN = 0,1,2,3,4,5,6,7
 
 gamestates = {[0]=splash, [1]=mainmenu, [2]=film, [3]=play,
@@ -19,7 +19,7 @@ function love.load()
   image.init()
   animation.init()
   audiomanager = AudioManager:new()
-  
+
   new_game()
 
   player_input, menu_input = controls.init()
@@ -56,11 +56,8 @@ function new_game()
   dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
 
   game_time = 0
-  player.start_force_move(player.speed, 0)
-  fade.start_fade("fadein", 0.5, true,
-            function()
-              player.end_force_move()
-            end)
+  player:start_force_move(10, player.speed, 0)
+  fade.start_fade("fadein", 0.5, true, function() player:end_force_move() end)
 end
 
 --]]

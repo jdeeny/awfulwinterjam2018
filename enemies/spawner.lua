@@ -23,12 +23,33 @@ function spawner.process()
 	end
 end
 
+function spawner.spawn_from_north_door(kind)
+	id = enemy_data.spawn(kind, current_room:pixel_width() / 2, TILESIZE * 3 - enemy_data[kind].speed)
+	enemies[id]:start_force_move(1, 0, enemies[id].speed)
+end
+
+function spawner.spawn_from_east_door(kind)
+	id = enemy_data.spawn(kind, current_room:pixel_width() - TILESIZE * 3 + enemy_data[kind].speed, current_room:pixel_height() / 2)
+	enemies[id]:start_force_move(1, -enemies[id].speed, 0)
+end
+
 spawner.wave_data = {}
 
 spawner.wave_data.test = function()
-	spawner.add(5, function() enemy_data.spawn('schmuck', 200, 600) end)
-	spawner.add(10, function() enemy_data.spawn('schmuck', 600, 200) end)
-	spawner.add(15, function() for i=1, 3 do enemy_data.spawn('schmuck', 300, 300 + 100 * i) end end)
+	spawner.add(2,
+		function()
+			spawner.spawn_from_north_door('schmuck')
+			for i = 1, 4 do
+				delay.start(0.5 * i, function() spawner.spawn_from_north_door('schmuck') end)
+			end
+		end)
+	spawner.add(5,
+		function()
+			spawner.spawn_from_east_door('fodder')
+			for i = 1, 4 do
+				delay.start(0.5 * i, function() spawner.spawn_from_east_door('fodder') end)
+			end
+		end)
 end
 
 return spawner
