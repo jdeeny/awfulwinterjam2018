@@ -29,4 +29,8 @@ function ElectricSim:removeNode(node)
   self.nodes[node.id] = nil
 end
 
+function ElectricSim.chargetodist(charge)
+  return charge * 10
+end
+
 return ElectricSim
