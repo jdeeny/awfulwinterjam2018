@@ -23,7 +23,8 @@ end
 
 function spark:draw()
   love.graphics.setColor(self.color.r, self.color.g, self.color.b, 255 - 255 * self.duration:t())
-  love.graphics.draw(image[self.sprite], camera.view_x(self), camera.view_y(self), self.r, self.sx, self.sy)
+  love.graphics.draw(image[self.sprite], camera.view_x(self), camera.view_y(self),
+    self.r or 0, self.sx or 1, self.sy or 1, self.sprite_hwidth, self.sprite_hheight)
   love.graphics.setColor(255, 255, 255, 255)
 end
 
