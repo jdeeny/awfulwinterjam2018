@@ -6,7 +6,7 @@ local DEADBAND = 0.2
 function player.init()
   player.sprite = 'tesla'
   player.facing_north = false
-  player.facing_east = false
+  player.facing_east = true
   player.speed = 300
   player.radius = 20
   player.max_hp = 40
@@ -30,7 +30,8 @@ function player.init()
   player.animations['idle_se'] = animation.tesla_idle_se
   player.animations['idle_sw'] = animation.tesla_idle_sw
   player.animations['idle_nw'] = animation.tesla_idle_sw
-  player.animation = player.animations['run_se']
+  player.animation = player.animations['run_sw']
+  player.animation_state = 'run'
 
   player.rot = 0
   player.aim = player.rot
@@ -39,100 +40,65 @@ function player.init()
 end
 
 function player.update(dt)
+  player:update_position(dt)
+
+  if not player.dying then
+    -- get aiming vector
+    local aim_x, aim_y = player_input:get('aim')
+
+    if math.abs(aim_x) < DEADBAND then
+      aim_x = 0
+    end
+
+    -- rotate to direction we're aiming. if the mouse has moved, face the mouse
+    -- position, otherwise update the rotation from keyboard and gamepad
+    if aim_x ~= 0 or aim_y ~= 0 then
+      love.mouse.setVisible(false)
+      _, player.aim = cpml.vec2.to_polar(cpml.vec2.new(aim_x, aim_y)) -- joystick angle is new aim
+    elseif mousemoved then
+      love.mouse.setVisible(true)
+      mousemoved = false
+
+      mx, my = love.mouse.getPosition()
+      pvec = cpml.vec2.new(player.x-camera.x, player.y-camera.y)
+      mvec = cpml.vec2.new(mx, my)
+      _, player.aim = cpml.vec2.to_polar(mvec-pvec) -- angle to mouse pos. is new aim
+    end
+
+    player.equipped_items['weapon']:update(dt)
+
+    if (aim_x ~= 0 or aim_y ~= 0 or player_input:down('fire')) and player.equipped_items['weapon'] then
+      player.equipped_items['weapon']:fire()
+    end
+
+    if player_input:pressed('swap') and player.equipped_items['weapon'] then
+      player.weapon_switch()
+    end
+
+    -- check if we're standing on a doodad
+    for _,z in pairs(doodads) do
+      if collision.aabb_aabb(player, z) then
+        z:trigger()
+      end
+    end
+  end
+
+  player.animation = player.animations[player.animation_state .. '_' .. player.get_facing_string(player.facing_north, player.facing_east)]
   for _, anim in pairs(player.animations) do
     anim:update(dt)
   end
+end
 
-  if player.force_move then
-    -- cutscene movement
-    player.x = player.x + player.force_move.dx * dt
-    player.y = player.y + player.force_move.dy * dt
-  else
-    if player.stun then
-      if not player.stun.duration:finished() then
-        t = 1 - player.stun.duration:t()
-        player.dx = player.stun.dx * t
-        player.dy = player.stun.dy * t
-      else
-        player.stun = nil
-      end
-      player.animation = player.animations['idle_' .. player.get_facing_string(player.facing_north, player.facing_east)]
-    elseif player.dying then
-      player.animation = player.animations['idle_' .. player.get_facing_string(player.facing_north, player.facing_east)]
-    else
-      local move_x, move_y = player_input:get('move')
+function player.update_move_controls()
+  local move_x, move_y = player_input:get('move')
 
-      player.dx = move_x > DEADBAND and player.speed or move_x < -DEADBAND and -player.speed or 0
-      player.dy = move_y > DEADBAND and player.speed or move_y < -DEADBAND and -player.speed or 0
+  player.dx = move_x > DEADBAND and player.speed or move_x < -DEADBAND and -player.speed or 0
+  player.dy = move_y > DEADBAND and player.speed or move_y < -DEADBAND and -player.speed or 0
 
-      if math.abs(player.dx) >= 0.01 or math.abs(player.dy) >= 0.01 then
-        if player.dy >= 0.01 then
-          player.facing_north = false
-        elseif player.dy <= -0.01 then
-          player.facing_north = true
-        end
-
-        if player.dx >= 0.01 then
-          player.facing_east = true
-        elseif player.dx <= -0.01 then
-          player.facing_east = false
-        end
-
-        player.animation = player.animations['run_' .. player.get_facing_string(player.facing_north, player.facing_east)]
-      else
-        player.animation = player.animations['idle_' .. player.get_facing_string(player.facing_north, player.facing_east)]
-      end
-    end
-
-    if math.abs(player.dx) >= 0.01 and math.abs(player.dy) >= 0.01 then
-      -- 1/sqrt(2)
-      player.dx = player.dx * 0.7071
-      player.dy = player.dy * 0.7071
-    end
-
-    player:update_position(dt)
-
-    if not player.dying then
-      -- get aiming vector
-      local aim_x, aim_y = player_input:get('aim')
-
-      if math.abs(aim_x) < DEADBAND then
-        aim_x = 0
-      end
-
-      -- rotate to direction we're aiming. if the mouse has moved, face the mouse
-      -- position, otherwise update the rotation from keyboard and gamepad
-
-      if aim_x ~= 0 or aim_y ~= 0 then
-        love.mouse.setVisible(false)
-        _, player.aim = cpml.vec2.to_polar(cpml.vec2.new(aim_x, aim_y)) -- joystick angle is new aim
-      elseif mousemoved then
-        love.mouse.setVisible(true)
-        mousemoved = false
-
-        mx, my = love.mouse.getPosition()
-        pvec = cpml.vec2.new(player.x-camera.x, player.y-camera.y)
-        mvec = cpml.vec2.new(mx, my)
-        _, player.aim = cpml.vec2.to_polar(mvec-pvec) -- angle to mouse pos. is new aim
-      end
-
-      player.equipped_items['weapon']:update(dt)
-
-      if (aim_x ~= 0 or aim_y ~= 0 or player_input:down('fire')) and player.equipped_items['weapon'] then
-        player.equipped_items['weapon']:fire()
-      end
-
-      if player_input:pressed('swap') and player.equipped_items['weapon'] then
-        player.weapon_switch()
-      end
-
-      -- check if we're standing on a doodad
-      for _,z in pairs(doodads) do
-        if collision.aabb_aabb(player, z) then
-          z:trigger()
-        end
-      end
-    end
+  if math.abs(player.dx) >= 0.01 and math.abs(player.dy) >= 0.01 then
+    -- 1/sqrt(2)
+    player.dx = player.dx * 0.7071
+    player.dy = player.dy * 0.7071
   end
 end
 
@@ -154,21 +120,16 @@ function player:be_attacked(damage, direction)
     if self.hp <= 0 then
       play.freezeframe(0.5)
       camera.shake(15, 1)
-      player.be_stunned(1, 1000 * math.cos(direction), 1000 * math.sin(direction))
+      player:be_stunned(1, 1000 * math.cos(direction), 1000 * math.sin(direction))
       player.be_invincible(99999)
       self.die()
     else
       play.freezeframe(0.2)
       camera.shake(5, 0.5)
-      player.be_stunned(0.5, 500 * math.cos(direction), 500 * math.sin(direction))
+      player:be_stunned(0.5, 500 * math.cos(direction), 500 * math.sin(direction))
       player.be_invincible(1)
     end
   end
-end
-
-function player.be_stunned(dur, dx, dy)
-  player.stun = {duration = duration.start(dur),
-                  dx = dx or 0, dy = dy or 0}
 end
 
 function player.weapon_switch()

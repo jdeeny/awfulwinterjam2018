@@ -32,6 +32,8 @@ shot_data["bullet"] =
   collide = function(self, hit, mx, my, mt, nx, ny)
     if hit and hit[1] == "enemy" then
       camera.bump(10)
+      angle = math.atan2(self.dy,  self.dx)
+      enemies[hit[2]]:be_stunned(0.3, 400 * math.cos(angle), 400 * math.sin(angle))
       enemies[hit[2]]:take_damage(self.damage)
     end
     for i = 1, 6 do

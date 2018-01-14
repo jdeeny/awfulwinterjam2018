@@ -22,24 +22,64 @@ function mob:draw()
 end
 
 function mob:update_position(dt)
-  -- collide with the map
-  hit, mx, my, m_time, nx, ny = collision.aabb_room_sweep(self, self.dx * dt, self.dy * dt)
+  if self.force_move then
+    -- ignore everything else and just go
+    self.x = self.x + self.force_move.dx * dt
+    self.y = self.y + self.force_move.dy * dt
+  else
+    if self.stun then
+      if not self.stun.duration:finished() then
+        t = 1 - self.stun.duration:t()
+        self.dx = self.stun.dx * t
+        self.dy = self.stun.dy * t
+      else
+        self.stun = nil
+      end
+      self.animation_state = 'idle'
+    elseif self.dying then
+      self.animation_state = 'idle'
+    else
+      -- now we can actually -choose- where to go
+      self:update_move_controls()
 
-  if hit then
-    dot = self.dx * ny - self.dy * nx
+      if math.abs(self.dx) >= 0.01 or math.abs(self.dy) >= 0.01 then
+        if self.dy >= 0.01 then
+          self.facing_north = false
+        elseif self.dy <= -0.01 then
+          self.facing_north = true
+        end
 
-    self.dx = dot * ny
-    self.dy = dot * (-nx)
+        if self.dx >= 0.01 then
+          self.facing_east = true
+        elseif self.dx <= -0.01 then
+          self.facing_east = false
+        end
 
-    if m_time < 1 then
-      -- now try continuing our movement along the new vector
-      hit, mx, my, m_time, nx, ny = collision.aabb_room_sweep({x = mx, y = my, radius = self.radius},
-                                       self.dx * dt * (1 - m_time), self.dy * dt * (1 - m_time))
+        self.animation_state = 'run'
+      else
+        self.animation_state = 'idle'
+      end
     end
-  end
 
-  self.x = mx
-  self.y = my
+    -- collide with the map
+    hit, mx, my, m_time, nx, ny = collision.aabb_room_sweep(self, self.dx * dt, self.dy * dt)
+
+    if hit then
+      dot = self.dx * ny - self.dy * nx
+
+      self.dx = dot * ny
+      self.dy = dot * (-nx)
+
+      if m_time < 1 then
+        -- now try continuing our movement along the new vector
+        hit, mx, my, m_time, nx, ny = collision.aabb_room_sweep({x = mx, y = my, radius = self.radius},
+                                         self.dx * dt * (1 - m_time), self.dy * dt * (1 - m_time))
+      end
+    end
+
+    self.x = mx
+    self.y = my
+  end
 end
 
 function mob:update_animation(dt)
@@ -56,6 +96,11 @@ function mob:take_damage(n)
       self:die()
     end
   end
+end
+
+function mob:be_stunned(dur, dx, dy)
+  self.stun = {duration = duration.start(dur),
+                  dx = dx or 0, dy = dy or 0}
 end
 
 function mob:equip(id, item)
