@@ -60,7 +60,6 @@ function play.draw()
    
   hud:draw()
   fade:draw()
-  
 end
 
 function play.game_speed()
