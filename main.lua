@@ -19,10 +19,7 @@ function love.load()
   image.init()
   animation.init()
   audiomanager = AudioManager:new()
-<<<<<<< ab6f48649a9364f5053d4aeefa056832280b3ad6
   electricity = ElectricSim:new()
-=======
->>>>>>> Spawn enemies from "doors"
 
   new_game()
 
