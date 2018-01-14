@@ -13,9 +13,9 @@ function play.update(dt)
     else
       mdt = dt * play.game_speed()
       game_time = game_time + mdt
-	  
+
 	  game_flux.update(mdt)
-      
+
 	  player.update(mdt)
 
       for _,z in pairs(sparks) do
@@ -35,6 +35,7 @@ function play.update(dt)
       timer.update()
 
       delay.process()
+      water.update(mdt)
     end
 end
 
@@ -57,9 +58,9 @@ function play.draw()
   end
 
   player:draw()
-   
+
   hud:draw()
-  
+
   fade:draw()
 end
 

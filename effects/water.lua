@@ -1,4 +1,6 @@
-local moonwater = function()
+local Water = class("Water")
+
+Water.moonwater = function()
   local shader = love.graphics.newShader[[
     extern Image watermask;
     extern float time;
@@ -40,10 +42,6 @@ local moonwater = function()
     shader:send("mapoffset", v)
   end
 
-  --setters.darkcolor = function(v)
-    --shader:send("darkcolor", math.min(1, math.max(0, tonumber(v) or 0)))
-  --end
-
   return moonshine.Effect{
     name = "moonwater",
     shader = shader,
@@ -52,4 +50,22 @@ local moonwater = function()
   }
 end
 
-return moonwater
+Water.effect = moonshine(Water.moonwater)
+
+function Water.update(dt)
+  Water.effect.moonwater.time = game_time
+  Water.effect.moonwater.mapoffset = { camera.x, camera.y }
+end
+
+function Water.draw(drawable, x, y, r, sx, sy, ox, oy, kx, ky)
+  local bg = { love.graphics.getBackgroundColor() }
+  love.graphics.setBackgroundColor({0,0,0,0})
+
+  Water.effect(function()
+    love.graphics.draw(drawable, x, y, r, sx, sy, ox, oy, kx, ky)
+  end)
+
+  love.graphics.setBackgroundColor(bg)
+end
+
+return Water

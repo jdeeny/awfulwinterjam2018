@@ -59,9 +59,6 @@ enemy_data = require "enemies/enemy_data"
 shot_data = require "weapons/shot_data"
 spark_data = require "spark_data"
 
-moonwater = require 'water'
-water_effect = moonshine(moonwater)
-water_effect.moonwater.watermask = image['watermask']
---water_effect.moonwater.waterbase = image['waterbase']
+water = require 'effects/water'
 
 require "lib/a-star-lua/a-star"
