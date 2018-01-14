@@ -2,6 +2,8 @@ local mob = class('mob')
 
 function mob:initialize()
 
+	self.dx = 0
+	self.dy = 0
   self.equipped_items = {}
 end
 
