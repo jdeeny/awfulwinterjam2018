@@ -21,6 +21,7 @@ function image.init()
   image.tesla = love.graphics.newImage("assets/sprites/tesla_sprite_sheet.png")
 
   image.intro = love.graphics.newImage("assets/fullscreen/silentFilmBack_template.png")
+  image.chargemap = love.graphics.newImage("assets/sprites/chargemap.png")
 end
 
 return image

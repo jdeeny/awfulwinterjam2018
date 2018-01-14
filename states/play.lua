@@ -32,7 +32,7 @@ function play.update(dt)
       timer.update()
 
       delay.process()
-      electricity:update()
+      electricity:update(mdt)
     end
 end
 
