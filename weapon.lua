@@ -5,6 +5,7 @@ cpml = require 'lib/cpml'
 lovelightning = require "lib/lovelightning/lovelightning"
 camera = require "camera"
 
+
 local weapon = {}
 
 -------------------------------------------------------------------------------
@@ -91,6 +92,8 @@ function LightningGun:_fire(targets)
   if not self.owner.x then return end
 
   self.fork_targets = {}
+  
+  local fired_at_targets = {}
 
   -- if no targets shoot straight ahead at nothing
   if not targets or #targets == 0 then
@@ -98,18 +101,23 @@ function LightningGun:_fire(targets)
     local aim_vec = cpml.vec2.new(math.cos(self.owner.aim),math.sin(self.owner.aim))
     local pos_vec = cpml.vec2.new(self.owner.x, self.owner.y)
 
-    local vtarg = pos_vec+aim_vec*50
+    local range = 200
+    local vtarg = pos_vec+aim_vec*range
 
     local newbolt = lovelightning:new(255,255,255)
+
     newbolt.power = .5
     newbolt.jitter_factor = 0.75
     newbolt.fork_chance = 0.9
-    newbolt.max_fork_angle = math.pi/3
-    newbolt.iterations = 4
+    newbolt.max_fork_angle = math.pi/2
+    newbolt:setForkTargets(electricity:nodesincircle(
+          self.owner.x, self.owner.y, range))
 
     newbolt:setSource({x=camera.view_x(self.owner), y=camera.view_y(self.owner)})
     newbolt:setPrimaryTarget({x=camera.view_x(vtarg), y=camera.view_y(vtarg)})
-    newbolt:create()
+    newbolt:create(function (ftarg, level)
+            table.insert(self.fork_targets,{target=ftarg,level=level})  
+          end)
 
     table.insert(self.bolts, newbolt)
   
@@ -119,7 +127,9 @@ function LightningGun:_fire(targets)
       if i <= self.chain_targets then
         local newbolt = lovelightning:new(255,255,255)
     
-        newbolt:setForkTargets(targets)
+        newbolt:setForkTargets(electricity:nodesincircle(
+          last_target.x, last_target.y, range))
+
         newbolt:setSource({x=camera.view_x(last_target), y=camera.view_y(last_target)})
         newbolt:setPrimaryTarget({x=camera.view_x(t), y=camera.view_y(t)})
 
@@ -127,6 +137,7 @@ function LightningGun:_fire(targets)
             table.insert(self.fork_targets,{target=ftarg,level=level})  
           end)
         table.insert(self.bolts, newbolt)
+        table.insert(fired_at_targets,t)
         last_target = t
       end      
     end
@@ -134,13 +145,17 @@ function LightningGun:_fire(targets)
 
 
   self.fired_at = game_time
-  self.targets = targets
+  self.targets = fired_at_targets
+end
+
+function LightningGun:hit_fork_target( target, level )
+  -- body
 end
 
 function LightningGun:update(dt)
   if self.bolts and self.fired_at then
     if game_time < self.fired_at + self.draw_time then
-
+      
       for _, b in pairs(self.bolts) do
         b:update(dt)
       end
@@ -155,6 +170,7 @@ function LightningGun:update(dt)
     end
   end
 end
+
 
 function LightningGun:draw()
   if self.bolts then
