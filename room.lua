@@ -66,7 +66,7 @@ function room:setup_tiles()
       self[gx][gy].tile, self[gx][gy].tile_rotation, self[gx][gy].tile_sx, self[gx][gy].tile_sy = nil, nil, nil, nil
       if kind == "floor" then
         if math.random() < 0.1 then
-          self[gx][gy].tile = "water"
+          self[gx][gy].tile = "water_border"
         else
           self[gx][gy].tile = "floor"
         end
@@ -138,7 +138,7 @@ function room:draw()
       if gx * TILESIZE - camera.x > -TILESIZE and gx * TILESIZE - camera.x < window.w and
           gy * TILESIZE - camera.y > -TILESIZE and gy * TILESIZE - camera.y < window.h then
         if self[gx][gy].tile then
-          if self[gx][gy].tile == "water" then
+          if self[gx][gy].tile == "water_border" then
             water.draw(image[self[gx][gy].tile], (gx + 0.5) * TILESIZE - camera.x, (gy + 0.5) * TILESIZE - camera.y,
               self[gx][gy].tile_rotation or 0, self[gx][gy].tile_sx or 1, self[gx][gy].tile_sy or 1, TILESIZE / 2, TILESIZE / 2)
           else

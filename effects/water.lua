@@ -1,5 +1,7 @@
 local Water = class("Water")
 
+Water.waterbase = image["water"]
+
 Water.moonwater = function()
   local shader = love.graphics.newShader[[
     extern Image watermask;
@@ -60,12 +62,11 @@ end
 function Water.draw(drawable, x, y, r, sx, sy, ox, oy, kx, ky)
   local bg = { love.graphics.getBackgroundColor() }
   love.graphics.setBackgroundColor({0,0,0,0})
-
   Water.effect(function()
-    love.graphics.draw(drawable, x, y, r, sx, sy, ox, oy, kx, ky)
+    love.graphics.draw(Water.waterbase, x, y, r, sx, sy, ox, oy, kx, ky)
   end)
-
   love.graphics.setBackgroundColor(bg)
+  love.graphics.draw(drawable, x, y, r, sx, sy, ox, oy, kx, ky)
 end
 
 return Water
