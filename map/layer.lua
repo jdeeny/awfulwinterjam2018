@@ -35,7 +35,8 @@ end
 function Layer:_drawall()
   for id, e in self.entites do  -- for each type of thing
     for id, location in e do    -- for each location
-      love.graphics.draw()
+      print("!")
+      --love.graphics.draw()
     end
   end
 end
