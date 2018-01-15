@@ -4,8 +4,12 @@ math = require 'math'
 
 class = require('lib/middleclass/middleclass')
 vector = require('lib/hump.vector')
-fx = require('effects/fx')
+moonshine = require('lib/moonshine')
 
+local glowfx = moonshine.chain(moonshine.effects.fastgaussianblur)
+glowfx.fastgaussianblur.taps = 7
+glowfx.fastgaussianblur.offset = 1
+glowfx.fastgaussianblur.sigma = -1
 -------------------------------------------------------------------------------
 local LightningVertex = class('LightningVertex')
 
@@ -153,11 +157,24 @@ local function draw_path(vertex_list, color, alpha, width)
         table.insert(points, v.vec.y)
     end
 
+    -- glowfx(function()
+    --     love.graphics.setLineWidth(width*17)
+    --     love.graphics.setColor(color['r'], color['g'], color['b'], alpha*.25)
+    --     love.graphics.line(unpack(points))
+        
+    --     love.graphics.setLineWidth(width*7)
+    --     love.graphics.setColor(color['r'], color['g'], color['b'], alpha*.5)
+    --     love.graphics.line(unpack(points))
+
+    --     love.graphics.setLineWidth(width*2)
+    --     love.graphics.setColor(color['r'], color['g'], color['b'], alpha*.75)
+    --     love.graphics.line(unpack(points))
+    -- end)
+
     love.graphics.setLineJoin('miter')
     love.graphics.setLineWidth(width)
     love.graphics.setColor(color['r'], color['g'], color['b'], alpha)
     love.graphics.line(unpack(points))
-    love.graphics.setColor(255,255,255)
 
     for _, v in ipairs(vertex_list) do
         if v.is_fork_root then
@@ -169,27 +186,12 @@ end
 function LoveLightning:draw()
     if self.vertices then
 
-        local restore_mode = love.graphics.getBlendMode()
-        local restore_canvas = love.graphics.getCanvas()
-    
-        local canvas = love.graphics.newCanvas()
-        love.graphics.setCanvas(canvas)
-
-        draw_path(self.vertices, self.color, 32*self.power, 17*self.power)
-        draw_path(self.vertices, self.color, 64*self.power, 7*self.power)
-        draw_path(self.vertices, self.color, 128*self.power, 5*self.power)
-
-        canvas = fx.blur(canvas)
-
-        love.graphics.setCanvas(restore_canvas)
-
-        love.graphics.setBlendMode("alpha", "premultiplied")
-        love.graphics.draw(canvas,0,0)
-        love.graphics.setBlendMode(restore_mode)
 
         draw_path(self.vertices, self.color, 255*self.power, 2*self.power)
 
     end
+
+    love.graphics.setColor(255,255,255)
 end
 
 return LoveLightning
