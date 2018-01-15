@@ -5,22 +5,25 @@ hud.font = love.graphics.newFont('assets/fonts/babes-in-toyland-nf/BabesInToylan
 
 function hud.draw() 
 	
+	
+		
+	
 	love.graphics.setFont(hud.font)
 	
 	-- draw timer in upper right
-	timer.draw(500,0)
+	timer.draw((window.w-250),0)
 	
 	-- draw player HP in lower right
-	love.graphics.print(player.hp, 725, 525)
+	love.graphics.print(player.hp, (window.w - 80), (window.h - 80))
 
-	-- draw current weapon icon in lower left
+	-- draw weapon icons
 	local iconWidth = 80
 	local iconHeight = 80
 	local iconSeparation = 20
 	local iconOffset = iconSeparation
 	
 	selected_weapon = player.weapons[player.weapon]
-	love.graphics.draw(image[selected_weapon.icon],iconOffset,500, 0, 1, 1, 0, 0)
+	love.graphics.draw(image[selected_weapon.icon],iconOffset,(window.h - 100), 0, 1, 1, 0, 0)
 	
 	iconOffset = iconOffset + iconWidth
 	
@@ -28,7 +31,7 @@ function hud.draw()
 	for i,w in ipairs(player.weapons) do
 		if w ~= selected_weapon then
 			iconOffset = iconOffset + iconSeparation 
-			love.graphics.draw(image[w.icon],iconOffset,500+iconHeight/2,0,0.5,0.5,0,0)
+			love.graphics.draw(image[w.icon],iconOffset,(window.h - 100)+iconHeight/2,0,0.5,0.5,0,0)
 			iconOffset = iconOffset + iconWidth/2
 		end
 	end

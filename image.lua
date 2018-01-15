@@ -26,6 +26,8 @@ function image.init()
 
   image.gun_icon = love.graphics.newImage("assets/icons/gun.png")
   image.lightning_icon = love.graphics.newImage("assets/icons/lightning.png")
+  
+  image.arrow = love.graphics.newImage("assets/icons/arrow.png") -- up arrow; rotate for other directions
 
   image.watermask = love.graphics.newImage("assets/tiles/water/watermask.jpg")
   image.watermask:setWrap('repeat', 'repeat')
