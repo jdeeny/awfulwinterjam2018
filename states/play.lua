@@ -38,6 +38,7 @@ function play.update(dt)
       water.update(mdt)
 
       electricity:update(mdt)
+      current_level:update(mdt)
     end
 end
 
@@ -63,6 +64,8 @@ function play.draw()
   electricity:draw()
 
   hud:draw()
+
+  current_level:draw()
 
   fade:draw()
 end

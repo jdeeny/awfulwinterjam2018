@@ -57,6 +57,8 @@ function new_game()
   current_dungeon:setup_main()
   dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
 
+  current_level = Level:new()
+
   game_time = 0
   player:start_force_move(10, player.speed, 0)
 
