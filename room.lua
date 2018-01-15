@@ -1,33 +1,12 @@
 local room = class('room', grid)
 
--- XXX replace with room_data
-function room:setup_main()
-  for gx = 1, self.width do
-    for gy = 1, self.height do
-      if gx == 1 or gy == 1 or gx == self.width or gy == self.height then
-        self[gx][gy].kind = "wall"
-      elseif (gx == 3 or gx == self.width - 2) and (gy == 3 or gy == self.height - 2) then
-        self[gx][gy].kind = "teleporter"
-        table.insert(spawner.teleporters, {x=gx, y=gy})
-      else
-        self[gx][gy].kind = "floor"
-      end
-    end
-  end
-
-  for x = 1, 16 do
-    self[love.math.random(6, self.width - 5)][love.math.random(6, self.height - 5)].kind = "wall"
-  end
-
-  self:setup_tiles()
-end
-
 function room:is_solid(gx, gy)
   return (not self:in_bounds(gx, gy)) or self[gx][gy].kind == "wall" or self[gx][gy].kind == "void"
 end
 
 function room:coda()
   -- we're done in this room; open doors and let the player move on
+  self.cleared = true
   if self.exits.north then
     self[self.width / 2][1].kind = "floor"
     self[1 + self.width / 2][1].kind = "floor"
@@ -39,7 +18,7 @@ function room:coda()
     doodad_data.spawn("exit_east", current_room:pixel_width() - (TILESIZE / 2), current_room:pixel_height() / 2)
   end
   audiomanager:playOnce("unlatch") -- open the doors
-  self:setup_tiles()
+  self:setup_tile_images()
 end
 
 function room.bounding_box(gx, gy)
@@ -58,7 +37,7 @@ function room:pixel_height()
   return (self.height + 2) * TILESIZE
 end
 
-function room:setup_tiles()
+function room:setup_tile_images()
   local kind
   for gx = 1, self.width do
     for gy = 1, self.height do
@@ -66,6 +45,10 @@ function room:setup_tiles()
       self[gx][gy].tile, self[gx][gy].tile_rotation, self[gx][gy].tile_sx, self[gx][gy].tile_sy = nil, nil, nil, nil
       if kind == "floor" then
         self[gx][gy].tile = "floor"
+      elseif kind == "water_border" then
+        self[gx][gy].tile = "water_border"
+      elseif kind == "ballpost" then
+        self[gx][gy].tile = "ballpost"
       elseif kind == "teleporter" then
         self[gx][gy].tile = "teleporter"
       elseif kind == "wall" then
@@ -134,8 +117,18 @@ function room:draw()
       if gx * TILESIZE - camera.x > -TILESIZE and gx * TILESIZE - camera.x < window.w and
           gy * TILESIZE - camera.y > -TILESIZE and gy * TILESIZE - camera.y < window.h then
         if self[gx][gy].tile then
-          love.graphics.draw(image[self[gx][gy].tile], (gx + 0.5) * TILESIZE - camera.x, (gy + 0.5) * TILESIZE - camera.y,
-            self[gx][gy].tile_rotation or 0, self[gx][gy].tile_sx or 1, self[gx][gy].tile_sy or 1, TILESIZE / 2, TILESIZE / 2)
+          if self[gx][gy].tile == "water_border" then
+            water.draw(image[self[gx][gy].tile], (gx + 0.5) * TILESIZE - camera.x, (gy + 0.5) * TILESIZE - camera.y,
+              self[gx][gy].tile_rotation or 0, self[gx][gy].tile_sx or 1, self[gx][gy].tile_sy or 1, TILESIZE / 2, TILESIZE / 2)
+          elseif self[gx][gy].tile == "ballpost" then
+            love.graphics.draw(image['floor'], (gx + 0.5) * TILESIZE - camera.x, (gy + 0.5) * TILESIZE - camera.y,
+              self[gx][gy].tile_rotation or 0, self[gx][gy].tile_sx or 1, self[gx][gy].tile_sy or 1, TILESIZE / 2, TILESIZE / 2)
+            love.graphics.draw(image[self[gx][gy].tile], (gx + 0.5) * TILESIZE - camera.x, (gy + 0.5) * TILESIZE - camera.y,
+              self[gx][gy].tile_rotation or 0, self[gx][gy].tile_sx or 1, self[gx][gy].tile_sy or 1, TILESIZE / 2, TILESIZE / 2)
+          else
+            love.graphics.draw(image[self[gx][gy].tile], (gx + 0.5) * TILESIZE - camera.x, (gy + 0.5) * TILESIZE - camera.y,
+              self[gx][gy].tile_rotation or 0, self[gx][gy].tile_sx or 1, self[gx][gy].tile_sy or 1, TILESIZE / 2, TILESIZE / 2)
+          end
         end
       end
     end

@@ -2,12 +2,43 @@ local AudioManager = class("AudioManager")
 
   function AudioManager:initialize()
     self.sources = {}
+	self.music_tracks = {}
+    self.looped = {}
+    self.loop_count = 0
+	self.music = nil -- currently playing track
 
     -- Short sound effects should be loaded with static to store in memory.
     self.sources['snap'] = PooledSource:new("assets/sfx/snap.wav")
     self.sources['unh'] = PooledSource:new("assets/sfx/unh.wav")
     self.sources['unlatch'] = PooledSource:new("assets/sfx/unlatch.wav")
     self.sources['crackle'] = PooledSource:new("assets/sfx/crackle.wav")
+    self.sources['car1'] = PooledSource:new("assets/sfx/car1.ogg")
+    self.sources['car2'] = PooledSource:new("assets/sfx/car2.ogg")
+    self.sources['car3'] = PooledSource:new("assets/sfx/car3.ogg")
+	self.sources['gunshot'] = PooledSource:new("assets/sfx/gunshot.wav")
+	
+	-- Music and longer sounds is probably better to stream, and only play one at a time
+	self.music_tracks['figleaf'] = love.audio.newSource("assets/music/Fig Leaf Times Two.ogg", "stream")
+  end
+
+  function AudioManager:update(dt)
+    for id, loop in pairs(self.looped) do
+      if loop.prelude then
+        if not loop.prelude.isPlaying() then
+          loop.prelude = nil
+        end
+      elseif loop.name then
+        if not loop.name.isPlaying() then
+          self.playOnce(loop.name)
+        end
+      elseif loop.epilogue then
+        if not loop.epilogue.isPlaying() then
+          loop.epilogue = nil
+        end
+      else
+        self.looped[loop.id] = nil
+      end
+    end
   end
 
   function AudioManager:addEffect(path, name)
@@ -22,4 +53,39 @@ local AudioManager = class("AudioManager")
     end
   end
 
+  function AudioManager:playLooped(name, volume, prelude, epilogue)
+    --[[self.loop_count = self.loop_count + 1
+    local play = LoopedAudio:new(self.loop_count, name, volume, prelude, epilogue)
+    self.looped[self.loop_count] = play
+    if play.epilogue then
+      self:playOnce(prelude, volume)
+    else
+      self:playOnce(name, volume)
+    end
+    return play.id]]
+  end
+
+  function AudioManager:stopLooped(id)
+  --[[  if self.looped[id] then
+        self.looped[id].name = nil --:stop()
+--      if self.looped[id].name then
+end]]
+  end
+  
+  function AudioManager:playMusic(name, volume)
+      if self.music_tracks[name] then
+        self.music = self.music_tracks[name]
+		love.audio.play(self.music)
+      else
+        print("Tried to play music track  \'" .. name .. "\' but it doesn't exist.")
+      end
+  end
+  
+  function AudioManager:stopMusic()
+	  if self.music then
+		  love.audio.stop(self.music)
+		  self.music = nil
+	  end
+  end
+  
 return AudioManager

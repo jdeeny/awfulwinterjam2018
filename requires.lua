@@ -11,7 +11,6 @@ class = require 'lib/middleclass/middleclass' -- OOP https://github.com/kikito/m
 moonshine = require 'lib/moonshine/'
 gui_flux = require 'lib/flux/flux'  -- Simple tweening system https://github.com/rxi/flux
 game_flux = require 'lib/flux/flux'  -- Flux as above, but using game time units
-
 --require 'lib/autobatch/autobatch'                 -- autobatch automatic SpriteBatch https://github.com/rxi/autobatch
 -- nice scaling for pixel graphics (might be fixed in git version?) https://github.com/SystemLogoff/lovePixel
 -- interesting text library that allows control per letter https://github.com/mzrinsky/popo https://github.com/EntranceJew/popo
@@ -35,6 +34,7 @@ grid = require "grid"
 dungeon = require "dungeon"
 doodad = require "doodad"
 fade = require "fade"
+file_io = require "file_io"
 hud = require "hud"
 idcounter = require "idcounter"
 image = require "image"
@@ -54,10 +54,19 @@ shot = require "weapons/shot"
 
 PooledSource = require "audio/pooledsource"
 AudioManager = require "audio/audiomanager"
+LoopedAudio = require "audio/loopedaudio"
 
 doodad_data = require "doodad_data"
 enemy_data = require "enemies/enemy_data"
 shot_data = require "weapons/shot_data"
 spark_data = require "spark_data"
 
+water = require 'effects/water'
+
 require "lib/a-star-lua/a-star"
+
+ElectricSim = require "electricity/elecsim"
+ElecNode = require "electricity/elecnode"
+TileElecNode = require "electricity/tileelecnode"
+MobElecNode = require "electricity/mobelecnode"
+BoltManager = require "electricity/boltmanager"

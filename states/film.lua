@@ -12,6 +12,7 @@ function film.enter()
   filmgrain_effect.filmgrain.size = 10
   filmgrain_effect.filmgrain.opacity = .6
   filmgrain_effect.desaturate.tint = {138, 111, 48}
+  audiomanager:playMusic("figleaf")
   state = STATE_FILM
 end
 
@@ -24,6 +25,7 @@ function film.update()
 
     if player_input:pressed('fire') or player_input:pressed('sel') then
       new_game()
+	  audiomanager:stopMusic()
       play.enter()
     end
   end

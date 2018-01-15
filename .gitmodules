@@ -19,9 +19,6 @@
 [submodule "lib/a-star-lua"]
 	path = lib/a-star-lua
 	url = https://github.com/lattejed/a-star-lua.git
-[submodule "lib/lovelightning"]
-	path = lib/lovelightning
-	url = https://github.com/therealpickle/lovelightning.git
 [submodule "lib/hump"]
 	path = lib/hump
 	url = https://github.com/vrld/hump.git
