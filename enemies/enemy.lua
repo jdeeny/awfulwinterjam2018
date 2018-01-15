@@ -30,8 +30,6 @@ end
 function enemy:die()
   print("die")
   if self.dead then
-    print("the dead can't die")
-    print(debug.stacktrace())
    return
   end
   self.dead = true
