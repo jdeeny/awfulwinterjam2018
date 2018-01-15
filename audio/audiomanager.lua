@@ -2,8 +2,10 @@ local AudioManager = class("AudioManager")
 
   function AudioManager:initialize()
     self.sources = {}
+	self.music_tracks = {}
     self.looped = {}
     self.loop_count = 0
+	self.music = nil -- currently playing track
 
     -- Short sound effects should be loaded with static to store in memory.
     self.sources['snap'] = PooledSource:new("assets/sfx/snap.wav")
@@ -14,6 +16,9 @@ local AudioManager = class("AudioManager")
     self.sources['car2'] = PooledSource:new("assets/sfx/car2.ogg")
     self.sources['car3'] = PooledSource:new("assets/sfx/car3.ogg")
 	self.sources['gunshot'] = PooledSource:new("assets/sfx/gunshot.wav")
+	
+	-- Music and longer sounds is probably better to stream, and only play one at a time
+	self.music_tracks['figleaf'] = love.audio.newSource("assets/music/Fig Leaf Times Two.ogg", "stream")
   end
 
   function AudioManager:update(dt)
@@ -66,4 +71,21 @@ local AudioManager = class("AudioManager")
 --      if self.looped[id].name then
 end]]
   end
+  
+  function AudioManager:playMusic(name, volume)
+      if self.music_tracks[name] then
+        self.music = self.music_tracks[name]
+		love.audio.play(self.music)
+      else
+        print("Tried to play music track  \'" .. name .. "\' but it doesn't exist.")
+      end
+  end
+  
+  function AudioManager:stopMusic()
+	  if self.music then
+		  love.audio.stop(self.music)
+		  self.music = nil
+	  end
+  end
+  
 return AudioManager
