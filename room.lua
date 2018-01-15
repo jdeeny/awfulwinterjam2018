@@ -1,7 +1,20 @@
 local room = class('room', grid)
 
+function room:update(dt)
+  if self.done_state == 'alldead' then
+    self:coda()
+  end
+end
+
+function room:alldead()
+  if self.done_state == 'none' then
+    self.done_state = 'alldead'
+  end
+end
+
 -- XXX replace with room_data
 function room:setup_main()
+  self.done_state = 'none'
   for gx = 1, self.width do
     for gy = 1, self.height do
       if gx == 1 or gy == 1 or gx == self.width or gy == self.height then
@@ -27,6 +40,7 @@ function room:is_solid(gx, gy)
 end
 
 function room:coda()
+  self.done_state = 'coda'
   -- we're done in this room; open doors and let the player move on
   if self.exits.north then
     self[self.width / 2][1].kind = "floor"
@@ -39,7 +53,7 @@ function room:coda()
     doodad_data.spawn("exit_east", current_room:pixel_width() - (TILESIZE / 2), current_room:pixel_height() / 2)
   end
   audiomanager:playOnce("unlatch") -- open the doors
-  self:setup_tiles()
+  --self:setup_tiles()
 end
 
 function room.bounding_box(gx, gy)
