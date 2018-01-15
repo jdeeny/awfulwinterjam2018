@@ -29,3 +29,6 @@
 [submodule "lib/flux"]
 	path = lib/flux
 	url = https://github.com/rxi/flux/
+[submodule "lib/autobatch"]
+	path = lib/autobatch
+	url = https://github.com/rxi/autobatch.git
