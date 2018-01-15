@@ -36,6 +36,7 @@ function play.update(dt)
 
       delay.process()
       water.update(mdt)
+      current_room:update()
 
       electricity:update(mdt)
     end

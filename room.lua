@@ -1,23 +1,86 @@
 local room = class('room', grid)
 
+function room:update()
+  if self.door_close_time then
+    local closed = false
+    if self.door_close_time.north and self.door_close_time.north < game_time then
+      self[self.width / 2][1].kind = "wall"
+      self[1 + self.width / 2][1].kind = "wall"
+      closed = true
+      self.door_close_time.north = nil
+    end
+    if self.door_close_time.south and self.door_close_time.south < game_time then
+      self[self.width / 2][self.height].kind = "wall"
+      self[1 + self.width / 2][self.height].kind = "wall"
+      closed = true
+      self.door_close_time.south = nil
+    end
+    if self.door_close_time.east and self.door_close_time.east < game_time then
+      self[self.width][self.height / 2].kind = "wall"
+      self[self.width][1 + self.height / 2].kind = "wall"
+      closed = true
+      self.door_close_time.east = nil
+    end
+    if self.door_close_time.west and self.door_close_time.west < game_time then
+      self[1][self.height / 2].kind = "wall"
+      self[1][1 + self.height / 2].kind = "wall"
+      closed = true
+      self.door_close_time.west = nil
+    end
+
+    if closed then
+      self:setup_tile_images()
+      audiomanager:playOnce("unlatch")
+    end
+  end
+end
+
 function room:is_solid(gx, gy)
-  return (not self:in_bounds(gx, gy)) or self[gx][gy].kind == "wall" or self[gx][gy].kind == "void"
+  return (not self:in_bounds(gx, gy)) or self[gx][gy].kind == "wall" or self[gx][gy].kind == "void" or self[gx][gy].kind == "fake_floor"
 end
 
 function room:coda()
   -- we're done in this room; open doors and let the player move on
   self.cleared = true
   if self.exits.north then
-    self[self.width / 2][1].kind = "floor"
-    self[1 + self.width / 2][1].kind = "floor"
+    self:open_door("north", false) -- no time given, so it should stay open forever
     doodad_data.spawn("exit_north", current_room:pixel_width() / 2, TILESIZE / 2)
   end
   if self.exits.east then
-    self[self.width][self.height / 2].kind = "floor"
-    self[self.width][1 + self.height / 2].kind = "floor"
+    self:open_door("east", false)
     doodad_data.spawn("exit_east", current_room:pixel_width() - (TILESIZE / 2), current_room:pixel_height() / 2)
   end
-  audiomanager:playOnce("unlatch") -- open the doors
+end
+
+function room:open_door(dir, fake, time)
+  -- if time is given, close the door again after that time
+  if time then
+    if not self.door_close_time then
+      self.door_close_time = {}
+    end
+    if not self.door_close_time[dir] then
+      -- wasn't already open
+      audiomanager:playOnce("unlatch")
+    end
+    self.door_close_time[dir] = game_time + time
+  end
+
+  local k = fake and "fake_floor" or "floor"
+
+  if dir == "north" then
+    self[self.width / 2][1].kind = k
+    self[1 + self.width / 2][1].kind = k
+  elseif dir == "south" then
+    self[self.width / 2][self.height].kind = k
+    self[1 + self.width / 2][self.height].kind = k
+  elseif dir == "east" then
+    self[self.width][self.height / 2].kind = k
+    self[self.width][1 + self.height / 2].kind = k
+  elseif dir == "west" then
+    self[1][self.height / 2].kind = k
+    self[1][1 + self.height / 2].kind = k
+  end
+
   self:setup_tile_images()
 end
 
@@ -43,7 +106,7 @@ function room:setup_tile_images()
     for gy = 1, self.height do
       kind = self[gx][gy].kind
       self[gx][gy].tile, self[gx][gy].tile_rotation, self[gx][gy].tile_sx, self[gx][gy].tile_sy = nil, nil, nil, nil
-      if kind == "floor" then
+      if kind == "floor" or kind == "fake_floor" then
         self[gx][gy].tile = "floor"
       elseif kind == "water_border" then
         self[gx][gy].tile = "water_border"
