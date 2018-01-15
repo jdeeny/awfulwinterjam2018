@@ -15,12 +15,6 @@ function Level:rebuild()
 end
 
 function Level:clear()
-  self.cells = {}
-  for x in range(w) do
-    for y in range(h) do
-      self.cells[{x,y}] = TileSet.getTile('void')
-    end
-  end
   self.layers = {}
   return self
 end
