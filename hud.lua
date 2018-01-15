@@ -2,20 +2,19 @@ local hud = {}
 
 hud.font = love.graphics.newFont('assets/fonts/babes-in-toyland-nf/BabesInToylandNF.ttf', 50)
 
-
 hud.arrows = {}
-hud.arrow_alpha = 128
+hud.arrow_alpha_max = 192
+hud.arrow_alpha_min = 16
+hud.arrow_alpha = hud.arrow_alpha_min -- set to max if pulse is disabled
+hud.pulse_time = 0.9
 
 function hud.draw_arrows()
 	local r,g,b,a
 	local yc = image['arrow']:getHeight()/2
 	local xc = image['arrow']:getWidth()/2
 	
-	print("drawin' arrows!") -- DBG
-	print(hud.arrows['up']) -- DBG
-	
-	--r,g,b,a = love.graphics.getColor()
-	--love.graphics.setColor(r,g,b,hud.arrow_alpha)
+	r,g,b,a = love.graphics.getColor()
+	love.graphics.setColor(r,g,b,hud.arrow_alpha)
 	
 	-- draw all arrows
 	if hud.arrows['up'] then
@@ -27,7 +26,14 @@ function hud.draw_arrows()
 	end
 	
 	-- restore previous draw settings
-	--love.graphics.setColor(r,g,b,a)
+	love.graphics.setColor(r,g,b,a)
+end
+
+-- loops from max to min, repeating (must be stopped elsewhere)
+function hud.flash_arrows()
+	hud.arrow_tween = game_flux.to(hud, hud.pulse_time, {arrow_alpha = hud.arrow_alpha_max}):ease("backinout")
+	hud.arrow_tween:after(hud, hud.pulse_time, {arrow_alpha = hud.arrow_alpha_min})
+	hud.arrow_tween:oncomplete(hud.flash_arrows)
 end
 
 
@@ -40,18 +46,23 @@ function hud.draw()
 	
 	-- draw arrows if room is unlocked
 	if current_room.done_state == 'coda' then
-		if next(hud.arrows) == nil then
+		if next(hud.arrows) == nil then 
+			-- not currently flashing
 			if current_room.exits.north then
 				hud.arrows.up = true
 			end
 			if current_room.exits.east then
 				hud.arrows.right = true
 			end
+			-- start flasher
+			hud:flash_arrows()
 		end
 	else 
+		if next(hud.arrows) then
+			hud.arrow_tween:stop()
+		end
 		hud.arrows = {}
 	end
-	
 	
 	if next(hud.arrows) then  
 		hud:draw_arrows()
@@ -67,7 +78,6 @@ function hud.draw()
 	love.graphics.print(player.hp, (window.w - 80), (window.h - 80))
 
 	-- draw weapon icons
-	
 	local iconOffset = iconSeparation
 	
 	selected_weapon = player.weapons[player.weapon]
