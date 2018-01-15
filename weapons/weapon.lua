@@ -116,8 +116,8 @@ function LightningGun:_fire(targets)
     newbolt.jitter_factor = 0.75
     newbolt.fork_chance = 0.9
     newbolt.max_fork_angle = math.pi/2
-    newbolt:setForkTargets(electricity:nodesincircle(
-          self.owner.x, self.owner.y, range))
+    -- newbolt:setForkTargets(electricity:nodesincircle(
+    --       self.owner.x, self.owner.y, range))
 
     newbolt:setSource({x=camera.view_x(self.owner), y=camera.view_y(self.owner)})
     newbolt:setPrimaryTarget({x=camera.view_x(vtarg), y=camera.view_y(vtarg)})
@@ -133,7 +133,7 @@ function LightningGun:_fire(targets)
       if i <= self.chain_targets then
         local newbolt = lovelightning:new(255,255,255)
 
-        newbolt:setForkTargets(nodes)
+        -- newbolt:setForkTargets(nodes)
 
 
         newbolt:setSource({x=camera.view_x(last_target), y=camera.view_y(last_target)})
