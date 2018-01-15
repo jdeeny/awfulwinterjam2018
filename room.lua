@@ -14,6 +14,8 @@ end
 
 -- XXX replace with room_data
 function room:setup_main()
+  print("setup_main")
+
   self.done_state = 'none'
   for gx = 1, self.width do
     for gy = 1, self.height do
@@ -73,6 +75,7 @@ function room:pixel_height()
 end
 
 function room:setup_tiles()
+  print ("setup_tiles")
   local kind
   for gx = 1, self.width do
     for gy = 1, self.height do

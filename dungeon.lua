@@ -2,6 +2,7 @@ local dungeon = class("dungeon", grid)
 
 function dungeon.move_to_room(rx, ry, from_dir)
   -- unload current map, load new one, place player appropriately, setup fights i guess
+  print("move_to_room")
   enemies = {}
   enemy_value = 0
   shots = {}

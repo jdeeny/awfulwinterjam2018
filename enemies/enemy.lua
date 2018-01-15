@@ -28,6 +28,7 @@ function enemy:update_move_controls()
 end
 
 function enemy:die()
+  print("die")
   enemy_value = enemy_value - self.value
   enemies[self.id] = nil
   audiomanager:playOnce(self.death_sound)
