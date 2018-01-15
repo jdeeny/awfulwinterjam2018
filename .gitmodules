@@ -29,6 +29,3 @@
 [submodule "lib/flux"]
 	path = lib/flux
 	url = https://github.com/rxi/flux/
-[submodule "hump"]
-	path = hump
-	url = https://github.com/vrld/hump.git
