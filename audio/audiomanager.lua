@@ -10,6 +10,9 @@ local AudioManager = class("AudioManager")
     self.sources['unh'] = PooledSource:new("assets/sfx/unh.wav")
     self.sources['unlatch'] = PooledSource:new("assets/sfx/unlatch.wav")
     self.sources['crackle'] = PooledSource:new("assets/sfx/crackle.wav")
+    self.sources['car1'] = PooledSource:new("assets/sfx/car1.ogg")
+    self.sources['car2'] = PooledSource:new("assets/sfx/car2.ogg")
+    self.sources['car3'] = PooledSource:new("assets/sfx/car3.ogg")
   end
 
   function AudioManager:update(dt)
