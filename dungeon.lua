@@ -10,7 +10,7 @@ function dungeon.move_to_room(rx, ry, from_dir)
   sparks = {}
   spawner.reset()
 
-  current_room = file_io.parse_room_file(1)
+  current_room = file_io.parse_room_file(current_dungeon[rx][ry].file)
   current_room.exits = current_dungeon:get_exits(rx, ry)
 
   player.dungeon_x = rx
@@ -44,16 +44,17 @@ function dungeon.move_to_room(rx, ry, from_dir)
 end
 
 function dungeon:setup_main()
+  local file_count = #file_io.room_files
   for rx = 1, self.width do
     for ry=1, self.height do
       if rx == 1 and ry == self.height then
-        self[rx][ry] = {room = "start"}
+        self[rx][ry] = {room_kind = "start", file = love.math.random(file_count)}
         self.start_x = rx
         self.start_y = ry
       elseif rx == self.width and ry == 1 then
-        self[rx][ry] = {room = "boss"}
+        self[rx][ry] = {room_kind = "boss", file = love.math.random(file_count)}
       else
-        self[rx][ry] = {room = "generic"}
+        self[rx][ry] = {room_kind = "generic", file = love.math.random(file_count)}
       end
     end
   end

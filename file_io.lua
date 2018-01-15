@@ -46,7 +46,10 @@ function file_io.parse_room_file(n)
 end
 
 file_io.room_files = {
-	{"rooms/room1.txt", 16, 14},
+	{"assets/rooms/room_empty.txt", 16, 16},
+	{"assets/rooms/room_empty_horiz.txt", 24, 8},
+	{"assets/rooms/room_s.txt", 6, 24},
+	{"assets/rooms/room_test.txt", 16, 14},
 }
 
 return file_io
