@@ -6,6 +6,7 @@ end
 
 function room:coda()
   -- we're done in this room; open doors and let the player move on
+  self.cleared = true
   if self.exits.north then
     self[self.width / 2][1].kind = "floor"
     self[1 + self.width / 2][1].kind = "floor"

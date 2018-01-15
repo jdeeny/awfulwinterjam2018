@@ -5,7 +5,7 @@ hud.font = love.graphics.newFont('assets/fonts/babes-in-toyland-nf/BabesInToylan
 hud.arrows = {}
 hud.arrow_alpha_max = 192
 hud.arrow_alpha_min = 16
-hud.arrow_alpha = hud.arrow_alpha_min -- set to max if pulse is disabled
+hud.arrow_alpha = hud.arrow_alpha_min -- set to max if flash is disabled
 hud.pulse_time = 0.9
 
 function hud.draw_arrows()
@@ -22,7 +22,15 @@ function hud.draw_arrows()
 	end
 	
 	if hud.arrows['right'] then
-		love.graphics.draw(image['arrow'], (window.w - 40), (window.h/2), (math.pi * 0.5), 1, 1, 0, yc)
+		love.graphics.draw(image['arrow'], (window.w - xc), (window.h/2), (math.pi * 0.5), 1, 1, xc, yc)
+	end
+	
+	if hud.arrows['left'] then
+		love.graphics.draw(image['arrow'], xc, (window.h/2), (math.pi * 1.5), 1, 1, xc, yc)
+	end
+	
+	if hud.arrows['down'] then
+		love.graphics.draw(image['arrow'], (window.w/2), (window.h - yc), (math.pi * 1.0), 1, 1, xc, yc)
 	end
 	
 	-- restore previous draw settings
@@ -45,7 +53,8 @@ function hud.draw()
 	local iconSeparation = 20
 	
 	-- draw arrows if room is unlocked
-	if current_room.done_state == 'coda' then
+	--if current_room.cleared  then
+	if true then -- DBG
 		if next(hud.arrows) == nil then 
 			-- not currently flashing
 			if current_room.exits.north then
@@ -55,11 +64,11 @@ function hud.draw()
 				hud.arrows.right = true
 			end
 			-- start flasher
-			hud:flash_arrows()
+			hud:flash_arrows() -- comment out to disable flash
 		end
 	else 
 		if next(hud.arrows) then
-			hud.arrow_tween:stop()
+			hud.arrow_tween:stop() -- comment out if flash disabled
 		end
 		hud.arrows = {}
 	end
@@ -72,7 +81,7 @@ function hud.draw()
 	love.graphics.setFont(hud.font)
 	
 	-- draw timer in upper right
-	timer.draw((window.w-250),0)
+	timer.draw((window.w-275),0)
 	
 	-- draw player HP in lower right
 	love.graphics.print(player.hp, (window.w - 80), (window.h - 80))
