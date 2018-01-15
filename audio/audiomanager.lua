@@ -48,7 +48,7 @@ local AudioManager = class("AudioManager")
   end
 
   function AudioManager:playLooped(name, volume, prelude, epilogue)
-    self.loop_count = self.loop_count + 1
+    --[[self.loop_count = self.loop_count + 1
     local play = LoopedAudio:new(self.loop_count, name, volume, prelude, epilogue)
     self.looped[self.loop_count] = play
     if play.epilogue then
@@ -56,13 +56,13 @@ local AudioManager = class("AudioManager")
     else
       self:playOnce(name, volume)
     end
-    return play.id
+    return play.id]]
   end
 
   function AudioManager:stopLooped(id)
-    if self.looped[id] then
+  --[[  if self.looped[id] then
         self.looped[id].name = nil --:stop()
 --      if self.looped[id].name then
-    end
+end]]
   end
 return AudioManager
