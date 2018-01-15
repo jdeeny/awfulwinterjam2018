@@ -92,12 +92,13 @@ function LightningGun:_fire(targets)
   if not self.owner.x then return end
 
   self.fork_targets = {}
-  
+
   local fired_at_targets = {}
 
   local nodes = electricity:nodesincircle(self.owner.x, self.owner.y, self.range)
 
-        
+  audiomanager:playLooped('car1', 100, 'car2', 'car3')
+
   -- if no targets shoot straight ahead at nothing
   if not targets or #targets == 0 then
 
@@ -119,17 +120,17 @@ function LightningGun:_fire(targets)
     newbolt:setSource({x=camera.view_x(self.owner), y=camera.view_y(self.owner)})
     newbolt:setPrimaryTarget({x=camera.view_x(vtarg), y=camera.view_y(vtarg)})
     newbolt:create(function (ftarg, level)
-            table.insert(self.fork_targets,{target=ftarg,level=level})  
+            table.insert(self.fork_targets,{target=ftarg,level=level})
           end)
 
     table.insert(self.bolts, newbolt)
-  
+
   else
     local last_target = self.owner
     for i, t in ipairs(targets) do
       if i <= self.chain_targets then
         local newbolt = lovelightning:new(255,255,255)
-    
+
         newbolt:setForkTargets(nodes)
 
 
@@ -137,12 +138,12 @@ function LightningGun:_fire(targets)
         newbolt:setPrimaryTarget({x=camera.view_x(t), y=camera.view_y(t)})
 
         newbolt:create(function (ftarg, level)
-            table.insert(self.fork_targets,{target=ftarg,level=level})  
+            table.insert(self.fork_targets,{target=ftarg,level=level})
           end)
         table.insert(self.bolts, newbolt)
         table.insert(fired_at_targets,t)
         last_target = t
-      end      
+      end
     end
   end
 
@@ -158,7 +159,7 @@ end
 function LightningGun:update(dt)
   if self.bolts and self.fired_at then
     if game_time < self.fired_at + self.draw_time then
-      
+
       for _, b in pairs(self.bolts) do
         b:update(dt)
       end
