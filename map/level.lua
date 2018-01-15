@@ -24,9 +24,15 @@ function Level:setTile(loc, tile)
 end
 
 function Level:update(dt)
+  for _, l in pairs(self.layers) do
+    l.update(dt)
+  end
 end
 
 function Level:draw()
+  for _, l in pairs(self.layers) do
+    l.draw()
+  end
 end
 
 return Level
