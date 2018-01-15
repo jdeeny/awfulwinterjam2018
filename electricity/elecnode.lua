@@ -39,9 +39,7 @@ function ElecNode:attemptArc()
   local nodes = self:nodesinradius(100)
   if #nodes == 0 then return end
   local target = nodes[math.random(#nodes)]
-  if target == self then print "!!" end
-  print("x")
-  print(target)
+--  if target == self then print "!!" end
 end
 
 
