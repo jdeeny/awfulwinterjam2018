@@ -79,8 +79,10 @@ function room:setup_tiles()
       kind = self[gx][gy].kind
       self[gx][gy].tile, self[gx][gy].tile_rotation, self[gx][gy].tile_sx, self[gx][gy].tile_sy = nil, nil, nil, nil
       if kind == "floor" then
-        if math.random() < 0.1 then
+        if math.random() < 0.05 then
           self[gx][gy].tile = "water_border"
+        elseif math.random() < 0.05 then
+          self[gx][gy].tile = "ballpost"
         else
           self[gx][gy].tile = "floor"
         end
@@ -154,6 +156,11 @@ function room:draw()
         if self[gx][gy].tile then
           if self[gx][gy].tile == "water_border" then
             water.draw(image[self[gx][gy].tile], (gx + 0.5) * TILESIZE - camera.x, (gy + 0.5) * TILESIZE - camera.y,
+              self[gx][gy].tile_rotation or 0, self[gx][gy].tile_sx or 1, self[gx][gy].tile_sy or 1, TILESIZE / 2, TILESIZE / 2)
+          elseif self[gx][gy].tile == "ballpost" then
+            love.graphics.draw(image['floor'], (gx + 0.5) * TILESIZE - camera.x, (gy + 0.5) * TILESIZE - camera.y,
+              self[gx][gy].tile_rotation or 0, self[gx][gy].tile_sx or 1, self[gx][gy].tile_sy or 1, TILESIZE / 2, TILESIZE / 2)
+            love.graphics.draw(image[self[gx][gy].tile], (gx + 0.5) * TILESIZE - camera.x, (gy + 0.5) * TILESIZE - camera.y,
               self[gx][gy].tile_rotation or 0, self[gx][gy].tile_sx or 1, self[gx][gy].tile_sy or 1, TILESIZE / 2, TILESIZE / 2)
           else
             love.graphics.draw(image[self[gx][gy].tile], (gx + 0.5) * TILESIZE - camera.x, (gy + 0.5) * TILESIZE - camera.y,
