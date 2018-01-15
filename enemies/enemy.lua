@@ -28,7 +28,6 @@ function enemy:update_move_controls()
 end
 
 function enemy:die()
-  print("die")
   if self.dead then
    return
   end
