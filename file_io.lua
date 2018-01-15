@@ -9,8 +9,9 @@ function file_io.file_exists(file)
 end
 
 function file_io.lines_from(file)
-	lines = {}
-	for line in io.lines(file) do
+	local lines = {}
+	local f = io.open(file, "r")
+	for line in f:lines() do
 		lines[#lines + 1] = line
 	end
 	return lines
