@@ -8,38 +8,38 @@ function play.update(dt)
 
 	player_input:update()
 
-    if player_input:pressed('pause') then
-      pause.enter()
-    else
-      mdt = dt * play.game_speed()
-      game_time = game_time + mdt
+  if player_input:pressed('pause') then
+    pause.enter()
+  else
+    mdt = dt * play.game_speed()
+    game_time = game_time + mdt
 
-	  game_flux.update(mdt)
+    game_flux.update(mdt)
 
-	  player.update(mdt)
+    player.update(mdt)
 
-      for _,z in pairs(sparks) do
-        z:update(mdt)
-      end
-
-      spawner.process()
-      for _,z in pairs(enemies) do
-        z:update(mdt)
-      end
-
-      for _,z in pairs(shots) do
-        z:update(mdt)
-      end
-
-      camera.update(mdt)
-      timer.update()
-
-      delay.process()
-      water.update(mdt)
-      current_room:update()
-
-      electricity:update(mdt)
+    for _,z in pairs(sparks) do
+      z:update(mdt)
     end
+
+    spawner.process()
+    for _,z in pairs(enemies) do
+      z:update(mdt)
+    end
+
+    for _,z in pairs(shots) do
+      z:update(mdt)
+    end
+
+    camera.update(mdt)
+    timer.update()
+
+    delay.process()
+    water.update(mdt)
+    current_room:update()
+
+    electricity:update(mdt)
+  end
 end
 
 function play.draw()

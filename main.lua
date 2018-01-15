@@ -62,5 +62,3 @@ function new_game()
 
   fade.start_fade("fadein", 1.0, true, function() player:end_force_move() end)
 end
-
---]]

@@ -53,15 +53,17 @@ function room:coda()
 end
 
 function room:open_door(dir, fake, time)
+  if not self.door_close_time then
+    self.door_close_time = {}
+  end
+
+  if not self.door_close_time[dir] then
+    -- wasn't already open
+    audiomanager:playOnce("unlatch")
+  end
+
   -- if time is given, close the door again after that time
   if time then
-    if not self.door_close_time then
-      self.door_close_time = {}
-    end
-    if not self.door_close_time[dir] then
-      -- wasn't already open
-      audiomanager:playOnce("unlatch")
-    end
     self.door_close_time[dir] = game_time + time
   end
 

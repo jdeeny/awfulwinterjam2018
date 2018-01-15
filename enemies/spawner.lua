@@ -4,6 +4,8 @@ function spawner.reset()
 	spawner.events = {}
 	spawner.wave_count = 0
 	spawner.teleporters = {}
+	spawner.score = 0
+	spawner.start_time = game_time
 end
 
 function spawner.add(threshold, f)
@@ -11,12 +13,11 @@ function spawner.add(threshold, f)
 	spawner.wave_count = spawner.wave_count + 1
 end
 
-local score
 function spawner.process()
 	-- spawning is delayed if enemies are alive
-	score = game_time - enemy_value
+	spawner.score = game_time - enemy_value - spawner.start_time
 	for j,z in pairs(spawner.events) do
-		if score >= j then
+		if spawner.score >= j then
 			z()
 			spawner.events[j] = nil
 			spawner.wave_count = spawner.wave_count - 1
