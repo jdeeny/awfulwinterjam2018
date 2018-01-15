@@ -49,12 +49,12 @@ local AudioManager = class("AudioManager")
 
   function AudioManager:playLooped(name, volume, prelude, epilogue)
     self.loop_count = self.loop_count + 1
-    local play = LoopedAudio.new(self.loop_count, name, volume, prelude, epilogue)
+    local play = LoopedAudio:new(self.loop_count, name, volume, prelude, epilogue)
     self.looped[self.loop_count] = play
     if play.epilogue then
-      self.playOnce(prelude, volume)
+      self:playOnce(prelude, volume)
     else
-      self.playOnce(name, volume)
+      self:playOnce(name, volume)
     end
     return play.id
   end
