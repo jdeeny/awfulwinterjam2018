@@ -10,10 +10,8 @@ function dungeon.move_to_room(rx, ry, from_dir)
   sparks = {}
   spawner.reset()
 
-  current_room = room:new()
-  current_room:init(20, 16)
+  current_room = file_io.parse_room_file(1)
   current_room.exits = current_dungeon:get_exits(rx, ry)
-  current_room:setup_main()
 
   player.dungeon_x = rx
   player.dungeon_y = ry
