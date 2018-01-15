@@ -53,24 +53,25 @@ function hud.draw()
 	local iconSeparation = 20
 	
 	-- draw arrows if room is unlocked
-	--if current_room.cleared  then
-	if true then -- DBG
-		if next(hud.arrows) == nil then 
-			-- not currently flashing
-			if current_room.exits.north then
-				hud.arrows.up = true
+	if current_room.cleared  then
+		if true then -- DBG
+			if next(hud.arrows) == nil then 
+				-- not currently flashing
+				if current_room.exits.north then
+					hud.arrows.up = true
+				end
+				if current_room.exits.east then
+					hud.arrows.right = true
+				end
+				-- start flasher
+				hud:flash_arrows() -- comment out to disable flash
 			end
-			if current_room.exits.east then
-				hud.arrows.right = true
+		else 
+			if next(hud.arrows) then
+				hud.arrow_tween:stop() -- comment out if flash disabled
 			end
-			-- start flasher
-			hud:flash_arrows() -- comment out to disable flash
+			hud.arrows = {}
 		end
-	else 
-		if next(hud.arrows) then
-			hud.arrow_tween:stop() -- comment out if flash disabled
-		end
-		hud.arrows = {}
 	end
 	
 	if next(hud.arrows) then  

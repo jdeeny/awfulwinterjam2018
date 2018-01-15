@@ -13,6 +13,7 @@ local AudioManager = class("AudioManager")
     self.sources['car1'] = PooledSource:new("assets/sfx/car1.ogg")
     self.sources['car2'] = PooledSource:new("assets/sfx/car2.ogg")
     self.sources['car3'] = PooledSource:new("assets/sfx/car3.ogg")
+	self.sources['gunshot'] = PooledSource:new("assets/sfx/gunshot.wav")
   end
 
   function AudioManager:update(dt)

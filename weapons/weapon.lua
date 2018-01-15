@@ -41,7 +41,7 @@ local ProjectileGun = class("ProjectileGun", Weapon)
 function ProjectileGun:initialize()
   Weapon.initialize(self)
   self.shot_speed = 800
-  self.sound = "snap"
+  self.sound = "gunshot"
   self.icon = "gun_icon"
 end
 
