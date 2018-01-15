@@ -2,7 +2,7 @@
 require "math"
 item = require "item"
 cpml = require 'lib/cpml'
-lovelightning = require "lib/lovelightning/lovelightning"
+lovelightning = require "effects/lovelightning"
 camera = require "camera"
 
 
