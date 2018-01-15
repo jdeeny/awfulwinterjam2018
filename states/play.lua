@@ -38,8 +38,9 @@ function play.update(dt)
     water.update(mdt)
     current_room:update()
 
-    electricity:update(mdt)
-  end
+      electricity:update(mdt)
+      current_level:update(mdt)
+    end
 end
 
 function play.draw()
@@ -64,6 +65,8 @@ function play.draw()
   electricity:draw()
 
   hud:draw()
+
+  current_level:draw()
 
   fade:draw()
 end

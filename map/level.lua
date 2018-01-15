@@ -23,4 +23,10 @@ function Level:setTile(loc, tile)
   self.cells[loc] = tile
 end
 
+function Level:update(dt)
+end
+
+function Level:draw()
+end
+
 return Level
