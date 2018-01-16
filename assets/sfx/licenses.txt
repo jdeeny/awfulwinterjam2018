@@ -1,0 +1,33 @@
+This file contains licenses and/or credits for all the sound effects in this directory.
+
+Sound:"crackle.wav"
+Artist: follytowers
+License: CC 0  
+Source: https://freesound.org/people/follytowers/sounds/362975/
+No credit required.
+
+Sound:"gunshot.wav"
+Artist: morganpunkis
+License: CC 0  
+Source: https://freesound.org/people/morganpurkis/sounds/396316/
+No credit required.
+
+Sound:"snap.wav"
+Artist: jensfelger
+License: CC 0  
+Source: https://freesound.org/people/jensfelger/sounds/367451/
+No credit required.
+
+Sound:"unh.wav"
+Artist: Kangra
+License: CC 0
+Source: original recording
+No credit required.
+
+Sound:"unlatch.wav"
+Artist: BMacZero
+License: CC 0  
+Source: https://freesound.org/people/BMacZero/sounds/94127/
+No credit required.
+
+

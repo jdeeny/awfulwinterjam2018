@@ -1,0 +1,11 @@
+This file contains licenses and/or credits for all the music tracks in this directory.
+
+Track:"Fig Leaf Times Two"
+Artist: Kevin MacLeod
+License: CC BY 3.0
+This is how the credit should appear, per Kevin MacLeod:
+
+Fig Leaf Times Two Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 3.0 License
+http://creativecommons.org/licenses/by/3.0/
+

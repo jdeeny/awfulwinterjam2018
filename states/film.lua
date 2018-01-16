@@ -1,6 +1,7 @@
 local film = {
   text = nil,
   film_text = "Default Text \n You shouldn't see this",
+  music = {},
   font = love.graphics.newFont(
     'assets/fonts/babes-in-toyland-nf/BabesInToylandNF.ttf', 50),
 }
@@ -12,12 +13,21 @@ function film.enter()
   filmgrain_effect.filmgrain.size = 10
   filmgrain_effect.filmgrain.opacity = .6
   filmgrain_effect.desaturate.tint = {138, 111, 48}
-  audiomanager:playMusic("figleaf")
+  if film.music.track then
+	  local music = film.music
+	  audiomanager:playMusic(music.track, music.volume, music.offset)
+  end
   state = STATE_FILM
 end
 
 function film.set_title(text)
   film.film_text = text
+end
+
+function film.set_music(music, starts_at, volume)
+	film.music.track = music 
+	film.music.offset = starts_at
+	film.music.volume = volume
 end
 
 function film.update()
