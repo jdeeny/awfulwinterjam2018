@@ -1,4 +1,5 @@
 --Layer = require 'map/layer'
 --Room = require 'map/room'
+Layer = require 'map/layer'
 Tile = require 'map/tile'
 Level = require 'map/level'

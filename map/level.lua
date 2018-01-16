@@ -2,9 +2,6 @@ local Level = class("Level")
 
 Level.tileset = require 'map/tileset'
 
-local Layer = require 'map/layer'
-
-
 function Level:initialize(w, h)
   self.layers = {}
   return self
@@ -29,7 +26,10 @@ function Level:addTile(id, x, y, tile)
     return
   end
   print("addTile")
+  --self.add(id, tile.toEntity) --??
 end
+
+--function Level:addMob(id, x, y, )
 
 function Level:add(id, entity)
   local kind = entity.getKind()
