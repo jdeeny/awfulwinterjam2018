@@ -3,16 +3,6 @@ local enemy = class('enemy', mob)
 function enemy:update(dt)
   self:update_position(dt)
 
-  playerloc = cpml.vec2(player.x, player.y)
-  meloc = cpml.vec2(self.x, self.y)
-  if playerloc:dist(meloc) <= 10 then
-    if game_time >= self.attack_time or 0 then
-      -- attack
-      player:be_attacked(10, math.atan2(player.y - self.y, player.x - self.x))
-      self.attack_time = game_time + .4 + love.math.random(.1)
-    end
-  end
-
   self:update_animation(dt)
 end
 
