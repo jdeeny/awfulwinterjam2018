@@ -1,3 +1,4 @@
+-- adapted from https://github.com/elliottt/love-water.git
 local Water = class("Water")
 
 Water.waterbase = image["water"]
