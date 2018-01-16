@@ -41,6 +41,7 @@ end
 
 local debug_font = love.graphics.newFont(12)
 function love.draw()
+  local st = love.timer.getTime()
   gamestates[state].draw()
 
   -- debug
@@ -49,6 +50,8 @@ function love.draw()
   love.graphics.print("FPS: "..love.timer.getFPS(), 20, 20)
   local dc = love.graphics.getStats()
   love.graphics.print("draws: "..dc.drawcalls, 20, 40)
+  love.graphics.print("switches: "..dc.canvasswitches.." / "..dc.shaderswitches, 20, 60)
+  love.graphics.print(math.floor((love.timer.getTime() - st) * 1000000) / 1000 .. " ms", 20, 80)
   love.graphics.setColor(255, 255, 255, 255)
 end
 
