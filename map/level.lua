@@ -6,11 +6,14 @@ shadow_effect.desaturate.tint = {0,0,0}
 shadow_effect.gaussianblur.sigma = 1.0
 
 
-local shadow_xoff = 3
-local shadow_yoff = 12
 
 
 function Level:initialize(w, h)
+  self.shadow_canvas = love.graphics.newCanvas()
+  self.entity_canvas = love.graphics.newCanvas()
+  self.shadow_xoff = 3
+  self.shadow_yoff = 12
+
   self.layers = {}
   self:setLayerEffects(Layer.WATER, water_effect)
   return self
@@ -94,27 +97,33 @@ function Level:draw()
           Shadow over floor
   ]]
 
+  -- Draw shadows to shadow canvas
+  love.graphics.setCanvas(self.shadow_canvas)
   love.graphics.setBackgroundColor(0,0,0,0)
-  local entity_canvas = love.graphics.newCanvas()
-  local shadow_canvas = love.graphics.newCanvas()
+  love.graphics.clear()
 
-
-  love.graphics.setCanvas(entity_canvas)
-  if self.layers[Layer.ENTITY] then self.layers[Layer.ENTITY]:draw() end
-  love.graphics.setCanvas(shadow_canvas)
   shadow_effect(function()
     if self.layers[Layer.ENTITY] then self.layers[Layer.ENTITY]:draw() end
   end)
-  love.graphics.setCanvas(entity_canvas)
+
+  -- Draw entities to entity canvas (for reflection)
+  love.graphics.setCanvas(self.entity_canvas)
+  love.graphics.setBackgroundColor(0,0,0,0)
+  love.graphics.clear()
+
+  if self.layers[Layer.ENTITY] then self.layers[Layer.ENTITY]:draw() end
   if self.layers[Layer.ENTITYNOSHADOW] then self.layers[Layer.ENTITYNOSHADOW]:draw() end
 
+  -- Draw everything now
   love.graphics.setCanvas()
-
   for i = 1, Layer.LASTLAYER do
+
+    -- Exceptions here, could probably refactor
     if i == Layer.SHADOW then
-      love.graphics.draw(shadow_canvas, shadow_xoff, shadow_yoff)
+      love.graphics.draw(self.shadow_canvas, self.shadow_xoff, self.shadow_yoff)
     elseif i == Layer.ENTITY then
-      love.graphics.draw(entity_canvas)
+      love.graphics.draw(self.entity_canvas)
+    elseif i == Layer.ENTITYNOSHADOW then   -- Don't draw, included in the entity_canvas drawn in ENTITY layer
     elseif self.layers[i] then
       self.layers[i]:draw()
     end
