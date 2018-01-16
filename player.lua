@@ -18,8 +18,9 @@ function player.init()
   player.shot_delay = 0.1
   player.shot_speed = 800
   player.weapon = 1
-  player.weapon_max = 2
-  player.weapons = { weapon.ProjectileGun:new(), weapon.LightningGun:new() }
+  player.weapon_max = 3
+  player.weapons = { weapon.ProjectileGun:new(), weapon.LightningGun:new(),
+    weapon.RayGun:new() }
 
   player.animations = {}
   player.animations['run_ne'] = animation.tesla_run_ne

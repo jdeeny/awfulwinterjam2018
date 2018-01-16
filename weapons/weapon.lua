@@ -17,10 +17,15 @@ function Weapon:_aquire_targets()
 end
 
 function Weapon:initialize()
+   -- Weapon.initialize(self) -- super class init, uncomment when subclassing
   self.firing_rate = 0.1 --shots/s
 end
 
 function Weapon:_fire(targets)
+  -- override me
+end
+
+function Weapon:update(dt)
   -- override me
 end
 
@@ -29,10 +34,6 @@ function Weapon:fire()
     self:_fire(self:_aquire_targets())
     self.next_shot_time = game_time + self.firing_rate
   end
-end
-
-function Weapon:update(dt)
-  -- override me
 end
 
 -------------------------------------------------------------------------------
@@ -189,9 +190,40 @@ function LightningGun:draw()
   end
 end
 
+-------------------------------------------------------------------------------
+
+local RayGun = class("RayGun", Weapon)
+
+function RayGun:_aquire_targets()
+  -- override me and return a list of targets inform {x,y}
+  return {}
+end
+
+function RayGun:initialize()
+  Weapon.initialize(self)
+  self.sound = "gunshot"
+  self.icon = "ray_icon"
+end
+
+function RayGun:_fire(targets)
+  -- override me
+end
+
+function RayGun:update(dt)
+  -- override me
+end
+
+function RayGun:fire()
+  if not self.next_shot_time or game_time > self.next_shot_time then
+    self:_fire(self:_aquire_targets())
+    self.next_shot_time = game_time + self.firing_rate
+  end
+end
+
 
 -------------------------------------------------------------------------------
 weapon.ProjectileGun = ProjectileGun
 weapon.LightningGun = LightningGun
+weapon.RayGun = RayGun
 
 return weapon
