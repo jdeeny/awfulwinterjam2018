@@ -32,6 +32,7 @@ enemy_data["schmuck"] =
   speed = 100,
   radius = 30,
   value = 1,
+  touch_damage = 10,
 }
 
 enemy_data["fodder"] =
@@ -43,6 +44,7 @@ enemy_data["fodder"] =
   speed = 200,
   radius = 15,
   value = 0.5,
+  touch_damage = 10,
 }
 
 return enemy_data

@@ -81,6 +81,13 @@ function player.update(dt)
         z:trigger()
       end
     end
+
+    -- ...or if we touched an enemy
+    for _,z in pairs(enemies) do
+      if collision.aabb_aabb(player, z) then
+        player:be_attacked(z.touch_damage, math.atan2(player.y - z.y, player.x, z.x))
+      end
+    end
   end
 
   player.animation = player.animations[player.animation_state .. '_' .. player.get_facing_string(player.facing_north, player.facing_east)]
@@ -118,13 +125,13 @@ function player:be_attacked(damage, direction)
   if player.iframe_end_time and player.iframe_end_time < game_time then
     self.hp = math.max(self.hp - damage, 0)
     if self.hp <= 0 then
-      play.freezeframe(0.5)
+      play.freezeframe(0.3)
       camera.shake(15, 1)
       player:be_stunned(1, 1000 * math.cos(direction), 1000 * math.sin(direction))
       player.be_invincible(99999)
       self.die()
     else
-      play.freezeframe(0.2)
+      play.freezeframe(0.1)
       camera.shake(5, 0.5)
       player:be_stunned(0.5, 500 * math.cos(direction), 500 * math.sin(direction))
       player.be_invincible(1)
