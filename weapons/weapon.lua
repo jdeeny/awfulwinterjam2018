@@ -80,11 +80,14 @@ function LightningGun:_aquire_targets()
 
   -- search for targets
   for _, z in pairs(enemies) do
-    local ven = cpml.vec2.new(z.x, z.y)-pos_vec -- vector to the enemy
-    if cpml.vec2.angle_between(aim_vec, ven) < self.firing_arc/2 and
-        cpml.vec2.len(ven) < self.range then
+    local ven = cpml.vec2.new(z.x, z.y)
+    local v_to_en = ven-pos_vec -- vector to the enemy
+    
+    if (cpml.vec2.angle_between(aim_vec, v_to_en) < self.firing_arc/2 and
+        cpml.vec2.len(v_to_en) < self.range) or cpml.vec2.len(v_to_en) < 50 then
       table.insert(targets,z)
     end
+  
   end
 
   return targets
@@ -107,15 +110,15 @@ function LightningGun:_fire(targets)
     local aim_vec = cpml.vec2.new(math.cos(self.owner.aim),math.sin(self.owner.aim))
     local pos_vec = cpml.vec2.new(self.owner.x, self.owner.y)
 
-    local range = 200
+    local range = 50
     local vtarg = pos_vec+aim_vec*range
 
     local newbolt = lovelightning:new(255,255,255)
 
     newbolt.power = .5
     newbolt.jitter_factor = 0.75
-    newbolt.fork_chance = 0.9
-    newbolt.max_fork_angle = math.pi/2
+    newbolt.fork_chance = .9
+    newbolt.max_fork_angle = math.pi
     -- newbolt:setForkTargets(electricity:nodesincircle(
     --       self.owner.x, self.owner.y, range))
 

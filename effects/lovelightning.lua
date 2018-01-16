@@ -29,7 +29,7 @@ LoveLightning = class("LoveLightning")
 function LoveLightning:initialize(r,g,b,power)
     if power ~= nil then self.power = power else self.power = 1.0 end
     self.jitter_factor = 0.5
-    self.fork_chance = 0.25
+    self.fork_chance = 0.5
     self.max_fork_angle = math.pi/4
     self.color = {['r']=r,['g']=g,['b']=b}
 end
@@ -131,13 +131,13 @@ function LoveLightning:create( fork_hit_handler )
 
     self.distance = (vtarget-vsource):len()
     local max_jitter = self.distance*0.5*self.jitter_factor
-    local iterations = math.max(4,math.floor(self.distance/50)) 
+    local iterations = math.max(6,math.floor(self.distance/50)) 
 
     for i = 1, iterations, 1 do
         
         self.vertices = self:_add_jitter(self.vertices, max_jitter, 1)
 
-        max_jitter = max_jitter/2
+        max_jitter = max_jitter*0.5
     end
 end
 
@@ -168,27 +168,25 @@ end
 
 function LoveLightning:draw()
     if self.vertices then
-
-        local restore_mode = love.graphics.getBlendMode()
-        local restore_canvas = love.graphics.getCanvas()
+        -- local restore_mode = love.graphics.getBlendMode()
+        -- local restore_canvas = love.graphics.getCanvas()
     
-        local canvas = love.graphics.newCanvas()
-        love.graphics.setCanvas(canvas)
+        -- local canvas = love.graphics.newCanvas()
+        -- love.graphics.setCanvas(canvas)
 
-        draw_path(self.vertices, self.color, 32*self.power, 17*self.power)
-        draw_path(self.vertices, self.color, 64*self.power, 7*self.power)
-        draw_path(self.vertices, self.color, 128*self.power, 5*self.power)
+        -- draw_path(self.vertices, self.color, 32*self.power, 17*self.power)
+        -- draw_path(self.vertices, self.color, 64*self.power, 7*self.power)
+        -- draw_path(self.vertices, self.color, 128*self.power, 5*self.power)
 
-        canvas = fx.blur(canvas)
+        -- canvas = fx.blur(canvas)
 
-        love.graphics.setCanvas(restore_canvas)
+        -- love.graphics.setCanvas(restore_canvas)
 
-        love.graphics.setBlendMode("alpha", "premultiplied")
-        love.graphics.draw(canvas,0,0)
-        love.graphics.setBlendMode(restore_mode)
+        -- love.graphics.setBlendMode("alpha", "premultiplied")
+        -- love.graphics.draw(canvas,0,0)
+        -- love.graphics.setBlendMode(restore_mode)
 
         draw_path(self.vertices, self.color, 255*self.power, 2*self.power)
-
     end
 end
 
