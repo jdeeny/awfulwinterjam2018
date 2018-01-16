@@ -1,6 +1,14 @@
 local Level = class("Level")
 
 Level.tileset = require 'map/tileset'
+local shadow_effect = moonshine(moonshine.effects.desaturate).chain(moonshine.effects.gaussianblur)
+shadow_effect.desaturate.tint = {0,0,0}
+shadow_effect.gaussianblur.sigma = 1.0
+
+
+local shadow_xoff = 3
+local shadow_yoff = 12
+
 
 function Level:initialize(w, h)
   self.layers = {}
@@ -76,8 +84,38 @@ function Level:update(dt)
 end
 
 function Level:draw()
+--[[  We do this in a particular order:
+        Draw entities that cast shadows (it is assumed these things also reflect in water)
+        Create a shadow layer from that
+        Draw remaining entities (the ones with no shadow) to be used for reflect
+
+        Draw layers in order, but use the above canvases to build layers
+          Water gets reflection
+          Shadow over floor
+  ]]
+
+  love.graphics.setBackgroundColor(0,0,0,0)
+  local entity_canvas = love.graphics.newCanvas()
+  local shadow_canvas = love.graphics.newCanvas()
+
+
+  love.graphics.setCanvas(entity_canvas)
+  if self.layers[Layer.ENTITY] then self.layers[Layer.ENTITY]:draw() end
+  love.graphics.setCanvas(shadow_canvas)
+  shadow_effect(function()
+    love.graphics.draw(entity_canvas)
+  end)
+  love.graphics.setCanvas(entity_canvas)
+  if self.layers[Layer.ENTITYNOSHADOW] then self.layers[Layer.ENTITYNOSHADOW]:draw() end
+
+  love.graphics.setCanvas()
+
   for i = 1, Layer.LASTLAYER do
-    if self.layers[i] then
+    if i == Layer.SHADOW then
+      love.graphics.draw(shadow_canvas, shadow_xoff, shadow_yoff)
+    elseif i == Layer.ENTITY then
+      love.graphics.draw(entity_canvas)
+    elseif self.layers[i] then
       self.layers[i]:draw()
     end
   end
