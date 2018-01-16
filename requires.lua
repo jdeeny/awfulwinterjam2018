@@ -11,9 +11,8 @@ class = require 'lib/middleclass/middleclass' -- OOP https://github.com/kikito/m
 moonshine = require 'lib/moonshine/'
 gui_flux = require 'lib/flux/flux'  -- Simple tweening system https://github.com/rxi/flux
 game_flux = require 'lib/flux/flux'  -- Flux as above, but using game time units
---require 'lib/autobatch/autobatch'
+require 'lib/autobatch/autobatch'                 -- autobatch automatic SpriteBatch https://github.com/rxi/autobatch
 
---require 'lib/autobatch/autobatch'                 -- autobatch automatic SpriteBatch https://github.com/rxi/autobatch
 -- nice scaling for pixel graphics (might be fixed in git version?) https://github.com/SystemLogoff/lovePixel
 -- interesting text library that allows control per letter https://github.com/mzrinsky/popo https://github.com/EntranceJew/popo
 -- neural net that generates text that looks like source data https://github.com/karpathy/char-rnn
