@@ -19,10 +19,6 @@ end
 
 function Layer:add(id, entity)
   local kind = entity.kind
-  print("add")
-  print(kind)
-  print(id)
-  print("----")
 
   if self.entities[kind] == nil then self.entities[kind] = {} end
   local l = self.entities[kind]
@@ -52,14 +48,8 @@ function Layer:draw()
 end
 
 function Layer:_drawall()
-  print("layer:drawall")
   for kindname, kind  in pairs(self.entities) do  -- for each type of thing
-    print("k")
-    print(kindname)
-    print("kx")
     for id, e in pairs(kind) do    -- for each location
-      print("E")
-      print(id)
       e:draw()
     end
   end

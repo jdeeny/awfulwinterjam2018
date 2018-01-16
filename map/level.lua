@@ -4,6 +4,7 @@ Level.tileset = require 'map/tileset'
 
 function Level:initialize(w, h)
   self.layers = {}
+  self:setLayerEffects(Layer.WATER, water_effect)
   return self
 end
 
@@ -43,16 +44,25 @@ function Level:addMob(id, mob)
   self:_add(id, mob)
 end
 
-function Level:_add(id, e)
-  local l = e.layer or Layer.BROKEN
+function Level:getLayer(n)
+  local l = n or Layer.BROKEN
   if not self.layers[l] then self.layers[l] = Layer:new(l) end
-  self.layers[l]:add(id, e)
+  return self.layers[l]
+end
+
+function Level:_add(id, e)
+  self:getLayer(e.layer):add(id, e)
 end
 
 function Level:remove(id)
-  for _, layer in ipairs(self.layers) do
+  for _, layer in pairs(self.layers) do
     layer:remove(id)
   end
+end
+
+function Level:setLayerEffects(layer, effects)
+  self:getLayer(layer).effects = effects
+  return self
 end
 
 function Level:setTile(loc, tile)
@@ -60,13 +70,14 @@ function Level:setTile(loc, tile)
 end
 
 function Level:update(dt)
-  for _, l in pairs(self.layers) do
-    l:update(dt)
+  for i = 1, Layer.LASTLAYER do
+    if self.layers[i] then
+      self.layers[i]:update(dt)
+    end
   end
 end
 
 function Level:draw()
-  print("level:draw")
   for i = 1, Layer.LASTLAYER do
     if self.layers[i] then
       self.layers[i]:draw()
