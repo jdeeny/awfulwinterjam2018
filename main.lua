@@ -12,7 +12,6 @@ gamestates = {[0]=splash, [1]=mainmenu, [2]=film, [3]=play,
 
 function love.load()
   TILESIZE = 64
-  window = {w = love.graphics.getWidth(), h = love.graphics.getHeight()}
 
   gui_time = love.timer.getTime()
 

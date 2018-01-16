@@ -42,8 +42,8 @@ function mainmenu.draw()
 	end
 	local th = mainmenu.font:getHeight()*3
 
-	love.graphics.printf(text, 0, love.graphics.getHeight()/2-th/2,
-		love.graphics.getWidth(), 'center')
+	love.graphics.printf(text, 0, window.h/2-th/2,
+		window.w, 'center')
 
 	love.graphics.setFont(love.graphics.newFont()) --reset to default
 	love.graphics.setShader()

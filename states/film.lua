@@ -38,8 +38,8 @@ function film.draw()
     love.graphics.draw(image.intro, 0, 0, 0, window.w / image.intro:getWidth(), window.h / image.intro:getHeight())
     love.graphics.setFont(film.font)
     local th = mainmenu.font:getHeight()*3
-    love.graphics.printf(film.film_text, 0, love.graphics.getHeight()/2-th/2,
-      love.graphics.getWidth(), 'center')
+    love.graphics.printf(film.film_text, 0, window.h/2-th/2,
+      window.w, 'center')
     love.graphics.setFont(love.graphics.newFont())
   end)
 end

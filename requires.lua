@@ -19,7 +19,7 @@ require 'lib/autobatch/autobatch'                 -- autobatch automatic SpriteB
 -- https://github.com/tastyminerals/coherent-text-generation-limited
 -- sound synth lib https://github.com/vrld/Moan
 
-
+require 'window'
 require 'map'
 
 continue = require "states/continue"
