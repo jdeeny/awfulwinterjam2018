@@ -49,7 +49,7 @@ end
 
 function Level:remove(id)
   for _, layer in ipairs(self.layers) do
-    layer.remove(id)
+    layer:remove(id)
   end
 end
 
@@ -59,13 +59,13 @@ end
 
 function Level:update(dt)
   for _, l in pairs(self.layers) do
-    l.update(dt)
+    l:update(dt)
   end
 end
 
 function Level:draw()
   for _, l in pairs(self.layers) do
-    l.draw()
+    l:draw()
   end
 end
 

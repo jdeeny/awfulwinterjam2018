@@ -25,19 +25,26 @@ function Layer:remove(kind, id)
   self.entities[kind][id] = nil
 end
 
+function Layer:update(dt)
+  for _, kind  in pairs(self.entities) do  -- for each type of thing
+    for _, e in ipairs(kind) do    -- for each location
+      e:update(dt)
+    end
+  end
+end
+
 function Layer:draw()
   if self.effects then
     self.effects(self:_drawall())
   else
-    self_drawall()
+    self:_drawall()
   end
 end
 
 function Layer:_drawall()
-  for id, e in self.entites do  -- for each type of thing
-    for id, location in e do    -- for each location
-      print("!")
-      --love.graphics.draw()
+  for _, kind  in pairs(self.entities) do  -- for each type of thing
+    for _, e in ipairs(kind) do    -- for each location
+      e:draw()
     end
   end
 end
