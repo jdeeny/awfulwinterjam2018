@@ -103,7 +103,7 @@ function Level:draw()
   if self.layers[Layer.ENTITY] then self.layers[Layer.ENTITY]:draw() end
   love.graphics.setCanvas(shadow_canvas)
   shadow_effect(function()
-    love.graphics.draw(entity_canvas)
+    if self.layers[Layer.ENTITY] then self.layers[Layer.ENTITY]:draw() end
   end)
   love.graphics.setCanvas(entity_canvas)
   if self.layers[Layer.ENTITYNOSHADOW] then self.layers[Layer.ENTITYNOSHADOW]:draw() end
