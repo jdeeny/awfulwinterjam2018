@@ -10,7 +10,7 @@ TileSet['teleporter']         = { Tile:new('teleporter') }
 TileSet['ballpost']           = { Tile:new('ballpost') }
 
 TileSet['water_border']       = { Tile:new('water_border'),
-                                  Tile:new('water_base'):setLayer(Layer.WATER)
+                                  Tile:new('water'):setLayer(Layer.WATER)
                                 }
 
 

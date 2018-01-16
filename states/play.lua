@@ -24,7 +24,7 @@ function play.update(dt)
 
     spawner.process()
     for _,z in pairs(enemies) do
-      z:update(mdt)
+  --    z:update(mdt)
     end
 
     for _,z in pairs(shots) do
@@ -55,7 +55,7 @@ function play.draw()
      z:draw()
   end
   for _,z in pairs(enemies) do
-    z:draw()
+--    z:draw()
   end
   for _,z in pairs(shots) do
     z:draw()

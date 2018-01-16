@@ -18,6 +18,7 @@ function Entity:update(dt)
 end
 
 function Entity:draw()
+  print("draw: "..self.kind)
   love.graphics.draw(self.drawable, self.loc.x - camera.x, self.loc.y - camera.y, self.rot, sx, sy, ox, oy)
 end
 

@@ -26,7 +26,6 @@ function Level:addTile(id, x, y, tile)
     print("Attempted to add unknown tile")
     return
   end
-  print("addtile: " .. x .. " " .. y)
   for _, t in ipairs(tile) do
     local e = t:toEntity(x, y)
     self:_add(id, e)
@@ -39,7 +38,6 @@ function Level:addMob(id, mob)
     print("Attempted to add unknown mob")
     return
   end
-  print("Addmob: " .. id)
   mob.layer = mob.layer or Layer.ENTITY
   self:_add(id, mob)
 end
