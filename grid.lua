@@ -24,4 +24,12 @@ function grid:feature_at(gx, gy)
   end
 end
 
+function grid.hash(x, y)
+  return 512 * x + y
+end
+
+function grid.unhash(hash)
+  return math.floor(hash / 512), hash % 512
+end
+
 return grid
