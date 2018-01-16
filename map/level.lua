@@ -33,16 +33,18 @@ function Level:addTile(id, x, y, tile)
 end
 
 
-function Level:addMob(id, x, y, mob)
+function Level:addMob(id, mob)
   if id == nil or mob == nil then
     print("Attempted to add unknown mob")
     return
   end
-  print("Addmob: " .. x .. " " .. y)
+  print("Addmob: " .. id)
+  mob.layer = mob.layer or Layer.ENTITY
+  self:_add(id, mob)
 end
 
 function Level:_add(id, e)
-  local l = e.layer
+  local l = e.layer or Layer.BROKEN
   if not self.layers[l] then self.layers[l] = Layer:new(l) end
   self.layers[l]:add(id, e)
 end
@@ -65,8 +67,10 @@ end
 
 function Level:draw()
   print("level:draw")
-  for _, l in pairs(self.layers) do
-    l:draw()
+  for i = 1, Layer.LASTLAYER do
+    if self.layers[i] then
+      self.layers[i]:draw()
+    end
   end
 end
 

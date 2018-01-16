@@ -61,12 +61,12 @@ function play.draw()
     z:draw()
   end
 
-  player:draw()
   electricity:draw()
 
-  hud:draw()
 
   current_level:draw()
+  player:draw()
+  hud:draw()
 
   fade:draw()
 end

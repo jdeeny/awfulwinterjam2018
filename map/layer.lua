@@ -8,7 +8,8 @@ Layer.ENTITY = 5
 Layer.ENTITYOVER = 6
 Layer.FXOVER = 7
 Layer.HUD = 8
-
+Layer.BROKEN = 9
+Layer.LASTLAYER = 9
 
 function Layer:initialize(id, effects)
   self.id = id

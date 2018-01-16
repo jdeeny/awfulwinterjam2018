@@ -18,7 +18,7 @@ function Tile:setLayer(l)
 end
 
 function Tile:toEntity(x, y)
-  local e = Entity:new(self.id, self.id, (x + 0.5) * 64, (y + 0.5) * 64, self.layer, image[self.sprite], 0, 1.0, 1.0, 64 / 2, 64 / 2)
+  local e = Entity:new('sprite' .. self.id, self.id, (x + 0.5) * 64, (y + 0.5) * 64, self.layer, image[self.sprite], 0, 1.0, 1.0, 64 / 2, 64 / 2)
   return e
 end
 

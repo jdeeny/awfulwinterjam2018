@@ -1,7 +1,7 @@
 local Entity = class("Entity")
 
 function Entity:initialize(kind, id, x, y, layer, drawable, rotation, sx, sy, ox, oy)
-  self.kind = kind
+  self.kind = kind or 'unknownkind'
   self.id = id
   self.loc = cpml.vec2.new(x, y)
   self.layer = layer
@@ -19,7 +19,7 @@ function Entity:update(dt)
 end
 
 function Entity:draw()
-  print("draw")
+  print("draw " .. self.kind)
   love.graphics.draw(self.drawable, self.loc.x - camera.x, self.loc.y - camera.y, self.rot, sx, sy, ox, oy)
 end
 

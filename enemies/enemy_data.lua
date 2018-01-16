@@ -19,6 +19,8 @@ function enemy_data.spawn(kind, x, y)
   enemies[new_id].hp = enemies[new_id].max_hp
   enemy_value = enemy_value + enemies[new_id].value
 
+  current_level:addMob(new_id, enemies[new_id])
+
   return new_id
 end
 
