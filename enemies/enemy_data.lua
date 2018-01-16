@@ -15,6 +15,9 @@ function enemy_data.spawn(kind, x, y)
   for i, v in pairs(enemy_data[kind]) do
     enemies[new_id][i] = v
   end
+  if enemies[new_id].animation then
+    enemies[new_id].animation = enemies[new_id].animation:clone()
+  end
 
   enemies[new_id].hp = enemies[new_id].max_hp
   enemy_value = enemy_value + enemies[new_id].value
