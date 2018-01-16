@@ -39,8 +39,17 @@ function love.update(dt)
   gamestates[state].update(dt)
 end
 
+local debug_font = love.graphics.newFont(12)
 function love.draw()
   gamestates[state].draw()
+
+  -- debug
+  love.graphics.setFont(debug_font)
+  love.graphics.setColor(50, 200, 100, 200)
+  love.graphics.print("FPS: "..love.timer.getFPS(), 20, 20)
+  local dc = love.graphics.getStats()
+  love.graphics.print("draws: "..dc.drawcalls, 20, 40)
+  love.graphics.setColor(255, 255, 255, 255)
 end
 
 function new_game()
