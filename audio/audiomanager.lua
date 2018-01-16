@@ -17,7 +17,7 @@ local AudioManager = class("AudioManager")
     self.sources['car3'] = PooledSource:new("assets/sfx/car3.ogg")
 	self.sources['gunshot'] = PooledSource:new("assets/sfx/gunshot.wav")
 	
-	-- Music and longer sounds is probably better to stream, and only play one at a time
+	-- Music is probably better to stream.  Only one music track is playable at a time.
 	self.music_tracks['figleaf'] = love.audio.newSource("assets/music/Fig Leaf Times Two.ogg", "stream")
   end
 
@@ -40,12 +40,16 @@ local AudioManager = class("AudioManager")
       end
     end
   end
+  
+  function AudioManager:setMasterVolume(volume)
+	  love.audio.setVolume(volume)
+  end
 
   function AudioManager:addEffect(path, name)
     self.sources[name] = PooledSource:new(path)
   end
 
-  function AudioManager:playOnce(name, volume)
+  function AudioManager:playOnce(name)
     if self.sources[name] then
       self.sources[name]:play()
     else
@@ -73,8 +77,13 @@ end]]
   end
   
   function AudioManager:playMusic(name, volume)
+	  local vol = volume or 1.0
       if self.music_tracks[name] then
+	    if self.music then
+	    	  love.audio.stop(self.music)
+	    end
         self.music = self.music_tracks[name]
+		self.music:setVolume(vol)
 		love.audio.play(self.music)
       else
         print("Tried to play music track  \'" .. name .. "\' but it doesn't exist.")
