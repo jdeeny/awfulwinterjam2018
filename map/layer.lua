@@ -16,18 +16,27 @@ function Layer:initialize(id, effects)
   self.effects = effects
 end
 
-function Layer:add(kind, id, entity)
-  if not self.entities[kind] then self.entities[kind] = {} end
+function Layer:add(id, entity)
+  local kind = entity.kind
+  print("add")
+  print(kind)
+  print(id)
+  print("----")
+
+  if self.entities[kind] == nil then self.entities[kind] = {} end
+  local l = self.entities[kind]
   self.entities[kind][id] = entity
 end
 
-function Layer:remove(kind, id)
-  self.entities[kind][id] = nil
+function Layer:remove(id)
+  for kindname, kind  in pairs(self.entities) do  -- for each type of thing
+    kind[id] = nil
+  end
 end
 
 function Layer:update(dt)
-  for _, kind  in pairs(self.entities) do  -- for each type of thing
-    for _, e in ipairs(kind) do    -- for each location
+  for kindname, kind  in pairs(self.entities) do  -- for each type of thing
+    for id, e in pairs(kind) do    -- for each location
       e:update(dt)
     end
   end
@@ -42,8 +51,14 @@ function Layer:draw()
 end
 
 function Layer:_drawall()
-  for _, kind  in pairs(self.entities) do  -- for each type of thing
-    for _, e in ipairs(kind) do    -- for each location
+  print("layer:drawall")
+  for kindname, kind  in pairs(self.entities) do  -- for each type of thing
+    print("k")
+    print(kindname)
+    print("kx")
+    for id, e in pairs(kind) do    -- for each location
+      print("E")
+      print(id)
       e:draw()
     end
   end

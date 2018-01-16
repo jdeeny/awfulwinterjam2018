@@ -28,7 +28,7 @@ function Level:addTile(id, x, y, tile)
   print("addtile: " .. x .. " " .. y)
   for _, t in ipairs(tile) do
     local e = t:toEntity(x, y)
-    self:_add(t.id, id, e)
+    self:_add(id, e)
   end
 end
 
@@ -41,10 +41,10 @@ function Level:addMob(id, x, y, mob)
   print("Addmob: " .. x .. " " .. y)
 end
 
-function Level:_add(kind, id, e)
+function Level:_add(id, e)
   local l = e.layer
   if not self.layers[l] then self.layers[l] = Layer:new(l) end
-  self.layers[l]:add(kind, id, e)
+  self.layers[l]:add(id, e)
 end
 
 function Level:remove(id)
@@ -64,6 +64,7 @@ function Level:update(dt)
 end
 
 function Level:draw()
+  print("level:draw")
   for _, l in pairs(self.layers) do
     l:draw()
   end
