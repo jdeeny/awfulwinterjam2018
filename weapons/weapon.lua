@@ -52,7 +52,7 @@ end
 
 
 function ProjectileGun:_fire(targets)
-  print("gun fire")
+  
   angle = self.owner.aim + (love.math.random() - 0.5) * math.pi * 0.1
   self.next_shot_time = shot_data.spawn("bullet", self.owner.x, self.owner.y,
       math.cos(angle)*self.owner.shot_speed,
@@ -100,7 +100,7 @@ function LightningGun:_aquire_targets()
 end
 
 function LightningGun:_fire(targets)
-  print("lightning fire")
+  
   if not self.owner.x then return end
 
   self.fork_targets = {}
@@ -169,7 +169,7 @@ function LightningGun:hit_fork_target( target, level )
 end
 
 function LightningGun:update(dt)
-  print("lightning update")
+  
   if self.bolts and self.fired_at then
     if game_time < self.fired_at + self.draw_time then
 
@@ -190,7 +190,7 @@ end
 
 
 function LightningGun:draw()
-  print("lightning draw")
+  
   if self.bolts then
     for _, b in pairs(self.bolts) do
         b:draw()
@@ -208,7 +208,7 @@ function RayGun:_aquire_targets()
 end
 
 function RayGun:initialize()
-  print("ray init")
+  
   Weapon.initialize(self)
   self.sound = "gunshot"
   self.icon = "ray_icon"
