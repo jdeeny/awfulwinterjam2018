@@ -10,13 +10,14 @@ Layer.FXOVER = 7
 Layer.HUD = 8
 
 
-function Layer:intialize(id, effects)
+function Layer:initialize(id, effects)
   self.id = id
   self.entities = {}
   self.effects = effects
 end
 
 function Layer:add(kind, id, entity)
+  if not self.entities[kind] then self.entities[kind] = {} end
   self.entities[kind][id] = entity
 end
 
