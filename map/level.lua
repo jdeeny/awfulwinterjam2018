@@ -28,7 +28,7 @@ function Level:addTile(id, x, y, tile)
     print("Attempted to add unknown tile")
     return
   end
-  print("addTile: " .. id[1] .." " .. id[2] .. " " .. x .. " " .. y .. " " .. tile)
+  print("addTile")
 end
 
 function Level:add(id, entity)
