@@ -10,10 +10,12 @@ end
 
 function file_io.lines_from(file)
 	local lines = {}
-	local f = io.open(file, "r")
+	local f = love.filesystem.newFile(file)
+	f:open("r")
 	for line in f:lines() do
 		lines[#lines + 1] = line
 	end
+	f:close()
 	return lines
 end
 
