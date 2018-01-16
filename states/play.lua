@@ -35,7 +35,6 @@ function play.update(dt)
     timer.update()
 
     delay.process()
-    water.update(mdt)
     current_room:update()
 
       electricity:update(mdt)
@@ -46,7 +45,8 @@ end
 function play.draw()
   camera.apply_shake()
 
-	current_room:draw()
+--	current_room:draw()
+  current_level:draw()
 
   for _,z in pairs(sparks) do
     z:draw()
@@ -64,7 +64,6 @@ function play.draw()
   electricity:draw()
 
 
-  current_level:draw()
   player:draw()
   hud:draw()
 

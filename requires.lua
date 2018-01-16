@@ -66,7 +66,7 @@ enemy_data = require "enemies/enemy_data"
 shot_data = require "weapons/shot_data"
 spark_data = require "spark_data"
 
-water = require 'effects/water'
+water_effect = require 'effects/water'
 
 require "lib/a-star-lua/a-star"
 

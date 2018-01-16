@@ -32,6 +32,10 @@ function Layer:remove(id)
 end
 
 function Layer:update(dt)
+  if self.effects then
+    self.effects:update(dt)
+  end
+
   for kindname, kind  in pairs(self.entities) do  -- for each type of thing
     for id, e in pairs(kind) do    -- for each location
       e:update(dt)
@@ -41,7 +45,9 @@ end
 
 function Layer:draw()
   if self.effects then
-    self.effects(self:_drawall())
+    water_effect.effect(function()
+      self:_drawall()
+    end)
   else
     self:_drawall()
   end

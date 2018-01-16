@@ -4,7 +4,7 @@ W--------------W
 W--WWWWWWWWWW--W
 W--WWWWWWWWWW--W
 W--WW----------W
-W--WW----------W
+W--WW------ww--W
 W--WWWWWWW-----W
 W--WWWWWWW-----W
 W--WW----------W
