@@ -40,7 +40,7 @@ function file_io.parse_room_file(n)
 			else
 				m[i][j].kind = "void"
 			end
-			current_level:addTile( {i,j}, i, j, Level.tileset[m[i][j].kind] or 'void' )
+			current_level:addTile(grid.hash(i, j), i, j, Level.tileset[m[i][j].kind] or 'void' )
 			i = i+1
 		end
 	end
