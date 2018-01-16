@@ -9,14 +9,20 @@ shadow_effect.gaussianblur.sigma = 1.0
 
 
 function Level:initialize(w, h)
-  self.shadow_canvas = love.graphics.newCanvas()
-  self.entity_canvas = love.graphics.newCanvas()
+  self:createCanvases()
+  --window.addCallback(self:createCanvases())
   self.shadow_xoff = 3
   self.shadow_yoff = 12
 
   self.layers = {}
   self:setLayerEffects(Layer.WATER, water_effect)
   return self
+end
+
+
+function Level:createCanvases()
+  self.shadow_canvas = love.graphics.newCanvas()
+  self.entity_canvas = love.graphics.newCanvas()
 end
 
 function Level:rebuild()
