@@ -76,7 +76,8 @@ local AudioManager = class("AudioManager")
 end]]
   end
   
-  function AudioManager:playMusic(name, volume)
+  -- Plays music (only track at a time). Volume is 0-1, offset is in seconds
+  function AudioManager:playMusic(name, volume, offset)
 	  local vol = volume or 1.0
       if self.music_tracks[name] then
 	    if self.music then
@@ -84,7 +85,13 @@ end]]
 	    end
         self.music = self.music_tracks[name]
 		self.music:setVolume(vol)
+		
 		love.audio.play(self.music)
+		
+		-- seeking must be done after music starts
+		if offset then
+			self.music:seek(offset)
+		end
       else
         print("Tried to play music track  \'" .. name .. "\' but it doesn't exist.")
       end
