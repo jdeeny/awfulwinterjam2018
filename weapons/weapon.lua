@@ -217,12 +217,14 @@ function RayGun:initialize()
   self.damage = 100
   self.beam_width = 10
   self.focus_time = 5.0
+  self.initial_focus = 0.1 -- 0 to 1
 end
 
 function RayGun:_fire(targets)
   if not self.fired_at then
     self.current_angle = self.firing_arc
     self.fired_at = game_time
+    self.focus = self.initial_focus
   end
 end
 
@@ -237,8 +239,10 @@ function RayGun:update(dt)
     
     --cap it at focus time
     local firing_time = math.min(self.focus_time, game_time-self.fired_at) 
-    
-    self.current_angle = self.firing_arc*(self.focus_time-firing_time)/self.focus_time
+    local percent_of_focus = (self.focus_time-firing_time)/self.focus_time
+
+    self.current_angle = self.firing_arc*percent_of_focus
+    self.focus = math.max(self.initial_focus, percent_of_focus)
   end
 end
 
@@ -252,7 +256,7 @@ function RayGun:draw()
     local canvas = love.graphics.newCanvas()
     love.graphics.setCanvas(canvas)
 
-    love.graphics.setColor(200, 0, 255, 127)
+    love.graphics.setColor(200, 0, 255, 255*(1-self.focus))
 
     local y_offset = 300
 
