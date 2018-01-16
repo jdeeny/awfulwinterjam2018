@@ -139,6 +139,8 @@ function LoveLightning:create( fork_hit_handler )
 
         max_jitter = max_jitter*0.5
     end
+
+    self.canvas = nil
 end
 
 function LoveLightning:update(dt)
@@ -167,12 +169,13 @@ local function draw_path(vertex_list, color, alpha, width)
 end
 
 function LoveLightning:draw()
-    if self.vertices then
-        -- local restore_mode = love.graphics.getBlendMode()
-        -- local restore_canvas = love.graphics.getCanvas()
+    local restore_mode = love.graphics.getBlendMode()
+    local restore_canvas = love.graphics.getCanvas()
     
-        -- local canvas = love.graphics.newCanvas()
-        -- love.graphics.setCanvas(canvas)
+    if self.vertices and not self.canvas then
+    
+        self.canvas = love.graphics.newCanvas()
+        love.graphics.setCanvas(self.canvas)
 
         -- draw_path(self.vertices, self.color, 32*self.power, 17*self.power)
         -- draw_path(self.vertices, self.color, 64*self.power, 7*self.power)
@@ -180,14 +183,16 @@ function LoveLightning:draw()
 
         -- canvas = fx.blur(canvas)
 
-        -- love.graphics.setCanvas(restore_canvas)
-
-        -- love.graphics.setBlendMode("alpha", "premultiplied")
-        -- love.graphics.draw(canvas,0,0)
-        -- love.graphics.setBlendMode(restore_mode)
-
         draw_path(self.vertices, self.color, 255*self.power, 2*self.power)
+
+        love.graphics.setCanvas(restore_canvas)
+    else
+
+        love.graphics.setBlendMode("alpha", "premultiplied")
+        love.graphics.draw(self.canvas,0,0)
+        love.graphics.setBlendMode(restore_mode)
     end
+
 end
 
 return LoveLightning
