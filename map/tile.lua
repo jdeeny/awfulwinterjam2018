@@ -15,4 +15,9 @@ function Tile:setLayer(l)
   self.layer = l
   return self
 end
+
+function Tile:toEntity(x, y)
+  return nil --TileEntity:new(self.id, self.layer)
+end
+
 return Tile

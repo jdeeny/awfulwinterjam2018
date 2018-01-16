@@ -25,13 +25,22 @@ function Level:addTile(id, x, y, tile)
     print("Attempted to add unknown tile")
     return
   end
-  print("addTile")
-  --self.add(id, tile.toEntity) --??
+  print("addtile: " .. x .. " " .. y)
+  for _, t in ipairs(tile) do
+    self._add(id, t.toEntity(x, y))
+  end
 end
 
---function Level:addMob(id, x, y, )
 
-function Level:add(id, entity)
+function Level:addMob(id, x, y, mob)
+  if id == nil or mob == nil then
+    printf("Attempted to add unknown mob")
+    return
+  end
+  print("Addmob: " .. x .. " " .. y)
+end
+
+function Level:_add(id, entity)
   local kind = entity.getKind()
   for layer in entity:getLayers() do
     if not self.layers[l] then self.layers[layer] = Layer:new(layer) end
@@ -40,7 +49,7 @@ function Level:add(id, entity)
 end
 
 function Level:remove(id)
-  for layer in self.layers do
+  for _, layer in ipairs(self.layers) do
     layer.remove(id)
   end
 end
