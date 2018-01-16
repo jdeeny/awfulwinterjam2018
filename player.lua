@@ -18,8 +18,9 @@ function player.init()
   player.shot_delay = 0.1
   player.shot_speed = 800
   player.weapon = 1
-  player.weapon_max = 2
-  player.weapons = { weapon.ProjectileGun:new(), weapon.LightningGun:new() }
+  player.weapon_max = 3
+  player.weapons = { weapon.ProjectileGun:new(), weapon.LightningGun:new(),
+    weapon.RayGun:new() }
 
   player.animations = {}
   player.animations['run_ne'] = animation.tesla_run_ne
@@ -65,14 +66,20 @@ function player.update(dt)
       _, player.aim = cpml.vec2.to_polar(mvec-pvec) -- angle to mouse pos. is new aim
     end
 
-    player.equipped_items['weapon']:update(dt)
+    -- fire weapon (or not)
+    if player.equipped_items['weapon'] then
+      player.equipped_items['weapon']:update(dt)
+      
+      if player_input:pressed('swap') then
+        player.weapon_switch()
+      end
 
-    if (aim_x ~= 0 or aim_y ~= 0 or player_input:down('fire')) and player.equipped_items['weapon'] then
-      player.equipped_items['weapon']:fire()
-    end
+      if (aim_x ~= 0 or aim_y ~= 0) or player_input:down('fire') then
+        player.equipped_items['weapon']:fire()
+      elseif (aim_x == 0 and aim_y == 0) and not player_input:down('fire') then
+        player.equipped_items['weapon']:release()
+      end
 
-    if player_input:pressed('swap') and player.equipped_items['weapon'] then
-      player.weapon_switch()
     end
 
     -- check if we're standing on a doodad

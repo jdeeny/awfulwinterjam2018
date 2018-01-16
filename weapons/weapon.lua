@@ -17,10 +17,16 @@ function Weapon:_aquire_targets()
 end
 
 function Weapon:initialize()
+   -- Weapon.initialize(self) -- super class init, uncomment when subclassing
   self.firing_rate = 0.1 --shots/s
 end
 
 function Weapon:_fire(targets)
+  -- override me
+end
+
+
+function Weapon:update(dt)
   -- override me
 end
 
@@ -31,10 +37,9 @@ function Weapon:fire()
   end
 end
 
-function Weapon:update(dt)
-  -- override me
+function Weapon:release()
+  -- body
 end
-
 -------------------------------------------------------------------------------
 local ProjectileGun = class("ProjectileGun", Weapon)
 
@@ -47,6 +52,7 @@ end
 
 
 function ProjectileGun:_fire(targets)
+  print("gun fire")
   angle = self.owner.aim + (love.math.random() - 0.5) * math.pi * 0.1
   self.next_shot_time = shot_data.spawn("bullet", self.owner.x, self.owner.y,
       math.cos(angle)*self.owner.shot_speed,
@@ -94,6 +100,7 @@ function LightningGun:_aquire_targets()
 end
 
 function LightningGun:_fire(targets)
+  print("lightning fire")
   if not self.owner.x then return end
 
   self.fork_targets = {}
@@ -162,6 +169,7 @@ function LightningGun:hit_fork_target( target, level )
 end
 
 function LightningGun:update(dt)
+  print("lightning update")
   if self.bolts and self.fired_at then
     if game_time < self.fired_at + self.draw_time then
 
@@ -182,6 +190,7 @@ end
 
 
 function LightningGun:draw()
+  print("lightning draw")
   if self.bolts then
     for _, b in pairs(self.bolts) do
         b:draw()
@@ -189,9 +198,95 @@ function LightningGun:draw()
   end
 end
 
+-------------------------------------------------------------------------------
+
+local RayGun = class("RayGun", Weapon)
+
+function RayGun:_aquire_targets()
+  -- override me and return a list of targets inform {x,y}
+  return {}
+end
+
+function RayGun:initialize()
+  print("ray init")
+  Weapon.initialize(self)
+  self.sound = "gunshot"
+  self.icon = "ray_icon"
+  self.range = 500
+  self.firing_arc = math.pi/4
+  self.damage = 100
+  self.beam_width = 10
+  self.focus_time = 5.0
+  self.initial_focus = 0.1 -- 0 to 1
+end
+
+function RayGun:_fire(targets)
+  if not self.fired_at then
+    self.current_angle = self.firing_arc
+    self.fired_at = game_time
+    self.focus = self.initial_focus
+  end
+end
+
+function RayGun:release()
+  if self.fired_at then
+    self.fired_at = nil
+  end
+end
+
+function RayGun:update(dt)
+  if self.fired_at then
+    
+    --cap it at focus time
+    local firing_time = math.min(self.focus_time, game_time-self.fired_at) 
+    local percent_of_focus = (self.focus_time-firing_time)/self.focus_time
+
+    self.current_angle = self.firing_arc*percent_of_focus
+    self.focus = math.max(self.initial_focus, percent_of_focus)
+  end
+end
+
+
+function RayGun:draw()
+
+  if self.fired_at and self.current_angle then
+    local dx = self.range*math.cos(self.current_angle)
+    local dy = self.range*math.sin(self.current_angle)
+
+    local canvas = love.graphics.newCanvas()
+    love.graphics.setCanvas(canvas)
+
+    love.graphics.setColor(200, 0, 255, 255*(1-self.focus))
+
+    local y_offset = 300
+
+    love.graphics.arc( 'fill', 0 , y_offset-self.beam_width/2, self.range, 
+      -self.current_angle/2, 0, 20 )
+
+    love.graphics.rectangle( 'fill', 0, y_offset-self.beam_width/2, 
+      self.range, self.beam_width)
+
+    love.graphics.arc( 'fill', 0, y_offset+self.beam_width/2, self.range, 
+      0, self.current_angle/2, 20 )
+    
+
+    love.graphics.setCanvas()
+    local mode = love.graphics.getBlendMode()
+    
+    love.graphics.setBlendMode('alpha','premultiplied')
+    love.graphics.draw(canvas, 
+      camera.view_x(self.owner), camera.view_y(self.owner),
+      self.owner.aim, 1, 1, 0, y_offset)
+
+    love.graphics.setColor(255,255,255)
+    love.graphics.setBlendMode(mode)
+  end
+
+end
 
 -------------------------------------------------------------------------------
 weapon.ProjectileGun = ProjectileGun
 weapon.LightningGun = LightningGun
+weapon.RayGun = RayGun
 
 return weapon
