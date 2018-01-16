@@ -4,12 +4,13 @@ Layer.WATER = 1
 Layer.FLOOR = 2
 Layer.SHADOW = 3
 Layer.FXUNDER = 4
-Layer.ENTITY = 5
-Layer.ENTITYOVER = 6
-Layer.FXOVER = 7
-Layer.HUD = 8
-Layer.BROKEN = 9
-Layer.LASTLAYER = 9
+Layer.FURNITURE = 5
+Layer.ENTITY = 6
+Layer.ENTITYOVER = 7
+Layer.FXOVER = 8
+Layer.HUD = 9
+Layer.BROKEN = 10
+Layer.LASTLAYER = 11
 
 function Layer:initialize(id, effects)
   self.id = id
