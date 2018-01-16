@@ -68,8 +68,6 @@ function new_game()
   current_dungeon:init(5, 4)
   current_dungeon:setup_main()
 
-  current_level = Level:new():setLayerEffects(Layer.WATER, water_effect)
-
   dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
 
 
