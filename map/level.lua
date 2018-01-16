@@ -1,6 +1,9 @@
 local Level = class("Level")
 
+Level.tileset = require 'map/tileset'
+
 local Layer = require 'map/layer'
+
 
 function Level:initialize(w, h)
   self.layers = {}
@@ -18,6 +21,14 @@ function Level:clear()
   for layer in self.layers do
     layer:clear()
   end
+end
+
+function Level:addTile(id, x, y, tile)
+  if id == nil or tile == nil then
+    print("Attempted to add unknown tile")
+    return
+  end
+  print("addTile: " .. id[1] .." " .. id[2] .. " " .. x .. " " .. y .. " " .. tile)
 end
 
 function Level:add(id, entity)

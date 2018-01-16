@@ -1,11 +1,6 @@
-local TileSet = class("TileSet")
+local TileSet = {}
 
-function TileSet:initialize()
-  self.kinds = {
-    Tile:new('void', 'void')
-    Tile:new('wall', 'wall')
-    Tile:new('floor', 'floor')
-  }
-end
+TileSet['wall'] = 'wall'
+TileSet['floor'] = 'floor'
 
 return TileSet
