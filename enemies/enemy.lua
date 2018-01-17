@@ -18,6 +18,22 @@ function enemy:update_move_controls()
   end]]
 end
 
+function enemy:canSee(entity)
+  return false
+end
+
+function enemy:stopMoving()
+  self.dx = 0
+  self.dy = 0
+end
+
+function enemy:faceTowards(entity)
+  angle = math.atan2(entity.y - self.y, entity.x - self.x)
+end
+
+function enemy:shootPlayer()
+end
+
 function enemy:die()
   if self.dead then return end
   self.dead = true
