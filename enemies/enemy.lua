@@ -21,6 +21,7 @@ end
 function enemy:die()
   if self.dead then return end
   self.dead = true
+  self.personality = nil
   enemy_value = enemy_value - self.value
   enemies[self.id] = nil
   current_level:remove(self.id)

@@ -1,6 +1,8 @@
 lovetoys = require("lib/lovetoys/lovetoys")
 lovetoys.initialize({globals = true, debug = true})
 
+game_time = 0
+
 require "requires"
 
 STATE_SPLASH, STATE_MAINMENU, STATE_FILM, STATE_PLAY,
@@ -70,7 +72,6 @@ function new_game()
   dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
 
 
-  game_time = 0
   player:start_force_move(10, player.speed, 0)
 
   fade.start_fade("fadein", 1.0, true, function() player:end_force_move() end)

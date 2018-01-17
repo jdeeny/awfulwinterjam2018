@@ -45,6 +45,8 @@ image = require "image"
 image.init()
 animation = require "animation"
 animation.init()
+timer = require "timer"
+
 mob = require "enemies/mob"
 Ai = require "enemies/ai/ai"
 personalities = require "enemies/ai/personalities"
@@ -52,7 +54,6 @@ enemy = require "enemies/enemy"
 player = require "player"
 spawner = require "enemies/spawner"
 room = require "room"
-timer = require "timer"
 spark = require "spark"
 
 weapon = require "weapons/weapon"
