@@ -65,10 +65,12 @@ shot_data["enemybullet"] =
     if hit and hit[1] == "player" then
       camera.bump(20)
       angle = math.atan2(self.dy,  self.dx)
-      if enemies[hit[2]].be_stunned then
+      if hit[1] ~= "player" then -- TODO: give player stun capability?
         enemies[hit[2]]:be_stunned(0.1, 400 * math.cos(angle), 400 * math.sin(angle))
+        enemies[hit[2]]:take_damage(self.damage)
+      else
+        player:take_damage(self.damage)
       end
-      enemies[hit[2]]:take_damage(self.damage)
     end
     for i = 1, 6 do
       angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
