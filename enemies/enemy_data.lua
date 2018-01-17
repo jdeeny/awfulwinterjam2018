@@ -39,7 +39,7 @@ enemy_data["schmuck"] =
   radius = 30,
   value = 1,
   touch_damage = 10,
-  personality = 'Wanderer',
+  personality = 'Sniper',
 }
 
 enemy_data["fodder"] =
