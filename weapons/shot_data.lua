@@ -50,4 +50,38 @@ shot_data["bullet"] =
   end,
 }
 
+
+shot_data["enemybullet"] =
+{
+  kind = "bullet", name = "Test Bullet",
+  damage = 20,
+  sprite = "bullet",
+  radius = 8,
+  collides_with_map = true,
+  collides_with_enemies = false,
+  collides_with_player = true,
+
+  collide = function(self, hit, mx, my, mt, nx, ny)
+    if hit and hit[1] == "player" then
+      camera.bump(20)
+      angle = math.atan2(self.dy,  self.dx)
+      if enemies[hit[2]].be_stunned then
+        enemies[hit[2]]:be_stunned(0.1, 400 * math.cos(angle), 400 * math.sin(angle))
+      end
+      enemies[hit[2]]:take_damage(self.damage)
+    end
+    for i = 1, 6 do
+      angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
+      speed = 200 + 1800 * love.math.random()
+      spark_data.spawn("spark", {r=255, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
+    end
+    for i = 1, 3 do
+      angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
+      speed = 200 + 1000 * love.math.random()
+      spark_data.spawn("spark_big", {r=255, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
+    end
+    self:die()
+  end,
+}
+
 return shot_data

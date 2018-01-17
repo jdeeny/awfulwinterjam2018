@@ -24,7 +24,11 @@ function enemy_data.spawn(kind, x, y)
   e.ai = personality:new(e)
 
   if e.weapon_type then
-    e:equip('weapon', e.weapon_type:new())
+    local w = e.weapon_type:new()
+    if e.projectile_type then
+      w.projectile = "enemybullet"
+    end
+    e:equip('weapon', w)
   end
 
   e.hp = e.max_hp
@@ -73,6 +77,7 @@ enemy_data["rifledude"] =
   touch_damage = 0,
   shot_speed = 500,
   weapon_type = weapon.ProjectileGun,
+  projectile_type = 'enemybullet',
   personality = 'Rifleman'
 }
 return enemy_data

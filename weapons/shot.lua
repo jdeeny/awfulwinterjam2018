@@ -22,6 +22,14 @@ function shot:update(dt)
    end
   end
 
+  if self.collides_with_player then
+    hx, hy, ht = collision.aabb_sweep(self, player, self.dx * dt, self.dy * dt)
+    if ht and ht < mt then
+      hit = {"player", player}
+      mt, mx, my = ht, hx, hy
+    end
+  end
+
   -- if self.collides_with_player then
   --  hx, hy, ht = collision.aabb_sweep(self, player, self.dx * dt, self.dy * dt)
   --  if ht and ht < mt then

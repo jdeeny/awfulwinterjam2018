@@ -29,11 +29,11 @@ end
 
 function enemy:faceTowards(entity)
   local angle = math.atan2(entity.y - self.y, entity.x - self.x)
-  self.aim = angle
+  self.rot = cpml.vec2.to_polar(cpml.vec2.new(aim_x, aim_y))
 end
 
 function enemy:shootAt(entity)
-  angle = math.atan2(entity.y - self.y, entity.x - self.x)
+  self.aim = cpml.vec2.to_polar(cpml.vec2.new(entity.x, entity.y))
   if self.equipped_items['weapon'] then
     self.equipped_items['weapon']:_fire(player)
   end
