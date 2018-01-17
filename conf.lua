@@ -13,8 +13,9 @@ function love.conf(t)
   t.window.minheight = 300              -- Minimum window height if the window is resizable (number)
   t.window.vsync = true               -- Enable vertical sync (boolean)
 
+
+  t.identity = "awfuljamteslagame"    -- The name of the save directory (string)
   --[[
-  t.identity = nil                    -- The name of the save directory (string)
   t.version = "0.10.2"                -- The LÖVE version this game was made for (string)
   t.console = false                   -- Attach a console (boolean, Windows only)
   t.accelerometerjoystick = true      -- Enable the accelerometer on iOS and Android by exposing it as a Joystick (boolean)

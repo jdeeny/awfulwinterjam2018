@@ -30,10 +30,7 @@ function love.load()
   love.mouse.setVisible(false)
   love.mouse.setGrabbed(true)
   
-  settings = { 
-	  game_speed = 1.0,
-	  start_dungeon = 1
-  }
+  init_settings()
 
   splash.enter()
   timer.init()
