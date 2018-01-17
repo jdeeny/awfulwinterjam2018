@@ -32,7 +32,7 @@ function pathfinder.build_nav_mesh(origin_x, origin_y)
 		for i,v in pairs(pathfinder.fringes[k-1]) do
 			-- i is the hash of the square; v its "distance" to the player
 			cx, cy = unhash(i)
-			orth_neighbors = {}
+			-- orth_neighbors = {}
 			for direction = 1, 4 do -- orthogonal neighbors
 				neighbor_x, neighbor_y = cx + orth_dirs[direction].x, cy + orth_dirs[direction].y
 				if not current_room:is_solid(neighbor_x, neighbor_y) then
@@ -40,15 +40,69 @@ function pathfinder.build_nav_mesh(origin_x, origin_y)
 					if not pathfinder.mesh[neighbor_hash] or pathfinder.mesh[neighbor_hash] > v + 10 then
 						pathfinder.mesh[neighbor_hash] = v + 10
 						pathfinder.fringes[k][neighbor_hash] = v + 10
-						orth_neighbors[direction] = true
+						-- orth_neighbors[direction] = true
 					end
 				end
 			end
 
-			-- now consider diagonals
-
+			-- now consider diagonals?
 		end
 	end
+end
+
+local start_v, min_v, min_v_x, min_v_y
+function pathfinder.hill_climb(gx, gy)
+	-- find the direction towards the player for a dude standing at gx, gy
+	if not pathfinder.mesh[hash(gx, gy)] then
+		-- can't get there apparently :shrug:
+		return 0, 0
+	end
+
+	-- first, check if orthogonal spaces are passable
+	orth_neighbors = {}
+	for direction = 1, 4 do
+		orth_neighbors[direction] = not current_room:is_solid(gx + orth_dirs[direction].x, gy + orth_dirs[direction].y)
+	end
+
+	min_v = pathfinder.mesh[hash(gx, gy)]
+	min_v_x, min_v_y = 0, 0
+
+	-- check adjacent squares
+	if orth_neighbors[1] and pathfinder.mesh[hash(gx + 1, gy)] < min_v then --east
+		min_v = pathfinder.mesh[hash(gx + 1, gy)]
+		min_v_x, min_v_y = 1, 0
+	end
+	if orth_neighbors[2] and pathfinder.mesh[hash(gx - 1, gy)] < min_v then --west
+		min_v = pathfinder.mesh[hash(gx - 1, gy)]
+		min_v_x, min_v_y = -1, 0
+	end
+	if orth_neighbors[3] and pathfinder.mesh[hash(gx, gy + 1)] < min_v then --south
+		min_v = pathfinder.mesh[hash(gx, gy + 1)]
+		min_v_x, min_v_y = 0, 1
+	end
+	if orth_neighbors[4] and pathfinder.mesh[hash(gx, gy - 1)] < min_v then --north
+		min_v = pathfinder.mesh[hash(gx, gy - 1)]
+		min_v_x, min_v_y = 0, -1
+	end
+
+	if orth_neighbors[1] and orth_neighbors[3] and pathfinder.mesh[hash(gx + 1, gy + 1)] < min_v then --southeast
+		min_v = pathfinder.mesh[hash(gx + 1, gy + 1)]
+		min_v_x, min_v_y = 1, 1
+	end
+	if orth_neighbors[1] and orth_neighbors[4] and pathfinder.mesh[hash(gx + 1, gy - 1)] < min_v then --northeast
+		min_v = pathfinder.mesh[hash(gx + 1, gy - 1)]
+		min_v_x, min_v_y = 1, -1
+	end
+	if orth_neighbors[2] and orth_neighbors[3] and pathfinder.mesh[hash(gx - 1, gy + 1)] < min_v then --southwest
+		min_v = pathfinder.mesh[hash(gx - 1, gy + 1)]
+		min_v_x, min_v_y = -1, 1
+	end
+	if orth_neighbors[2] and orth_neighbors[4] and pathfinder.mesh[hash(gx - 1, gy - 1)] < min_v then --southeast
+		min_v = pathfinder.mesh[hash(gx - 1, gy - 1)]
+		min_v_x, min_v_y = -1, -1
+	end
+
+	return min_v_x, min_v_y
 end
 
 local pgx, pgy
