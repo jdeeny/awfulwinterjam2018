@@ -40,7 +40,7 @@ function love.update(dt)
   gamestates[state].update(dt)
 end
 
-local debug_font = love.graphics.newFont(12)
+debug_font = love.graphics.newFont(12)
 function love.draw()
   local st = love.timer.getTime()
   gamestates[state].draw()

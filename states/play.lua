@@ -37,9 +37,11 @@ function play.update(dt)
     delay.process()
     current_room:update()
 
-      electricity:update(mdt)
-      current_level:update(mdt)
-    end
+    pathfinder.update()
+
+    electricity:update(mdt)
+    current_level:update(mdt)
+  end
 end
 
 function play.draw()
@@ -66,6 +68,9 @@ function play.draw()
 
   player:draw()
   hud:draw()
+
+  -- debug
+  pathfinder.draw_debug()
 
   fade:draw()
 end
