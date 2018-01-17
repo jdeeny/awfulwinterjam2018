@@ -3,12 +3,10 @@ local allowed_options = {}
 ---------------
 local ListOptionItem = class('ListOptionItem', OptionItem)
 
-function ListOptionItem:initialize(label,values, default, control_name, control_field, control_values)
+function ListOptionItem:initialize(label, values, control_name, control_field, control_values)
 	OptionItem.initialize(self, label)
 	self.list = values
-	self.index = default or 1
-	self.value = values[self.index]
-	
+	self.index = 1
 	self.control = control_name
 	self.control_field = control_field
 	self.c_values = control_values
@@ -22,6 +20,10 @@ end
 function ListOptionItem:increase()
 	self.index = math.min(#(self.list),self.index+1)
 	self:updateValue()
+end
+
+function ListOptionItem:setIndex(i)
+	self.index = i
 end
 
 function ListOptionItem:updateValue()
@@ -66,7 +68,7 @@ end
 
 local masterVolume = MasterVolumeOI:new()
 
-local gameSpeed = ListOptionItem:new("Game Speed",{"super-slow (debug)","slow","medium","fast"},3,
+local gameSpeed = ListOptionItem:new("Game Speed",{"super-slow (debug)","slow","medium","fast"},
                                      'settings','game_speed', {0.3,0.75,1.0,1.25}) 
 
 -- Currently levelSelect does nothing

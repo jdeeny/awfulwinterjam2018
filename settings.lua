@@ -18,12 +18,23 @@ else
 	bitser.dumpLoveFile('savedata', settings)
 end
 
+-- DBG
+for k,v in pairs(settings) do
+	print(k,v)
+end
+-- DBG
+
 settings = default_settings
 
  -- bitser won't serialize functions, so these need to be global
 
 function init_settings() 
 	AudioManager:setMasterVolume(settings.volume/10)
+	for i, s in ipairs({0.3,0.75,1.0,1.25}) do    -- Game speed
+		if s == settings.game_speed then
+			allowed_options[2]:setIndex(i)
+		end
+	end  
 end
 
 function save_settings()    

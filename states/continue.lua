@@ -26,7 +26,13 @@ function continue.update(dt)
     	mainmenu.enter()
     	fade.state = nil
 	elseif player_input:pressed('quit') then
-		save_settings()
+		-- DBG
+		for k,v in pairs(settings) do
+			print(k,v)
+		end
+		-- DBG
+		bitser.dumpLoveFile('savedata', settings)
+		--save_settings()
 		love.event.push("quit")
 	end
 end
