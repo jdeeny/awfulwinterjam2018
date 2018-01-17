@@ -14,6 +14,4 @@ function Ai:getState()
   return self.state
 end
 
-Ai.Wanderer = require('enemies/ai/wanderer')
-
 return Ai

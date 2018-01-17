@@ -1,6 +1,6 @@
-local Wanderer = class("Wanderer", Ai)
+local Seeker = class("Seeker", Ai)
 
-function Wanderer:update(dt)
+function Seeker:update(dt)
   Ai.update(self, dt) -- call superclass constructor
   if not self.entity.dx or game_time >= self.entity.wake_time then
     angle = math.atan2(player.y - self.entity.y, player.x - self.entity.x)
@@ -12,4 +12,4 @@ function Wanderer:update(dt)
   end
 end
 
-return Wanderer
+return Seeker

@@ -19,6 +19,9 @@ function enemy_data.spawn(kind, x, y)
     enemies[new_id].animation = enemies[new_id].animation:clone()
   end
 
+  local personality = personalities[enemies[new_id].personality] or personalities['Wanderer']
+  enemies[new_id].ai = personality:new(enemies[new_id])
+
   enemies[new_id].hp = enemies[new_id].max_hp
   enemy_value = enemy_value + enemies[new_id].value
 
@@ -36,6 +39,7 @@ enemy_data["schmuck"] =
   radius = 30,
   value = 1,
   touch_damage = 10,
+  personality = 'Wanderer',
 }
 
 enemy_data["fodder"] =
@@ -48,6 +52,7 @@ enemy_data["fodder"] =
   radius = 15,
   value = 0.5,
   touch_damage = 10,
+  personality = 'Seeker',
 }
 
 return enemy_data

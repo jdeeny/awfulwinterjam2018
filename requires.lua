@@ -46,7 +46,8 @@ image.init()
 animation = require "animation"
 animation.init()
 mob = require "enemies/mob"
-ai = require "enemies/ai/ai"
+Ai = require "enemies/ai/ai"
+personalities = require "enemies/ai/personalities"
 enemy = require "enemies/enemy"
 player = require "player"
 spawner = require "enemies/spawner"
