@@ -11,7 +11,6 @@ STATE_SPLASH, STATE_MAINMENU, STATE_FILM, STATE_PLAY,
 gamestates = {[0]=splash, [1]=mainmenu, [2]=film, [3]=play,
     [4]=pause, [5]=death, [6]=continue, [7]=win, [8]=options}
 
-
 function love.load()
   TILESIZE = 64
 
@@ -29,7 +28,7 @@ function love.load()
   love.mouse.setCursor(love.mouse.getSystemCursor('crosshair'))
   love.mouse.setVisible(false)
   love.mouse.setGrabbed(true)
-  
+
   init_settings()
 
   splash.enter()

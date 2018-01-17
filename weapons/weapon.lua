@@ -45,21 +45,26 @@ local ProjectileGun = class("ProjectileGun", Weapon)
 
 function ProjectileGun:initialize()
   Weapon.initialize(self)
-  self.shot_speed = 800
+  self.shot_speed = 1200
   self.sound = "gunshot"
   self.icon = "gun_icon"
   self.projectile = "bullet"
+  self.cof_multiplier = 0
 end
 
-
 function ProjectileGun:_fire(targets)
-  angle = self.owner.aim + (love.math.random() - 0.5) * math.pi * 0.1
+  angle = self.owner.aim + (love.math.random() - 0.5) * 0.4 * self.cof_multiplier
   self.next_shot_time = shot_data.spawn(self.projectile, self.owner.x, self.owner.y,
       math.cos(angle)*(self.owner.shot_speed or self.shot_speed),
       math.sin(angle)*(self.owner.shot_speed or self.shot_speed), self.owner)
   audiomanager:playOnce(self.sound)
   camera.bump(6, self.owner.aim)
   self.owner:be_knocked_back(0.1, -100 * math.cos(angle), -100 * math.sin(angle))
+  self.cof_multiplier = math.min(1, self.cof_multiplier + 0.15)
+end
+
+function ProjectileGun:release()
+  self.cof_multiplier = 0
 end
 
 -------------------------------------------------------------------------------
