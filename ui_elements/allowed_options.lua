@@ -3,21 +3,32 @@ local allowed_options = {}
 ---------------
 local ListOptionItem = class('ListOptionItem', OptionItem)
 
-function ListOptionItem:initialize(label,list, default)
+function ListOptionItem:initialize(label,values, default, control_name, control_field, control_values)
 	OptionItem.initialize(self, label)
-	self.list = list
+	self.list = values
 	self.index = default or 1
-	self.value = list[self.index]
+	self.value = values[self.index]
+	
+	self.control = control_name
+	self.control_field = control_field
+	self.c_values = control_values
 end
 
 function ListOptionItem:decrease()
 	self.index = math.max(1,self.index-1)
-	self.value = self.list[self.index]
+	self:updateValue()
 end
 
 function ListOptionItem:increase()
 	self.index = math.min(#(self.list),self.index+1)
+	self:updateValue()
+end
+
+function ListOptionItem:updateValue()
 	self.value = self.list[self.index]
+	if self.control then
+		_G[self.control][self.control_field] = self.c_values[self.index]
+	end
 end
 
 -----------------
@@ -55,8 +66,10 @@ end
 
 local masterVolume = MasterVolumeOI:new()
 
--- these two should actually do something instead of just show values
-local gameSpeed = ListOptionItem:new("Game Speed",{"slow","medium","fast"},2) 
+local gameSpeed = ListOptionItem:new("Game Speed",{"super-slow (debug)","slow","medium","fast"},3,
+                                     'settings','game_speed', {0.3,0.75,1.0,1.25}) 
+
+-- Currently levelSelect does nothing
 local levelSelect = ListOptionItem:new("Level Select",{"Tesla's Arrival","Edison's Folly"})
 
 

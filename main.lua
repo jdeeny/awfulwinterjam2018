@@ -29,6 +29,11 @@ function love.load()
   love.mouse.setCursor(love.mouse.getSystemCursor('crosshair'))
   love.mouse.setVisible(false)
   love.mouse.setGrabbed(true)
+  
+  settings = { 
+	  game_speed = 1.0,
+	  start_dungeon = 1
+  }
 
   splash.enter()
   timer.init()
