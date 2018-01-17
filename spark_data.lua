@@ -51,6 +51,26 @@ spark_data["spark_big"] =
   sprite_hheight = 32,
 }
 
+spark_data["spark_blue"] =
+{
+  class = "spark_blue",
+  sprite = "spark_blue",
+  duration = 0.1,
+  duration_variance = 0.4,
+  sprite_hwidth = 8,
+  sprite_hheight = 8,
+}
+
+spark_data["spark_big_blue"] =
+{
+  class = "spark_big_blue",
+  sprite = "spark_big_blue",
+  duration = 0.1,
+  duration_variance = 0.3,
+  sprite_hwidth = 32,
+  sprite_hheight = 32,
+}
+
 spark_data["pow"] =
 {
   class = "pow",

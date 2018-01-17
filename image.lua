@@ -17,9 +17,12 @@ function image.init()
   image.ballpost = love.graphics.newImage("assets/tiles/aballonapost.png")
 
   image.bullet = love.graphics.newImage("assets/sprites/bullet.png")
+  image.bullet_blue = love.graphics.newImage("assets/sprites/bullet_blue.png")
 
   image.spark = love.graphics.newImage("assets/sprites/spark.png")
   image.spark_big = love.graphics.newImage("assets/sprites/spark_big.png")
+  image.spark_blue = love.graphics.newImage("assets/sprites/spark_blue.png")
+  image.spark_big_blue = love.graphics.newImage("assets/sprites/spark_big_blue.png")
   image.pow = love.graphics.newImage("assets/sprites/pow.png")
 
   image.tesla = love.graphics.newImage("assets/sprites/tesla_sprite_sheet.png")

@@ -52,7 +52,7 @@ function shot:die()
 end
 
 function shot:draw()
-  love.graphics.draw(image[self.sprite], camera.view_x(self), camera.view_y(self), 0, 1, 1,
+  love.graphics.draw(image[self.sprite], camera.view_x(self), camera.view_y(self), math.atan2(self.dy, self.dx), 1, 1,
     image[self.sprite]:getWidth()/2, image[self.sprite]:getHeight()/2)
 end
 
