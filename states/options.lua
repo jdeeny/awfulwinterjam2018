@@ -53,11 +53,12 @@ function options.draw()
 	love.graphics.setFont(options.font)
 	
 	local line_ht = mainmenu.font:getHeight()
+	local sep_ht = 15 -- Spacing for separation 
 	local all_opts_height = 0
 	
 	for i,opt in ipairs(options.allowed) do
 		-- 1 line for the label, + space for the option
-		all_opts_height = all_opts_height + line_ht*(1 + opt:requiredHeight())
+		all_opts_height = all_opts_height + line_ht*(1 + opt:requiredHeight()) + sep_ht
 	end
 	
 	local cur_y = (window.h - all_opts_height)/2
@@ -84,7 +85,7 @@ function options.draw()
 		-- print the option
 		opt:drawIn(0,cur_y,window.w,opt_ht)
 	
-		cur_y = cur_y + opt_ht
+		cur_y = cur_y + opt_ht + sep_ht
 	end
 
 	love.graphics.setFont(love.graphics.newFont()) --reset to default
