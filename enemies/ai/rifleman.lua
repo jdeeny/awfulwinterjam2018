@@ -18,7 +18,7 @@ function Rifleman:update(dt)
     self.entity:stopMoving()
     if self.nextshot_time < game_time then
       self.entity:shootAt(player)
-      self.nextshot_time = game_time + reload_time
+      self.nextshot_time = game_time + self.reload_time
     elseif self.lockon then
       self.entity:lockOn(player)
     end

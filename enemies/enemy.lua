@@ -19,7 +19,7 @@ function enemy:update_move_controls()
 end
 
 function enemy:canSee(entity)
-  return false
+  return true
 end
 
 function enemy:stopMoving()
@@ -28,10 +28,16 @@ function enemy:stopMoving()
 end
 
 function enemy:faceTowards(entity)
-  angle = math.atan2(entity.y - self.y, entity.x - self.x)
+  local angle = math.atan2(entity.y - self.y, entity.x - self.x)
+  self.aim = angle
 end
 
-function enemy:shootPlayer()
+function enemy:shootAt(entity)
+  angle = math.atan2(entity.y - self.y, entity.x - self.x)
+  if self.equipped_items['weapon'] then
+    self.equipped_items['weapon']:_fire(player)
+  end
+
 end
 
 function enemy:die()

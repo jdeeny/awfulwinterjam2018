@@ -23,8 +23,9 @@ function enemy_data.spawn(kind, x, y)
   local personality = personalities[e.personality] or personalities['Wanderer']
   e.ai = personality:new(e)
 
-  if e.weapon_type then e.weapon = e.weapon_type:new() end
-  print(e.weapon)
+  if e.weapon_type then
+    e:equip('weapon', e.weapon_type:new())
+  end
 
   e.hp = e.max_hp
   enemy_value = enemy_value + e.value
@@ -70,6 +71,7 @@ enemy_data["rifledude"] =
   radius = 30,
   value = 2,
   touch_damage = 0,
+  shot_speed = 500,
   weapon_type = weapon.ProjectileGun,
   personality = 'Rifleman'
 }
