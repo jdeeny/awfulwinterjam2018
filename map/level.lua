@@ -64,7 +64,7 @@ function Level:addBody(sprite, x, y)
     return
   end
   local id = 'body' .. math.random()
-  local body = Entity:new(id, sprite, x, y, Layer.BODIES, image[sprite], math.random() * 3.14 / 8, 1.0, 1.0, 96/2, 64/2)
+  local body = Entity:new(id, sprite, x, y, Layer.BODIES, image[sprite], math.random() * 3.14 / 8, 1.0, 1.0, image[sprite]:getWidth()/2, image[sprite]:getWidth()/2)
   self:_add(id, body)
 end
 
