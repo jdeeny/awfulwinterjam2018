@@ -68,36 +68,44 @@ function pathfinder.hill_climb(gx, gy)
 	min_v_x, min_v_y = 0, 0
 
 	-- check adjacent squares
-	if orth_neighbors[1] and pathfinder.mesh[hash(gx + 1, gy)] < min_v then --east
+	if orth_neighbors[1] and pathfinder.mesh[hash(gx + 1, gy)]
+		and pathfinder.mesh[hash(gx + 1, gy)] < min_v then --east
 		min_v = pathfinder.mesh[hash(gx + 1, gy)]
 		min_v_x, min_v_y = 1, 0
 	end
-	if orth_neighbors[2] and pathfinder.mesh[hash(gx - 1, gy)] < min_v then --west
+	if orth_neighbors[2] and pathfinder.mesh[hash(gx - 1, gy)]
+		and pathfinder.mesh[hash(gx - 1, gy)] < min_v then --west
 		min_v = pathfinder.mesh[hash(gx - 1, gy)]
 		min_v_x, min_v_y = -1, 0
 	end
-	if orth_neighbors[3] and pathfinder.mesh[hash(gx, gy + 1)] < min_v then --south
+	if orth_neighbors[3] and pathfinder.mesh[hash(gx, gy + 1)]
+		and pathfinder.mesh[hash(gx, gy + 1)] < min_v then --south
 		min_v = pathfinder.mesh[hash(gx, gy + 1)]
 		min_v_x, min_v_y = 0, 1
 	end
-	if orth_neighbors[4] and pathfinder.mesh[hash(gx, gy - 1)] < min_v then --north
+	if orth_neighbors[4] and pathfinder.mesh[hash(gx, gy - 1)]
+		and pathfinder.mesh[hash(gx, gy - 1)] < min_v then --north
 		min_v = pathfinder.mesh[hash(gx, gy - 1)]
 		min_v_x, min_v_y = 0, -1
 	end
 
-	if orth_neighbors[1] and orth_neighbors[3] and pathfinder.mesh[hash(gx + 1, gy + 1)] < min_v then --southeast
+	if orth_neighbors[1] and orth_neighbors[3] and pathfinder.mesh[hash(gx + 1, gy + 1)]
+		and pathfinder.mesh[hash(gx + 1, gy + 1)] < min_v then --southeast
 		min_v = pathfinder.mesh[hash(gx + 1, gy + 1)]
 		min_v_x, min_v_y = 1, 1
 	end
-	if orth_neighbors[1] and orth_neighbors[4] and pathfinder.mesh[hash(gx + 1, gy - 1)] < min_v then --northeast
+	if orth_neighbors[1] and orth_neighbors[4] and pathfinder.mesh[hash(gx + 1, gy - 1)]
+		and pathfinder.mesh[hash(gx + 1, gy - 1)] < min_v then --northeast
 		min_v = pathfinder.mesh[hash(gx + 1, gy - 1)]
 		min_v_x, min_v_y = 1, -1
 	end
-	if orth_neighbors[2] and orth_neighbors[3] and pathfinder.mesh[hash(gx - 1, gy + 1)] < min_v then --southwest
+	if orth_neighbors[2] and orth_neighbors[3] and pathfinder.mesh[hash(gx - 1, gy + 1)]
+		and pathfinder.mesh[hash(gx - 1, gy + 1)] < min_v then --southwest
 		min_v = pathfinder.mesh[hash(gx - 1, gy + 1)]
 		min_v_x, min_v_y = -1, 1
 	end
-	if orth_neighbors[2] and orth_neighbors[4] and pathfinder.mesh[hash(gx - 1, gy - 1)] < min_v then --southeast
+	if orth_neighbors[2] and orth_neighbors[4] and pathfinder.mesh[hash(gx - 1, gy - 1)]
+		and pathfinder.mesh[hash(gx - 1, gy - 1)] < min_v then --southeast
 		min_v = pathfinder.mesh[hash(gx - 1, gy - 1)]
 		min_v_x, min_v_y = -1, -1
 	end
