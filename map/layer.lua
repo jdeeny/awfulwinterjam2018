@@ -2,9 +2,9 @@ local Layer = class("Layer")
 
 Layer.WATER = 1
 Layer.FLOOR = 2
-Layer.SHADOW = 3
-Layer.FXUNDER = 4
-Layer.FURNITURE = 5
+Layer.FURNITURE = 3
+Layer.SHADOW = 4
+Layer.FXUNDER = 5
 Layer.ENTITY = 6
 Layer.ENTITYNOSHADOW = 7
 Layer.FXOVER = 8

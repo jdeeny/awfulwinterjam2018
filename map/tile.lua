@@ -12,6 +12,15 @@ function Tile:setWall(w)
   return self
 end
 
+function Tile:setDestroyable(kind, into, hp)
+  self.destroyable = kind or false
+  if kind and into then
+    self.destroyed = into
+    self.hp = hp or 100
+  end
+  return self
+end
+
 function Tile:setLayer(l)
   self.layer = l
   return self
