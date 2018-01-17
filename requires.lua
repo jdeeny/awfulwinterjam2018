@@ -22,6 +22,9 @@ require 'lib/autobatch/autobatch'                 -- autobatch automatic SpriteB
 require 'window'
 require 'map'
 
+OptionItem = require "ui_elements/optionitem"
+allowed_options = require "ui_elements/allowed_options"
+
 continue = require "states/continue"
 death = require "states/death"
 film = require "states/film"
@@ -32,6 +35,7 @@ splash = require "states/splash"
 win = require "states/win"
 options = require "states/options"
 
+
 camera = require "camera"
 collision = require "collision"
 controls = require "controls"
@@ -41,7 +45,7 @@ dungeon = require "dungeon"
 doodad = require "doodad"
 fade = require "fade"
 file_io = require "file_io"
-hud = require "hud"
+hud = require "ui_elements/hud"
 idcounter = require "idcounter"
 image = require "image"
 image.init()
