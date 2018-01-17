@@ -16,6 +16,7 @@ local AudioManager = class("AudioManager")
     -- self.sources['car2'] = PooledSource:new("assets/sfx/car2.ogg")
     -- self.sources['car3'] = PooledSource:new("assets/sfx/car3.ogg")
     self.sources['gunshot'] = PooledSource:new("assets/sfx/gunshot.wav")
+    self.sources['buzz'] = PooledSource:new("assets/sfx/buzz-super-short.wav")
     self.sources['tesla_hum1'] = PooledSource:new(
       "assets/sfx/362975__follytowers__big-tesla-coil-sound-cut.wav")
     self.sources['spark'] = PooledSource:new("assets/sfx/94132__bmaczero__spark.wav")

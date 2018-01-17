@@ -235,6 +235,7 @@ function RayGun:initialize()
   self.beam_width = 10
   self.focus_time = 5.0
   self.initial_focus = 0.1 -- 0 to 1
+  self.sound = audiomanager.sources['buzz'].source
 end
 
 function RayGun:_fire(targets)
@@ -260,6 +261,12 @@ function RayGun:update(dt)
 
     self.current_angle = self.firing_arc*percent_of_focus
     self.focus = math.max(self.initial_focus, percent_of_focus)
+
+    local sfx = self.sound:clone()
+    sfx:setVolume(0.3*(1-percent_of_focus))
+    sfx:setPitch(math.max(1/2^3,2^2*percent_of_focus))
+    sfx:play()
+  
   end
 end
 
