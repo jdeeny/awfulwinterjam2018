@@ -60,6 +60,8 @@ function ProjectileGun:_fire(targets)
       math.sin(angle)*(self.owner.shot_speed or self.shot_speed), self.owner)
   audiomanager:playOnce(self.sound)
   camera.bump(6, self.owner.aim)
+  local knockvec = cpml.vec2.from_cartesian(30, angle + 3.1415)
+  self.owner:be_stunned(0.1, knockvec.x, knockvec.y)
 end
 
 -------------------------------------------------------------------------------
@@ -187,8 +189,8 @@ function LightningGun:update(dt)
     else
       if self.targets and #self.targets > 0 then
         for _, t in pairs(self.targets) do
-          if t.take_damage then 
-            t:take_damage(self.damage) 
+          if t.take_damage then
+            t:take_damage(self.damage)
           end
         end
       end
@@ -266,7 +268,7 @@ function RayGun:update(dt)
     sfx:setVolume(0.3*(1-percent_of_focus))
     sfx:setPitch(math.max(1/2^3,2^2*percent_of_focus))
     sfx:play()
-  
+
   end
 end
 
