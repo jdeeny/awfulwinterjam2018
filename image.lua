@@ -8,6 +8,7 @@ function image.init()
 
   image.wall = love.graphics.newImage("assets/tiles/wallStoneTiling.png")
   image.floor = love.graphics.newImage("assets/tiles/woodFloorTile.png")
+  image.rubble = love.graphics.newImage("assets/tiles/woodFloorTileRubble.png")
   image.corner_nw = love.graphics.newImage("assets/tiles/wallStoneCorner.png")
   image.wallcorner_transition = love.graphics.newImage("assets/tiles/wallStoneCTransition.png")
   image.exit_north = love.graphics.newImage("assets/tiles/exit_north.png")
@@ -27,7 +28,7 @@ function image.init()
   image.gun_icon = love.graphics.newImage("assets/icons/gun.png")
   image.lightning_icon = love.graphics.newImage("assets/icons/lightning.png")
   image.ray_icon = love.graphics.newImage("assets/icons/ray.png")
-  
+
   image.arrow = love.graphics.newImage("assets/icons/arrow.png") -- up arrow; rotate for other directions
 
   image.watermask = love.graphics.newImage("assets/tiles/water/watermask.jpg")
