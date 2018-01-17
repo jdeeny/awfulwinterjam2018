@@ -18,10 +18,6 @@ function enemy:update_move_controls()
   end]]
 end
 
-function enemy:canSee(entity)
-  return true
-end
-
 function enemy:stopMoving()
   self.dx = 0
   self.dy = 0

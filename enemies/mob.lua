@@ -94,6 +94,9 @@ function mob:update_animation(dt)
   end
 end
 
+function mob:canSee(target)
+  return not collision.aabb_room_sweep({x = self.x, y = self.y, radius = 0}, target.x - self.x, target.y - self.y)
+end
 
 function mob:take_damage(n)
   if self.hp and self.hp > 0 then
