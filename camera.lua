@@ -40,11 +40,10 @@ function camera.bump(amount, angle)
 	camera.ry = camera.ry + amount * math.sin(angle)
 end
 
-function camera.shake(amount, duration, f)
+function camera.shake(amount, dur, f)
 	-- f is a function that determines the multiplier for amount, given 0 <= t <= 1
 	camera.shake_function = f or function(t) return 1 - t end
-	camera.shake_start_time = gui_time
-	camera.shake_end_time = gui_time + duration
+	camera.shake_duration = duration.start(dur)
 	camera.shake_amount = amount
 end
 
