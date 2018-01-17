@@ -32,24 +32,22 @@ function MasterVolumeOI:initialize()
 end
 
 function MasterVolumeOI:decrease()
-	print(self.vol) --DBG
-	self.vol = math.max(0, self.vol - 0.1)
-	AudioManager.setMasterVolume(self.vol)
-	self.value = self.value_for(self.vol)
+	self.vol = math.max(0, self.vol-0.1)
+	AudioManager:setMasterVolume(self.vol)
+	self.value = self:value_for(self.vol)
 end
 
 function MasterVolumeOI:increase()
-	print(self.vol) -- DBG
-	self.vol = math.min(1, self.vol + 0.1)
-	AudioManager.setMasterVolume(self.vol)
-	self.value = self.value_for(self.vol)
+	self.vol = math.min(1, self.vol+0.1)
+	AudioManager:setMasterVolume(self.vol)
+	self.value = self:value_for(self.vol)
 end
 
 function MasterVolumeOI:value_for(num)
 	if num == 1.0 then
 		return "- 100% "
 	elseif num == 0 then
-		return "    0% +"
+		return "  OFF  +"
 	else 
 		return "-  "..(num*100).."% +"
 	end
