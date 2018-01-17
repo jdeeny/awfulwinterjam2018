@@ -34,15 +34,15 @@ function mob:update_position(dt)
     end
   else
     if self.stun then
-      if not self.stun.duration:finished() then
-        t = 1 - self.stun.duration:t()
-        self.dx = self.stun.dx * t
-        self.dy = self.stun.dy * t
-      else
+      if self.stun.duration:finished() then
         self.stun = nil
       end
+      self.dx = 0
+      self.dy = 0
       self.animation_state = 'idle'
     elseif self.dying then
+      self.dx = 0
+      self.dy = 0
       self.animation_state = 'idle'
     else
       -- now we can actually -choose- where to go
@@ -64,6 +64,17 @@ function mob:update_position(dt)
         self.animation_state = 'run'
       else
         self.animation_state = 'idle'
+      end
+    end
+
+    -- apply knockback
+    if self.knockback then
+      if self.knockback.duration:finished() then
+        self.knockback = nil
+      else
+        t = 1 - self.knockback.duration:t()
+        self.dx = self.dx + self.knockback.dx * t
+        self.dy = self.dy + self.knockback.dy * t
       end
     end
 
@@ -98,17 +109,12 @@ function mob:canSee(target)
   return not collision.aabb_room_sweep({x = self.x, y = self.y, radius = 0}, target.x - self.x, target.y - self.y)
 end
 
-function mob:take_damage(n)
-  if self.hp and self.hp > 0 then
-    self.hp = self.hp - n
-    if self.hp <= 0 then
-      self:die()
-    end
-  end
+function mob:be_stunned(dur)
+  self.stun = {duration = duration.start(dur)}
 end
 
-function mob:be_stunned(dur, dx, dy)
-  self.stun = {duration = duration.start(dur),
+function mob:be_knocked_back(dur, dx, dy)
+  self.knockback = {duration = duration.start(dur),
                   dx = dx or 0, dy = dy or 0}
 end
 

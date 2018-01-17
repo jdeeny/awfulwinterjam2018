@@ -69,7 +69,7 @@ function player.update(dt)
     -- fire weapon (or not)
     if player.equipped_items['weapon'] then
       player.equipped_items['weapon']:update(dt)
-      
+
       if player_input:pressed('swap') then
         player.weapon_switch()
       end
@@ -90,9 +90,12 @@ function player.update(dt)
     end
 
     -- ...or if we touched an enemy
-    for _,z in pairs(enemies) do
-      if collision.aabb_aabb(player, z) then
-        player:be_attacked(z.touch_damage, math.atan2(player.y - z.y, player.x, z.x))
+    if player.iframe_end_time < game_time then
+      for _,z in pairs(enemies) do
+        if collision.aabb_aabb(player, z) then
+          player:take_damage(z.touch_damage, false, math.atan2(player.y - z.y, player.x - z.x), 5)
+          break
+        end
       end
     end
   end
@@ -128,20 +131,29 @@ function player.die()
     end)
 end
 
-function player:be_attacked(damage, direction)
-  if player.iframe_end_time and player.iframe_end_time < game_time then
-    self.hp = math.max(self.hp - damage, 0)
+function player:take_damage(damage, silent, angle, force)
+  if self.hp and self.hp > 0 then
+    self.hp = math.max(0, self.hp - damage)
+
+    if not silent then
+      if self.hp > 0 then
+        play.freezeframe(0.03 * force)
+        camera.shake(2 * force, 0.1 * force)
+        self:be_stunned(0.1 * force)
+        self:be_knocked_back(0.1 * force, 100 * force * math.cos(angle), 100 * force * math.sin(angle))
+      else
+        play.freezeframe(0.3)
+        camera.shake(15, 1)
+        self:be_stunned(1)
+        self:be_knocked_back(1, 600 * math.cos(angle), 600 * math.sin(angle))
+      end
+    end
+
     if self.hp <= 0 then
-      play.freezeframe(0.3)
-      camera.shake(15, 1)
-      player:be_stunned(1, 1000 * math.cos(direction), 1000 * math.sin(direction))
-      player.be_invincible(99999)
-      self.die()
+      self.be_invincible(99999)
+      self:die()
     else
-      play.freezeframe(0.1)
-      camera.shake(5, 0.5)
-      player:be_stunned(0.5, 500 * math.cos(direction), 500 * math.sin(direction))
-      player.be_invincible(1)
+      self.be_invincible(1)
     end
   end
 end

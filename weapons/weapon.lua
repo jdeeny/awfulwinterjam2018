@@ -53,15 +53,13 @@ end
 
 
 function ProjectileGun:_fire(targets)
-
   angle = self.owner.aim + (love.math.random() - 0.5) * math.pi * 0.1
   self.next_shot_time = shot_data.spawn(self.projectile, self.owner.x, self.owner.y,
       math.cos(angle)*(self.owner.shot_speed or self.shot_speed),
       math.sin(angle)*(self.owner.shot_speed or self.shot_speed), self.owner)
   audiomanager:playOnce(self.sound)
   camera.bump(6, self.owner.aim)
-  local knockvec = cpml.vec2.from_cartesian(30, angle + 3.1415)
-  self.owner:be_stunned(0.1, knockvec.x, knockvec.y)
+  self.owner:be_knocked_back(0.1, -100 * math.cos(angle), -100 * math.sin(angle))
 end
 
 -------------------------------------------------------------------------------

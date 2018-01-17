@@ -31,10 +31,7 @@ shot_data["bullet"] =
 
   collide = function(self, hit, mx, my, mt, nx, ny)
     if hit and hit[1] == "enemy" then
-      camera.bump(10)
-      angle = math.atan2(self.dy,  self.dx)
-      enemies[hit[2]]:be_stunned(0.3, 400 * math.cos(angle), 400 * math.sin(angle))
-      enemies[hit[2]]:take_damage(self.damage)
+      enemies[hit[2]]:take_damage(self.damage, false, math.atan2(self.dy, self.dx), 3)
     end
     for i = 1, 6 do
       angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
@@ -57,7 +54,7 @@ shot_data["bullet"] =
 shot_data["enemybullet"] =
 {
   kind = "bullet", name = "Test Bullet",
-  damage = 20,
+  damage = 10,
   sprite = "bullet",
   radius = 8,
   collides_with_map = true,
@@ -66,14 +63,7 @@ shot_data["enemybullet"] =
 
   collide = function(self, hit, mx, my, mt, nx, ny)
     if hit and hit[1] == "player" then
-      camera.bump(20)
-      angle = math.atan2(self.dy,  self.dx)
-      if hit[1] ~= "player" then -- TODO: give player stun capability?
-        enemies[hit[2]]:be_stunned(0.1, 400 * math.cos(angle), 400 * math.sin(angle))
-        enemies[hit[2]]:take_damage(self.damage)
-      else
-        player:take_damage(self.damage)
-      end
+      player:take_damage(self.damage, false, math.atan2(self.dy, self.dx), 3)
     end
     for i = 1, 6 do
       angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi

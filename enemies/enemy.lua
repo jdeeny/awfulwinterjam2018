@@ -34,7 +34,21 @@ function enemy:shootAt(entity)
   if self.equipped_items['weapon'] then
     self.equipped_items['weapon']:_fire(player)
   end
+end
 
+function enemy:take_damage(damage, silent, angle, force)
+  if self.hp and self.hp > 0 then
+    self.hp = math.max(0, self.hp - damage)
+
+    if not silent then
+      camera.bump(5 * force)
+      self:be_stunned(0.1 * force)
+      self:be_knocked_back(0.1 * force, 100 * force * math.cos(angle), 100 * force * math.sin(angle))
+    end
+    if self.hp <= 0 then
+      self:die()
+    end
+  end
 end
 
 function enemy:die()
