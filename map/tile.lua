@@ -16,14 +16,29 @@ function Tile:setDestroyable(kind, into, hp)
   self.destroyable = kind or false
   if kind and into then
     self.destroyed = into
-    self.hp = hp or 100
+    self.maxhp = hp or 100
+    self.hp = self.maxhp
   end
+  return self
+end
+
+function Tile:setSmoke(hp)
+  self.smokepoint = hp
   return self
 end
 
 function Tile:setLayer(l)
   self.layer = l
   return self
+end
+
+function Tile:takeDamage(dmg)
+  if self.destroyable then
+    self.hp = cpml.util.clamp(self.hp - dmg, self.hp - dmg, self.maxhp)
+    if self.hp <= 0 then
+      -- launch explosion
+    end
+  end
 end
 
 function Tile:toEntity(x, y)
