@@ -4,7 +4,7 @@ local TileSet = {}
 -- TODO: change this to have the sprite filepath in this file so you dont have to edit two places
 
 TileSet['void']               = { Tile:new('void') }
-TileSet['wall']               = { Tile:new('wall'):setWall(true):setLayer(Layer.ENTITY) }
+TileSet['wall']               = { Tile:new('wall'):setWall(true):setLayer(Layer.ENTITYNOSHADOW) }
 TileSet['floor']              = { Tile:new('floor') }
 TileSet['teleporter']         = { Tile:new('teleporter') }
 TileSet['ballpost']           = { Tile:new('ballpost'):setLayer(Layer.FURNITURE),

@@ -9,8 +9,8 @@ function Sniper:initialize(entity)
 end
 
 
-function Sniper:update(dt)
+--[[function Sniper:update(dt)
   super.update(self, dt)
-end
+end]]
 
 return Sniper

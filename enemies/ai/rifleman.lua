@@ -10,9 +10,9 @@ end
 
 
 function Rifleman:update(dt)
-  super.update(self, dt)
+  super.update(self, dt) -- call update from `Seeker` to do the movement portion
 
-  -- if we can see the player we will stand still and shoot at them
+  -- if we can see the player (have LOS) we will stand still and shoot at them
   if self.entity:canSee(player) then
     self.entity:faceTowards(player)
     self.entity:stopMoving()
