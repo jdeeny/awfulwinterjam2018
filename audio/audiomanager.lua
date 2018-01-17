@@ -8,14 +8,14 @@ local AudioManager = class("AudioManager")
     self.music = nil -- currently playing track
 
     -- Short sound effects should be loaded with static to store in memory.
-    self.sources['snap'] = PooledSource:new("assets/sfx/snap.wav", "static")
-    self.sources['unh'] = PooledSource:new("assets/sfx/unh.wav", "static")
-    self.sources['unlatch'] = PooledSource:new("assets/sfx/unlatch.wav", "static")
-    self.sources['crackle'] = PooledSource:new("assets/sfx/crackle.wav", "static")
-    -- self.sources['car1'] = PooledSource:new("assets/sfx/car1.ogg", "static")
-    -- self.sources['car2'] = PooledSource:new("assets/sfx/car2.ogg", "static")
-    -- self.sources['car3'] = PooledSource:new("assets/sfx/car3.ogg", "static")
-    self.sources['gunshot'] = PooledSource:new("assets/sfx/gunshot.wav", "static")
+    self.sources['snap'] = PooledSource:new("assets/sfx/snap.wav")
+    self.sources['unh'] = PooledSource:new("assets/sfx/unh.wav")
+    self.sources['unlatch'] = PooledSource:new("assets/sfx/unlatch.wav")
+    self.sources['crackle'] = PooledSource:new("assets/sfx/crackle.wav")
+    -- self.sources['car1'] = PooledSource:new("assets/sfx/car1.ogg")
+    -- self.sources['car2'] = PooledSource:new("assets/sfx/car2.ogg")
+    -- self.sources['car3'] = PooledSource:new("assets/sfx/car3.ogg")
+    self.sources['gunshot'] = PooledSource:new("assets/sfx/gunshot.wav")
     self.sources['tesla_hum1'] = PooledSource:new(
       "assets/sfx/362975__follytowers__big-tesla-coil-sound-cut.wav")
     self.sources['spark'] = PooledSource:new("assets/sfx/94132__bmaczero__spark.wav")
@@ -47,6 +47,10 @@ local AudioManager = class("AudioManager")
   
   function AudioManager:setMasterVolume(volume)
     love.audio.setVolume(volume)
+  end
+
+  function AudioManager:getSource( ... )
+    -- body
   end
 
   function AudioManager:addEffect(path, name)
