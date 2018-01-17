@@ -1,5 +1,3 @@
-local settings = {}
-
 local default_settings = { 
   -- These should be modified with the correct variables/names as required
   game_speed = 1.0,
@@ -11,12 +9,25 @@ local default_settings = {
   window_height = window.h
 }
 
-settings = default_settings
+local settings = {}
 
-function settings.init() 
-	AudioManager:setMasterVolume(settings.volume/10)
-	
+if love.filesystem.exists('savedata') then
+	settings = bitser.loadLoveFile('savedata')
+else
+	settings = default_settings
+	bitser.dumpLoveFile('savedata', settings)
 end
 
+settings = default_settings
+
+ -- bitser won't serialize functions, so these need to be global
+
+function init_settings() 
+	AudioManager:setMasterVolume(settings.volume/10)
+end
+
+function save_settings()    
+	bitser.dumpLoveFile('savedata', settings)
+end
 
 return settings

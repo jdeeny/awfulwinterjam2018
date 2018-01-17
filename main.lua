@@ -30,7 +30,7 @@ function love.load()
   love.mouse.setVisible(false)
   love.mouse.setGrabbed(true)
   
-  settings:init()
+  init_settings()
 
   splash.enter()
   timer.init()

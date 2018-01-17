@@ -26,6 +26,7 @@ function continue.update(dt)
     	mainmenu.enter()
     	fade.state = nil
 	elseif player_input:pressed('quit') then
+		save_settings()
 		love.event.push("quit")
 	end
 end

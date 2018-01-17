@@ -32,3 +32,6 @@
 [submodule "lib/autobatch"]
 	path = lib/autobatch
 	url = https://github.com/rxi/autobatch.git
+[submodule "lib/bitser"]
+	path = lib/bitser
+	url = https://github.com/gvx/bitser

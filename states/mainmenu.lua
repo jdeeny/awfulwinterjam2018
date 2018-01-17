@@ -29,6 +29,7 @@ function mainmenu.update(dt)
 	elseif player_input:pressed('back') then
 		options.enter()
 	elseif player_input:pressed('quit') then
+		save_settings()
 		love.event.push("quit")
 	end
 end

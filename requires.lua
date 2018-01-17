@@ -12,7 +12,7 @@ moonshine = require 'lib/moonshine/'
 gui_flux = require 'lib/flux/flux'  -- Simple tweening system https://github.com/rxi/flux
 game_flux = require 'lib/flux/flux'  -- Flux as above, but using game time units
 require 'lib/autobatch/autobatch'                 -- autobatch automatic SpriteBatch https://github.com/rxi/autobatch
-require 'lib/persistence/persistence'   -- Simple, short serialiazation lib for saving settings.
+bitser = require 'lib/bitser/bitser' -- Serialization with LOVE-specific load & save function
 
 -- nice scaling for pixel graphics (might be fixed in git version?) https://github.com/SystemLogoff/lovePixel
 -- interesting text library that allows control per letter https://github.com/mzrinsky/popo https://github.com/EntranceJew/popo
