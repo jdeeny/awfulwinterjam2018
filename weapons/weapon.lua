@@ -110,7 +110,12 @@ function LightningGun:_fire(targets)
 
   local nodes = electricity:nodesincircle(self.owner.x, self.owner.y, self.range)
 
-  audiomanager:playLooped('car1', 100, 'car2', 'car3')
+  if not self.sound_hum then
+    self.sound_hum = audiomanager.sources['tesla_hum1'].source:clone()
+    self.sound_hum:setVolume(0.5)
+    self.sound_hum:play()
+  end
+  -- audiomanager:playLooped('car1', 100, 'car2', 'car3')
 
   -- if no targets shoot straight ahead at nothing
   if not targets or #targets == 0 then
@@ -158,6 +163,7 @@ function LightningGun:_fire(targets)
         last_target = t
       end
     end
+    audiomanager:playOnce('spark')
   end
 
 
@@ -181,13 +187,23 @@ function LightningGun:update(dt)
     else
       if self.targets and #self.targets > 0 then
         for _, t in pairs(self.targets) do
-          if t.take_damage then t:take_damage(self.damage) end
+          if t.take_damage then 
+            t:take_damage(self.damage) 
+          end
         end
       end
       self.bolts = {}
     end
   end
 end
+
+function LightningGun:release( )
+  if self.sound_hum then
+    self.sound_hum:stop()
+    self.sound_hum = nil
+  end
+end
+
 
 
 function LightningGun:draw()
