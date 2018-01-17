@@ -35,7 +35,7 @@ function image.init()
   image.watermask:setWrap('repeat', 'repeat')
   image.water = love.graphics.newImage("assets/tiles/water/waterbase.png")
   image.water_border = love.graphics.newImage("assets/tiles/water/waterborder.png")
-
+  image.deadbody = love.graphics.newImage("assets/sprites/deadbody.png")
   image.chargemap = love.graphics.newImage("assets/sprites/chargemap.png")
 end
 

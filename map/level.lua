@@ -49,7 +49,6 @@ function Level:addTile(id, x, y, tile)
   end
 end
 
-
 function Level:addMob(id, mob)
   if id == nil or mob == nil then
     print("Attempted to add unknown mob")
@@ -57,6 +56,16 @@ function Level:addMob(id, mob)
   end
   mob.layer = mob.layer or Layer.ENTITY
   self:_add(id, mob)
+end
+
+function Level:addBody(sprite, x, y)
+  if not image[sprite] then
+    print ("Attempted to add unknown body " .. sprite)
+    return
+  end
+  local id = 'body' .. math.random()
+  local body = Entity:new(id, sprite, x, y, Layer.BODIES, image[sprite], math.random() * 3.14 / 8, 1.0, 1.0, 96/2, 64/2)
+  self:_add(id, body)
 end
 
 function Level:getLayer(n)

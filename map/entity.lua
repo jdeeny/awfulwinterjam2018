@@ -1,6 +1,6 @@
 local Entity = class("Entity")
 
-function Entity:initialize(kind, id, x, y, layer, drawable, rotation, sx, sy, ox, oy)
+function Entity:initialize(id, kind, x, y, layer, drawable, rotation, sx, sy, ox, oy)
   self.kind = kind or 'unknownkind'
   self.id = id
   self.loc = cpml.vec2.new(x, y)

@@ -2,15 +2,16 @@ local Layer = class("Layer")
 
 Layer.WATER = 1
 Layer.FLOOR = 2
-Layer.FURNITURE = 3
-Layer.SHADOW = 4
-Layer.FXUNDER = 5
-Layer.ENTITY = 6
-Layer.ENTITYNOSHADOW = 7
-Layer.FXOVER = 8
-Layer.HUD = 9
-Layer.BROKEN = 10
-Layer.LASTLAYER = 11
+Layer.BODIES = 3
+Layer.FURNITURE = 4
+Layer.SHADOW = 5
+Layer.FXUNDER = 6
+Layer.ENTITY = 7
+Layer.ENTITYNOSHADOW = 8
+Layer.FXOVER = 9
+Layer.HUD = 10
+Layer.BROKEN = 11
+Layer.LASTLAYER = 12
 
 function Layer:initialize(id, effects)
   self.id = id
