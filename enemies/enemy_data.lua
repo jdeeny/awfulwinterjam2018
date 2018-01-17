@@ -3,27 +3,33 @@ enemy_data = {}
 function enemy_data.spawn(kind, x, y)
   local new_id = idcounter.get_id("enemy")
 
-  enemies[new_id] = enemy:new()
-  enemies[new_id].id = new_id
-  enemies[new_id].x = x
-  enemies[new_id].y = y
+  local e = enemy:new()
 
-  enemies[new_id].birth_time = game_time
-  enemies[new_id].wake_time = game_time
-  enemies[new_id].attack_time = game_time
+  e.id = new_id
+  e.x = x
+  e.y = y
+
+  e.birth_time = game_time
+  e.wake_time = game_time
+  e.attack_time = game_time
 
   for i, v in pairs(enemy_data[kind]) do
-    enemies[new_id][i] = v
+    e[i] = v
   end
-  if enemies[new_id].animation then
-    enemies[new_id].animation = enemies[new_id].animation:clone()
+  if e.animation then
+    e.animation = e.animation:clone()
   end
 
-  local personality = personalities[enemies[new_id].personality] or personalities['Wanderer']
-  enemies[new_id].ai = personality:new(enemies[new_id])
+  local personality = personalities[e.personality] or personalities['Wanderer']
+  e.ai = personality:new(e)
 
-  enemies[new_id].hp = enemies[new_id].max_hp
-  enemy_value = enemy_value + enemies[new_id].value
+  if e.weapon_type then e.weapon = e.weapon_type:new() end
+  print(e.weapon)
+
+  e.hp = e.max_hp
+  enemy_value = enemy_value + e.value
+
+  enemies[new_id] = e
 
   current_level:addMob(new_id, enemies[new_id])
 
@@ -39,7 +45,7 @@ enemy_data["schmuck"] =
   radius = 30,
   value = 1,
   touch_damage = 10,
-  personality = 'Sniper',
+  personality = 'Wanderer',
 }
 
 enemy_data["fodder"] =
@@ -55,4 +61,16 @@ enemy_data["fodder"] =
   personality = 'Seeker',
 }
 
+enemy_data["rifledude"] =
+{
+  kind = "rifledude", name = "Rifle Dude",
+  sprite = "dude", death_sound = "unh",
+  max_hp = 40,
+  speed = 80,
+  radius = 30,
+  value = 2,
+  touch_damage = 0,
+  weapon_type = weapon.ProjectileGun,
+  personality = 'Rifleman'
+}
 return enemy_data
