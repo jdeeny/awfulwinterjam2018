@@ -23,9 +23,11 @@ function mainmenu.update(dt)
 	player_input:update()
 
 	if player_input:pressed('fire') or player_input:pressed('sel') then
-    film.set_title("Tesla \n Arrives in \n America")
-	film.set_music("figleaf",27)
-    film.enter()
+    	film.set_title("Tesla \n Arrives in \n America")
+		film.set_music("figleaf",27)
+    	film.enter()
+	elseif player_input:pressed('back') then
+		options.enter()
 	elseif player_input:pressed('quit') then
 		love.event.push("quit")
 	end
@@ -37,11 +39,11 @@ function mainmenu.draw()
 
 	local text
 	if player_input:getActiveDevice() == 'joystick' then
-		text = "A Tesla Game\nPress A to Play\nPress Back to Quit"
+		text = "A Tesla Game\nPress A to Play\n\nPress B for Options\nPress Back to Quit"
 	else
-		text = "A Tesla Game\nPress Spacebar to Play\nPress Q to Quit"
+		text = "A Tesla Game\nPress Spacebar to Play\n\nPress Delete for Options\nPress Q to Quit"
 	end
-	local th = mainmenu.font:getHeight()*3
+	local th = mainmenu.font:getHeight()*5
 
 	love.graphics.printf(text, 0, window.h/2-th/2,
 		window.w, 'center')

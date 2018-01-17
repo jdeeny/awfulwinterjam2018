@@ -30,6 +30,7 @@ pause = require "states/pause"
 play = require "states/play"
 splash = require "states/splash"
 win = require "states/win"
+options = require "states/options"
 
 camera = require "camera"
 collision = require "collision"

@@ -6,10 +6,10 @@ game_time = 0
 require "requires"
 
 STATE_SPLASH, STATE_MAINMENU, STATE_FILM, STATE_PLAY,
-    STATE_PAUSE, STATE_DEATH, STATE_CONTINUE, STATE_WIN = 0,1,2,3,4,5,6,7
+    STATE_PAUSE, STATE_DEATH, STATE_CONTINUE, STATE_WIN, STATE_OPTIONS= 0,1,2,3,4,5,6,7, 8
 
 gamestates = {[0]=splash, [1]=mainmenu, [2]=film, [3]=play,
-    [4]=pause, [5]=death, [6]=continue, [7]=win}
+    [4]=pause, [5]=death, [6]=continue, [7]=win, [8]=options}
 
 
 function love.load()
