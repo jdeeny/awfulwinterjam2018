@@ -96,7 +96,7 @@ end
 
 
 function mob:take_damage(n)
-  if self.hp then
+  if self.hp and self.hp > 0 then
     self.hp = self.hp - n
     if self.hp <= 0 then
       self:die()

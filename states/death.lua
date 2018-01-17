@@ -2,6 +2,7 @@ local death = {}
 
 function death.enter()
 	state = STATE_DEATH
+    love.audio.stop()
 end
 
 function death.update()
