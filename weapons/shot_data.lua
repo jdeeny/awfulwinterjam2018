@@ -39,13 +39,16 @@ shot_data["bullet"] =
     for i = 1, 6 do
       angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
       speed = 200 + 1800 * love.math.random()
-      spark_data.spawn("spark", {r=255, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
+      spark_data.spawn("spark", {r=20, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
     end
     for i = 1, 3 do
       angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
       speed = 200 + 1000 * love.math.random()
-      spark_data.spawn("spark_big", {r=255, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
+      spark_data.spawn("spark_big", {r=20, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
     end
+
+    spark_data.spawn("pow", {r=100, g=255, b=100}, mx, my, 0, 0, love.math.random() * math.pi * 2, 2 * love.math.random(0, 1) - 1, 1)
+
     self:die()
   end,
 }
@@ -82,6 +85,9 @@ shot_data["enemybullet"] =
       speed = 200 + 1000 * love.math.random()
       spark_data.spawn("spark_big", {r=255, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
     end
+
+    spark_data.spawn("pow", {r=255, g=230, b=50}, mx, my, 0, 0, love.math.random() * math.pi * 2, 2 * love.math.random(0, 1) - 1, 1)
+
     self:die()
   end,
 }

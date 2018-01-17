@@ -1,6 +1,6 @@
 local spark_data = {}
 
-function spark_data.spawn(class, color, x, y, dx, dy)
+function spark_data.spawn(class, color, x, y, dx, dy, r, sx, sy)
   local new_id = idcounter.get_id("spark")
   sparks[new_id] = spark:new()
   sparks[new_id].id = new_id
@@ -10,9 +10,16 @@ function spark_data.spawn(class, color, x, y, dx, dy)
   sparks[new_id].dx = dx
   sparks[new_id].dy = dy
   sparks[new_id].birth_time = game_time
+  sparks[new_id].r = r or 0
+  sparks[new_id].sx = sx or 1
+  sparks[new_id].sy = sy or 1
 
   for i, v in pairs(spark_data[class]) do
-    sparks[new_id][i] = v
+    if i == "animation" then
+      sparks[new_id][i] = v:clone()
+    else
+      sparks[new_id][i] = v
+    end
   end
 
   if sparks[new_id]["duration_variance"] then
@@ -20,9 +27,6 @@ function spark_data.spawn(class, color, x, y, dx, dy)
   else
     sparks[new_id].duration = duration.start(sparks[new_id]["duration"])
   end
-
-  sparks[new_id].sprite_hwidth = image[sparks[new_id].sprite]:getWidth()/2
-  sparks[new_id].sprite_hheight = image[sparks[new_id].sprite]:getHeight()/2
 
   return new_id
 end
@@ -33,7 +37,8 @@ spark_data["spark"] =
   sprite = "spark",
   duration = 0.1,
   duration_variance = 0.4,
-  radius = 4,
+  sprite_hwidth = 8,
+  sprite_hheight = 8,
 }
 
 spark_data["spark_big"] =
@@ -42,7 +47,18 @@ spark_data["spark_big"] =
   sprite = "spark_big",
   duration = 0.1,
   duration_variance = 0.3,
-  radius = 8,
+  sprite_hwidth = 32,
+  sprite_hheight = 32,
+}
+
+spark_data["pow"] =
+{
+  class = "pow",
+  sprite = "pow",
+  animation = animation.pow,
+  duration = 0.2,
+  sprite_hwidth = 64,
+  sprite_hheight = 64,
 }
 
 return spark_data

@@ -13,6 +13,9 @@ function animation.init()
   local gear_grid = anim8.newGrid(64, 96, image.gear:getWidth(), image.gear:getHeight(), 0, 0, 0)
   animation.gear_spin_cw = anim8.newAnimation(gear_grid('1-6',1), 0.12)
   animation.gear_spin_ccw = anim8.newAnimation(gear_grid('6-1',1), 0.12)
+
+  local pow_grid = anim8.newGrid(128, 128, image.pow:getWidth(), image.pow:getHeight(), 0, 0, 0)
+  animation.pow = anim8.newAnimation(pow_grid('1-4',1), 0.05)
 end
 
 return animation

@@ -2,7 +2,7 @@ local spark = class('spark')
 
 function spark:update(dt)
   if self.animation then
-    self.animation.update(dt)
+    self.animation:update(dt)
   end
   if self.duration:finished() then
     self:die()
@@ -27,14 +27,13 @@ end
 function spark:draw()
   love.graphics.setColor(self.color.r, self.color.g, self.color.b, 255 - 255 * self.duration:t())
   if self.animation == nil then
-    love.graphics.draw(image[self.sprite], camera.view_x(self), camera.view_y(self), self.r or 0, 1, 1,
-      image[self.sprite]:getWidth()/2, image[self.sprite]:getHeight()/2)
+    love.graphics.draw(image[self.sprite], camera.view_x(self), camera.view_y(self), self.r, self.sx, self.sy,
+      self.sprite_hwidth, self.sprite_hheight)
   else
-    self.animation:draw(image[self.sprite], camera.view_x(self), camera.view_y(self), self.r or 0, 1, 1,
-      64/2, 72/2) -- SIZE!?!
+    self.animation:draw(image[self.sprite], camera.view_x(self), camera.view_y(self), self.r, self.sx, self.sy,
+      self.sprite_hwidth, self.sprite_hheight)
   end
   love.graphics.setColor(255, 255, 255, 255)
 end
-
 
 return spark
