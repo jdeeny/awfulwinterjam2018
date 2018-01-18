@@ -18,7 +18,13 @@ end
 
 function Weapon:initialize()
    -- Weapon.initialize(self) -- super class init, uncomment when subclassing
-  self.firing_rate = 0.1 --shots/s
+  self.firing_rate = 0.1 -- s / shot
+  self.max_ammo = 100
+  self.ammo = 100
+  self.ammo_cost = 10 -- per second cost of firing weapn
+  self.charge_rate = 15 -- ammo gained per second
+  self.is_firing = false
+  self.min_ammo_to_fire = 10
 end
 
 function Weapon:_fire(targets)
@@ -27,17 +33,28 @@ end
 
 
 function Weapon:update(dt)
-  -- override me
+  -- Weapon.update(self, dt)
+  if not self.is_firing then
+    self.ammo = math.min(self.max_ammo, self.ammo+self.charge_rate*dt)
+  end
 end
 
 function Weapon:fire()
   if not self.next_shot_time or game_time > self.next_shot_time then
-    self:_fire(self:_acquire_targets())
-    self.next_shot_time = game_time + self.firing_rate
+    if self.ammo > self.ammo_cost*self.firing_rate then
+      self:_fire(self:_acquire_targets())
+      self.is_firing = true
+      self.next_shot_time = game_time + self.firing_rate
+      self.ammo = self.ammo - self.ammo_cost*self.firing_rate
+    else 
+      self:release()
+    end
   end
 end
 
 function Weapon:release()
+  -- Weapon.release(self)
+  self.is_firing = false
   -- body
 end
 -------------------------------------------------------------------------------
@@ -66,6 +83,7 @@ function ProjectileGun:_fire(targets)
 end
 
 function ProjectileGun:release()
+  Weapon.release(self)
   self.cof_multiplier = 0
 end
 
@@ -174,7 +192,6 @@ function LightningGun:_fire(targets)
     audiomanager:playOnce('spark')
   end
 
-
   self.fired_at = game_time
   self.targets = fired_at_targets
 end
@@ -184,6 +201,7 @@ function LightningGun:hit_fork_target( target, level )
 end
 
 function LightningGun:update(dt)
+  Weapon.update(self, dt)
   if self.bolts and self.fired_at then
     if game_time < self.fired_at + self.draw_time then
       for _, b in pairs(self.bolts) do
@@ -216,6 +234,7 @@ function LightningGun:update(dt)
 end
 
 function LightningGun:release( )
+  Weapon.release(self)
   if self.sound_hum then
     self.sound_hum:stop()
     self.sound_hum = nil
@@ -273,6 +292,7 @@ function RayGun:_fire(targets)
 end
 
 function RayGun:release()
+  Weapon.release(self)
   if self.fired_at then
     self.fired_at = nil
   end
@@ -280,6 +300,7 @@ end
 
 local a, firing_time, percent_of_focus
 function RayGun:update(dt)
+  Weapon.update(self, dt)
   if self.fired_at then
 
     --cap it at focus time
