@@ -11,7 +11,7 @@ local weapon = {}
 -------------------------------------------------------------------------------
 local Weapon = class("Weapon", item.Item)
 
-function Weapon:_aquire_targets()
+function Weapon:_acquire_targets()
   -- override me and return a list of targets inform {x,y}
   return {}
 end
@@ -32,7 +32,7 @@ end
 
 function Weapon:fire()
   if not self.next_shot_time or game_time > self.next_shot_time then
-    self:_fire(self:_aquire_targets())
+    self:_fire(self:_acquire_targets())
     self.next_shot_time = game_time + self.firing_rate
   end
 end
@@ -76,14 +76,15 @@ function LightningGun:initialize()
   self.firing_arc = math.pi/6
   self.bolts = {}
   self.draw_time = 0.1
-  self.damage = 100
+  self.spark_time = 0
+  self.damage = 600
   self.firing_rate = 0.1
   self.chain_targets = 1
   -- self.sound = "tesla_coil_long"
   self.icon = "lightning_icon"
 end
 
-function LightningGun:_aquire_targets()
+function LightningGun:_acquire_targets()
   local targets = {}
 
   -- player vectors
@@ -181,19 +182,29 @@ function LightningGun:hit_fork_target( target, level )
 end
 
 function LightningGun:update(dt)
-
   if self.bolts and self.fired_at then
     if game_time < self.fired_at + self.draw_time then
-
       for _, b in pairs(self.bolts) do
         b:update(dt)
       end
-
     else
       if self.targets and #self.targets > 0 then
         for _, t in pairs(self.targets) do
           if t.take_damage then
-            t:take_damage(self.damage)
+            t:take_damage(self.damage * dt)
+            if game_time > self.spark_time then
+              for i = 1, love.math.random(7) do
+                angle = love.math.random() * math.pi * 2
+                speed = 200 + 1800 * love.math.random()
+                spark_data.spawn("spark_blue", {r=255, g=255, b=255}, t.x, t.y, speed * math.cos(angle), speed * math.sin(angle))
+              end
+              for i = 1, love.math.random(3) do
+                angle = love.math.random() * math.pi * 2
+                speed = 200 + 1000 * love.math.random()
+                spark_data.spawn("spark_big_blue", {r=255, g=255, b=255}, t.x, t.y, speed * math.cos(angle), speed * math.sin(angle))
+              end
+              self.spark_time = game_time + 0.1
+            end
           end
         end
       end
@@ -207,15 +218,20 @@ function LightningGun:release( )
     self.sound_hum:stop()
     self.sound_hum = nil
   end
+  self.targets = nil
 end
 
 
 
 function LightningGun:draw()
-
   if self.bolts then
+    local drawn = false
     for _, b in pairs(self.bolts) do
         b:draw()
+        drawn = true
+    end
+    if drawn then
+      play.flash_screen(love.math.random(20), 0, 60 + love.math.random(60), 96, 0.5)
     end
   end
 end
@@ -224,7 +240,7 @@ end
 
 local RayGun = class("RayGun", Weapon)
 
-function RayGun:_aquire_targets()
+function RayGun:_acquire_targets()
   -- override me and return a list of targets inform {x,y}
   return {}
 end

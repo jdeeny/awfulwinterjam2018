@@ -13,7 +13,7 @@ function mob:draw()
       image[self.sprite]:getWidth()/2, image[self.sprite]:getHeight()/2)
   else
     self.animation:draw(image[self.sprite], camera.view_x(self), camera.view_y(self), self.rot, 1, 1,
-      64/2, 72/2)
+      32, 48)
   end
 
   if self.equipped_items then

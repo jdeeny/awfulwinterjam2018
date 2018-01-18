@@ -67,6 +67,17 @@ function play.draw()
 
 
   player:draw()
+  if play.screen_flash then
+    if play.screen_flash.duration:finished() then
+      play.screen_flash = nil
+    else
+      love.graphics.setColor(play.screen_flash.r, play.screen_flash.g, play.screen_flash.b,
+        play.screen_flash.a * (1 - play.screen_flash.duration:t()))
+      love.graphics.rectangle("fill", 0, 0, window.w, window.h)
+      love.graphics.setColor(255,255,255,255)
+    end
+  end
+
   hud:draw()
 
   -- debug
@@ -87,6 +98,10 @@ function play.freezeframe(duration)
   -- needs to be based on gui_time since obviously game_time won't be moving
   play.freezeframe_start_time = gui_time
   play.freezeframe_end_time = gui_time + duration
+end
+
+function play.flash_screen(r, g, b, a, dur)
+  play.screen_flash = {r = r, g = g, b = b, a = a, duration = duration.start(dur)}
 end
 
 return play

@@ -13,7 +13,7 @@ function player.init()
   player.hp = 40
   player.dying = false
   player.stun = nil
-  player.iframe_end_time = 1
+  player.iframe_end_time = 0
   player.next_shot_time = 0
   player.shot_delay = 0.1
   player.shot_speed = 800
@@ -137,11 +137,13 @@ function player:take_damage(damage, silent, angle, force)
 
     if not silent then
       if self.hp > 0 then
+        play.flash_screen(255, 100, 50, 64, 0.05 * force)
         play.freezeframe(0.03 * force)
         camera.shake(2 * force, 0.1 * force)
         self:be_stunned(0.1 * force)
         self:be_knocked_back(0.1 * force, 100 * force * math.cos(angle), 100 * force * math.sin(angle))
       else
+        play.flash_screen(255, 100, 50, 128, 1)
         play.freezeframe(0.3)
         camera.shake(15, 1)
         self:be_stunned(1)
