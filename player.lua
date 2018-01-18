@@ -126,6 +126,13 @@ end
 
 function player.die()
   player.dying = true
+  if player.equipped_items then
+    for _ , x in pairs(player.equipped_items) do
+      if x.release then
+        x:release()
+      end
+    end
+  end
   fade.start_fade("fadeout", 3, true)
   delay.start(3, function() death.enter() end)
 end
@@ -171,6 +178,9 @@ end
 
 function player.weapon_switch()
   --player:unequip('weapon')
+  if player.weapons[player.weapon].release then
+    player.weapons[player.weapon]:release()
+  end
   player.weapon = player.weapon + 1
   if player.weapon > player.weapon_max then player.weapon = 1 end
   player:equip('weapon', player.weapons[player.weapon])

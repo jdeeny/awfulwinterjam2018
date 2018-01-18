@@ -4,11 +4,11 @@ W--------------W
 W--WWWWWWWWWW--W
 W--WWWWWWWWWW--W
 W--WW----------W
-W--WW------ww--W
-W--WWWWWWW-----W
-W--WWWWWWW-----W
 W--WW----------W
-W--WW----tttt--W
+W--WW---b------W
+W--WW----------W
+W--WW------tt--W
+W--WW------tt--W
 W--------------W
-Wb--wwwww------W
+W--------------W
 WWWWWWWWWWWWWWWW
