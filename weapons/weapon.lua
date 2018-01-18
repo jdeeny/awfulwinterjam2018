@@ -316,7 +316,7 @@ function RayGun:update(dt)
       end
 
       if math.abs(a) < self.diameter/2 + 0.1 then
-        z:take_damage(self.damage * dt * (1 - self.focus), false, self.angle + a, 5 * dt, false)
+        z:take_damage(self.damage * dt * (1 - self.focus), false, self.angle + a, 3 * dt, false)
         if game_time > self.spark_time then
           for i = 1, math.floor(7 - 6 * self.focus) do
             angle = self.angle + a + 0.5 * (love.math.random() - 0.5)
