@@ -31,12 +31,17 @@ function Weapon:_fire(targets)
   -- override me
 end
 
+function Weapon:reload(ammo)
+  if ammo then
+    self.ammo = min(self.max_ammo, self.ammo+ammo)
+  end
+end
 
 function Weapon:update(dt)
   -- Weapon.update(self, dt)
-  if not self.is_firing then
-    self.ammo = math.min(self.max_ammo, self.ammo+self.charge_rate*dt)
-  end
+    if not self.is_firing then
+      self.ammo = math.min(self.max_ammo, self.ammo+self.charge_rate*dt)
+    end  
 end
 
 function Weapon:fire()
@@ -93,7 +98,7 @@ local LightningGun = class("LightningGun", Weapon)
 function LightningGun:initialize()
   Weapon.initialize(self)
   self.range = 400
-  self.firing_arc = math.pi/6
+  self.firing_arc = math.pi/4
   self.bolts = {}
   self.draw_time = 0.1
   self.spark_time = 0

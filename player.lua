@@ -67,10 +67,14 @@ function player.update(dt)
       _, player.aim = cpml.vec2.to_polar(mvec-pvec) -- angle to mouse pos. is new aim
     end
 
+
     -- fire weapon (or not)
     if player.equipped_items['weapon'] then
-      player.equipped_items['weapon']:update(dt)
-
+      -- update all weapons
+      for _, w in ipairs(player.weapons) do
+        w:update(dt)
+      end
+      
       if player_input:pressed('swap') then
         player.weapon_switch()
       end
@@ -173,9 +177,15 @@ end
 
 function player.weapon_switch()
   --player:unequip('weapon')
+  
   player.weapon = player.weapon + 1
   if player.weapon > player.weapon_max then player.weapon = 1 end
-  player:equip('weapon', player.weapons[player.weapon])
+  
+  if #player.weapons > 1 then 
+    player.weapons[player.weapon]:release()
+    player:equip('weapon', player.weapons[player.weapon])
+  end
+
 end
 
 
