@@ -2,9 +2,11 @@ local Particles = class("Particles")
 
 function Particles:initialize(x, y, w, h, lifetime)
   self.x, self.y = x, y
-  self.w, self.h = w or 10, h or 10
+  self.w = w or 10
+  self.h = h or 10
   self.lifetime = lifetime or 5
   self.id = "particles" .. math.random()
+  print(self.id)
   self.kind = "particles"
   self.psystem = nil
 end
@@ -14,7 +16,8 @@ function Particles:update(dt)
     self.psystem:update(dt)
   end
   if self.lifetime and self.lifetime < game_time then
-    current_level:remove(self.id)
+    --current_level:remove(self.id)
+    --self.psystem = nil
   end
 end
 

@@ -39,13 +39,15 @@ function player.init()
   player.aim = player.rot
   player.equipped_items = {}
   player:equip('weapon', player.weapons[player.weapon])
+  player.nextpuff = game_time
 end
 
 function player.update(dt)
   player:update_position(dt)
 
-  if math.random() * math.random() > 0.65 then
-    SmokeParticles:new(player.x, player.y, 10, 20, 100, .05)
+  if player.nextpuff < game_time then
+    player.nextpuff = game_time + 0.35 + math.random() *0.1
+    SmokeParticles:new(player.x, player.y, 10, 15, .1, .5)
   end
 
   local aim_x, aim_y = player_input:get('aim')
