@@ -85,25 +85,26 @@ function hud.draw()
 
 
 	-- draw timer in upper right
+	love.graphics.setFont(hud.font)
 	timer.draw((window.w-275),0)
 
 
 	-- dimensions for bars
 	local bar_dim = {x=20,y=100}
-	
+
 	-- draw player HP bar in lower right
-	
+
 	-- love.graphics.setFont(hud.font)
 	-- love.graphics.print(player.hp, (window.w - 80), (window.h - 80))
-	
+
 	local hpb = {x=love.graphics.getWidth()-bar_dim.x-iconSeparation,
 		y=love.graphics.getHeight()-bar_dim.y-iconSeparation}
 
 	love.graphics.setColor(127,127,127)
-	love.graphics.rectangle('fill', hpb.x, hpb.y, bar_dim.x, 
+	love.graphics.rectangle('fill', hpb.x, hpb.y, bar_dim.x,
 		bar_dim.y*(1-player.hp/player.max_hp))
 	love.graphics.setColor(175,0,0)
-	love.graphics.rectangle('fill', hpb.x, hpb.y+bar_dim.y*(1-player.hp/player.max_hp), 
+	love.graphics.rectangle('fill', hpb.x, hpb.y+bar_dim.y*(1-player.hp/player.max_hp),
 		bar_dim.x, bar_dim.y*player.hp/player.max_hp)
 
 	love.graphics.setColor(255,255,255)
@@ -117,10 +118,15 @@ function hud.draw()
 	iconOffset = iconOffset + iconWidth
 
 	-- Other player weapons drawn at half size
-	for i,w in ipairs(player.weapons) do
-		if w ~= selected_weapon then
+	local weapon_count = #player.weapons
+	if weapon_count > 1 then
+		for i = 1, weapon_count - 1 do
+			w = player.weapon + i
+			if w > weapon_count then
+				w = w - weapon_count
+			end
 			iconOffset = iconOffset + iconSeparation
-			love.graphics.draw(image[w.icon],iconOffset,(window.h - 100)+iconHeight/2,0,0.5,0.5,0,0)
+			love.graphics.draw(image[player.weapons[w].icon],iconOffset,(window.h - 100)+iconHeight/2,0,0.5,0.5,0,0)
 			iconOffset = iconOffset + iconWidth/2
 		end
 	end

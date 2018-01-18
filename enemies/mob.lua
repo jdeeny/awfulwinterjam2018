@@ -138,6 +138,7 @@ end
 
 function mob.unequip(id)
   local tmp = self.equipped_items[id]
+  if tmp.release then tmp:release() end
   self.equipped_items[id] = nil
   return tmp
 end

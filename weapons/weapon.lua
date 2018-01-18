@@ -349,7 +349,8 @@ function RayGun:draw()
     love.graphics.setCanvas(self.canvas)
     love.graphics.clear()
 
-    love.graphics.setColor(50 + 100 * love.math.random(), 0, 150 + 100 * love.math.random(), cpml.utils.clamp(255*(1-self.focus), 0, 255))
+    love.graphics.setColor(50 + 100 * love.math.random(), 0, 150 + 100 * love.math.random(),
+      cpml.utils.clamp(64 + 191*(1-self.focus), 64, 255))
 
     local y_offset = 300
     local diameter_variance = 0.05 * love.math.random()
