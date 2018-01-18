@@ -83,13 +83,30 @@ function hud.draw()
 	end
 
 
-	love.graphics.setFont(hud.font)
 
 	-- draw timer in upper right
 	timer.draw((window.w-275),0)
 
-	-- draw player HP in lower right
-	love.graphics.print(player.hp, (window.w - 80), (window.h - 80))
+
+	-- dimensions for bars
+	local bar_dim = {x=20,y=100}
+	
+	-- draw player HP bar in lower right
+	
+	-- love.graphics.setFont(hud.font)
+	-- love.graphics.print(player.hp, (window.w - 80), (window.h - 80))
+	
+	local hpb = {x=love.graphics.getWidth()-bar_dim.x-50,
+		y=love.graphics.getHeight()-bar_dim.y-50}
+
+	love.graphics.setColor(127,127,127)
+	love.graphics.rectangle('fill', hpb.x, hpb.y, bar_dim.x, 
+		bar_dim.y*(1-player.hp/player.max_hp))
+	love.graphics.setColor(175,0,0)
+	love.graphics.rectangle('fill', hpb.x, hpb.y+bar_dim.y*(1-player.hp/player.max_hp), 
+		bar_dim.x, bar_dim.y*player.hp/player.max_hp)
+
+	love.graphics.setColor(255,255,255)
 
 	-- draw weapon icons
 	local iconOffset = iconSeparation

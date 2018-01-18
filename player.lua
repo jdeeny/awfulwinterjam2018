@@ -167,6 +167,10 @@ function player:take_damage(damage, silent, angle, force, stunning)
   end
 end
 
+function player:heal(hp)
+  self.hp = math.min(self.hp+hp, self.max_hp)
+end
+
 function player.weapon_switch()
   --player:unequip('weapon')
   player.weapon = player.weapon + 1
