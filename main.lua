@@ -69,6 +69,8 @@ function love.focus(f)
 end
 
 function new_game()
+  game_time = 0
+
   player.init()
 
   enemies = nil
@@ -82,8 +84,8 @@ function new_game()
   current_dungeon:setup_main()
 
   dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
+  pathfinder.rebuild_time = 0
 
-  game_time = 0
   player:start_force_move(9999, player.speed, 0)
 
   fade.start_fade("fadein", 0.5, true)
