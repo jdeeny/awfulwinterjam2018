@@ -93,7 +93,7 @@ function player.update(dt)
     -- ...or if we touched an enemy
     if player.iframe_end_time < game_time then
       for _,z in pairs(enemies) do
-        if collision.aabb_aabb(player, z) then
+        if z.touch_damage > 0 and collision.aabb_aabb(player, z) then
           player:take_damage(z.touch_damage, false, math.atan2(player.y - z.y, player.x - z.x), 5, true)
           break
         end
