@@ -54,7 +54,7 @@ file_io.room_files = {
 	{"assets/rooms/room_test.txt", 16, 14},
 	{"assets/rooms/room_z.txt", 18, 12},
 	{"assets/rooms/room_deserted_laboratory.txt", 72, 12},
-	{"assets/rooms/room_river.txt", 72, 12},
+	{"assets/rooms/room_rivers.txt", 72, 12},
 }
 
 return file_io

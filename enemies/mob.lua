@@ -14,6 +14,12 @@ function mob:draw()
     end
   end
 
+  local alpha = 255
+  if (not self.dying) and self.iframe_end_time and self.iframe_end_time > game_time then
+    alpha = 155 + 100 * math.cos(12 * math.pi * (self.iframe_end_time - game_time))
+  end
+  love.graphics.setColor(255, 255, 255, alpha)
+
   if self.animation == nil then
     love.graphics.draw(image[self.sprite], camera.view_x(self), camera.view_y(self), self.rot, 1, 1,
       image[self.sprite]:getWidth()/2, image[self.sprite]:getHeight()/2)
@@ -21,6 +27,7 @@ function mob:draw()
     self.animation:draw(image[self.sprite], camera.view_x(self), camera.view_y(self), self.rot, 1, 1,
       32, 48)
   end
+  love.graphics.setColor(255,255,255,255)
 end
 
 function mob:update_position(dt)
