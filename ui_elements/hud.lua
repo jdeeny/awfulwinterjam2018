@@ -20,22 +20,22 @@ function hud.draw_arrows()
 	local dir
 	local distance = math.max(100, math.min(window.w/2 - 100, window.h/2 - 100))
 	if hud.arrows['up'] then
-		dir = math.atan2(-4 * TILESIZE - player.y, (current_room:pixel_width() / 2) - player.x)
+		dir = math.atan2(-4 * TILESIZE - player.y, (current_level:pixel_width() / 2) - player.x)
 		love.graphics.draw(image['arrow'], (window.w/2) + math.cos(dir) * (distance), (window.h/2) + math.sin(dir) * (distance), dir, 1, 1, xc, yc)
 	end
 
 	if hud.arrows['right'] then
-		dir = math.atan2((current_room:pixel_height() / 2) - player.y, current_room:pixel_width() + 4 * TILESIZE - player.x)
+		dir = math.atan2((current_level:pixel_height() / 2) - player.y, current_level:pixel_width() + 4 * TILESIZE - player.x)
 		love.graphics.draw(image['arrow'], (window.w/2) + math.cos(dir) * (distance), (window.h/2) + math.sin(dir) * (distance), dir, 1, 1, xc, yc)
 	end
 
 	if hud.arrows['left'] then
-		dir = math.atan2((current_room:pixel_height() / 2) - player.y, -4 * TILESIZE - player.x)
+		dir = math.atan2((current_level:pixel_height() / 2) - player.y, -4 * TILESIZE - player.x)
 		love.graphics.draw(image['arrow'], (window.w/2) + math.cos(dir) * (distance), (window.h/2) + math.sin(dir) * (distance), dir, 1, 1, xc, yc)
 	end
 
 	if hud.arrows['down'] then
-		dir = math.atan2(current_room.pixel_height() + 4 * TILESIZE - player.y, (current_room:pixel_width() / 2) - player.x)
+		dir = math.atan2(current_level.pixel_height() + 4 * TILESIZE - player.y, (current_level:pixel_width() / 2) - player.x)
 		love.graphics.draw(image['arrow'], (window.w/2) + math.cos(dir) * (distance), (window.h/2) + math.sin(dir) * (distance), dir, 1, 1, xc, yc)
 	end
 
@@ -59,13 +59,13 @@ function hud.draw()
 	local iconSeparation = 20
 
 	-- draw arrows if room is unlocked
-	if current_room.cleared then
+	if current_level.cleared then
 		if next(hud.arrows) == nil then
 			-- not currently flashing
-			if current_room.exits.north then
+			if current_level.exits.north then
 				hud.arrows.up = true
 			end
-			if current_room.exits.east then
+			if current_level.exits.east then
 				hud.arrows.right = true
 			end
 			-- start flasher

@@ -1,6 +1,6 @@
 local room = class('room', grid)
 
-function room:update()
+--[[function room:update()
   if self.door_close_time then
     local closed = false
     if self.door_close_time.north and self.door_close_time.north < game_time then
@@ -33,25 +33,25 @@ function room:update()
       audiomanager:playOnce("unlatch")
     end
   end
-end
+end]]
 
-function room:is_solid(gx, gy)
+--[[function room:is_solid(gx, gy)
   return (not self:in_bounds(gx, gy)) or self[gx][gy].kind == "wall" or self[gx][gy].kind == "void" or self[gx][gy].kind == "fake_floor"
-end
+end]]
 
-function room:coda()
+--[[function room:coda()
   -- we're done in this room; open doors and let the player move on
   self.cleared = true
   if self.exits.north then
     self:open_door("north", false) -- no time given, so it should stay open forever
-    doodad_data.spawn("exit_north", current_room:pixel_width() / 2, TILESIZE / 2)
+    doodad_data.spawn("exit_north", current_level:pixel_width() / 2, TILESIZE / 2)
   end
   if self.exits.east then
     self:open_door("east", false)
-    doodad_data.spawn("exit_east", current_room:pixel_width() - (TILESIZE / 2), current_room:pixel_height() / 2)
+    doodad_data.spawn("exit_east", current_level:pixel_width() - (TILESIZE / 2), current_level:pixel_height() / 2)
   end
-end
-
+end]]
+--[[
 function room:open_door(dir, fake, time)
   if not self.door_close_time then
     self.door_close_time = {}
@@ -85,22 +85,23 @@ function room:open_door(dir, fake, time)
 
   --self:setup_tile_images()
 end
-
-function room.bounding_box(gx, gy)
+]]
+--[[function room.bounding_box(gx, gy)
   return {x = TILESIZE * (gx + 0.5), y = TILESIZE * (gy + 0.5), radius = TILESIZE / 2}
 end
 
-function room.pos_to_grid(p)
+function current_level:pos_to_grid(p)
   return math.floor(p / TILESIZE)
-end
+end]]
 
-function room:pixel_width()
+
+--[[function room:pixel_width()
   return (self.width + 2) * TILESIZE
 end
 
 function room:pixel_height()
   return (self.height + 2) * TILESIZE
-end
+end]]
 
 --[[
 function room:setup_tile_images()

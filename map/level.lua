@@ -9,12 +9,16 @@ shadow_effect.gaussianblur.sigma = 1.0
 
 
 function Level:initialize(w, h)
+  self.height = h
+  self.width = w
   self:createCanvases()
   --window.addCallback(self:createCanvases())
   self.shadow_xoff = 3
   self.shadow_yoff = 12
 
   self.layers = {}
+  self.tiles = {}
+
   self:setLayerEffects(Layer.WATER, water_effect)
   return self
 end
@@ -25,6 +29,27 @@ function Level:find_symbol(symbol)
       return name
     end
   end
+end
+
+
+function Level:is_solid(gx, gy)
+  return self.tiles[gx] and self.tiles[gx][gy] and self.tiles[gx][gy].issolid
+end
+
+function Level:pixel_width()
+  return (self.width + 2) * TILESIZE
+end
+
+function Level:pixel_height()
+  return (self.height + 2) * TILESIZE
+end
+
+function Level:bounding_box(gx, gy)
+  return {x = TILESIZE * (gx + 0.5), y = TILESIZE * (gy + 0.5), radius = TILESIZE / 2}
+end
+
+function Level:pos_to_grid(p)
+  return math.floor(p / TILESIZE)
 end
 
 
@@ -55,6 +80,8 @@ function Level:addTile(id, x, y, tile)
     local e = t:toEntity(x, y)
     self:_add(id, e)
   end
+  if not self.tiles[x] then self.tiles[x] = {} end
+  self.tiles[x][y] = tile[1].kind
 end
 
 function Level:addMob(id, mob)
@@ -95,10 +122,6 @@ end
 function Level:setLayerEffects(layer, effects)
   self:getLayer(layer).effects = effects
   return self
-end
-
-function Level:setTile(loc, tile)
-  self.cells[loc] = tile
 end
 
 function Level:update(dt)

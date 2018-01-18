@@ -3,15 +3,22 @@ local Tile = class("Tile")
 function Tile:initialize(name, mapsymbol)
   self.layer = Layer.FLOOR
   self.id = name
+  self.kind = name
   self.sprite = name
   self.mapsymbol = mapsymbol or nil
   return self
 end
 
-function Tile:setWall(w)
-  self.iswall = w
+function Tile:setSolid(state)
+  self.issolid = state
   return self
 end
+
+function Tile:setDoor(state)
+  self.isdoor = state
+  return self
+end
+
 
 function Tile:setDestroyable(kind, into, hp)
   self.destroyable = kind or false

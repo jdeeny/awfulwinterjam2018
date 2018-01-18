@@ -35,7 +35,7 @@ function pathfinder.build_nav_mesh(origin_x, origin_y)
 			-- orth_neighbors = {}
 			for direction = 1, 4 do -- orthogonal neighbors
 				neighbor_x, neighbor_y = cx + orth_dirs[direction].x, cy + orth_dirs[direction].y
-				if not current_room:is_solid(neighbor_x, neighbor_y) then
+				if not current_level:is_solid(neighbor_x, neighbor_y) then
 					neighbor_hash = hash(neighbor_x, neighbor_y)
 					if not pathfinder.mesh[neighbor_hash] or pathfinder.mesh[neighbor_hash] > v + 10 then
 						pathfinder.mesh[neighbor_hash] = v + 10
@@ -61,7 +61,7 @@ function pathfinder.hill_climb(gx, gy)
 	-- first, check if orthogonal spaces are passable
 	orth_neighbors = {}
 	for direction = 1, 4 do
-		orth_neighbors[direction] = not current_room:is_solid(gx + orth_dirs[direction].x, gy + orth_dirs[direction].y)
+		orth_neighbors[direction] = not current_level:is_solid(gx + orth_dirs[direction].x, gy + orth_dirs[direction].y)
 	end
 
 	min_v = pathfinder.mesh[hash(gx, gy)]
@@ -115,8 +115,8 @@ end
 
 local pgx, pgy
 function pathfinder.update()
-	pgx = room.pos_to_grid(player.x)
-	pgy = room.pos_to_grid(player.y)
+	pgx = current_level:pos_to_grid(player.x)
+	pgy = current_level:pos_to_grid(player.y)
 	if (pgx ~= pathfinder.origin_x or pgy ~= pathfinder.origin_y) and game_time >= pathfinder.rebuild_time then
 		pathfinder.build_nav_mesh(pgx, pgy)
 		pathfinder.rebuild_time = game_time + 0.5
@@ -126,8 +126,8 @@ end
 function pathfinder.draw_debug()
 	local v
 	love.graphics.setFont(debug_font)
-	for i = 1, current_room.width do
-		for j = 1, current_room.height do
+	for i = 1, current_level.width do
+		for j = 1, current_level.height do
 			v = pathfinder.mesh[hash(i,j)]
 			if v then
 				love.graphics.print(v, math.floor(i * TILESIZE - camera.x), math.floor(j * TILESIZE - camera.y))

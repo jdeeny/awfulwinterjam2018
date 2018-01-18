@@ -64,7 +64,7 @@ function enemy:die()
   audiomanager:playOnce(self.death_sound)
   if enemy_value <= 0.01 and spawner.wave_count == 0 then
     -- end the room after a brief delay
-    delay.start(1, function() current_room:coda() end)
+    delay.start(1, function() current_level:coda() end)
   end
 end
 

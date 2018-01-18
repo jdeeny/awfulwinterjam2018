@@ -35,7 +35,7 @@ function play.update(dt)
     timer.update()
 
     delay.process()
-    current_room:update()
+    current_level:update(mdt)
 
     pathfinder.update()
 
@@ -47,7 +47,7 @@ end
 function play.draw()
   camera.apply_shake()
 
---	current_room:draw()
+--	current_level:draw()
   current_level:draw()
 
   for _,z in pairs(sparks) do

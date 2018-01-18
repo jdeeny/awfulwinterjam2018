@@ -81,23 +81,23 @@ local hit
 local mx, my, mt, mnx, mny
 
 function collision.aabb_room_sweep(a, vx, vy)
-  grid_x1 = room.pos_to_grid(math.min(a.x - a.radius, a.x - a.radius + vx))
-  grid_x2 = room.pos_to_grid(math.max(a.x + a.radius, a.x + a.radius + vx))
-  grid_y1 = room.pos_to_grid(math.min(a.y - a.radius, a.y - a.radius + vy))
-  grid_y2 = room.pos_to_grid(math.max(a.y + a.radius, a.y + a.radius + vy))
+  grid_x1 = current_level:pos_to_grid(math.min(a.x - a.radius, a.x - a.radius + vx))
+  grid_x2 = current_level:pos_to_grid(math.max(a.x + a.radius, a.x + a.radius + vx))
+  grid_y1 = current_level:pos_to_grid(math.min(a.y - a.radius, a.y - a.radius + vy))
+  grid_y2 = current_level:pos_to_grid(math.max(a.y + a.radius, a.y + a.radius + vy))
 
   mt = 1
   hit = nil
   for i = grid_x1, grid_x2 do
     for j = grid_y1, grid_y2 do
-      if current_room:is_solid(i, j) then
-        block_type = current_room:feature_at(i, j)
+      if current_level:is_solid(i, j) then
+        block_type = current_level:feature_at(i, j)
         box = room.bounding_box(i, j)
 
         hx, hy, ht, nx, ny = collision.aabb_sweep(a, box, vx, vy)
 
         if ht and ht < mt then
-          if (nx ~= 0 and ny ~= 0) or not current_room:is_solid(i + nx, j + ny) then
+          if (nx ~= 0 and ny ~= 0) or not current_level:is_solid(i + nx, j + ny) then
             hit = {"block", i, j}
             mt = ht
             mx = hit_x

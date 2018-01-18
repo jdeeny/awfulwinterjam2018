@@ -26,26 +26,26 @@ function spawner.process()
 end
 
 function spawner.spawn_from_north_door(kind)
-	current_room:open_door("north", true, 1)
-	id = enemy_data.spawn(kind, current_room:pixel_width() / 2, TILESIZE * 3 - enemy_data[kind].speed)
+	current_level:open_door("north", true, 1)
+	id = enemy_data.spawn(kind, current_level:pixel_width() / 2, TILESIZE * 3 - enemy_data[kind].speed)
 	enemies[id]:start_force_move(1, 0, enemies[id].speed)
 end
 
 function spawner.spawn_from_east_door(kind)
-	current_room:open_door("east", true, 1)
-	id = enemy_data.spawn(kind, current_room:pixel_width() - TILESIZE * 3 + enemy_data[kind].speed, current_room:pixel_height() / 2)
+	current_level:open_door("east", true, 1)
+	id = enemy_data.spawn(kind, current_level:pixel_width() - TILESIZE * 3 + enemy_data[kind].speed, current_level:pixel_height() / 2)
 	enemies[id]:start_force_move(1, -enemies[id].speed, 0)
 end
 
 function spawner.spawn_from_south_door(kind)
-	current_room:open_door("south", true, 1)
-	id = enemy_data.spawn(kind, current_room:pixel_width() / 2, current_room:pixel_height() - TILESIZE * 3 + enemy_data[kind].speed)
+	current_level:open_door("south", true, 1)
+	id = enemy_data.spawn(kind, current_level:pixel_width() / 2, current_level:pixel_height() - TILESIZE * 3 + enemy_data[kind].speed)
 	enemies[id]:start_force_move(1, 0, -enemies[id].speed)
 end
 
 function spawner.spawn_from_west_door(kind)
-	current_room:open_door("west", true, 1)
-	id = enemy_data.spawn(kind, TILESIZE * 3 - enemy_data[kind].speed, current_room:pixel_height() / 2)
+	current_level:open_door("west", true, 1)
+	id = enemy_data.spawn(kind, TILESIZE * 3 - enemy_data[kind].speed, current_level:pixel_height() / 2)
 	enemies[id]:start_force_move(1, enemies[id].speed, 0)
 end
 

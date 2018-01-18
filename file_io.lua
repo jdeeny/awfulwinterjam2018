@@ -21,18 +21,19 @@ end
 
 function file_io.parse_room_file(n)
 	local f = file_io.lines_from(file_io.room_files[n][1])
-	local m = room:new()
-	m:init(file_io.room_files[n][2], file_io.room_files[n][3])
+	local m = Level:new(file_io.room_files[n][2], file_io.room_files[n][3]):setLayerEffects(Layer.WATER, water_effect)
+
+	--m:init(file_io.room_files[n][2], file_io.room_files[n][3])
 	for j,str in ipairs(f) do
 		i = 1
 		for c in str:gmatch"." do
-			local tilekind = current_level:find_symbol(c) or 'void'
+			local tilekind = m:find_symbol(c) or 'void'
 			print(tilekind)
-			if tilekind == 'teleporter' then
-				table.insert(spawner.teleporters, {x=i, y=j})
-			end
-			m[i][j].kind = tilekind
-			current_level:addTile(grid.hash(i, j), i, j, current_level.tileset[tilekind])
+			--if tilekind == 'teleporter' then
+			--	table.insert(spawner.teleporters, {x=i, y=j})
+			--end
+			--m[i][j].kind = tilekind
+			m:addTile(grid.hash(i, j), i, j, m.tileset[tilekind])
 			i = i+1
 		end
 	end

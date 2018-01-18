@@ -5,7 +5,7 @@ function Seeker:update(dt)
   local need_goal = not self.goal_x or math.abs(self.entity.x - self.goal_x) + math.abs(self.entity.y - self.goal_y) < 16
   if not self.entity.dx or game_time >= self.entity.wake_time or need_goal then
   	if need_goal then
-  		local gx, gy = room.pos_to_grid(self.entity.x), room.pos_to_grid(self.entity.y)
+  		local gx, gy = current_level:pos_to_grid(self.entity.x), current_level:pos_to_grid(self.entity.y)
   		local dx, dy = pathfinder.hill_climb(gx, gy)
   		self.goal_x = TILESIZE * (gx + dx + 0.5)
   		self.goal_y = TILESIZE * (gy + dy + 0.5)
