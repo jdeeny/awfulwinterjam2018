@@ -41,6 +41,9 @@ function image.init()
   image.water_border = love.graphics.newImage("assets/tiles/water/waterborder.png")
   image.deadbody = love.graphics.newImage("assets/sprites/deadbody.png")
   image.chargemap = love.graphics.newImage("assets/sprites/chargemap.png")
+
+  image.remotedude = love.graphics.newImage("assets/sprites/remoteBaddie_spriteSheet.png")
+
 end
 
 return image
