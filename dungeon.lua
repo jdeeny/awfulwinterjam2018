@@ -12,7 +12,7 @@ function dungeon.move_to_room(rx, ry, from_dir)
 
   current_level = file_io.parse_room_file(current_dungeon[rx][ry].file)
   current_level.exits = current_dungeon:get_exits(rx, ry)
-  current_level:prologue()
+  --current_level:prologue()
 
   player.dungeon_x = rx
   player.dungeon_y = ry
@@ -32,6 +32,8 @@ function dungeon.move_to_room(rx, ry, from_dir)
   else
     love.errhand("bad room from_dir")
   end
+
+  current_level:open_door(from_dir)
 
   camera.recenter()
 
