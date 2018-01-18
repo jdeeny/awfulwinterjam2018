@@ -349,8 +349,8 @@ function RayGun:draw()
     love.graphics.setCanvas(self.canvas)
     love.graphics.clear()
 
-    love.graphics.setColor(50 + 100 * love.math.random(), 0, 150 + 100 * love.math.random(),
-      cpml.utils.clamp(64 + 191*(1-self.focus), 64, 255))
+    love.graphics.setColor(90 + 120 * love.math.random(), 100*love.math.random(), 200 + 55 * love.math.random(),
+      cpml.utils.clamp(255*(math.random()*.5 + .5)*(1-self.focus), 50, 255))
 
     local y_offset = 300
     local diameter_variance = 0.05 * love.math.random()
@@ -364,16 +364,20 @@ function RayGun:draw()
     love.graphics.arc( 'fill', 0, y_offset+self.beam_width/2, self.range,
       0, self.diameter/2 + 0.05 * love.math.random(), 20 )
 
-
     love.graphics.setCanvas()
     local mode = love.graphics.getBlendMode()
 
-    love.graphics.setBlendMode('alpha','premultiplied')
-    love.graphics.draw(self.canvas,
-      camera.view_x(self.owner), camera.view_y(self.owner),
-      self.angle, 1, 1, 0, y_offset)
+    ray_effect.chromasep.angle = math.random() * 2 * 3.1415
+    ray_effect.chromasep.radius = math.random()* 12
 
-    love.graphics.setColor(255,255,255)
+    ray_effect(function()
+      love.graphics.setBlendMode('alpha','premultiplied')
+      love.graphics.draw(self.canvas,
+        camera.view_x(self.owner), camera.view_y(self.owner),
+        self.angle, 1, 1, 0, y_offset)
+    end)
+
+    love.graphics.setColor(255,255,255,255)
     love.graphics.setBlendMode(mode)
 
     camera.shake(3 - 2.5 * self.focus, 0.3)
