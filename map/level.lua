@@ -20,7 +20,6 @@ function Level:initialize(w, h)
 end
 
 function Level:find_symbol(symbol)
-  print(symbol)
   for name, tile in pairs(self.tileset) do
     if tile[1].mapsymbol == symbol then
       return name

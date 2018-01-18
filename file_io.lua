@@ -37,7 +37,7 @@ function file_io.parse_room_file(n)
 		end
 	end
 
-	m:setup_tile_images()
+	--m:setup_tile_images()
 	return m
 end
 

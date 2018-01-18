@@ -29,7 +29,7 @@ function room:update()
     end
 
     if closed then
-      self:setup_tile_images()
+      --self:setup_tile_images()
       audiomanager:playOnce("unlatch")
     end
   end
@@ -83,7 +83,7 @@ function room:open_door(dir, fake, time)
     self[1][1 + self.height / 2].kind = k
   end
 
-  self:setup_tile_images()
+  --self:setup_tile_images()
 end
 
 function room.bounding_box(gx, gy)
@@ -102,6 +102,7 @@ function room:pixel_height()
   return (self.height + 2) * TILESIZE
 end
 
+--[[
 function room:setup_tile_images()
   local kind
   for gx = 1, self.width do
@@ -173,9 +174,9 @@ function room:setup_tile_images()
       end
     end
   end
-end
+end]]
 
-function room:draw()
+--[[function room:draw()
   local kind
   for gx = 1, self.width do
     for gy = 1, self.height do
@@ -198,6 +199,6 @@ function room:draw()
       end
     end
   end
-end
+end]]
 
 return room
