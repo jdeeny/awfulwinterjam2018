@@ -41,11 +41,11 @@ end
 
 function Tile:takeDamage(dmg)
   if self.destroyable then
-    self.hp = cpml.util.clamp(self.hp - dmg, self.hp - dmg, self.maxhp)
+    self.hp = cpml.utils.clamp(self.hp - dmg, self.hp - dmg, self.maxhp)
     if self.hp <= 0 then
 
       -- launch explosion
-      current_level.addTile(nil, self.x, self.y, current_level.tileset[self.destroyed_version])
+      current_level:addTile(nil, self.loc.x, self.loc.y, current_level.tileset[self.destroyed_version])
     end
   end
 end
