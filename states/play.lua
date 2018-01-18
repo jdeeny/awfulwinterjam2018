@@ -67,16 +67,7 @@ function play.draw()
 
 
   player:draw()
-  if play.screen_flash then
-    if play.screen_flash.duration:finished() then
-      play.screen_flash = nil
-    else
-      love.graphics.setColor(play.screen_flash.r, play.screen_flash.g, play.screen_flash.b,
-        play.screen_flash.a * (1 - play.screen_flash.duration:t()))
-      love.graphics.rectangle("fill", 0, 0, window.w, window.h)
-      love.graphics.setColor(255,255,255,255)
-    end
-  end
+  play.draw_screen_flash()
 
   hud:draw()
 
@@ -102,6 +93,21 @@ end
 
 function play.flash_screen(r, g, b, a, dur)
   play.screen_flash = {r = r, g = g, b = b, a = a, duration = duration.start(dur)}
+end
+
+function play.draw_screen_flash()
+  if play.screen_flash then
+    if play.screen_flash.duration:finished() then
+      play.screen_flash = nil
+    else
+      love.graphics.setBlendMode("add")
+      love.graphics.setColor(play.screen_flash.r, play.screen_flash.g, play.screen_flash.b,
+        play.screen_flash.a * (1 - play.screen_flash.duration:t()))
+      love.graphics.rectangle("fill", 0, 0, window.w, window.h)
+      love.graphics.setColor(255,255,255,255)
+      love.graphics.setBlendMode("alpha")
+    end
+  end
 end
 
 return play
