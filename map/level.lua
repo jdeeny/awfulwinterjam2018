@@ -103,6 +103,69 @@ function Level:addBody(sprite, x, y)
   self:_add(id, body)
 end
 
+
+
+
+
+
+function Level:open_door(dir, fake, time)
+  if not self.door_close_time then
+    self.door_close_time = {}
+  end
+
+  if not self.door_close_time[dir] then
+    -- wasn't already open
+    audiomanager:playOnce("unlatch")
+  end
+
+  -- if time is given, close the door again after that time
+  if time then
+    self.door_close_time[dir] = game_time + time
+  end
+
+  local k = fake and "fake_floor" or "floor"
+
+  --[[if dir == "north" then
+    self[self.width / 2][1].kind = k
+    self[1 + self.width / 2][1].kind = k
+  elseif dir == "south" then
+    self[self.width / 2][self.height].kind = k
+    self[1 + self.width / 2][self.height].kind = k
+  elseif dir == "east" then
+    self[self.width][self.height / 2].kind = k
+    self[self.width][1 + self.height / 2].kind = k
+  elseif dir == "west" then
+    self[1][self.height / 2].kind = k
+    self[1][1 + self.height / 2].kind = k
+  end]]
+
+  --self:setup_tile_images()
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function Level:getLayer(n)
   local l = n or Layer.BROKEN
   if not self.layers[l] then self.layers[l] = Layer:new(l) end
