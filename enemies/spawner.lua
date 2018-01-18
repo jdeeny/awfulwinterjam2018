@@ -6,6 +6,7 @@ function spawner.reset()
 	spawner.teleporters = {}
 	spawner.score = 0
 	spawner.start_time = game_time
+	spawner.complete = false
 end
 
 function spawner.add(threshold, f)
@@ -22,6 +23,12 @@ function spawner.process()
 			spawner.events[j] = nil
 			spawner.wave_count = spawner.wave_count - 1
 		end
+	end
+end
+
+function spawner.test_completion()
+	if enemy_value < 0.01 and spawner.complete then
+		delay.start(1, function() current_level:coda() end)
 	end
 end
 
@@ -62,35 +69,40 @@ spawner.wave_data = {}
 spawner.wave_data.test = function()
 	spawner.add(2,
 		function()
-			spawner.spawn_from_teleporter('rifledude')
+			spawner.spawn_from_north_door('rifledude')
 			for i = 1, 4 do
-				delay.start(0.5 * i, function() spawner.spawn_from_teleporter('rifledude') end)
+				delay.start(0.5 * i, function() spawner.spawn_from_north_door('rifledude') end)
 			end
+			delay.start(2,
+				function()
+					spawner.complete = true
+					spawner.test_completion()
+				end)
 		end)
-	spawner.add(5,
-		function()
-			spawner.spawn_from_east_door('fodder')
-			for i = 1, 4 do
-				delay.start(0.5 * i, function() spawner.spawn_from_east_door('fodder') end)
-			end
-		end)
-	spawner.add(8,
-		function()
-			spawner.spawn_from_west_door('fodder')
-			for i = 1, 2 do
-				delay.start(i - 0.5, function() spawner.spawn_from_west_door('schmuck') end)
-			end
-			for i = 1, 2 do
-				delay.start(i , function() spawner.spawn_from_west_door('fodder') end)
-			end
-		end)
-	spawner.add(11,
-		function()
-			spawner.spawn_from_south_door('schmuck')
-			for i = 1, 4 do
-				delay.start(0.5 * i, function() spawner.spawn_from_south_door('fodder') end)
-			end
-		end)
+	-- spawner.add(5,
+	-- 	function()
+	-- 		spawner.spawn_from_east_door('fodder')
+	-- 		for i = 1, 4 do
+	-- 			delay.start(0.5 * i, function() spawner.spawn_from_east_door('fodder') end)
+	-- 		end
+	-- 	end)
+	-- spawner.add(8,
+	-- 	function()
+	-- 		spawner.spawn_from_west_door('fodder')
+	-- 		for i = 1, 2 do
+	-- 			delay.start(i - 0.5, function() spawner.spawn_from_west_door('schmuck') end)
+	-- 		end
+	-- 		for i = 1, 2 do
+	-- 			delay.start(i , function() spawner.spawn_from_west_door('fodder') end)
+	-- 		end
+	-- 	end)
+	-- spawner.add(11,
+	-- 	function()
+	-- 		spawner.spawn_from_south_door('schmuck')
+	-- 		for i = 1, 4 do
+	-- 			delay.start(0.5 * i, function() spawner.spawn_from_south_door('fodder') end)
+	-- 		end
+	-- 	end)
 end
 
 return spawner

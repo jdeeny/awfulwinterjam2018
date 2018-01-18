@@ -126,10 +126,8 @@ end
 
 function player.die()
   player.dying = true
-  fade.start_fade("fadeout", 3, true, function()
-      fade.start_fade("fadein", 3, true)
-      death.enter()
-    end)
+  fade.start_fade("fadeout", 3, true)
+  delay.start(3, function() death.enter() end)
 end
 
 function player:take_damage(damage, silent, angle, force, stunning)
@@ -165,6 +163,10 @@ function player:take_damage(damage, silent, angle, force, stunning)
       self.be_invincible(1)
     end
   end
+end
+
+function player:heal(hp)
+  self.hp = math.min(self.hp+hp, self.max_hp)
 end
 
 function player.weapon_switch()

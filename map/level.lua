@@ -175,6 +175,9 @@ function Level:open_door(dir, fake, time)
   end
 end
 
+function Level:prologue()
+  self:open_door("west", true) -- no time given, so it should stay open forever
+end
 
 function Level:coda()
   -- we're done in this room; open doors and let the player move on
