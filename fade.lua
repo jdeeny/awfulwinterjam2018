@@ -8,10 +8,6 @@ function fade.draw()
   end
 end
 
-function fade.finish()
-  fade.state = nil
-end
-
 function fade.start_fade(state, time, gui_based)
   local tween, target
 
@@ -26,9 +22,9 @@ function fade.start_fade(state, time, gui_based)
   end
 
   if gui_based then
-  	tween = gui_flux.to(fade, time, {alpha = target}):oncomplete(fade.finish)
+  	tween = gui_flux.to(fade, time, {alpha = target})
   else
-    tween = game_flux.to(fade, time, {alpha = target}):oncomplete(fade.finish)
+    tween = game_flux.to(fade, time, {alpha = target})
   end
 end
 
