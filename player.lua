@@ -47,7 +47,7 @@ function player.update(dt)
 
   if player.nextpuff < game_time then
     player.nextpuff = game_time + 0.35 + math.random() *0.1
-    SteamParticles:new(player.x, player.y, 10, 15, .1, 1.5)
+    BloodParticles:new(player.x, player.y, 5, 10, .1, 1.5)
   end
 
   local aim_x, aim_y = player_input:get('aim')
