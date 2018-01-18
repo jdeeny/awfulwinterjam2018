@@ -43,6 +43,7 @@ function file_io.parse_room_file(n)
 end
 
 file_io.room_files = {
+	
 	{"assets/rooms/room_cart.txt", 8, 22},
 	{"assets/rooms/room_columns.txt", 16, 16},
 	{"assets/rooms/room_empty.txt", 14, 14},
@@ -55,6 +56,7 @@ file_io.room_files = {
 	{"assets/rooms/room_z.txt", 18, 12},
 	{"assets/rooms/room_deserted_laboratory.txt", 72, 12},
 	{"assets/rooms/room_rivers.txt", 72, 12},
+	{"assets/rooms/room_hallways.txt",54,14},
 }
 
 return file_io
