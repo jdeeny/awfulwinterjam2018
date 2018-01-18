@@ -65,6 +65,7 @@ shot_data["enemybullet"] =
     if hit and hit[1] == "player" then
       player:take_damage(self.damage, false, math.atan2(self.dy, self.dx), 3, true)
     end
+    print(hit[1])
     for i = 1, 6 do
       angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
       speed = 200 + 1800 * love.math.random()
