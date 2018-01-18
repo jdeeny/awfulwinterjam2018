@@ -91,8 +91,13 @@ function Level:clear()
 end
 
 function Level:addTile(id, x, y, tile)
-  if id == nil or tile == nil then
+  local id = id or self:hash(x, y)
+  if tile == nil then
     print("Attempted to add unknown tile")
+    print(x)
+    print(y)
+    print(id)
+    print(tile)
     return
   end
   for _, t in ipairs(tile) do
@@ -142,28 +147,31 @@ function Level:open_door(dir, fake, time)
     self.door_close_time[dir] = game_time + time
   end
 
-  local k = fake and "fakedoor" or "opendoor"
+  local dtype = (fake and "fakedoor") or "opendoor"
+  print("Type: "..dtype)
+  local k = self.tileset[dtype]
+  print("k: ") print(k)
 
   if dir == "north" then
     --self.tiles[self.width / 2][1].kind = k
     --self.tiles[1 + self.width / 2][1].kind = k
-    self:addTile(self.width/2, 1, k)
-    self.addTile(1+self.width/2, 1, k)
+    self:addTile(nil, self.width/2, 1, k)
+    self:addTile(nil, 1+self.width/2, 1, k)
   elseif dir == "south" then
     --self.tiles[self.width / 2][self.height].kind = k
     --self.tiles[1 + self.width / 2][self.height].kind = k
-    self:addTile(self.width/2, self.height, k)
-    self.addTile(1+self.width/2, self.height, k)
+    self:addTile(nil, self.width/2, self.height, k)
+    self:addTile(nil, 1+self.width/2, self.height, k)
   elseif dir == "east" then
     --self.tiles[self.width][self.height / 2].kind = k
     --self.tiles[self.width][1 + self.height / 2].kind = k
-    self:addTile(self.width, self.height/2, k)
-    self.addTile(self.width, self.height/2 + 1, k)
+    self:addTile(nil, self.width, self.height/2, k)
+    self:addTile(nil, self.width, self.height/2 + 1, k)
   elseif dir == "west" then
     --self.tiles[1][self.height / 2].kind = k
     --self.tiles[1][1 + self.height / 2].kind = k
-    self:addTile(1,self.height/2, k)
-    self.addTile(1,self.height/2+1, k)
+    self:addTile(nil, 1,self.height/2, k)
+    self:addTile(nil, 1,self.height/2+1, k)
   end
 
 
