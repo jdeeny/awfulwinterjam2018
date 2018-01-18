@@ -33,15 +33,9 @@ function dungeon.move_to_room(rx, ry, from_dir)
     love.errhand("bad room from_dir")
   end
 
-  current_level:open_door(from_dir)
+  current_level:open_door(from_dir, true, 1)
 
   camera.recenter()
-
-  enemy_data.spawn("schmuck", 600, 600)
-  enemy_data.spawn("schmuck", 300, 800)
-
-  enemy_data.spawn("fodder", 400, 600)
-  enemy_data.spawn("fodder", 200, 600)
 
   spawner.wave_data.test()
 end

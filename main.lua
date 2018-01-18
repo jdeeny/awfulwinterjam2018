@@ -21,8 +21,6 @@ function love.load()
   audiomanager = AudioManager:new()
   electricity = ElectricSim:new()
 
-  new_game()
-
   player_input, menu_input = controls.init()
   player_input.deadband = 0.2
   love.mouse.setCursor(love.mouse.getSystemCursor('crosshair'))
@@ -85,8 +83,9 @@ function new_game()
 
   dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
 
+  game_time = 0
+  player:start_force_move(9999, player.speed, 0)
 
-  player:start_force_move(10, player.speed, 0)
-
-  fade.start_fade("fadein", 1.0, true, function() player:end_force_move() end)
+  fade.start_fade("fadein", 0.5, true)
+  delay.start(0.5, function() player:end_force_move() end)
 end

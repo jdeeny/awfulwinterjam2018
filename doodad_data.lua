@@ -24,13 +24,14 @@ doodad_data["exit_east"] =
   radius = 64,
 
   trigger = function(self)
-    if not fade.state then
-      player:start_force_move(10, player.speed, 0)
-      fade.start_fade("fadeout", 0.5, false,
-        function()
+    if not self.activated then
+      player:start_force_move(1, player.speed, 0)
+      fade.start_fade("fadeout", 0.5, false)
+      delay.start(0.5, function()
           dungeon.move_to_room(player.dungeon_x + 1, player.dungeon_y, "west")
-          fade.start_fade("fadein", 1.0, false, function() player:end_force_move() end)
+          fade.start_fade("fadein", 0.5, false)
         end)
+      self.activated = true
     end
   end,
 }
@@ -42,13 +43,14 @@ doodad_data["exit_north"] =
   radius = 64,
 
   trigger = function(self)
-    if not fade.state then
-      player:start_force_move(10, 0, -(player.speed))
-      fade.start_fade("fadeout", 0.5, false,
-        function()
+    if not self.activated then
+      player:start_force_move(1, 0, -(player.speed))
+      fade.start_fade("fadeout", 0.5, false)
+      delay.start(0.5, function()
           dungeon.move_to_room(player.dungeon_x, player.dungeon_y - 1, "south")
-          fade.start_fade("fadein", 1.0, false, function() player:end_force_move() end)
+          fade.start_fade("fadein", 0.5, false)
         end)
+      self.activated = true
     end
   end,
 }

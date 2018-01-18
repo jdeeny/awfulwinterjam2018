@@ -31,6 +31,10 @@ function mob:update_position(dt)
 
     if self.force_move.duration:finished() then
       self.force_move = nil
+      if self.ai then
+        self.ai.goal_x = nil
+        self.ai.goal_y = nil
+      end
     end
   else
     if self.stun then

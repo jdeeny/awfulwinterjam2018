@@ -65,10 +65,7 @@ function enemy:die()
   enemies[self.id] = nil
   current_level:remove(self.id)
   audiomanager:playOnce(self.death_sound)
-  if enemy_value <= 0.01 and spawner.wave_count == 0 then
-    -- end the room after a brief delay
-    delay.start(1, function() current_level:coda() end)
-  end
+  spawner.test_completion()
 end
 
 return enemy
