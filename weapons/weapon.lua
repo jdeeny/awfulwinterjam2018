@@ -58,7 +58,9 @@ function ProjectileGun:_fire(targets)
       math.cos(angle)*(self.owner.shot_speed or self.shot_speed),
       math.sin(angle)*(self.owner.shot_speed or self.shot_speed), self.owner)
   audiomanager:playOnce(self.sound)
-  camera.bump(6, self.owner.aim)
+  if self.owner.is_player then
+    camera.bump(6, self.owner.aim)
+  end
   self.owner:be_knocked_back(0.1, -100 * math.cos(angle), -100 * math.sin(angle))
   self.cof_multiplier = math.min(1, self.cof_multiplier + 0.15)
 end
@@ -191,7 +193,7 @@ function LightningGun:update(dt)
       if self.targets and #self.targets > 0 then
         for _, t in pairs(self.targets) do
           if t.take_damage then
-            t:take_damage(self.damage * dt)
+            t:take_damage(self.damage * dt, false, 0, 0, false)
             if game_time > self.spark_time then
               for i = 1, love.math.random(7) do
                 angle = love.math.random() * math.pi * 2
@@ -314,7 +316,7 @@ function RayGun:update(dt)
       end
 
       if math.abs(a) < self.diameter/2 + 0.1 then
-        z:take_damage(self.damage * dt * (1 - self.focus))
+        z:take_damage(self.damage * dt * (1 - self.focus), false, self.angle + a, 5 * dt, false)
         if game_time > self.spark_time then
           for i = 1, math.floor(7 - 6 * self.focus) do
             angle = self.angle + a + 0.5 * (love.math.random() - 0.5)
@@ -350,15 +352,16 @@ function RayGun:draw()
     love.graphics.setColor(50 + 100 * love.math.random(), 0, 150 + 100 * love.math.random(), cpml.utils.clamp(255*(1-self.focus), 0, 255))
 
     local y_offset = 300
+    local diameter_variance = 0.05 * love.math.random()
 
     love.graphics.arc( 'fill', 0 , y_offset-self.beam_width/2, self.range,
-      -self.diameter/2, 0, 20 )
+      -self.diameter/2 - 0.05 * love.math.random(), 0, 20 )
 
     love.graphics.rectangle( 'fill', 0, y_offset-self.beam_width/2,
       self.range, self.beam_width)
 
     love.graphics.arc( 'fill', 0, y_offset+self.beam_width/2, self.range,
-      0, self.diameter/2, 20 )
+      0, self.diameter/2 + 0.05 * love.math.random(), 20 )
 
 
     love.graphics.setCanvas()
@@ -371,6 +374,9 @@ function RayGun:draw()
 
     love.graphics.setColor(255,255,255)
     love.graphics.setBlendMode(mode)
+
+    camera.shake(3 - 2.5 * self.focus, 0.3)
+    play.flash_screen(50 + 10 * love.math.random(), 0, 100 + 20 * love.math.random(), cpml.utils.clamp(128*(1-self.focus), 0, 128), 0.5)
   end
 
 end

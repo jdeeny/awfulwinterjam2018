@@ -4,6 +4,7 @@ local mousemoved = false
 local DEADBAND = 0.2
 
 function player.init()
+  player.is_player = true
   player.sprite = 'tesla'
   player.facing_north = false
   player.facing_east = true
@@ -93,7 +94,7 @@ function player.update(dt)
     if player.iframe_end_time < game_time then
       for _,z in pairs(enemies) do
         if collision.aabb_aabb(player, z) then
-          player:take_damage(z.touch_damage, false, math.atan2(player.y - z.y, player.x - z.x), 5)
+          player:take_damage(z.touch_damage, false, math.atan2(player.y - z.y, player.x - z.x), 5, true)
           break
         end
       end
@@ -131,7 +132,11 @@ function player.die()
     end)
 end
 
-function player:take_damage(damage, silent, angle, force)
+function player:take_damage(damage, silent, angle, force, stunning)
+  local angle = angle or 0
+  local force = force or 0
+  local stunning = stunning or false
+
   if self.hp and self.hp > 0 then
     self.hp = math.max(0, self.hp - damage)
 
@@ -140,7 +145,9 @@ function player:take_damage(damage, silent, angle, force)
         play.flash_screen(255, 100, 50, 64, 0.05 * force)
         play.freezeframe(0.03 * force)
         camera.shake(2 * force, 0.1 * force)
-        self:be_stunned(0.1 * force)
+        if stunning then
+          self:be_stunned(0.1 * force)
+        end
         self:be_knocked_back(0.1 * force, 100 * force * math.cos(angle), 100 * force * math.sin(angle))
       else
         play.flash_screen(255, 100, 50, 128, 1)
