@@ -225,6 +225,11 @@ function Level:_add(id, e)
   self:getLayer(e.layer):add(id, e)
 end
 
+function Level:_addToLayer(layer, id, e)
+  self:getLayer(layer):add(id, e)
+end
+
+
 function Level:remove(id)
   for _, layer in pairs(self.layers) do
     layer:remove(id)

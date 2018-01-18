@@ -44,6 +44,10 @@ end
 function player.update(dt)
   player:update_position(dt)
 
+  if math.random() * math.random() > 0.65 then
+    SmokeParticles:new(player.x, player.y, 10, 20, 100, .05)
+  end
+
   local aim_x, aim_y = player_input:get('aim')
 
   if math.abs(aim_x) < DEADBAND then
