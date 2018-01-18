@@ -6,7 +6,6 @@ function Particles:initialize(x, y, w, h, lifetime)
   self.h = h or 10
   self.lifetime = lifetime or 5
   self.id = "particles" .. math.random()
-  print(self.id)
   self.kind = "particles"
   self.psystem = nil
 end

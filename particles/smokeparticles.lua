@@ -6,9 +6,6 @@ SmokeParticles.static.puffimg = love.graphics.newImage("assets/particles/smokepu
 
 function SmokeParticles:initialize(x, y, w, h, lifetime, scale)
   Particles.initialize(self, x, y, w, h, lifetime)--camera.view_x({x = x, y = y}), camera.view_y({x = x, y = y}))
-  print("new smoke")
-  print(x)
-  print(y)
   self.scale = scale or 1.0
   self.kind = "smokeparticles"
   self.particles = self:_createParticles(self.lifetime, self.scale)
@@ -16,24 +13,24 @@ function SmokeParticles:initialize(x, y, w, h, lifetime, scale)
 end
 
 function SmokeParticles:_createParticles(lifetime, scale)
-  local emitter = love.graphics.newParticleSystem(SmokeParticles.puffimg, 1500)
-  emitter:setEmissionRate(1024)
+  local emitter = love.graphics.newParticleSystem(SmokeParticles.puffimg, 1024)
+  emitter:setEmissionRate(256)
   emitter:setEmitterLifetime(lifetime)
   emitter:setDirection(-PI/2)
   emitter:setRadialAcceleration(-.5, -.75)
   emitter:setLinearAcceleration(0,-285,0,-315)
-  emitter:setSpeed(60+math.random()*20,100+math.random()*20)
+  emitter:setSpeed(20+math.random()*20,80+math.random()*20)
   local dark = 5 + math.random() * 10
-  local mid = 20 + math.random() * 20
-  local light = 30 + math.random() * 30
-  emitter:setColors(dark,dark,dark,60 + math.random()*20,  mid,mid,mid,40+ math.random()*20, light,light,light, 20+ math.random()*20)
-  emitter:setSpread(PI * 0.25)
-  emitter:setSizes(.4 * scale, .4 * scale)
+  local mid = dark + math.random() * 20
+  local light = mid + math.random() * 30
+  emitter:setColors(dark,dark,dark,50 + math.random()*10,  mid,mid,mid,30+ math.random()*20, light,light,light, 15+ math.random()*10)
+  emitter:setSpread(PI * 0.25 + math.random() * PI *0.125)
+  emitter:setSizes(.05 * scale, .6 * scale)
   emitter:setSizeVariation(0.2)
   emitter:setSpinVariation(1)
   emitter:setRotation(0)
   emitter:setAreaSpread('normal', self.w, self.h)
-  emitter:setParticleLifetime(1.25,1.5)
+  emitter:setParticleLifetime(.8,1.25)
   self.psystem = emitter
 end
 
