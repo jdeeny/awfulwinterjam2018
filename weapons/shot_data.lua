@@ -32,6 +32,14 @@ shot_data["bullet"] =
   collide = function(self, hit, mx, my, mt, nx, ny)
     if hit and hit[1] == "enemy" then
       enemies[hit[2]]:take_damage(self.damage, false, math.atan2(self.dy, self.dx), 3, true)
+    elseif hit and hit[1] == "block" then
+      print("hit")
+      print(hit[1])
+      print(hit[2])
+      print(hit[3])
+      local tgx = hit[2]
+      local tgy = hit[3]
+      current_level.tiles[tgx][tgy]:takeDamage(self.damage)
     end
     for i = 1, 6 do
       angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
@@ -65,6 +73,7 @@ shot_data["enemybullet"] =
     if hit and hit[1] == "player" then
       player:take_damage(self.damage, false, math.atan2(self.dy, self.dx), 3, true)
     end
+    print(hit[1])
     for i = 1, 6 do
       angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
       speed = 200 + 1800 * love.math.random()
