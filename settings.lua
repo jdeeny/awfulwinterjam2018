@@ -1,9 +1,8 @@
 local default_settings = { 
-  -- These should be modified with the correct variables/names as required
-  game_speed = 1.0,
-  start_dungeon = 1,
-  volume = 100,
-  max_unlocked_dungeon = 1,
+  volume = 100,   -- max
+  game_speed = 3,  -- medium
+  start_dungeon = 1, -- first
+  max_unlocked_dungeon = 1,  -- just the first
   gfx_mode = 'windowed',
   window_width =  window.w,
   window_height = window.h
@@ -18,26 +17,18 @@ else
 	bitser.dumpLoveFile('savedata', settings)
 end
 
--- DBG
-for k,v in pairs(settings) do
-	print(k,v)
-end
--- DBG
-
-settings = default_settings
-
  -- bitser won't serialize functions, so these need to be global
 
 function init_settings() 
-	AudioManager:setMasterVolume(settings.volume/10)
-	for i, s in ipairs({0.3,0.75,1.0,1.25}) do    -- Game speed
-		if s == settings.game_speed then
-			allowed_options[2]:setIndex(i)
-		end
-	end  
+	allowed_options[1]:setTo(settings.volume)
+	allowed_options[2]:setTo(settings.game_speed)
+	allowed_options[3]:setTo(settings.start_dungeon)
 end
 
-function save_settings()    
+function save_settings() 
+	settings.volume = allowed_options[1]:getSetting()
+	settings.game_speed = allowed_options[2]:getSetting()
+	settings.start_dungeon = allowed_options[3]:getSetting()   
 	bitser.dumpLoveFile('savedata', settings)
 end
 

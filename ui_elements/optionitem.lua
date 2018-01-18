@@ -26,6 +26,14 @@ function OptionItem:increase()
   -- override
 end
 
+function OptionItem:setTo()
+	-- override
+end
+
+function OptionItem:getSetting()
+	-- override
+end
+
 function OptionItem:clickedOn(xhit, yhit)
 	-- Indicates a click received, relative to the center of the displayed value
 end

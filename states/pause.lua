@@ -26,6 +26,7 @@ function pause.update()
 	if player_input:pressed('pause') or player_input:pressed('back') then
     play.enter()
 	elseif player_input:pressed('quit') then
+		save_settings()
 		love.event.push("quit")
 	end
 	timer.update()

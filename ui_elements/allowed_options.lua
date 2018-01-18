@@ -22,14 +22,21 @@ function ListOptionItem:increase()
 	self:updateValue()
 end
 
-function ListOptionItem:setIndex(i)
+function ListOptionItem:setTo(i)
 	self.index = i
+	self:updateValue()
+end
+
+function ListOptionItem:getSetting()
+	return self.index
 end
 
 function ListOptionItem:updateValue()
 	self.value = self.list[self.index]
-	if self.control then
+	if self.control and self.control_field then
 		_G[self.control][self.control_field] = self.c_values[self.index]
+	elseif self.control then -- a plain variable
+		_G[self.control] = self.c_values[self.index]
 	end
 end
 
@@ -47,29 +54,40 @@ end
 function MasterVolumeOI:decrease()
 	self.vol = math.max(0, self.vol-10)
 	AudioManager:setMasterVolume(self.vol/10)
-	self.value = self:value_for(self.vol)
+	self:updateValue()
 end
 
 function MasterVolumeOI:increase()
 	self.vol = math.min(100, self.vol+10)
 	AudioManager:setMasterVolume(self.vol/10)
-	self.value = self:value_for(self.vol)
+	self:updateValue()
 end
 
-function MasterVolumeOI:value_for(num)
+function MasterVolumeOI:setTo(val)
+	self.vol = val
+	AudioManager:setMasterVolume(self.vol/10)
+	self:updateValue()
+end
+
+function MasterVolumeOI:getSetting()
+	return self.vol
+end
+
+function MasterVolumeOI:updateValue()
+	local num = self.vol
 	if num == 100 then
-		return "- 100% "
+		self.value = "- 100% "
 	elseif num == 0 then
-		return "  OFF  +"
+		self.value = "  OFF  +"
 	else 
-		return "-  "..(num).."% +"
+		self.value =  "-  "..(num).."% +"
 	end
 end
 
 local masterVolume = MasterVolumeOI:new()
 
 local gameSpeed = ListOptionItem:new("Game Speed",{"super-slow (debug)","slow","medium","fast"},
-                                     'settings','game_speed', {0.3,0.75,1.0,1.25}) 
+                                     'gameplay_speed', nil, {0.3,0.75,1.0,1.25}) 
 
 -- Currently levelSelect does nothing
 local levelSelect = ListOptionItem:new("Level Select",{"Tesla's Arrival","Edison's Folly"})
