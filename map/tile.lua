@@ -1,9 +1,10 @@
 local Tile = class("Tile")
 
-function Tile:initialize(name)
+function Tile:initialize(name, mapsymbol)
   self.layer = Layer.FLOOR
   self.id = name
   self.sprite = name
+  self.mapsymbol = mapsymbol or nil
   return self
 end
 

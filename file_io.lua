@@ -26,21 +26,13 @@ function file_io.parse_room_file(n)
 	for j,str in ipairs(f) do
 		i = 1
 		for c in str:gmatch"." do
-			if c == "W" then
-				m[i][j].kind = "wall"
-			elseif c == "-" then
-				m[i][j].kind = "floor"
-			elseif c == "t" then
-				m[i][j].kind = "teleporter"
+			local tilekind = current_level:find_symbol(c) or 'void'
+			print(tilekind)
+			if tilekind == 'teleporter' then
 				table.insert(spawner.teleporters, {x=i, y=j})
-			elseif c == "w" then
-				m[i][j].kind = "water_border"
-			elseif c == "b" then
-				m[i][j].kind = "ballpost"
-			else
-				m[i][j].kind = "void"
 			end
-			current_level:addTile(grid.hash(i, j), i, j, Level.tileset[m[i][j].kind] or 'void' )
+			m[i][j].kind = tilekind
+			current_level:addTile(grid.hash(i, j), i, j, current_level.tileset[tilekind])
 			i = i+1
 		end
 	end
