@@ -6,8 +6,6 @@ shadow_effect.desaturate.tint = {0,0,0}
 shadow_effect.gaussianblur.sigma = 1.0
 
 
-
-
 function Level:initialize(w, h)
   self.height = h
   self.width = w
@@ -51,6 +49,27 @@ end
 function Level:pos_to_grid(p)
   return math.floor(p / TILESIZE)
 end
+
+function Level:in_bounds(gx, gy)
+  return gx >= 1 and gx <= self.width and gy >= 1 and gy <= self.height
+end
+
+function Level:feature_at(gx, gy)
+  if not self:in_bounds(gx, gy) then
+    return "void" -- the void
+  else
+    return self.tiles[gx][gy].kind or 'void'
+  end
+end
+
+function Level:hash(x, y)
+  return 512 * x + y
+end
+
+function Level:unhash(hash)
+  return math.floor(hash / 512), hash % 512
+end
+
 
 
 function Level:createCanvases()
@@ -123,21 +142,30 @@ function Level:open_door(dir, fake, time)
     self.door_close_time[dir] = game_time + time
   end
 
-  local k = fake and "fake_floor" or "floor"
+  local k = fake and "fakedoor" or "opendoor"
 
-  --[[if dir == "north" then
-    self[self.width / 2][1].kind = k
-    self[1 + self.width / 2][1].kind = k
+  if dir == "north" then
+    --self.tiles[self.width / 2][1].kind = k
+    --self.tiles[1 + self.width / 2][1].kind = k
+    self:addTile(self.width/2, 1, k)
+    self.addTile(1+self.width/2, 1, k)
   elseif dir == "south" then
-    self[self.width / 2][self.height].kind = k
-    self[1 + self.width / 2][self.height].kind = k
+    --self.tiles[self.width / 2][self.height].kind = k
+    --self.tiles[1 + self.width / 2][self.height].kind = k
+    self:addTile(self.width/2, self.height, k)
+    self.addTile(1+self.width/2, self.height, k)
   elseif dir == "east" then
-    self[self.width][self.height / 2].kind = k
-    self[self.width][1 + self.height / 2].kind = k
+    --self.tiles[self.width][self.height / 2].kind = k
+    --self.tiles[self.width][1 + self.height / 2].kind = k
+    self:addTile(self.width, self.height/2, k)
+    self.addTile(self.width, self.height/2 + 1, k)
   elseif dir == "west" then
-    self[1][self.height / 2].kind = k
-    self[1][1 + self.height / 2].kind = k
-  end]]
+    --self.tiles[1][self.height / 2].kind = k
+    --self.tiles[1][1 + self.height / 2].kind = k
+    self:addTile(1,self.height/2, k)
+    self.addTile(1,self.height/2+1, k)
+  end
+
 
   --self:setup_tile_images()
 end

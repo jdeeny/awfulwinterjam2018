@@ -8,6 +8,7 @@ TileSet['invinciblewall']     = { Tile:new('wall',            '#'):setSolid(true
 TileSet['wall']               = { Tile:new('wall',            'W'):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable('crumbles', 'rubblefloor', 150) }
 TileSet['door']               = { Tile:new('wall',            'D'):setDoor(true):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable('crumbles', 'rubblefloor', 150) }
 TileSet['opendoor']           = { Tile:new('floor',           'd'):setDoor(true):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable('crumbles', 'rubblefloor', 150) }
+TileSet['fakedoor']           = { Tile:new('floor',           'd'):setDoor(true):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable(false) }
 TileSet['floor']              = { Tile:new('floor',           '-') }
 TileSet['teleporter']         = { Tile:new('teleporter',      't') }
 TileSet['ballpost']           = { Tile:new('ballpost',        'b'):setLayer(Layer.FURNITURE):setDestroyable('explodes', 'rubblefloor', 50),
