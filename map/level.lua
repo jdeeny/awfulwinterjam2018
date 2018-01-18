@@ -94,18 +94,18 @@ function Level:addTile(id, x, y, tile)
   local id = id or self:hash(x, y)
   if tile == nil then
     print("Attempted to add unknown tile")
-    print(x)
-    print(y)
-    print(id)
-    print(tile)
     return
   end
+
+  self:remove(id)
+
   for _, t in ipairs(tile) do
     local e = t:toEntity(x, y)
     self:_add(id, e)
   end
+
   if not self.tiles[x] then self.tiles[x] = {} end
-  self.tiles[x][y] = tile[1].kind
+  self.tiles[x][y] = tile[1]
 end
 
 function Level:addMob(id, mob)
@@ -173,9 +173,6 @@ function Level:open_door(dir, fake, time)
     self:addTile(nil, 1,self.height/2, k)
     self:addTile(nil, 1,self.height/2+1, k)
   end
-
-
-  --self:setup_tile_images()
 end
 
 
