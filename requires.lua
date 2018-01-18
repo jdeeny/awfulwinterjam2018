@@ -61,7 +61,6 @@ personalities = require "enemies/ai/personalities"
 enemy = require "enemies/enemy"
 player = require "player"
 spawner = require "enemies/spawner"
-room = require "room"
 spark = require "spark"
 
 weapon = require "weapons/weapon"
