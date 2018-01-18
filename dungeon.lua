@@ -12,6 +12,7 @@ function dungeon.move_to_room(rx, ry, from_dir)
 
   current_level = file_io.parse_room_file(current_dungeon[rx][ry].file)
   current_level.exits = current_dungeon:get_exits(rx, ry)
+  current_level:prologue()
 
   player.dungeon_x = rx
   player.dungeon_y = ry
