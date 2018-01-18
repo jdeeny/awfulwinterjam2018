@@ -76,6 +76,7 @@ shot_data = require "weapons/shot_data"
 spark_data = require "spark_data"
 
 water_effect = require 'effects/water'
+ray_effect = require 'effects/ray'
 
 require "lib/a-star-lua/a-star"
 
