@@ -111,7 +111,15 @@ function mob:update_position(dt)
 end
 
 function mob:update_animation(dt)
-  if self.animation ~= nil then
+	if self.animations then
+		if not self.animation_state then self.animation_state = 'run' end
+		local newanim = self.kind .. '_' .. self.animation_state .. '_' .. self.get_facing_string(self.facing_north, self.facing_east)
+		for n, anim in pairs(self.animations) do
+			if n == newanim then self.animation = anim end
+			anim:update(dt)
+		end
+
+	elseif self.animation then
     self.animation:update(dt)
   end
 end

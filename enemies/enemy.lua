@@ -3,7 +3,7 @@ local enemy = class('enemy', mob)
 function enemy:update(dt)
   self.ai:update(dt)
   self:update_position(dt)
-
+  self.facing = self:get_facing_string()
   self:update_animation(dt)
 end
 
