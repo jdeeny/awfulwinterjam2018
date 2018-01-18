@@ -96,8 +96,8 @@ function hud.draw()
 	-- love.graphics.setFont(hud.font)
 	-- love.graphics.print(player.hp, (window.w - 80), (window.h - 80))
 	
-	local hpb = {x=love.graphics.getWidth()-bar_dim.x-50,
-		y=love.graphics.getHeight()-bar_dim.y-50}
+	local hpb = {x=love.graphics.getWidth()-bar_dim.x-iconSeparation,
+		y=love.graphics.getHeight()-bar_dim.y-iconSeparation}
 
 	love.graphics.setColor(127,127,127)
 	love.graphics.rectangle('fill', hpb.x, hpb.y, bar_dim.x, 
