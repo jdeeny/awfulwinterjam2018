@@ -13,6 +13,7 @@ function dungeon.move_to_room(rx, ry, from_dir)
 
   current_level = file_io.parse_room_file(current_dungeon[rx][ry].file)
   current_level.exits = current_dungeon:get_exits(rx, ry)
+  current_level.kind = current_dungeon:get_room_kind(rx,ry)
   --current_level:prologue()
 
   player.dungeon_x = rx
@@ -60,6 +61,10 @@ end
 
 function dungeon:get_exits(rx, ry)
   return {north = self:feature_at(rx, ry - 1) ~= "void", east = self:feature_at(rx + 1, ry) ~= "void"}
+end
+
+function dungeon:get_room_kind(rx,ry)
+	return self[rx][ry].room_kind
 end
 
 return dungeon

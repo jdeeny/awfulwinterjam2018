@@ -34,7 +34,7 @@ function film.update()
   player_input:update()
 
     if player_input:pressed('fire') or player_input:pressed('sel') then
-      new_game()
+	  gamestage.advance()
 	  audiomanager:stopMusic()
       play.enter()
     end

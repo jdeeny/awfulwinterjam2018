@@ -53,6 +53,7 @@ image.init()
 animation = require "animation"
 animation.init()
 settings = require "settings"
+gamestage = require "gamestage"
 timer = require "timer"
 
 mob = require "enemies/mob"

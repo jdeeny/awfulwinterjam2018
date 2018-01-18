@@ -26,8 +26,7 @@ function pause.update()
 	if player_input:pressed('pause') or player_input:pressed('back') then
     play.enter()
 	elseif player_input:pressed('quit') then
-		save_settings()
-		love.event.push("quit")
+		mainmenu.enter()
 	end
 	timer.update()
 end
@@ -41,9 +40,9 @@ function pause.draw()
 
 	local text
 	if player_input:getActiveDevice() == 'joystick' then
-		text = "PAUSED\nPress Back to quit\nPress B to continue"
+		text = "PAUSED\nPress Back to end game\nPress B to continue"
 	else
-		text = "PAUSED\nPress Q to quit\nPress Esc to continue"
+		text = "PAUSED\nPress Q to end game\nPress Esc to continue"
 	end
 
 	local th = pause.font:getHeight()*3

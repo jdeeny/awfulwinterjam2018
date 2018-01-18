@@ -29,7 +29,8 @@ function love.load()
   love.mouse.setGrabbed(true)
 
   init_settings()
-
+  gamestage.setup_next(gamestage.current_stage)
+  
   splash.enter()
   timer.init()
 end
@@ -69,26 +70,3 @@ function love.focus(f)
   end
 end
 
-function new_game()
-  game_time = 0
-
-  player.init()
-
-  enemies = nil
-  enemy_value = nil
-  shots = nil
-  doodads = nil
-  sparks = nil
-
-  current_dungeon = dungeon:new()
-  current_dungeon:init(5, 4)
-  current_dungeon:setup_main()
-
-  dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
-  pathfinder.rebuild_time = 0
-
-  player:start_force_move(9999, player.speed, 0)
-
-  fade.start_fade("fadein", 0.5, true)
-  delay.start(0.5, function() player:end_force_move() end)
-end

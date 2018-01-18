@@ -21,6 +21,7 @@ options.background_shader = love.graphics.newShader[[
 
 function options.enter()
 	options.prior_state = state
+	options.prior_stage = gamestage.current_stage
 	state = STATE_OPTIONS
 	options.warned = false
 end
@@ -41,8 +42,11 @@ function options.update(dt)
 	end
 
 	-- The last choice here requires 'back' to be the last option in the last.
-	if player_input:pressed('back') or player_input:pressed('quit') or player_input:pressed('pause') or
+	if player_input:pressed('back') or player_input:pressed('quit') or player_input:pressed('pause') or 
 	   (options.selected == #(options.allowed) and (player_input:pressed('fire') or player_input:pressed('sel'))) then
+		   if (gamestage.current_stage ~= options.prior_stage) and (options.prior_state ~= STATE_PAUSE) then
+			   gamestage.setup_next(gamestage.current_stage)
+			end    
 		gamestates[options.prior_state]:enter()
 	end
 end

@@ -33,6 +33,7 @@ end
 
 function ListOptionItem:updateValue()
 	self.value = self.list[self.index]
+	
 	if self.control and self.control_field then
 		_G[self.control][self.control_field] = self.c_values[self.index]
 	elseif self.control then -- a plain variable
@@ -82,13 +83,12 @@ local masterVolume = MasterVolumeOI:new()
 local gameSpeed = ListOptionItem:new("Game Speed",{"super-slow (debug)","slow","medium","fast"},
                                      'gameplay_speed', nil, {0.3,0.75,1.0,1.25})
 
--- Currently levelSelect does nothing
-local levelSelect = ListOptionItem:new("Level Select",{"Tesla's Arrival","Edison's Folly"})
+local stageSelect = ListOptionItem:new("Stage Select",{"Tesla's Arrival","Edison's Folly"},'gamestage','current_stage',{1,2})
 
 
 allowed_options[1] = masterVolume
 allowed_options[2] = gameSpeed
-allowed_options[3] = levelSelect
+allowed_options[3] = stageSelect
 allowed_options[4] = OptionItem:new("Back")
 
 return allowed_options

@@ -17,6 +17,15 @@ function OptionItem:drawIn(x,y,width,height)
 	end
 end
 
+function OptionItem:getSetting()
+	-- override
+end
+
+function OptionItem:clickedOn(xhit, yhit)
+	-- Indicates a click received, relative to the center of the displayed value
+end
+
+
 -- These will alter the state of the option; no return required
 function OptionItem:decrease()
 	--override
@@ -28,14 +37,6 @@ end
 
 function OptionItem:setTo()
 	-- override
-end
-
-function OptionItem:getSetting()
-	-- override
-end
-
-function OptionItem:clickedOn(xhit, yhit)
-	-- Indicates a click received, relative to the center of the displayed value
 end
 
 return OptionItem

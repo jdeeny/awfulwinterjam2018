@@ -23,8 +23,6 @@ function mainmenu.update(dt)
 	player_input:update()
 
 	if player_input:pressed('fire') or player_input:pressed('sel') then
-    	film.set_title("Tesla \n Arrives in \n America")
-		film.set_music("figleaf", 27)
     	film.enter()
 	elseif player_input:pressed('back') then
 		options.enter()
