@@ -96,14 +96,16 @@ function hud.draw()
 
 
 	-- draw timer in upper right
+	love.graphics.setFont(hud.font)
 	timer.draw((window.w-275),0)
 
 	-- draw player status bars in lower right
 	local bar_dim = {x=20,y=100}
+	-- love.graphics.setFont(hud.font)
+	-- love.graphics.print(player.hp, (window.w - 80), (window.h - 80))
 	local hp_bar = {x=love.graphics.getWidth()-bar_dim.x-iconSeparation,
 		y=love.graphics.getHeight()-bar_dim.y-iconSeparation}
 	local ammo_bar = {x=hp_bar.x-bar_dim.x-iconSeparation, y=hp_bar.y}
-
 	draw_bar(hp_bar.x, hp_bar.y, bar_dim.x, bar_dim.y, {r=175,g=0,b=0}, 
 		player.hp/player.max_hp)
 	draw_bar(ammo_bar.x, ammo_bar.y, bar_dim.x, bar_dim.y, {r=0,g=160,b=215}, 
@@ -118,10 +120,15 @@ function hud.draw()
 	iconOffset = iconOffset + iconWidth
 
 	-- Other player weapons drawn at half size
-	for i,w in ipairs(player.weapons) do
-		if w ~= selected_weapon then
+	local weapon_count = #player.weapons
+	if weapon_count > 1 then
+		for i = 1, weapon_count - 1 do
+			w = player.weapon + i
+			if w > weapon_count then
+				w = w - weapon_count
+			end
 			iconOffset = iconOffset + iconSeparation
-			love.graphics.draw(image[w.icon],iconOffset,(window.h - 100)+iconHeight/2,0,0.5,0.5,0,0)
+			love.graphics.draw(image[player.weapons[w].icon],iconOffset,(window.h - 100)+iconHeight/2,0,0.5,0.5,0,0)
 			iconOffset = iconOffset + iconWidth/2
 		end
 	end

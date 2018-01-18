@@ -6,6 +6,7 @@ function spawner.reset()
 	spawner.teleporters = {}
 	spawner.score = 0
 	spawner.start_time = game_time
+	spawner.complete = false
 end
 
 function spawner.add(threshold, f)
@@ -25,27 +26,33 @@ function spawner.process()
 	end
 end
 
+function spawner.test_completion()
+	if enemy_value < 0.01 and spawner.complete then
+		delay.start(1, function() current_level:coda() end)
+	end
+end
+
 function spawner.spawn_from_north_door(kind)
 	current_level:open_door("north", true, 1)
-	id = enemy_data.spawn(kind, current_level:pixel_width() / 2, TILESIZE * 3 - enemy_data[kind].speed)
+	id = enemy_data.spawn(kind, current_level:pixel_width() / 2, TILESIZE * 2.5 - enemy_data[kind].speed * 2)
 	enemies[id]:start_force_move(1, 0, enemies[id].speed)
 end
 
 function spawner.spawn_from_east_door(kind)
 	current_level:open_door("east", true, 1)
-	id = enemy_data.spawn(kind, current_level:pixel_width() - TILESIZE * 3 + enemy_data[kind].speed, current_level:pixel_height() / 2)
+	id = enemy_data.spawn(kind, current_level:pixel_width() - TILESIZE * 2.5 + enemy_data[kind].speed * 2, current_level:pixel_height() / 2)
 	enemies[id]:start_force_move(1, -enemies[id].speed, 0)
 end
 
 function spawner.spawn_from_south_door(kind)
 	current_level:open_door("south", true, 1)
-	id = enemy_data.spawn(kind, current_level:pixel_width() / 2, current_level:pixel_height() - TILESIZE * 3 + enemy_data[kind].speed)
+	id = enemy_data.spawn(kind, current_level:pixel_width() / 2, current_level:pixel_height() - TILESIZE * 2.5 + enemy_data[kind].speed * 2)
 	enemies[id]:start_force_move(1, 0, -enemies[id].speed)
 end
 
 function spawner.spawn_from_west_door(kind)
 	current_level:open_door("west", true, 1)
-	id = enemy_data.spawn(kind, TILESIZE * 3 - enemy_data[kind].speed, current_level:pixel_height() / 2)
+	id = enemy_data.spawn(kind, TILESIZE * 2.5 - enemy_data[kind].speed * 2, current_level:pixel_height() / 2)
 	enemies[id]:start_force_move(1, enemies[id].speed, 0)
 end
 
@@ -62,9 +69,9 @@ spawner.wave_data = {}
 spawner.wave_data.test = function()
 	spawner.add(2,
 		function()
-			spawner.spawn_from_teleporter('rifledude')
+			spawner.spawn_from_north_door('rifledude')
 			for i = 1, 4 do
-				delay.start(0.5 * i, function() spawner.spawn_from_teleporter('rifledude') end)
+				delay.start(0.5 * i, function() spawner.spawn_from_north_door('rifledude') end)
 			end
 		end)
 	spawner.add(5,
@@ -90,6 +97,11 @@ spawner.wave_data.test = function()
 			for i = 1, 4 do
 				delay.start(0.5 * i, function() spawner.spawn_from_south_door('fodder') end)
 			end
+			delay.start(2,
+				function()
+					spawner.complete = true
+					spawner.test_completion()
+				end)
 		end)
 end
 

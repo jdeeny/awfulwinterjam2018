@@ -97,7 +97,7 @@ function player.update(dt)
     -- ...or if we touched an enemy
     if player.iframe_end_time < game_time then
       for _,z in pairs(enemies) do
-        if collision.aabb_aabb(player, z) then
+        if z.touch_damage > 0 and collision.aabb_aabb(player, z) then
           player:take_damage(z.touch_damage, false, math.atan2(player.y - z.y, player.x - z.x), 5, true)
           break
         end
@@ -130,10 +130,15 @@ end
 
 function player.die()
   player.dying = true
-  fade.start_fade("fadeout", 3, true, function()
-      fade.start_fade("fadein", 3, true)
-      death.enter()
-    end)
+  if player.equipped_items then
+    for _ , x in pairs(player.equipped_items) do
+      if x.release then
+        x:release()
+      end
+    end
+  end
+  fade.start_fade("fadeout", 3, true)
+  delay.start(3, function() death.enter() end)
 end
 
 function player:take_damage(damage, silent, angle, force, stunning)
@@ -176,13 +181,12 @@ function player:heal(hp)
 end
 
 function player.weapon_switch()
-  --player:unequip('weapon')
-  
   player.weapon = player.weapon + 1
   if player.weapon > player.weapon_max then player.weapon = 1 end
   
   if #player.weapons > 1 then 
-    player.weapons[player.weapon]:release()
+    player.equipped_items['weapon']:release()
+    player:unequip('weapon')
     player:equip('weapon', player.weapons[player.weapon])
   end
 

@@ -31,6 +31,10 @@ function mob:update_position(dt)
 
     if self.force_move.duration:finished() then
       self.force_move = nil
+      if self.ai then
+        self.ai.goal_x = nil
+        self.ai.goal_y = nil
+      end
     end
   else
     if self.stun then
@@ -132,7 +136,7 @@ function mob:equip(id, item)
   self.equipped_items[id]:equipped(self)
 end
 
-function mob.unequip(id)
+function mob:unequip(id)
   local tmp = self.equipped_items[id]
   self.equipped_items[id] = nil
   return tmp

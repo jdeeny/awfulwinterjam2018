@@ -1,8 +1,8 @@
 WWWWWWWWWWWWWWWWWWWWWWWW
-W-----t----------------W
 W----------------------W
+W----W-WwwwwwwwwW-W----W
+W----W-W---tt---W-W----W
+W----W-W---tt---W-W----W
+W----W-WwwwwwwwwW-W----W
 W----------------------W
-W----------------------W
-W----------------------W
-W----------------t-----W
 WWWWWWWWWWWWWWWWWWWWWWWW

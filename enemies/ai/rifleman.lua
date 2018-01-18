@@ -13,7 +13,7 @@ function Rifleman:update(dt)
   super.update(self, dt) -- call update from `Seeker` to do the movement portion
 
   -- if we can see the player (have LOS) we will stand still and shoot at them
-  if self.entity:canSee(player) then
+  if self.entity:canSee(player) and not self.stun and not self.force_move then
     if not self.hasseen then
       self.hasseen = true
       self.nextshot_time = game_time + math.random() * 0.25
