@@ -44,14 +44,16 @@ end
 function player.update(dt)
   player:update_position(dt)
 
+  local aim_x, aim_y = player_input:get('aim')
+
+  if math.abs(aim_x) < DEADBAND then
+    aim_x = 0
+  end
+  if math.abs(aim_y) < DEADBAND then
+    aim_y = 0
+  end
+
   if not player.dying then
-    -- get aiming vector
-    local aim_x, aim_y = player_input:get('aim')
-
-    if math.abs(aim_x) < DEADBAND then
-      aim_x = 0
-    end
-
     -- rotate to direction we're aiming. if the mouse has moved, face the mouse
     -- position, otherwise update the rotation from keyboard and gamepad
     if aim_x ~= 0 or aim_y ~= 0 then
@@ -66,28 +68,28 @@ function player.update(dt)
       mvec = cpml.vec2.new(mx, my)
       _, player.aim = cpml.vec2.to_polar(mvec-pvec) -- angle to mouse pos. is new aim
     end
+  end
 
-
-    -- fire weapon (or not)
-    if player.equipped_items['weapon'] then
-      -- update all weapons
-      for _, w in ipairs(player.weapons) do
-        w:update(dt)
-      end
-      
-      if player_input:pressed('swap') then
-        player.weapon_switch()
-      end
-
-      if (aim_x ~= 0 or aim_y ~= 0) or player_input:down('fire') then
-        player.equipped_items['weapon']:fire()
-      elseif (aim_x == 0 and aim_y == 0) and not player_input:down('fire') then
-        player.equipped_items['weapon']:release()
-      end
-
+  -- fire weapon (or not)
+  if player.equipped_items['weapon'] then
+    -- update all weapons
+    for _, w in ipairs(player.weapons) do
+      w:update(dt)
     end
 
-    -- check if we're standing on a doodad
+    if player_input:pressed('swap') then
+      player.weapon_switch()
+    end
+
+    if (aim_x ~= 0 or aim_y ~= 0 or player_input:down('fire')) and not player.stun and not player.force_move and not player.dying then
+      player.equipped_items['weapon']:fire()
+    else
+      player.equipped_items['weapon']:release()
+    end
+  end
+
+  -- check if we're standing on a doodad
+  if not player.dying then
     for _,z in pairs(doodads) do
       if collision.aabb_aabb(player, z) then
         z:trigger()
@@ -183,8 +185,8 @@ end
 function player.weapon_switch()
   player.weapon = player.weapon + 1
   if player.weapon > player.weapon_max then player.weapon = 1 end
-  
-  if #player.weapons > 1 then 
+
+  if #player.weapons > 1 then
     player.equipped_items['weapon']:release()
     player:unequip('weapon')
     player:equip('weapon', player.weapons[player.weapon])
