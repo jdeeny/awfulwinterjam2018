@@ -36,15 +36,18 @@ function enemy:shootAt(entity)
   end
 end
 
-function enemy:take_damage(damage, silent, angle, force)
+function enemy:take_damage(damage, silent, angle, force, stunning)
   local angle = angle or 0
   local force = force or 0
+  local stunning = stunning or false
   if self.hp and self.hp > 0 then
     self.hp = math.max(0, self.hp - damage)
 
     if not silent then
       camera.bump(5 * force)
-      self:be_stunned(0.1 * force)
+      if stunning then
+        self:be_stunned(0.1 * force)
+      end
       self:be_knocked_back(0.1 * force, 100 * force * math.cos(angle), 100 * force * math.sin(angle))
     end
     if self.hp <= 0 then

@@ -31,7 +31,7 @@ shot_data["bullet"] =
 
   collide = function(self, hit, mx, my, mt, nx, ny)
     if hit and hit[1] == "enemy" then
-      enemies[hit[2]]:take_damage(self.damage, false, math.atan2(self.dy, self.dx), 3)
+      enemies[hit[2]]:take_damage(self.damage, false, math.atan2(self.dy, self.dx), 3, true)
     end
     for i = 1, 6 do
       angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
@@ -63,7 +63,7 @@ shot_data["enemybullet"] =
 
   collide = function(self, hit, mx, my, mt, nx, ny)
     if hit and hit[1] == "player" then
-      player:take_damage(self.damage, false, math.atan2(self.dy, self.dx), 3)
+      player:take_damage(self.damage, false, math.atan2(self.dy, self.dx), 3, true)
     end
     for i = 1, 6 do
       angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
