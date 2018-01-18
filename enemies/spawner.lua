@@ -69,6 +69,9 @@ spawner.wave_data = {}
 spawner.wave_data.test = function()
 	spawner.add(2,
 		function()
+			spawner.spawn_from_north_door('remotedude_red')
+			spawner.spawn_from_south_door('remotedude_blue')
+			spawner.spawn_from_east_door('remotedude_green')
 			spawner.spawn_from_north_door('rifledude')
 			for i = 1, 4 do
 				delay.start(0.5 * i, function() spawner.spawn_from_north_door('rifledude') end)

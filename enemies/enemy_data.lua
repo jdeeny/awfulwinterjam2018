@@ -81,4 +81,46 @@ enemy_data["rifledude"] =
   projectile_type = 'enemybullet',
   personality = 'Rifleman'
 }
+
+enemy_data["remotedude_red"] =
+{
+  kind = "remotedude_red", name = "RC Mower",
+  sprite = "remotedude", death_sound = "snap",
+  animation = animation.remotedude_red_run_se,
+  max_hp = 30,
+  speed = 200,
+  radius = 15,
+  value = 0.5,
+  touch_damage = 5,
+  personality = 'Seeker',
+}
+
+enemy_data["remotedude_blue"] =
+{
+  kind = "remotedude_blue", name = "RC Mower",
+  sprite = "remotedude", death_sound = "snap",
+  animation = animation.remotedude_blue_run_se,
+  max_hp = 30,
+  speed = 200,
+  radius = 15,
+  value = 0.5,
+  touch_damage = 5,
+  personality = 'Seeker',
+}
+
+enemy_data["remotedude_green"] =
+{
+  kind = "remotedude_green", name = "RC Mower",
+  sprite = "remotedude", death_sound = "snap",
+  animation = animation.remotedude_green_run_se,
+  max_hp = 30,
+  speed = 200,
+  radius = 15,
+  value = 0.5,
+  touch_damage = 5,
+  personality = 'Seeker',
+}
+
+
+
 return enemy_data
