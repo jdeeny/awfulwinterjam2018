@@ -143,6 +143,19 @@ function Level:open_door(dir, fake, time)
 end
 
 
+function Level:coda()
+  -- we're done in this room; open doors and let the player move on
+  self.cleared = true
+  if self.exits.north then
+    self:open_door("north", false) -- no time given, so it should stay open forever
+    doodad_data.spawn("exit_north", current_level:pixel_width() / 2, TILESIZE / 2)
+  end
+  if self.exits.east then
+    self:open_door("east", false)
+    doodad_data.spawn("exit_east", current_level:pixel_width() - (TILESIZE / 2), current_level:pixel_height() / 2)
+  end
+end
+
 
 
 

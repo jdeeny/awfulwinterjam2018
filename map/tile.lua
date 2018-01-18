@@ -19,11 +19,10 @@ function Tile:setDoor(state)
   return self
 end
 
-
 function Tile:setDestroyable(kind, into, hp)
   self.destroyable = kind or false
   if kind and into then
-    self.destroyed = into
+    self.destroyed_version = into
     self.maxhp = hp or 100
     self.hp = self.maxhp
   end
