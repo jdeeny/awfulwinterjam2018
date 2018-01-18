@@ -37,6 +37,8 @@ function enemy:shootAt(entity)
 end
 
 function enemy:take_damage(damage, silent, angle, force)
+  local angle = angle or 0
+  local force = force or 0
   if self.hp and self.hp > 0 then
     self.hp = math.max(0, self.hp - damage)
 
