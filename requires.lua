@@ -80,6 +80,8 @@ ray_effect = require 'effects/ray'
 
 require "lib/a-star-lua/a-star"
 
+require "particles"
+
 ElectricSim = require "electricity/elecsim"
 ElecNode = require "electricity/elecnode"
 TileElecNode = require "electricity/tileelecnode"
