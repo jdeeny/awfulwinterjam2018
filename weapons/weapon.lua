@@ -248,22 +248,25 @@ end
 function RayGun:initialize()
 
   Weapon.initialize(self)
-  self.sound = "gunshot"
   self.icon = "ray_icon"
-  self.range = 500
+  self.range = 4000
   self.firing_arc = math.pi/4
-  self.damage = 100
+  self.damage = 50
   self.beam_width = 10
   self.focus_time = 5.0
-  self.initial_focus = 0.1 -- 0 to 1
+  self.min_focus = 0.1
+  self.initial_focus = 0.9 -- 0 to 1
   self.sound = audiomanager.sources['buzz'].source
+  self.sfx = nil
+  self.spark_time = 0
 end
 
 function RayGun:_fire(targets)
   if not self.fired_at then
-    self.current_angle = self.firing_arc
+    self.diameter = self.firing_arc
     self.fired_at = game_time
     self.focus = self.initial_focus
+    self.angle = self.owner.aim
   end
 end
 
@@ -273,55 +276,98 @@ function RayGun:release()
   end
 end
 
+local a, firing_time, percent_of_focus
 function RayGun:update(dt)
   if self.fired_at then
 
     --cap it at focus time
-    local firing_time = math.min(self.focus_time, game_time-self.fired_at)
-    local percent_of_focus = (self.focus_time-firing_time)/self.focus_time
+    firing_time = math.min(self.focus_time, game_time-self.fired_at)
+    percent_of_focus = (self.focus_time-firing_time)/self.focus_time
 
-    self.current_angle = self.firing_arc*percent_of_focus
-    self.focus = math.max(self.initial_focus, percent_of_focus)
+    self.focus = cpml.utils.clamp(percent_of_focus, self.min_focus, self.initial_focus)
+    self.diameter = self.firing_arc * self.focus
 
-    local sfx = self.sound:clone()
-    sfx:setVolume(0.3*(1-percent_of_focus))
-    sfx:setPitch(math.max(1/2^3,2^2*percent_of_focus))
-    sfx:play()
+    self.sfx = self.sound:clone()
+    self.sfx:setVolume(0.3*(1-percent_of_focus))
+    self.sfx:setPitch(math.max(1/2^3,2^2*percent_of_focus))
+    self.sfx:play()
 
+    a = self.owner.aim - self.angle
+
+    if (a > math.pi) then
+      a = a - math.pi * 2
+    elseif (a < -math.pi) then
+      a = a + math.pi * 2
+    end
+
+    self.angle = self.angle + a * (math.min(1, 3 * dt))
+
+    -- now look for enemies to hurt
+    local sparked = false
+    for _,z in pairs(enemies) do
+      a = self.angle - math.atan2(z.y - self.owner.y, z.x - self.owner.x)
+
+      if (a > math.pi) then
+        a = a - math.pi * 2
+      elseif (a < -math.pi) then
+        a = a + math.pi * 2
+      end
+
+      if math.abs(a) < self.diameter/2 + 0.1 then
+        z:take_damage(self.damage * dt * (1 - self.focus))
+        if game_time > self.spark_time then
+          for i = 1, math.floor(7 - 6 * self.focus) do
+            angle = self.angle + a + 0.5 * (love.math.random() - 0.5)
+            speed = (200 + 1800 * love.math.random()) * (1.5 - self.focus)
+            spark_data.spawn("spark_blue", {r=255, g=100, b=150}, z.x, z.y, speed * math.cos(angle), speed * math.sin(angle))
+          end
+          for i = 1, math.floor(3 - 2 * self.focus) do
+            angle = self.angle + a + 0.5 * (love.math.random() - 0.5)
+            speed = (200 + 1000 * love.math.random()) * (1.5 - self.focus)
+            spark_data.spawn("spark_big_blue", {r=255, g=100, b=150}, z.x, z.y, speed * math.cos(angle), speed * math.sin(angle))
+          end
+          sparked = true
+        end
+      end
+    end
+    if sparked then self.spark_time = game_time + 0.1 end
   end
 end
 
 
 function RayGun:draw()
 
-  if self.fired_at and self.current_angle then
-    local dx = self.range*math.cos(self.current_angle)
-    local dy = self.range*math.sin(self.current_angle)
+  if self.fired_at and self.diameter then
+    local dx = self.range*math.cos(self.diameter)
+    local dy = self.range*math.sin(self.diameter)
 
-    local canvas = love.graphics.newCanvas()
-    love.graphics.setCanvas(canvas)
+    if not self.canvas then
+      self.canvas = love.graphics.newCanvas()
+    end
+    love.graphics.setCanvas(self.canvas)
+    love.graphics.clear()
 
-    love.graphics.setColor(200, 0, 255, 255*(1-self.focus))
+    love.graphics.setColor(50 + 100 * love.math.random(), 0, 150 + 100 * love.math.random(), cpml.utils.clamp(255*(1-self.focus), 0, 255))
 
     local y_offset = 300
 
     love.graphics.arc( 'fill', 0 , y_offset-self.beam_width/2, self.range,
-      -self.current_angle/2, 0, 20 )
+      -self.diameter/2, 0, 20 )
 
     love.graphics.rectangle( 'fill', 0, y_offset-self.beam_width/2,
       self.range, self.beam_width)
 
     love.graphics.arc( 'fill', 0, y_offset+self.beam_width/2, self.range,
-      0, self.current_angle/2, 20 )
+      0, self.diameter/2, 20 )
 
 
     love.graphics.setCanvas()
     local mode = love.graphics.getBlendMode()
 
     love.graphics.setBlendMode('alpha','premultiplied')
-    love.graphics.draw(canvas,
+    love.graphics.draw(self.canvas,
       camera.view_x(self.owner), camera.view_y(self.owner),
-      self.owner.aim, 1, 1, 0, y_offset)
+      self.angle, 1, 1, 0, y_offset)
 
     love.graphics.setColor(255,255,255)
     love.graphics.setBlendMode(mode)

@@ -8,18 +8,18 @@ function mob:initialize()
 end
 
 function mob:draw()
+  if self.equipped_items then
+    for _ , x in pairs(self.equipped_items) do
+      x:draw()
+    end
+  end
+
   if self.animation == nil then
     love.graphics.draw(image[self.sprite], camera.view_x(self), camera.view_y(self), self.rot, 1, 1,
       image[self.sprite]:getWidth()/2, image[self.sprite]:getHeight()/2)
   else
     self.animation:draw(image[self.sprite], camera.view_x(self), camera.view_y(self), self.rot, 1, 1,
       32, 48)
-  end
-
-  if self.equipped_items then
-    for _ , x in pairs(self.equipped_items) do
-      x:draw()
-    end
   end
 end
 
