@@ -23,7 +23,7 @@ function SmokeParticles:_createParticles(lifetime, scale)
   local dark = 5 + math.random() * 10
   local mid = dark + math.random() * 20
   local light = mid + math.random() * 30
-  emitter:setColors(dark,dark,dark,50 + math.random()*10,  mid,mid,mid,30+ math.random()*20, light,light,light, 15+ math.random()*10)
+  emitter:setColors(dark,dark,dark,50 + math.random()*10,  mid,mid,mid,30+ math.random()*10, light,light,light, 15+ math.random()*10)
   emitter:setSpread(PI * 0.25 + math.random() * PI *0.125)
   emitter:setSizes(.05 * scale, .6 * scale)
   emitter:setSizeVariation(0.2)

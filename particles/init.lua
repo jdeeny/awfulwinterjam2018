@@ -1,2 +1,3 @@
 Particles = require 'particles/particles'
 SmokeParticles = require 'particles/smokeparticles'
+SteamParticles = require 'particles/steamparticles'
