@@ -105,7 +105,7 @@ function options.draw()
 	end
 
 	love.graphics.setFont(love.graphics.newFont()) --reset to default
-	love.graphics.setShader()
+	--love.graphics.setShader()
 end
 
 return options

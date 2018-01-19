@@ -1,6 +1,47 @@
 local allowed_options = {}
 
 ---------------
+
+local BinaryOptionItem = class('BinaryOptionItem', OptionItem)
+
+function BinaryOptionItem:initialize(label,control_name,control_field)
+	OptionItem.initialize(self,label)
+	self.control = control_name
+	self.control_field = control_field
+	self.setting = false
+end
+
+function BinaryOptionItem:decrease()
+	self.setting = not self.setting
+	self:updateValue()
+end
+
+function BinaryOptionItem:increase()
+	self.setting = not self.setting
+	self:updateValue()
+end
+
+function BinaryOptionItem:getSetting()
+	return self.setting
+end
+
+function BinaryOptionItem:setTo(s)
+	self.setting = s
+	self:updateValue()
+end
+
+function BinaryOptionItem:updateValue()
+	self.value = (self.setting and "ON") or "OFF"
+	
+	if self.control and self.control_field then
+		_G[self.control][self.control_field] = self.setting
+	elseif self.control then -- a plain variable
+		_G[self.control] = self.setting
+	end
+end
+
+
+---------------
 local ListOptionItem = class('ListOptionItem', OptionItem)
 
 function ListOptionItem:initialize(label, values, control_name, control_field, control_values)
@@ -101,10 +142,13 @@ local gameSpeed = ListOptionItem:new("Game Speed",{"super-slow (debug)","slow","
 
 local stageSelect = ListOptionItem:new("Stage Select",{"Tesla's Arrival","Edison's Folly"},'gamestage','current_stage',{1,2})
 
+local drawCrosshairs = BinaryOptionItem:new("Draw Crosshairs for Joystick",'crosshairs','draw_cursor')
+
 
 allowed_options[1] = masterVolume
 allowed_options[2] = gameSpeed
 allowed_options[3] = stageSelect
-allowed_options[4] = OptionItem:new("Back")
+allowed_options[4] = drawCrosshairs
+allowed_options[5] = OptionItem:new("Back")
 
 return allowed_options

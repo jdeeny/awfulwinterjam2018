@@ -3,6 +3,7 @@ local default_settings = {
   game_speed = 1,  -- medium
   start_stage = 1, -- first
   max_unlocked_dungeon = 1,  -- just the first
+  draw_crosshairs_always = false,
   gfx_mode = 'windowed',
   window_width =  window.w,
   window_height = window.h,
@@ -44,19 +45,20 @@ else
 end
 
 
-
 -- bitser won't serialize functions, so these need to be global
 
 function init_settings()
 	allowed_options[1]:setTo(settings.volume)
 	allowed_options[2]:setTo(settings.game_speed)
 	allowed_options[3]:setTo(settings.start_stage)
+	allowed_options[4]:setTo(settings.draw_crosshairs_always)
 end
 
 function save_settings()
 	settings.volume = allowed_options[1]:getSetting()
 	settings.game_speed = allowed_options[2]:getSetting()
-	settings.start_stage = allowed_options[3]:getSetting()   
+	settings.start_stage = allowed_options[3]:getSetting() 
+	settings.draw_crosshairs_always = allowed_options[4]:getSetting()
 	bitser.dumpLoveFile('savedata', settings)
 end
 

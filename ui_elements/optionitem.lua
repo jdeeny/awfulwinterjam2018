@@ -21,11 +21,11 @@ function OptionItem:getSetting()
 end
 
 function OptionItem:atMin()
-	return true -- indicates that option can go no lower
+	return false -- indicates that option can go no lower
 end
 
 function OptionItem:atMax()
-	return true -- indicates that option can go no higher
+	return false -- indicates that option can go no higher
 end
 
 function OptionItem:clickedOn(xhit, yhit)

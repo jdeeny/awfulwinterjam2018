@@ -53,7 +53,6 @@ image = require "image"
 image.init()
 animation = require "animation"
 animation.init()
-settings = require "settings"
 gamestage = require "gamestage"
 timer = require "timer"
 
@@ -91,3 +90,5 @@ ElecNode = require "electricity/elecnode"
 TileElecNode = require "electricity/tileelecnode"
 MobElecNode = require "electricity/mobelecnode"
 BoltManager = require "electricity/boltmanager"
+
+settings = require "settings"
