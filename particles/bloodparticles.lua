@@ -13,24 +13,24 @@ function BloodParticles:initialize(x, y, w, h, lifetime, scale)
 end
 
 function BloodParticles:_createParticles(lifetime, scale)
-  local emitter = love.graphics.newParticleSystem(BloodParticles.puffimg, 1024)
-  emitter:setEmissionRate(256)
+  local emitter = love.graphics.newParticleSystem(BloodParticles.puffimg, 16)
+  emitter:setEmissionRate(1024)
   emitter:setEmitterLifetime(lifetime)
-  emitter:setDirection(-PI/2)
-  emitter:setRadialAcceleration(-.5, -.75)
-  emitter:setLinearAcceleration(0,-285,0,-315)
-  emitter:setSpeed(20+math.random()*20,80+math.random()*20)
-  local dark = 5 + math.random() * 10
+  emitter:setDirection(PI/2)
+  emitter:setLinearAcceleration(0,0)
+  emitter:setSpeed(2000+math.random()*2000+math.random()*math.random()*5000,0,0,0,0)
+  emitter:setLinearDamping(200)
+  local dark = 150 + math.random() * 10
   local mid = dark + math.random() * 20
   local light = mid + math.random() * 30
-  emitter:setColors(dark,dark,dark,50 + math.random()*10,  mid,mid,mid,30+ math.random()*10, light,light,light, 15+ math.random()*10)
-  emitter:setSpread(PI * 0.25 + math.random() * PI *0.125)
-  emitter:setSizes(.05 * scale, .6 * scale)
-  emitter:setSizeVariation(0.2)
+  emitter:setColors(dark,dark*0.1,dark*0.1,240 + math.random()*10,  mid,mid*0.1,mid*0.1,240+ math.random()*10, light,light*0.1,light*0.1, 240+ math.random()*10)
+  emitter:setSpread(PI + math.random() * PI *0.75)
+  emitter:setSizes(.05 * scale, .25 * scale)
+  emitter:setSizeVariation(0.5)
   emitter:setSpinVariation(1)
   emitter:setRotation(0)
   emitter:setAreaSpread('normal', self.w, self.h)
-  emitter:setParticleLifetime(.8,1.25)
+  emitter:setParticleLifetime(50000)
   self.psystem = emitter
 end
 
