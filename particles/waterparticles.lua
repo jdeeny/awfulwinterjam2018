@@ -9,8 +9,8 @@ function WaterParticles:initialize(x, y, w, h, force, scale, qty)
   Particles.initialize(self, x, y, w, h, lifetime)--camera.view_x({x = x, y = y}), camera.view_y({x = x, y = y}))
   self.scale = scale or 1.0
   self.angle = angle
-  self.kind = "waterarticles"
-  self.particles = self:_createParticles(self.force, self.scale)
+  self.kind = "waterparticles"
+  self.particles = self:_createParticles(force, self.scale)
   current_level:_addToLayer(Layer.BLOOD, self.id, self)
 end
 
@@ -20,19 +20,20 @@ function WaterParticles:_createParticles(force, scale)
   emitter:setEmitterLifetime(0.1)
   emitter:setDirection(-PI/2)
   emitter:setLinearAcceleration(0,0)
-  emitter:setSpeed((2000+math.random()*5000+math.random()*math.random()*10000) * math.sqrt(force) * 2 + 300 * math.sqrt(force), 0,0,0,0)
-  emitter:setLinearDamping(200)
+  emitter:setSpeed((500+math.random()*1000+math.random()*math.random()*5000) * math.sqrt(force),0,0)
+  emitter:setLinearDamping(60)
   local dark = 150 + math.random() * 10
   local mid = dark + math.random() * 20
   local light = mid + math.random() * 30
-  emitter:setColors(255,255,255,255)
+  emitter:setColors(255,255,255,220)
   emitter:setSpread(PI/force + math.random() * PI/force *0.75 + PI/4)
-  emitter:setSizes(.05 * cpml.utils.clamp(scale,1,10), .35 *cpml.utils.clamp(scale,1,10))
+  emitter:setSizes(0.05 * cpml.utils.clamp(scale,1,10), .45 *cpml.utils.clamp(scale,1,10), 0.1 * cpml.utils.clamp(scale,1,10))
+  emitter:setSpin(1)
   emitter:setSizeVariation(0.5)
   emitter:setSpinVariation(1)
   emitter:setRotation(0)
   emitter:setAreaSpread('normal', self.w, self.h)
-  emitter:setParticleLifetime(.5)
+  emitter:setParticleLifetime(1)
   self.psystem = emitter
 end
 

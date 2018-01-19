@@ -39,16 +39,12 @@ function player.init()
   player.aim = player.rot
   player.equipped_items = {}
   player:equip('weapon', player.weapons[player.weapon])
-  player.nextpuff = game_time
+  player.next_splash = game_time
+  player.splash_delay = 0.12
 end
 
 function player.update(dt)
   player:update_position(dt)
-
-  if player.nextpuff < game_time then
-    player.nextpuff = game_time + 0.35 + math.random() *0.1
-    --BloodParticles:new(player.x, player.y, 5, 10, .1, 1.5)
-  end
 
   local aim_x, aim_y = player_input:get('aim')
 

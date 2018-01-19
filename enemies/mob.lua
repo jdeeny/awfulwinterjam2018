@@ -108,7 +108,24 @@ function mob:update_position(dt)
     self.x = mx
     self.y = my
   end
+
+	self:update_splash(dt)
 end
+
+
+function mob:update_splash(dt)
+	if self.next_splash and self.next_splash < game_time then -- if splash timeout elapsed
+		--if self.animation and self.animation.position == 1 then -- if we are on a splash frame  TODO Fix!
+			local tilex, tiley = current_level:pos_to_grid(self.x), current_level:pos_to_grid(self.y)
+			local feature = current_level:feature_at(tilex, tiley)
+			if feature:sub(1,5) == "water" then -- if we are on a water tile
+				self.next_splash = game_time + (self.splash_delay or 1)
+				WaterParticles:new(self.x, self.y + 20, 5, 5, 0.75 + math.random(), 0.25 + math.random() * 1.2 , 2 + math.random() * 5)
+			end
+		--end
+	end
+end
+
 
 function mob:update_animation(dt)
 	if self.animations then

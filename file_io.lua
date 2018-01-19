@@ -28,7 +28,6 @@ function file_io.parse_room_file(n)
 		i = 1
 		for c in str:gmatch"." do
 			local tilekind = m:find_symbol(c) or 'void'
-			print(tilekind)
 			--if tilekind == 'teleporter' then
 			--	table.insert(spawner.teleporters, {x=i, y=j})
 			--end
