@@ -148,12 +148,13 @@ end
 
 function mob:equip(id, item)
   self.equipped_items[id] = item
-  self.equipped_items[id]:equipped(self)
+  self.equipped_items[id]:on_equipped(self)
 end
 
 function mob:unequip(id)
   local tmp = self.equipped_items[id]
   self.equipped_items[id] = nil
+  tmp:on_unequipped()
   return tmp
 end
 

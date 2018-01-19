@@ -63,8 +63,8 @@ player = require "player"
 spawner = require "enemies/spawner"
 spark = require "spark"
 
-weapon = require "weapons/weapon"
-shot = require "weapons/shot"
+weapon = require "items/weapon"
+shot = require "items/shot"
 
 PooledSource = require "audio/pooledsource"
 AudioManager = require "audio/audiomanager"
@@ -72,7 +72,7 @@ LoopedAudio = require "audio/loopedaudio"
 
 doodad_data = require "doodad_data"
 enemy_data = require "enemies/enemy_data"
-shot_data = require "weapons/shot_data"
+shot_data = require "items/shot_data"
 spark_data = require "spark_data"
 
 water_effect = require 'effects/water'

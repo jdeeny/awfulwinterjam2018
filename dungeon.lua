@@ -8,6 +8,7 @@ function dungeon.move_to_room(rx, ry, from_dir)
   shots = {}
   doodads = {}
   sparks = {}
+  items = {}
   spawner.reset()
 
   current_level = file_io.parse_room_file(current_dungeon[rx][ry].file)
