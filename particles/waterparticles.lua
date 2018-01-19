@@ -25,7 +25,7 @@ function WaterParticles:_createParticles(force, scale)
   local dark = 150 + math.random() * 10
   local mid = dark + math.random() * 20
   local light = mid + math.random() * 30
-  emitter:setColors( light,light*0.1,light*0.1, 240+ math.random()*10, mid,mid*0.1,mid*0.1,240+ math.random()*10, dark,dark*0.1,dark*0.1,240 + math.random()*10  )
+  emitter:setColors(255,255,255,255)
   emitter:setSpread(PI/force + math.random() * PI/force *0.75 + PI/4)
   emitter:setSizes(.05 * cpml.utils.clamp(scale,1,10), .35 *cpml.utils.clamp(scale,1,10))
   emitter:setSizeVariation(0.5)
