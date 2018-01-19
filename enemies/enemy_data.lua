@@ -51,7 +51,11 @@ enemy_data["schmuck"] =
   value = 1,
   touch_damage = 10,
   personality = 'Wanderer',
-  drop_item = {chance=0.5,item="health_pack"},
+  drop_items = {{chance=0.05,item="max_ammo_increase"},
+                {chance=0.05,item="max_health_increase"},
+                {chance=0.05,item="damage_mult"},
+                {chance=0.05,item="charge_rate_mult"},
+                {chance=0.25,item="health_pack"},},
 }
 
 enemy_data["fodder"] =
@@ -65,7 +69,11 @@ enemy_data["fodder"] =
   value = 0.5,
   touch_damage = 10,
   personality = 'Seeker',
-  drop_item = {chance=0.5,item="health_pack"},
+  drop_items = {{chance=0.05,item="max_ammo_increase"},
+                {chance=0.05,item="max_health_increase"},
+                {chance=0.05,item="damage_mult"},
+                {chance=0.05,item="charge_rate_mult"},
+                {chance=0.25,item="health_pack"},},
 }
 
 enemy_data["rifledude"] =
@@ -82,7 +90,11 @@ enemy_data["rifledude"] =
   weapon_type = weapon.ProjectileGun,
   projectile_type = 'enemybullet',
   personality = 'Rifleman',
-  drop_item = {chance=0.5,item="health_pack"},
+  drop_items = {{chance=0.05,item="max_ammo_increase"},
+                {chance=0.05,item="max_health_increase"},
+                {chance=0.05,item="damage_mult"},
+                {chance=0.05,item="charge_rate_mult"},
+                {chance=0.25,item="health_pack"},},
 }
 
 enemy_data["remotedude_red"] =

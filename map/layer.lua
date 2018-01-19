@@ -57,6 +57,7 @@ function Layer:draw()
 end
 
 function Layer:_drawall()
+  love.graphics.setColor(255,255,255,255)
   for kindname, kind  in pairs(self.entities) do  -- for each type of thing
     for id, e in pairs(kind) do    -- for each location
       e:draw()
