@@ -1,6 +1,7 @@
 lovetoys = require("lib/lovetoys/lovetoys")
 lovetoys.initialize({globals = true, debug = true})
 
+PI = 3.14159
 game_time = 0
 
 require "requires"

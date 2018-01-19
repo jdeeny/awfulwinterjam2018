@@ -81,7 +81,7 @@ function play.game_speed()
   if play.freezeframe_end_time > gui_time then
     return 0
   else
-    return gameplay_speed
+    return 1 --gameplay_speed
   end
 end
 

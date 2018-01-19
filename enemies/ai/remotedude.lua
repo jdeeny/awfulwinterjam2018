@@ -17,7 +17,9 @@ function Remotedude:update(dt)
       else
         smokex = smokex + 4
       end
-      SmokeParticles:new(smokex, self.entity.y-25, 2, 2, 0.014, 0.4)
+      local angle  = math.atan2(self.entity.y, self.entity.x)
+
+      RemoteSmokeParticles:new(smokex, self.entity.y-25, 2, 2, 0.014, 0.4, angle + PI)
     elseif self.entity.animation.position ~= 2 then
       self.havesmoked = false
     end
