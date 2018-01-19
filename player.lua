@@ -47,7 +47,7 @@ function player.update(dt)
 
   if player.nextpuff < game_time then
     player.nextpuff = game_time + 0.35 + math.random() *0.1
-    BloodParticles:new(player.x, player.y, 5, 10, .1, 1.5)
+    --BloodParticles:new(player.x, player.y, 5, 10, .1, 1.5)
   end
 
   local aim_x, aim_y = player_input:get('aim')
@@ -163,6 +163,7 @@ function player:take_damage(damage, silent, angle, force, stunning)
 
   if self.hp and self.hp > 0 then
     self.hp = math.max(0, self.hp - damage)
+    BloodParticles:new(self.x, self.y, 5, 5, angle, (.5+math.sqrt(force) + math.random() + math.random() * force)/7, (1.3+math.sqrt(damage)*0.5 + .5 * math.random() * math.random())/2, 2+damage / 4 + damage * math.random())
 
     if not silent then
       if self.hp > 0 then
