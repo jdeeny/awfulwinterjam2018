@@ -132,9 +132,6 @@ end
 
 
 
-
-
-
 function Level:open_door(dir, fake, time)
   if not self.door_close_time then
     self.door_close_time = {}
@@ -186,8 +183,7 @@ function Level:coda()
   if self.kind == "boss" then
 	  fade.start_fade("fadeout", 1, false)
 	  -- set iframes so player doesn't die before progressing?
-	  delay.start(1, function() 
-		  --dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west") 
+	  delay.start(1, function()  
 		  gamestage.setup_next()
 		  film.enter() 
 	  end)
