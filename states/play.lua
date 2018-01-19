@@ -31,10 +31,10 @@ function play.update(dt)
       z:update(mdt)
     end
 
-    for _,z in pairs(shots) do
+    for _,z in pairs(items) do
       z:update(mdt)
     end
-    
+
     camera.update(mdt)
     timer.update()
 
@@ -60,13 +60,13 @@ function play.draw()
   for _,z in pairs(doodads) do
      z:draw()
   end
+  for _,z in pairs(items) do
+    z:draw()
+  end
   for _,z in pairs(enemies) do
 --    z:draw()
   end
   for _,z in pairs(shots) do
-    z:draw()
-  end
-  for _,z in pairs(items) do
     z:draw()
   end
 

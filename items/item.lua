@@ -19,10 +19,17 @@ end
 
 function Item:draw()
     if not self.owner and self.sprite then
-        -- draw sprite if it's not owned by anyone
+        if self.x and self.y then
+            love.graphics.draw(self.sprite, camera.view_x(self), 
+                camera.view_y(self), 0, 1, 1, self.sprite:getWidth()/2, 
+                self.sprite:getHeight()/2)
+        end
     end
 end
 
+function Item:update(dt)
+    
+end
 
 local item = {}
 

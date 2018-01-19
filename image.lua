@@ -44,6 +44,8 @@ function image.init()
 
   image.remotedude = love.graphics.newImage("assets/sprites/remoteBaddie_spriteSheet.png")
 
+  image.heart = love.graphics.newImage("assets/icons/heart_32x32.png")
+
 end
 
 return image

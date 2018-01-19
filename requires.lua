@@ -65,6 +65,7 @@ spark = require "spark"
 
 weapon = require "items/weapon"
 shot = require "items/shot"
+item = require "items/item"
 
 PooledSource = require "audio/pooledsource"
 AudioManager = require "audio/audiomanager"
@@ -74,6 +75,7 @@ doodad_data = require "doodad_data"
 enemy_data = require "enemies/enemy_data"
 shot_data = require "items/shot_data"
 spark_data = require "spark_data"
+item_data = require "items/item_data"
 
 water_effect = require 'effects/water'
 ray_effect = require 'effects/ray'

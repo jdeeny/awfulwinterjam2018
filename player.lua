@@ -94,11 +94,18 @@ function player.update(dt)
     end
   end
 
-  -- check if we're standing on a doodad
   if not player.dying then
+    -- check if we're standing on a doodad
     for _,z in pairs(doodads) do
       if collision.aabb_aabb(player, z) then
         z:trigger()
+      end
+    end
+
+    -- check to see if we can interact with items
+    for _,itm in pairs(items) do
+      if collision.aabb_aabb(player, itm) and itm.pick_up then
+        itm:pick_up(player)
       end
     end
 

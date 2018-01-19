@@ -65,6 +65,11 @@ function enemy:die()
   enemies[self.id] = nil
   current_level:remove(self.id)
   audiomanager:playOnce(self.death_sound)
+  if self.drop_item then
+    if math.random() < self.drop_item.chance then
+      item_data.spawn(self.drop_item.item, self.x, self.y)
+    end
+  end
   spawner.test_completion()
 end
 
