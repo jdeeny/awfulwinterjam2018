@@ -30,7 +30,7 @@ function love.load()
 
   init_settings()
   gamestage.setup_next(gamestage.current_stage)
-  
+
   splash.enter()
   timer.init()
 end

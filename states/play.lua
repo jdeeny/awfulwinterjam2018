@@ -1,4 +1,4 @@
-local play = { freezeframe_start_time = 0, freezeframe_end_time = 0, draw_cursor = false }
+local play = { freezeframe_start_time = 0, freezeframe_end_time = 0}
 
 function play.enter()
   state = STATE_PLAY
@@ -82,9 +82,7 @@ function play.draw()
   pathfinder.draw_debug()
 
   fade:draw()
-  if play.draw_cursor then
-    play.draw_crosshairs()
-  end
+  crosshairs.draw()
 end
 
 function play.game_speed()
@@ -118,58 +116,6 @@ function play.draw_screen_flash()
       love.graphics.setBlendMode("alpha")
     end
   end
-end
-
-local mouse_x, mouse_y
-play.crosshair_offset = 0
-function play.draw_crosshairs()
-  mouse_x, mouse_y = love.mouse.getPosition()
-
-  if player.equipped_items['weapon'].name == 'ProjectileGun' then
-    love.graphics.setColor(255,200,100,255)
-    play.crosshair_offset = 0.5 * (play.crosshair_offset + player.equipped_items['weapon'].cof_multiplier)
-    love.graphics.draw(image['sight_bullet_dot'], mouse_x, mouse_y, 0, 1, 1, 8, 8)
-    love.graphics.draw(image['sight_bullet_line'], mouse_x + 16 + 32*play.crosshair_offset, mouse_y, 0, 1, 1, 16, 8)
-    love.graphics.draw(image['sight_bullet_line'], mouse_x , mouse_y + 16 + 32*play.crosshair_offset, math.pi * 0.5, 1, 1, 16, 8)
-    love.graphics.draw(image['sight_bullet_line'], mouse_x - 16 - 32*play.crosshair_offset, mouse_y, math.pi, 1, 1, 16, 8)
-    love.graphics.draw(image['sight_bullet_line'], mouse_x, mouse_y - 16 - 32*play.crosshair_offset, math.pi * 1.5, 1, 1, 16, 8)
-  elseif player.equipped_items['weapon'].name == 'RayGun' then
-    love.graphics.setColor(180,120,255,255)
-    if player.equipped_items['weapon'].fired_at then
-      play.crosshair_offset = 0.5 * (play.crosshair_offset + (1.125 - 1.25 * player.equipped_items['weapon'].focus))
-    else
-      play.crosshair_offset = 0.5 * play.crosshair_offset
-    end
-
-    love.graphics.draw(image['sight_bullet_dot'], mouse_x, mouse_y, 0, 1, 1, 8, 8)
-    local r
-    for j = 1, 7 do
-      r = 0.3 + 3 * play.crosshair_offset + 0.89759790102 * j
-      love.graphics.draw(image['sight_triangle'],
-        mouse_x + math.cos(r) * (64 - 32*play.crosshair_offset),
-        mouse_y + math.sin(r) * (64 - 32*play.crosshair_offset),
-        r, 1, 1, 16, 16)
-    end
-  elseif player.equipped_items['weapon'].name == 'LightningGun' then
-    love.graphics.setColor(130,230,255,255)
-
-    if player.equipped_items['weapon'].is_firing then
-      play.crosshair_offset = 0.5 * (play.crosshair_offset + 1)
-    else
-      play.crosshair_offset = 0.5 * play.crosshair_offset
-    end
-
-    local r
-    local radius = 32 + (28 + 8 * love.math.random())*play.crosshair_offset
-    for j = 1, 3 do
-      r = (player.aim + math.pi or 0) + 2.09439510239 * j
-      love.graphics.draw(image['sight_v'],
-        mouse_x + math.cos(r) * radius,
-        mouse_y + math.sin(r) * radius,
-        r, 1, 1, 16, 16)
-    end
-  end
-  love.graphics.setColor(255,255,255,255)
 end
 
 return play

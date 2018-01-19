@@ -47,6 +47,7 @@ doodad = require "doodad"
 fade = require "fade"
 file_io = require "file_io"
 hud = require "ui_elements/hud"
+crosshairs = require "ui_elements/crosshairs"
 idcounter = require "idcounter"
 image = require "image"
 image.init()
