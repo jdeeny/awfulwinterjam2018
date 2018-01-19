@@ -33,9 +33,9 @@ function Tile:takeDamage(dmg)
   if self.destroyable then
     self.hp = cpml.utils.clamp(self.hp - dmg, self.hp - dmg, self.maxhp)
     if self.hp <= 0 then
-      print("!")
       -- launch explosion
       ExplosionParticles:new(self.x * TILESIZE + 32, self.y * TILESIZE + 32, 2, 2, .2, 1.0)
+      -- replace self
       current_level:addTile(nil, self.x, self.y, current_level.tileset[self.destroyed_version])
     end
   end
