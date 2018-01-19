@@ -51,15 +51,21 @@ function hud.flash_arrows()
 end
 
 
-local function draw_bar(x, y, width, height, color, percent_filled)
-	percent_filled = math.max(0, percent_filled)
+local function draw_bar(x, y, width, height, color, current, max)
+	local percent_filled = math.max(0, current/max)
 	love.graphics.setColor(127,127,127)
 	love.graphics.rectangle('fill', x, y, width, 
 		height*(1-percent_filled))
 	love.graphics.setColor(color.r, color.g, color.b)
-	love.graphics.rectangle('fill', x, y+height*(1-percent_filled), 
-		width, height*percent_filled)
+	
+	local y_low = y+height*(1-percent_filled)
+	love.graphics.rectangle('fill', x, y_low, width, height*percent_filled)
 	love.graphics.setColor(255,255,255)
+
+	love.graphics.setFont(love.graphics.newFont(10))
+	love.graphics.print(math.floor(max), x, y)
+	love.graphics.print(math.floor(current), x, y_low)
+
 end
 
 function hud.draw()
@@ -101,15 +107,13 @@ function hud.draw()
 
 	-- draw player status bars in lower right
 	local bar_dim = {x=20,y=100}
-	-- love.graphics.setFont(hud.font)
-	-- love.graphics.print(player.hp, (window.w - 80), (window.h - 80))
 	local hp_bar = {x=love.graphics.getWidth()-bar_dim.x-iconSeparation,
 		y=love.graphics.getHeight()-bar_dim.y-iconSeparation}
 	local ammo_bar = {x=hp_bar.x-bar_dim.x-iconSeparation, y=hp_bar.y}
 	draw_bar(hp_bar.x, hp_bar.y, bar_dim.x, bar_dim.y, {r=175,g=0,b=0}, 
-		player.hp/player.max_hp)
+		player.hp, player.max_hp)
 	draw_bar(ammo_bar.x, ammo_bar.y, bar_dim.x, bar_dim.y, {r=0,g=160,b=215}, 
-		player.equipped_items['weapon'].ammo/player.equipped_items['weapon'].max_ammo)
+		player.equipped_items['weapon'].ammo, player.equipped_items['weapon'].max_ammo)
 	
 	-- draw weapon icons
 	local iconOffset = iconSeparation
