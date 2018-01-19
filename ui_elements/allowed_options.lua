@@ -51,7 +51,7 @@ end
 
 -----------------
 
-local MasterVolumeOI = class('MasterVolumeItem', OptionItem)
+local MasterVolumeOI = class('MasterVolumeOptionItem', OptionItem)
 
 
 function MasterVolumeOI:initialize()

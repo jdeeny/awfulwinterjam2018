@@ -6,10 +6,6 @@ local default_settings = {
   gfx_mode = 'windowed',
   window_width =  window.w,
   window_height = window.h,
-  -- This last setting is only here to force defaults to reset when settings get renamed 
-  -- Changing the number of entries in the table forces the update, so add or remove it if
-  --  a setting gets changed, and increment the count if you wish.
-  integrity_buster = 1, 
 }
 
 local settings = {}
@@ -17,10 +13,31 @@ local settings = {}
 if love.filesystem.exists('savedata') then
      settings = bitser.loadLoveFile('savedata')
 	 
-	 -- integrity check, primarily during dev
-	 if #(settings) ~= #(default_settings) then
-		 settings = default_settings
+	 -- integrity check, primarily needed during dev
+	 local saved_keys = {}
+	 local default_keys = {}
+	 
+	 for k in pairs(settings) do 
+		 table.insert(saved_keys,k)
 	 end
+	 
+	 for k in pairs(default_settings) do 
+		 table.insert(default_keys,k)
+	 end
+	 
+	 table.sort(saved_keys)
+	 table.sort(default_keys)
+	 
+	 for i,k in ipairs(default_keys) do
+		 if saved_keys[i] ~= k then
+			 -- saved settings are corrupt/out of date
+			 print("Incompatible save data. Resetting to defaults.")
+			 settings = default_settings
+			 bitser.dumpLoveFile('savedata', settings)
+			 break
+		 end
+	 end
+	 
 else
 	settings = default_settings
 	bitser.dumpLoveFile('savedata', settings)

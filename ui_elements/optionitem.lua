@@ -9,7 +9,6 @@ function OptionItem:requiredHeight()
 	return 1
 end
 
-
 -- This should display the current 'value' of the option within the given rectangle
 function OptionItem:drawIn(x,y,width,height)
 	if self.value then
