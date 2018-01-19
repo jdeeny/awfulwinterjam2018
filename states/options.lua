@@ -91,8 +91,12 @@ function options.draw()
 		if options.selected == i and opt.label ~= "Back" then
 			love.graphics.setColor(255,255,255)
 			-- draw arrows
-			love.graphics.draw(image['point'], window.w - 200 - 20 * math.cos(6.28 * gui_time), cur_y + 20, 0, 1, 1, 48, 32)
-			love.graphics.draw(image['point'], 200 + 20 * math.cos(6.28 * gui_time), cur_y + 20, 0, -1, 1, 48, 32)
+			if not opt:atMax() then
+				love.graphics.draw(image['point'], window.w - 200 - 20 * math.cos(6.28 * gui_time), cur_y + 20, 0, 1, 1, 48, 32)
+			end
+			if not opt:atMin() then
+				love.graphics.draw(image['point'], 200 + 20 * math.cos(6.28 * gui_time), cur_y + 20, 0, -1, 1, 48, 32)
+			end
 		end
 
 		love.graphics.setColor(128,128,128)

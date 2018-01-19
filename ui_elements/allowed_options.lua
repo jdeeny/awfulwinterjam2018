@@ -12,6 +12,14 @@ function ListOptionItem:initialize(label, values, control_name, control_field, c
 	self.c_values = control_values
 end
 
+function ListOptionItem:atMin()
+	return self.index == 1
+end
+
+function ListOptionItem:atMax()
+	return self.index == #(self.list)
+end
+
 function ListOptionItem:decrease()
 	self.index = math.max(1,self.index-1)
 	self:updateValue()
@@ -50,6 +58,14 @@ function MasterVolumeOI:initialize()
 	OptionItem.initialize(self, "Volume")
 	self.vol = 100
 	self.value = "- 100% +"
+end
+
+function OptionItem:atMin()
+	return self.vol == 0
+end
+
+function OptionItem:atMax()
+	return self.vol == 100
 end
 
 function MasterVolumeOI:decrease()

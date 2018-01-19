@@ -21,6 +21,14 @@ function OptionItem:getSetting()
 	-- override
 end
 
+function OptionItem:atMin()
+	return true -- indicates that option can go no lower
+end
+
+function OptionItem:atMax()
+	return true -- indicates that option can go no higher
+end
+
 function OptionItem:clickedOn(xhit, yhit)
 	-- Indicates a click received, relative to the center of the displayed value
 end
