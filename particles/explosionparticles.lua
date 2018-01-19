@@ -20,7 +20,7 @@ function ExplosionParticles:_createParticles(lifetime, scale)
   emitter:setDirection(-PI/2)
   --emitter:setRadialAcceleration(.2, 20)
   --emitter:setLinearAcceleration(0,-285,0,-315)
-  emitter:setSpeed(20+math.random()*20,290+math.random()*90)
+  emitter:setSpeed(20+math.random()*20,590+math.random()*90)
   emitter:setColors(255,255,255,2)
   emitter:setSpread(PI * 2)
   emitter:setSizes(.6*scale, scale)
@@ -28,7 +28,7 @@ function ExplosionParticles:_createParticles(lifetime, scale)
   emitter:setSpinVariation(1)
   emitter:setRotation(0)
   emitter:setAreaSpread('normal', self.w, self.h)
-  emitter:setParticleLifetime(.05,.2)
+  emitter:setParticleLifetime(.05,.5)
   self.psystem = emitter
 end
 
