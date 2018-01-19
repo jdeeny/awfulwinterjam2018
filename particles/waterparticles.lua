@@ -20,7 +20,7 @@ function WaterParticles:_createParticles(force, scale)
   emitter:setEmitterLifetime(0.1)
   emitter:setDirection(-PI/2)
   emitter:setLinearAcceleration(0,0)
-  emitter:setSpeed((500+math.random()*1000+math.random()*math.random()*5000) * math.sqrt(force),0,0)
+  emitter:setSpeed((500+math.random()*500+math.random()*math.random()*3000) * math.sqrt(force),0,0)
   emitter:setLinearDamping(60)
   local dark = 150 + math.random() * 10
   local mid = dark + math.random() * 20

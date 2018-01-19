@@ -87,6 +87,8 @@ enemy_data["rifledude"] =
   touch_damage = 0,
   shot_speed = 400,
   burst_size = 3,
+  next_splash = game_time,
+  splash_delay = 0.12,
   weapon_type = weapon.ProjectileGun,
   projectile_type = 'enemybullet',
   personality = 'Rifleman',
@@ -108,6 +110,9 @@ enemy_data["remotedude_red"] =
   radius = 5,
   value = 0.25,
   touch_damage = 5,
+  next_splash = game_time,
+  splash_delay = 0.2,
+  splash_force = 15,
   personality = 'Remotedude',
 }
 
@@ -122,6 +127,9 @@ enemy_data["remotedude_blue"] =
   radius = 5,
   value = 0.5,
   touch_damage = 5,
+  next_splash = game_time,
+  splash_delay = 0.2,
+  splash_force = 15,
   personality = 'Remotedude',
 }
 
@@ -136,6 +144,9 @@ enemy_data["remotedude_green"] =
   radius = 5,
   value = 0.75,
   touch_damage = 5,
+  next_splash = game_time,
+  splash_delay = 0.2,
+  splash_force = 15,
   personality = 'Remotedude',
 }
 
