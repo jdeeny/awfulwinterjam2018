@@ -1,5 +1,7 @@
 local Seeker = class("Seeker", Ai)
 
+local PI = 3.14159
+
 function Seeker:update(dt)
   Ai.update(self, dt) -- call superclass constructor
   local need_goal = not self.goal_x or math.abs(self.entity.x - self.goal_x) + math.abs(self.entity.y - self.goal_y) < 16
@@ -11,6 +13,9 @@ function Seeker:update(dt)
   		self.goal_y = TILESIZE * (gy + dy + 0.5)
   	end
     angle = math.atan2(self.goal_y - self.entity.y, self.goal_x - self.entity.x)
+    if self.israndom and math.random() < self.israndom then
+      angle = angle + math.random() * PI - PI / 2
+    end
 
     self.entity.dx = math.cos(angle) * self.entity.speed
     self.entity.dy = math.sin(angle) * self.entity.speed

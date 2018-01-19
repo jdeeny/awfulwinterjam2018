@@ -18,20 +18,20 @@ function animation.init()
   animation.pow = anim8.newAnimation(pow_grid('1-4',1), 0.05)
 
   local remotedude_grid = anim8.newGrid(64, 64, image.remotedude:getWidth(), image.remotedude:getHeight(), 0, 0, 0)
-  animation.remotedude_red_run_se = anim8.newAnimation(remotedude_grid('1-2',1), 0.1)
-  animation.remotedude_red_run_ne = anim8.newAnimation(remotedude_grid('3-4',1), 0.1)
-  animation.remotedude_red_run_sw = anim8.newAnimation(remotedude_grid('1-2',1), 0.1):flipH()
-  animation.remotedude_red_run_nw = anim8.newAnimation(remotedude_grid('3-4',1), 0.1):flipH()
+  animation.remotedude_red_run_se = anim8.newAnimation(remotedude_grid('1-2',1), {0.25, 0.1})
+  animation.remotedude_red_run_ne = anim8.newAnimation(remotedude_grid('3-4',1), {0.25, 0.1})
+  animation.remotedude_red_run_sw = anim8.newAnimation(remotedude_grid('1-2',1), {0.25, 0.1}):flipH()
+  animation.remotedude_red_run_nw = anim8.newAnimation(remotedude_grid('3-4',1), {0.25, 0.1}):flipH()
 
-  animation.remotedude_blue_run_se = anim8.newAnimation(remotedude_grid('1-2',2), 0.1)
-  animation.remotedude_blue_run_ne = anim8.newAnimation(remotedude_grid('3-4',2), 0.1)
-  animation.remotedude_blue_run_sw = anim8.newAnimation(remotedude_grid('1-2',2), 0.1):flipH()
-  animation.remotedude_blue_run_nw = anim8.newAnimation(remotedude_grid('3-4',2), 0.1):flipH()
+  animation.remotedude_blue_run_se = anim8.newAnimation(remotedude_grid('1-2',2), {0.25, 0.1})
+  animation.remotedude_blue_run_ne = anim8.newAnimation(remotedude_grid('3-4',2), {0.25, 0.1})
+  animation.remotedude_blue_run_sw = anim8.newAnimation(remotedude_grid('1-2',2), {0.25, 0.1}):flipH()
+  animation.remotedude_blue_run_nw = anim8.newAnimation(remotedude_grid('3-4',2), {0.25, 0.1}):flipH()
 
-  animation.remotedude_green_run_se = anim8.newAnimation(remotedude_grid('1-2',3), 0.1)
-  animation.remotedude_green_run_ne = anim8.newAnimation(remotedude_grid('3-4',3), 0.1)
-  animation.remotedude_green_run_sw = anim8.newAnimation(remotedude_grid('1-2',3), 0.1):flipH()
-  animation.remotedude_green_run_nw = anim8.newAnimation(remotedude_grid('3-4',3), 0.1):flipH()
+  animation.remotedude_green_run_se = anim8.newAnimation(remotedude_grid('1-2',3), {0.25, 0.1})
+  animation.remotedude_green_run_ne = anim8.newAnimation(remotedude_grid('3-4',3), {0.25, 0.1})
+  animation.remotedude_green_run_sw = anim8.newAnimation(remotedude_grid('1-2',3), {0.25, 0.1}):flipH()
+  animation.remotedude_green_run_nw = anim8.newAnimation(remotedude_grid('3-4',3), {0.25, 0.1}):flipH()
 end
 
 return animation

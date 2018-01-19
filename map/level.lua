@@ -148,9 +148,7 @@ function Level:open_door(dir, fake, time)
   end
 
   local dtype = (fake and "fakedoor") or "opendoor"
-  print("Type: "..dtype)
   local k = self.tileset[dtype]
-  print("k: ") print(k)
 
   if dir == "north" then
     --self.tiles[self.width / 2][1].kind = k

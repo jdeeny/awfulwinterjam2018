@@ -3,29 +3,26 @@ local Remotedude = class("Remotedude", super)  -- subclass seeker
 
 function Remotedude:initialize(entity)
   super.initialize(self, entity)
-
-  self.reload_time = 2.0
-  self.nextshot_time = game_time + self.reload_time * 0.2 * math.random() + self.reload_time * 0.9
+  self.israndom = 0.1
 end
-
 
 function Remotedude:update(dt)
   super.update(self, dt) -- call update from `Seeker` to do the movement portion
-  print('update')
-
-  print(self.animation)
   if self.entity.animation then
-    print(self.entity.animation.position)
-    if self.entity.animation.position == 1 then
-      print("smoke")
-      SmokeParticles:new(self.entity.x, self.entity.y, 5, 2, .07, .1)
+    if self.entity.animation.position == 2 and not self.havesmoked then
+      self.havesmoked = true
+      local smokex = self.entity.x
+      if self.entity.facing_east then
+        smokex = smokex - 4
+      else
+        smokex = smokex + 4
+      end
+      SmokeParticles:new(smokex, self.entity.y-25, 2, 2, 0.014, 0.4)
+    elseif self.entity.animation.position ~= 2 then
+      self.havesmoked = false
     end
-  end
 
-  if math.random() < 0.2 then
-    SmokeParticles:new(self.entity.x, self.entity.y, 5, 2, .07, .1)
   end
-
 end
 
 return Remotedude

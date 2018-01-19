@@ -14,8 +14,8 @@ function SmokeParticles:initialize(x, y, w, h, lifetime, scale)
 end
 
 function SmokeParticles:_createParticles(lifetime, scale)
-  local emitter = love.graphics.newParticleSystem(SmokeParticles.puffimg, 1024)
-  emitter:setEmissionRate(256)
+  local emitter = love.graphics.newParticleSystem(SmokeParticles.puffimg, 4096)
+  emitter:setEmissionRate(4096)
   emitter:setEmitterLifetime(lifetime)
   emitter:setDirection(-PI/2)
   emitter:setRadialAcceleration(-.5, -.75)
@@ -25,7 +25,7 @@ function SmokeParticles:_createParticles(lifetime, scale)
   local mid = dark + math.random() * 20
   local light = mid + math.random() * 30
   emitter:setColors(dark,dark,dark,50 + math.random()*10,  mid,mid,mid,30+ math.random()*10, light,light,light, 15+ math.random()*10)
-  emitter:setSpread(PI * 0.25 + math.random() * PI *0.125)
+  emitter:setSpread((PI * 0.25 + math.random() * PI *0.125) * scale)
   emitter:setSizes(.05 * scale, .6 * scale)
   emitter:setSizeVariation(0.2)
   emitter:setSpinVariation(1)
