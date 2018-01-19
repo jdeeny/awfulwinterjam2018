@@ -93,7 +93,7 @@ enemy_data["remotedude_red"] =
   radius = 15,
   value = 0.5,
   touch_damage = 5,
-  personality = 'Seeker',
+  personality = 'Remotedude',
 }
 
 enemy_data["remotedude_blue"] =
@@ -107,7 +107,7 @@ enemy_data["remotedude_blue"] =
   radius = 15,
   value = 0.5,
   touch_damage = 5,
-  personality = 'Seeker',
+  personality = 'Remotedude',
 }
 
 enemy_data["remotedude_green"] =
@@ -121,7 +121,7 @@ enemy_data["remotedude_green"] =
   radius = 15,
   value = 0.5,
   touch_damage = 5,
-  personality = 'Seeker',
+  personality = 'Remotedude',
 }
 
 

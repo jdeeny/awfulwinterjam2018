@@ -8,6 +8,7 @@ function SmokeParticles:initialize(x, y, w, h, lifetime, scale)
   Particles.initialize(self, x, y, w, h, lifetime)--camera.view_x({x = x, y = y}), camera.view_y({x = x, y = y}))
   self.scale = scale or 1.0
   self.kind = "smokeparticles"
+  self.id = self.kind .. math.random()
   self.particles = self:_createParticles(self.lifetime, self.scale)
   current_level:_addToLayer(Layer.ENTITYNOSHADOW, self.id, self)
 end
