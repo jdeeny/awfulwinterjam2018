@@ -23,15 +23,14 @@ end
 
 function Level:find_symbol(symbol)
   for name, tile in pairs(self.tileset) do
-    if tile[1].mapsymbol == symbol then
+    if tile[1]().mapsymbol == symbol then
       return name
     end
   end
 end
 
-
 function Level:is_solid(gx, gy)
-  return self.tiles[gx] and self.tiles[gx][gy] and self.tiles[gx][gy].issolid
+  return self.tiles[gx] and self.tiles[gx][gy] and self.tiles[gx][gy].t.issolid
 end
 
 function Level:pixel_width()
@@ -99,13 +98,17 @@ function Level:addTile(id, x, y, tile)
 
   self:remove(id)
 
-  for _, t in ipairs(tile) do
+  local first = {}
+  for i, t in ipairs(tile) do
+    local t = t()
+    t.x, t.y = x, y
     local e = t:toEntity(x, y)
+    if i == 1 then first = e end
     self:_add(id, e)
   end
 
   if not self.tiles[x] then self.tiles[x] = {} end
-  self.tiles[x][y] = tile[1]
+  self.tiles[x][y] = first
 end
 
 function Level:addMob(id, mob)
