@@ -58,7 +58,7 @@ function mob:update_position(dt)
     else
       -- now we can actually -choose- where to go
       self:update_move_controls()
-
+			if self.speed_limit then self.dx, self.dy = self.dx * self.speed_limit, self.dy * self.speed_limit end
       if math.abs(self.dx) >= 0.01 or math.abs(self.dy) >= 0.01 then
         if self.dy >= 0.01 then
           self.facing_north = false
@@ -114,15 +114,16 @@ end
 
 
 function mob:update_splash(dt)
-	if self.speed > 0 and self.next_splash and self.next_splash < game_time then -- if splash timeout elapsed
-		--if self.animation and self.animation.position == 1 then -- if we are on a splash frame  TODO Fix!
-			local tilex, tiley = current_level:pos_to_grid(self.x), current_level:pos_to_grid(self.y)
-			local feature = current_level:feature_at(tilex, tiley)
-			if feature:sub(1,5) == "water" then -- if we are on a water tile
-				self.next_splash = game_time + (self.splash_delay or 1)
-				WaterParticles:new(self.x, self.y + 27, 5, 5, 0.75 + math.random(), 0.25 + math.random() * 1.2 , (self.splash_force or 2) + math.random() * 5)
-			end
-		--end
+	local tilex, tiley = current_level:pos_to_grid(self.x), current_level:pos_to_grid(self.y)
+	local feature = current_level:feature_at(tilex, tiley)
+	if feature:sub(1,5) == "water" then -- if we are on a water tile
+		self.speed_limit = 0.7
+		if self.speed > 0 and self.next_splash and self.next_splash < game_time then -- if splash timeout elapsed
+			self.next_splash = game_time + (self.splash_delay or 1)
+			WaterParticles:new(self.x, self.y + 27, 5, 5, 0.75 + math.random(), 0.25 + math.random() * 1.2 , (self.splash_force or 2) + math.random() * 5)
+		end
+	else
+		self.speed_limit = nil
 	end
 end
 
