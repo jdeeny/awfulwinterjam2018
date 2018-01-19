@@ -63,10 +63,10 @@ function player.update(dt)
     -- rotate to direction we're aiming. if the mouse has moved, face the mouse
     -- position, otherwise update the rotation from keyboard and gamepad
     if aim_x ~= 0 or aim_y ~= 0 then
-      love.mouse.setVisible(false)
+      play.draw_cursor = false
       _, player.aim = cpml.vec2.to_polar(cpml.vec2.new(aim_x, aim_y)) -- joystick angle is new aim
     elseif mousemoved then
-      love.mouse.setVisible(true)
+      play.draw_cursor = true
       mousemoved = false
 
       mx, my = love.mouse.getPosition()
@@ -204,6 +204,7 @@ function player.weapon_switch()
     player.equipped_items['weapon']:release()
     player:unequip('weapon')
     player:equip('weapon', player.weapons[player.weapon])
+    play.crosshair_offset = 0
   end
 
 end

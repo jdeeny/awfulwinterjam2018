@@ -4,7 +4,10 @@ function image.init()
   image.dude = love.graphics.newImage("assets/sprites/dude.png")
   image.gear = love.graphics.newImage("assets/sprites/gear.png")
 
-  image.reticle = love.graphics.newImage("assets/sprites/opengameart/crosshairs/circle-02.png")
+  image.sight_bullet_dot = love.graphics.newImage("assets/crosshairs/sight_bullet_dot.png")
+  image.sight_bullet_line = love.graphics.newImage("assets/crosshairs/sight_bullet_line.png")
+  image.sight_triangle = love.graphics.newImage("assets/crosshairs/sight_triangle.png")
+  image.sight_v = love.graphics.newImage("assets/crosshairs/sight_v.png")
 
   image.wall = love.graphics.newImage("assets/tiles/wallStoneTiling.png")
   image.floor = love.graphics.newImage("assets/tiles/woodFloorTile.png")

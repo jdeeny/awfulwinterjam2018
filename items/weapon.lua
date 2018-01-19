@@ -315,7 +315,7 @@ function RayGun:update(dt)
     firing_time = math.min(self.focus_time, game_time-self.fired_at)
     percent_of_focus = (self.focus_time-firing_time)/self.focus_time
 
-    self.focus = cpml.utils.clamp(percent_of_focus, self.min_focus, self.initial_focus)
+    self.focus = percent_of_focus * (self.initial_focus - self.min_focus) + self.min_focus
     self.diameter = self.firing_arc * self.focus
 
     self.sfx = self.sound:clone()
