@@ -10,33 +10,33 @@ hud.pulse_time = 0.9
 
 function hud.draw_arrows()
 	local r,g,b,a
-	local yc = image['arrow']:getHeight()/2
-	local xc = image['arrow']:getWidth()/2
+	local yc = image['point_yellow']:getHeight()/2
+	local xc = image['point_yellow']:getWidth()/2
 
 	r,g,b,a = love.graphics.getColor()
 	love.graphics.setColor(r,g,b,hud.arrow_alpha)
 
 	-- draw all arrows
 	local dir
-	local distance = math.max(100, math.min(window.w/2 - 100, window.h/2 - 100))
+	local distance = math.max(100, math.min(window.w/2 - 100, window.h/2 - 100)) + 20 * math.cos(6.9813 * gui_time)
 	if hud.arrows['up'] then
 		dir = math.atan2(-4 * TILESIZE - player.y, (current_level:pixel_width() / 2) - player.x)
-		love.graphics.draw(image['arrow'], (window.w/2) + math.cos(dir) * (distance), (window.h/2) + math.sin(dir) * (distance), dir, 1, 1, xc, yc)
+		love.graphics.draw(image['point_yellow'], (window.w/2) + math.cos(dir) * (distance), (window.h/2) + math.sin(dir) * (distance), dir, 1, 1, xc, yc)
 	end
 
 	if hud.arrows['right'] then
 		dir = math.atan2((current_level:pixel_height() / 2) - player.y, current_level:pixel_width() + 4 * TILESIZE - player.x)
-		love.graphics.draw(image['arrow'], (window.w/2) + math.cos(dir) * (distance), (window.h/2) + math.sin(dir) * (distance), dir, 1, 1, xc, yc)
+		love.graphics.draw(image['point_yellow'], (window.w/2) + math.cos(dir) * (distance), (window.h/2) + math.sin(dir) * (distance), dir, 1, 1, xc, yc)
 	end
 
 	if hud.arrows['left'] then
 		dir = math.atan2((current_level:pixel_height() / 2) - player.y, -4 * TILESIZE - player.x)
-		love.graphics.draw(image['arrow'], (window.w/2) + math.cos(dir) * (distance), (window.h/2) + math.sin(dir) * (distance), dir, 1, 1, xc, yc)
+		love.graphics.draw(image['point_yellow'], (window.w/2) + math.cos(dir) * (distance), (window.h/2) + math.sin(dir) * (distance), dir, 1, 1, xc, yc)
 	end
 
 	if hud.arrows['down'] then
 		dir = math.atan2(current_level.pixel_height() + 4 * TILESIZE - player.y, (current_level:pixel_width() / 2) - player.x)
-		love.graphics.draw(image['arrow'], (window.w/2) + math.cos(dir) * (distance), (window.h/2) + math.sin(dir) * (distance), dir, 1, 1, xc, yc)
+		love.graphics.draw(image['point_yellow'], (window.w/2) + math.cos(dir) * (distance), (window.h/2) + math.sin(dir) * (distance), dir, 1, 1, xc, yc)
 	end
 
 	-- restore previous draw settings
@@ -54,10 +54,10 @@ end
 local function draw_bar(x, y, width, height, color, percent_filled)
 	percent_filled = math.max(0, percent_filled)
 	love.graphics.setColor(127,127,127)
-	love.graphics.rectangle('fill', x, y, width, 
+	love.graphics.rectangle('fill', x, y, width,
 		height*(1-percent_filled))
 	love.graphics.setColor(color.r, color.g, color.b)
-	love.graphics.rectangle('fill', x, y+height*(1-percent_filled), 
+	love.graphics.rectangle('fill', x, y+height*(1-percent_filled),
 		width, height*percent_filled)
 	love.graphics.setColor(255,255,255)
 end
@@ -106,11 +106,11 @@ function hud.draw()
 	local hp_bar = {x=love.graphics.getWidth()-bar_dim.x-iconSeparation,
 		y=love.graphics.getHeight()-bar_dim.y-iconSeparation}
 	local ammo_bar = {x=hp_bar.x-bar_dim.x-iconSeparation, y=hp_bar.y}
-	draw_bar(hp_bar.x, hp_bar.y, bar_dim.x, bar_dim.y, {r=175,g=0,b=0}, 
+	draw_bar(hp_bar.x, hp_bar.y, bar_dim.x, bar_dim.y, {r=175,g=0,b=0},
 		player.hp/player.max_hp)
-	draw_bar(ammo_bar.x, ammo_bar.y, bar_dim.x, bar_dim.y, {r=0,g=160,b=215}, 
+	draw_bar(ammo_bar.x, ammo_bar.y, bar_dim.x, bar_dim.y, {r=0,g=160,b=215},
 		player.equipped_items['weapon'].ammo/player.equipped_items['weapon'].max_ammo)
-	
+
 	-- draw weapon icons
 	local iconOffset = iconSeparation
 

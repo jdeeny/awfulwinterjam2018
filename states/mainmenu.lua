@@ -42,7 +42,7 @@ function mainmenu.draw()
 	if player_input:getActiveDevice() == 'joystick' then
 		text = "A Tesla Game\nPress A to Play\n\nPress B for Options\nPress Back to Quit"
 	else
-		text = "A Tesla Game\nPress Spacebar to Play\n\nPress Delete for Options\nPress Q to Quit"
+		text = "A Tesla Game\nPress Spacebar to Play\n\nPress Backspace for Options\nPress Q to Quit"
 	end
 	local th = mainmenu.font:getHeight()*5
 

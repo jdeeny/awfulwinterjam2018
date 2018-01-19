@@ -74,20 +74,13 @@ function MasterVolumeOI:getSetting()
 end
 
 function MasterVolumeOI:updateValue()
-	local num = self.vol
-	if num == 100 then
-		self.value = "- 100% "
-	elseif num == 0 then
-		self.value = "  OFF  +"
-	else 
-		self.value =  "-  "..(num).."% +"
-	end
+	self.value = self.vol == 0 and "OFF" or self.vol .. " %"
 end
 
 local masterVolume = MasterVolumeOI:new()
 
 local gameSpeed = ListOptionItem:new("Game Speed",{"super-slow (debug)","slow","medium","fast"},
-                                     'gameplay_speed', nil, {0.3,0.75,1.0,1.25}) 
+                                     'gameplay_speed', nil, {0.3,0.75,1.0,1.25})
 
 -- Currently levelSelect does nothing
 local levelSelect = ListOptionItem:new("Level Select",{"Tesla's Arrival","Edison's Folly"})

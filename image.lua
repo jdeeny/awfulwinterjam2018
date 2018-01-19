@@ -33,7 +33,9 @@ function image.init()
   image.lightning_icon = love.graphics.newImage("assets/icons/lightning.png")
   image.ray_icon = love.graphics.newImage("assets/icons/ray.png")
 
-  image.arrow = love.graphics.newImage("assets/icons/arrow.png") -- up arrow; rotate for other directions
+  image.arrow = love.graphics.newImage("assets/icons/arrow.png")
+  image.point = love.graphics.newImage("assets/icons/point.png")
+  image.point_yellow = love.graphics.newImage("assets/icons/point_yellow.png")
 
   image.watermask = love.graphics.newImage("assets/tiles/water/watermask.jpg")
   image.watermask:setWrap('repeat', 'repeat')
