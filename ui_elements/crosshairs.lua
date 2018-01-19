@@ -1,10 +1,10 @@
-local crosshairs = { offset = 0, use_mouse = false}
+local crosshairs = { offset = 0, use_mouse = false, draw_cursor = true }
 
 local center_x, center_y
 function crosshairs.draw(center_x, center_y)
   if crosshairs.use_mouse then
     center_x, center_y = love.mouse.getPosition()
-  elseif player.aim then -- check for an option
+  elseif player.aim and crosshairs.draw_cursor then
     if player.equipped_items['weapon'].is_firing then
       local distance = math.min(3 * TILESIZE, window.w * 0.5 - 150, window.h * 0.5 - 150)
       center_x = camera.view_x(player) + distance * math.cos(player.aim)
