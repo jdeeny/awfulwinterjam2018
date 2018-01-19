@@ -35,7 +35,7 @@ function Tile:takeDamage(dmg)
     if self.hp <= 0 then
       print("!")
       -- launch explosion
-      SmokeParticles:new(self.x * TILESIZE + 32, self.y * TILESIZE + 32, 2, 2, 2.114, 1.4)
+      ExplosionParticles:new(self.x * TILESIZE + 32, self.y * TILESIZE + 32, 2, 2, 2.114, 1.4)
       current_level:addTile(nil, self.x, self.y, current_level.tileset[self.destroyed_version])
     end
   end
