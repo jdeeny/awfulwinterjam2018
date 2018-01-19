@@ -9,7 +9,7 @@ function BloodParticles:initialize(x, y, w, h, lifetime, scale)
   self.scale = scale or 1.0
   self.kind = "bloodparticles"
   self.particles = self:_createParticles(self.lifetime, self.scale)
-  current_level:_addToLayer(Layer.ENTITYNOSHADOW, self.id, self)
+  current_level:_addToLayer(Layer.BLOOD, self.id, self)
 end
 
 function BloodParticles:_createParticles(lifetime, scale)
