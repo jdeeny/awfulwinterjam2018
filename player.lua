@@ -10,8 +10,8 @@ function player.init()
   player.facing_east = true
   player.speed = 300
   player.radius = 20
-  player.max_hp = 4000
-  player.hp = 4000
+  player.max_hp = 40
+  player.hp = 40
   player.dying = false
   player.stun = nil
   player.iframe_end_time = 0
