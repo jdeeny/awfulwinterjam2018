@@ -1,7 +1,7 @@
 local crosshairs = { offset = 0, use_mouse = false, draw_cursor = true }
 
-local center_x, center_y
 function crosshairs.draw(center_x, center_y)
+  local center_x, center_y
   if crosshairs.use_mouse then
     center_x, center_y = love.mouse.getPosition()
   elseif player.aim and crosshairs.draw_cursor then
@@ -15,6 +15,8 @@ function crosshairs.draw(center_x, center_y)
       return
     end
   end
+
+  if not center_x or not center_y then return end
 
   if player.equipped_items['weapon'].name == 'ProjectileGun' then
     love.graphics.setColor(255,200,100,255)
