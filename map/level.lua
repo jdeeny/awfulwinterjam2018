@@ -11,8 +11,8 @@ function Level:initialize(w, h)
   self.width = w
   self:createCanvases()
   --window.addCallback(self:createCanvases())
-  self.shadow_xoff = 3
-  self.shadow_yoff = 12
+  self.shadow_xoff = 2
+  self.shadow_yoff = 8
 
   self.layers = {}
   self.tiles = {}
