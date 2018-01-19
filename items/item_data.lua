@@ -33,4 +33,33 @@ item_data['health_pack'] =
     sprite = image.heart,
 }
 
+item_data['damage_mult'] = 
+{
+    radius = 30,
+    damage_mult = 1.2,
+    pick_up = function(self, owner)
+            if owner.equipped_items['weapon'].damage then
+                player.equipped_items['weapon'].damage = 
+                    player.equipped_items['weapon'].damage * self.damage_mult
+            end
+            item_data.destroy(self.id)
+        end,
+    sprite = image.patent_icon,
+}
+
+item_data['max_ammo_increase'] = 
+{
+    radius = 30,
+    ammo_increase = 100,
+    pick_up = function(self, owner)
+            if owner.equipped_items['weapon'].max_ammo then
+                player.equipped_items['weapon'].max_ammo = 
+                    player.equipped_items['weapon'].max_ammo + self.ammo_increase
+            end
+            item_data.destroy(self.id)
+        end,
+    sprite = image.patent_icon,
+}
+
+
 return item_data
