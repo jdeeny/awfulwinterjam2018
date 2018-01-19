@@ -85,7 +85,7 @@ enemy_data["rifledude"] =
 enemy_data["remotedude_red"] =
 {
   kind = "remotedude_red", name = "RC Mower",
-  sprite = "remotedude", death_sound = "snap",
+  sprite = "remotedude", death_sound = "crash",
   --animation = animation.remotedude_red_run_se,
   animations = { remotedude_red_run_ne = animation.remotedude_red_run_ne:clone(), remotedude_red_run_se = animation.remotedude_red_run_se:clone(), remotedude_red_run_nw = animation.remotedude_red_run_nw:clone(), remotedude_red_run_sw = animation.remotedude_red_run_sw:clone()},
   max_hp = 30,
@@ -99,7 +99,7 @@ enemy_data["remotedude_red"] =
 enemy_data["remotedude_blue"] =
 {
   kind = "remotedude_blue", name = "RC Mower",
-  sprite = "remotedude", death_sound = "snap",
+  sprite = "remotedude", death_sound = "crash",
   --animation = animation.remotedude_blue_run_se,
   animations = { remotedude_blue_run_ne = animation.remotedude_blue_run_ne:clone(), remotedude_blue_run_se = animation.remotedude_blue_run_se:clone(), remotedude_blue_run_nw = animation.remotedude_blue_run_nw:clone(), remotedude_blue_run_sw = animation.remotedude_blue_run_sw:clone(),},
   max_hp = 30,
@@ -113,7 +113,7 @@ enemy_data["remotedude_blue"] =
 enemy_data["remotedude_green"] =
 {
   kind = "remotedude_green", name = "RC Mower",
-  sprite = "remotedude", death_sound = "snap",
+  sprite = "remotedude", death_sound = "crash",
   --animation = animation.remotedude_green_run_se,
   animations = { remotedude_green_run_ne = animation.remotedude_green_run_ne:clone(), remotedude_green_run_se = animation.remotedude_green_run_se:clone(), remotedude_green_run_nw = animation.remotedude_green_run_nw:clone(), remotedude_green_run_sw = animation.remotedude_green_run_sw:clone(),},
   max_hp = 30,

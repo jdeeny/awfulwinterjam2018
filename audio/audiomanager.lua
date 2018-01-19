@@ -20,7 +20,8 @@ local AudioManager = class("AudioManager")
     self.sources['tesla_hum1'] = PooledSource:new(
       "assets/sfx/362975__follytowers__big-tesla-coil-sound-cut.wav")
     self.sources['spark'] = PooledSource:new("assets/sfx/94132__bmaczero__spark.wav")
-  
+    self.sources['crash'] = PooledSource:new("assets/sfx/crash.ogg")
+
     -- Music is probably better to stream.  Only one music track is playable at a time.
     self.music_tracks['figleaf'] = love.audio.newSource(
       "assets/music/Fig Leaf Times Two.ogg", "stream")
@@ -45,7 +46,7 @@ local AudioManager = class("AudioManager")
       end
     end
   end
-  
+
   function AudioManager:setMasterVolume(volume)
     love.audio.setVolume(volume)
   end
@@ -55,7 +56,7 @@ local AudioManager = class("AudioManager")
   end
 
   function AudioManager:addEffect(path, name)
-    self.sources[name] = PooledSource:new(path)  
+    self.sources[name] = PooledSource:new(path)
   end
 
   function AudioManager:playOnce(name)
@@ -84,7 +85,7 @@ local AudioManager = class("AudioManager")
 --      if self.looped[id].name then
 end]]
   end
-  
+
   -- Plays music (only track at a time). Volume is 0-1, offset is in seconds
   function AudioManager:playMusic(name, volume, offset)
     local vol = volume or 1.0
@@ -94,9 +95,9 @@ end]]
       end
         self.music = self.music_tracks[name]
     self.music:setVolume(vol)
-    
+
     love.audio.play(self.music)
-    
+
     -- seeking must be done after music starts
     if offset then
       self.music:seek(offset)
@@ -105,12 +106,12 @@ end]]
         print("Tried to play music track  \'" .. name .. "\' but it doesn't exist.")
       end
   end
-  
+
   function AudioManager:stopMusic()
     if self.music then
       love.audio.stop(self.music)
       self.music = nil
     end
   end
-  
+
 return AudioManager
