@@ -29,6 +29,19 @@ function Tile:setDestroyable(kind, into, hp)
   return self
 end
 
+function Tile:takeDamage(dmg)
+  if self.destroyable then
+    self.hp = cpml.utils.clamp(self.hp - dmg, self.hp - dmg, self.maxhp)
+    if self.hp <= 0 then
+      -- launch explosion
+      ExplosionParticles:new(self.x * TILESIZE + 32, self.y * TILESIZE + 32, 2, 2, .2, 1.0)
+      -- replace self
+      current_level:addTile(nil, self.x, self.y, current_level.tileset[self.destroyed_version])
+    end
+  end
+end
+
+
 function Tile:setSmoke(hp)
   self.smokepoint = hp
   return self
@@ -39,19 +52,8 @@ function Tile:setLayer(l)
   return self
 end
 
-function Tile:takeDamage(dmg)
-  if self.destroyable then
-    self.hp = cpml.utils.clamp(self.hp - dmg, self.hp - dmg, self.maxhp)
-    if self.hp <= 0 then
-
-      -- launch explosion
-      --current_level:addTile(nil, self.loc.x, self.loc.y, current_level.tileset[self.destroyed_version])
-    end
-  end
-end
-
 function Tile:toEntity(x, y)
-  local e = Entity:new('sprite' .. self.id, self.id, (x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE, self.layer, image[self.sprite], 0, 1.0, 1.0, TILESIZE / 2, TILESIZE / 2)
+  local e = Entity:new(self, 'sprite' .. self.id, self.id, (x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE, self.layer, image[self.sprite], 0, 1.0, 1.0, TILESIZE / 2, TILESIZE / 2)
   return e
 end
 
