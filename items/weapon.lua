@@ -41,7 +41,7 @@ function Weapon:update(dt)
   -- Weapon.update(self, dt)
     if not self.is_firing then
       self.ammo = math.min(self.max_ammo, self.ammo+self.charge_rate*dt)
-    end  
+    end
 end
 
 function Weapon:fire()
@@ -51,7 +51,7 @@ function Weapon:fire()
       self.is_firing = true
       self.next_shot_time = game_time + self.firing_rate
       self.ammo = self.ammo - self.ammo_cost*self.firing_rate
-    else 
+    else
       self:release()
     end
   end
@@ -67,6 +67,7 @@ local ProjectileGun = class("ProjectileGun", Weapon)
 
 function ProjectileGun:initialize()
   Weapon.initialize(self)
+  self.name = 'ProjectileGun'
   self.shot_speed = 1200
   self.sound = "gunshot"
   self.icon = "gun_icon"
@@ -97,6 +98,7 @@ local LightningGun = class("LightningGun", Weapon)
 
 function LightningGun:initialize()
   Weapon.initialize(self)
+  self.name = 'LightningGun'
   self.range = 400
   self.firing_arc = math.pi/4
   self.bolts = {}
@@ -274,6 +276,7 @@ end
 function RayGun:initialize()
 
   Weapon.initialize(self)
+  self.name = 'RayGun'
   self.icon = "ray_icon"
   self.range = 4000
   self.firing_arc = math.pi/4
