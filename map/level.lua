@@ -186,7 +186,7 @@ function Level:coda()
 	  -- set iframes so player doesn't die before progressing?
 	  delay.start(1, function()
 	  gamestage.setup_next_stage()
-	  film.enter() 
+	  film.enter()
 	  end)
   end
   if self.exits.north then
@@ -302,8 +302,8 @@ local function iswater(kind)
 end
 
 function Level:updatewatertiles()
-  print("WATERE!!")
-  for tx = 1, self.width do
+  print("WATER!!")
+  --[[for tx = 1, self.width do
     for ty = 1, self.height do
       local waterstatus = self:northWater(tx,ty) * 8 + self:eastWater(tx,ty) * 4 + self:southWater(tx,ty) * 2 + self:westWater(tx,ty)
 
@@ -326,7 +326,8 @@ function Level:updatewatertiles()
       if wasterstatus == 0b1110 then Level:addTile(nil, tx, ty, tileset["water_allbutw1"]) end
       if wasterstatus == 0b1111 then Level:addTile(nil, tx, ty, tileset["water_singleisland1"]) end
     end
-  end
+  end]]
+  print("END OF WATER")
 end
 
 --[[function room:update()

@@ -51,7 +51,7 @@ function image.init()
   image.watermask = love.graphics.newImage("assets/tiles/water/watermask.jpg")
   image.watermask:setWrap('repeat', 'repeat')
   image.water = love.graphics.newImage("assets/tiles/water/waterbase.png")
-  --image.water_border = love.graphics.newImage("assets/tiles/water/waterborder.png")
+  image.water_border = love.graphics.newImage("assets/tiles/water/waterborder.png")
 
 
 image.water_surround1 = love.graphics.newImage("assets/tiles/water/4side1.png")
