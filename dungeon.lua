@@ -27,7 +27,6 @@ function dungeon:initialize(w,h,room_files,spawns)
 			end
 		end
 	end
-
 end
 
 function dungeon:move_to_room(rx, ry, from_dir)
@@ -50,6 +49,7 @@ function dungeon:move_to_room(rx, ry, from_dir)
   print("MOVE TO ROOM")
   current_level:updatewatertiles()
   print("MOVEDONE")
+
   current_level.exits = self:get_exits(rx, ry)
   current_level.kind = self:get_room_kind(rx,ry)
 
