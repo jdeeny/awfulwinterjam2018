@@ -38,14 +38,14 @@ function animation.init()
   animation.remotedude_green_idle = anim8.newAnimation(remotedude_grid(1,3), 0.5)
 
   local lump_grid = anim8.newGrid(64, 96, image.lumpgoon:getWidth(), image.lumpgoon:getHeight(), 0, 0, 0)
-  animation.lumpgoon_run_se = anim8.newAnimation(lump_grid('1-7',1), 0.4)
-  animation.lumpgoon_run_ne = anim8.newAnimation(lump_grid('1-7',2), 0.4)
-  animation.lumpgoon_run_sw = anim8.newAnimation(lump_grid('1-7',1), 0.4):flipH()
-  animation.lumpgoon_run_nw = anim8.newAnimation(lump_grid('1-7',2), 0.4):flipH()
-  animation.lumpgoon_idle_se = anim8.newAnimation(lump_grid('8-9',1), 0.6)
-  animation.lumpgoon_idle_ne = anim8.newAnimation(lump_grid('8-9',2), 0.6)
-  animation.lumpgoon_idle_sw = anim8.newAnimation(lump_grid('8-9',1), 0.6):flipH()
-  animation.lumpgoon_idle_nw = anim8.newAnimation(lump_grid('8-9',2), 0.6):flipH()
+  animation.lumpgoon_run_se = anim8.newAnimation(lump_grid('1-7',1), 0.8)
+  animation.lumpgoon_run_ne = anim8.newAnimation(lump_grid('1-7',2), 0.8)
+  animation.lumpgoon_run_sw = anim8.newAnimation(lump_grid('1-7',1), 0.8):flipH()
+  animation.lumpgoon_run_nw = anim8.newAnimation(lump_grid('1-7',2), 0.8):flipH()
+  animation.lumpgoon_idle_se = anim8.newAnimation(lump_grid('8-9',1), 0.8)
+  animation.lumpgoon_idle_ne = anim8.newAnimation(lump_grid('8-9',2), 0.8)
+  animation.lumpgoon_idle_sw = anim8.newAnimation(lump_grid('8-9',1), 0.8):flipH()
+  animation.lumpgoon_idle_nw = anim8.newAnimation(lump_grid('8-9',2), 0.8):flipH()
 end
 
 return animation

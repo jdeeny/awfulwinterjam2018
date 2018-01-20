@@ -71,7 +71,7 @@ enemy_data["lumpgoon"] =
   sprite = "lumpgoon", death_sound = "unh",
 --  animation = animation.gear_spin_ccw,
   animations = { lumpgoon_run_ne = animation.lumpgoon_run_ne:clone(), lumpgoon_run_se = animation.lumpgoon_run_se:clone(), lumpgoon_run_nw = animation.lumpgoon_run_nw:clone(), lumpgoon_run_sw = animation.lumpgoon_run_sw:clone(),},
-  max_hp = 30,
+  max_hp = 250,
   speed = 40,
   radius = 25,
   value = 1.5,
