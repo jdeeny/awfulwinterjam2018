@@ -18,6 +18,14 @@ stages[2] = {
 	film_music_start = 49,
 }
 
+-- Test stage, feel free to mess around with these values
+stages[3] = {
+	dungeon_x = 2,
+	dungeon_y = 2,
+	film_title = "Time\nto\nTest",
+	film_music = nil,
+	film_music_start = nil
+}
 gamestage.stages = stages
 gamestage.current_stage = 0
 
