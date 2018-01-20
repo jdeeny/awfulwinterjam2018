@@ -42,6 +42,7 @@ stages[3] = {
 	dungeon_h = 2,
 	room_files = {['start'] = {14}, ['boss'] = {14}, ['generic'] = {14}},  -- See file_io for room index
 }
+
 gamestage.stages = stages
 gamestage.current_stage = 0
 gamestage.upgrades = {}
