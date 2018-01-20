@@ -32,7 +32,7 @@ gamestage.stages = stages
 gamestage.current_stage = 0
 
 -- This just sets up the stage; it does not change the state
-function gamestage.setup_next(forced)
+function gamestage.setup_next_stage(forced)
 	local ns_number = forced or (gamestage.current_stage + 1)
 	
 	if ns_number > #(gamestage.stages)  then
@@ -53,7 +53,7 @@ function gamestage.setup_next(forced)
 	
 end
 
-function gamestage.advance()
+function gamestage.advance_to_play()
     game_time = 0
 
 	player.init()

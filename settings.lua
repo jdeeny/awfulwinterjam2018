@@ -1,8 +1,8 @@
 local default_settings = {
   volume = 100,   -- max
-  game_speed = 1,  -- medium
+  game_speed = 3,  -- medium
   start_stage = 1, -- first
-  max_unlocked_dungeon = 1,  -- just the first
+  max_unlocked_dungeon = 1,  -- just the first ### not implemented
   draw_crosshairs_always = false,
   gfx_mode = 'windowed',
   window_width =  window.w,

@@ -66,17 +66,7 @@ function dungeon:move_to_room(rx, ry, from_dir)
   spawner.wave_data.test()
 end
 
-function dungeon:setup_main()
-	-- DBG
-	for k,v in pairs(self.room_files) do
-		print(k, v)
-		for k2,v2 in pairs(v) do
-			print(k2,v2)
-		end  
-	end
-	-- DBG
-	
-  --local file_count = #(self.room_files)
+function dungeon:setup_main()	
   for rx = 1, self.width do
     for ry=1, self.height do
       if rx == 1 and ry == self.height then
