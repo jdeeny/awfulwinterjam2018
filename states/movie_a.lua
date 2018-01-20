@@ -18,11 +18,21 @@ function movie_a.enter()
 
   movie_a.dungeon = dungeon:new()
   movie_a.dungeon:init(1, 1, {['start'] = {3}}, nil)
-  current_dungeon:setup_main()
-
+  movie_a.dungeon:setup_main()
+  
   movie_a.dungeon:move_to_room(1,1,'west')
 
+  player.input_disabled = true
+
   state = STATE_MOVIE_A
+end
+
+function movie_a.exit()
+  gamestage.setup_next_stage(gamestage.current_level)
+  gamestage.advance_to_play()
+  audiomanager:stopMusic()
+  player.input_disabled = false
+  play.enter()
 end
 
 function movie_a._update_level(dt)
@@ -74,10 +84,7 @@ function movie_a.update(dt)
   end
 
   if leave_movie then
-    gamestage.setup_next_stage(gamestage.current_level)
-    gamestage.advance_to_play()
-    audiomanager:stopMusic()
-    play.enter()
+    movie_a.exit()
   else
     
   end

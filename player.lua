@@ -41,6 +41,8 @@ function player.init()
   player:equip('weapon', player.weapons[player.weapon])
   player.next_splash = game_time
   player.splash_delay = 0.12
+
+  player.input_disabled = false
 end
 
 function player.update(dt)
@@ -55,38 +57,41 @@ function player.update(dt)
     aim_y = 0
   end
 
-  if not player.dying then
-    -- rotate to direction we're aiming. if the mouse has moved, face the mouse
-    -- position, otherwise update the rotation from keyboard and gamepad
-    if aim_x ~= 0 or aim_y ~= 0 then
-      crosshairs.use_mouse = false
-      _, player.aim = cpml.vec2.to_polar(cpml.vec2.new(aim_x, aim_y)) -- joystick angle is new aim
-    elseif mousemoved then
-      crosshairs.use_mouse = true
-      mousemoved = false
+  -- the input gets disabled for movies
+  if not player.input_disabled then
+    if not player.dying then
+      -- rotate to direction we're aiming. if the mouse has moved, face the mouse
+      -- position, otherwise update the rotation from keyboard and gamepad
+      if aim_x ~= 0 or aim_y ~= 0 then
+        crosshairs.use_mouse = false
+        _, player.aim = cpml.vec2.to_polar(cpml.vec2.new(aim_x, aim_y)) -- joystick angle is new aim
+      elseif mousemoved then
+        crosshairs.use_mouse = true
+        mousemoved = false
 
-      mx, my = love.mouse.getPosition()
-      pvec = cpml.vec2.new(player.x-camera.x, player.y-camera.y)
-      mvec = cpml.vec2.new(mx, my)
-      _, player.aim = cpml.vec2.to_polar(mvec-pvec) -- angle to mouse pos. is new aim
-    end
-  end
-
-  -- fire weapon (or not)
-  if player.equipped_items['weapon'] then
-    -- update all weapons
-    for _, w in ipairs(player.weapons) do
-      w:update(dt)
+        mx, my = love.mouse.getPosition()
+        pvec = cpml.vec2.new(player.x-camera.x, player.y-camera.y)
+        mvec = cpml.vec2.new(mx, my)
+        _, player.aim = cpml.vec2.to_polar(mvec-pvec) -- angle to mouse pos. is new aim
+      end
     end
 
-    if player_input:pressed('swap') then
-      player.weapon_switch()
-    end
+    -- fire weapon (or not)
+    if player.equipped_items['weapon'] then
+      -- update all weapons
+      for _, w in ipairs(player.weapons) do
+        w:update(dt)
+      end
 
-    if (aim_x ~= 0 or aim_y ~= 0 or player_input:down('fire')) and not player.stun and not player.force_move and not player.dying then
-      player.equipped_items['weapon']:fire()
-    else
-      player.equipped_items['weapon']:release()
+      if player_input:pressed('swap') then
+        player.weapon_switch()
+      end
+
+      if (aim_x ~= 0 or aim_y ~= 0 or player_input:down('fire')) and not player.stun and not player.force_move and not player.dying then
+        player.equipped_items['weapon']:fire()
+      else
+        player.equipped_items['weapon']:release()
+      end
     end
   end
 
@@ -125,13 +130,15 @@ end
 function player.update_move_controls()
   local move_x, move_y = player_input:get('move')
 
-  player.dx = move_x > DEADBAND and player.speed or move_x < -DEADBAND and -player.speed or 0
-  player.dy = move_y > DEADBAND and player.speed or move_y < -DEADBAND and -player.speed or 0
+  if not player.input_disabled then
+    player.dx = move_x > DEADBAND and player.speed or move_x < -DEADBAND and -player.speed or 0
+    player.dy = move_y > DEADBAND and player.speed or move_y < -DEADBAND and -player.speed or 0
 
-  if math.abs(player.dx) >= 0.01 and math.abs(player.dy) >= 0.01 then
-    -- 1/sqrt(2)
-    player.dx = player.dx * 0.7071
-    player.dy = player.dy * 0.7071
+    if math.abs(player.dx) >= 0.01 and math.abs(player.dy) >= 0.01 then
+      -- 1/sqrt(2)
+      player.dx = player.dx * 0.7071
+      player.dy = player.dy * 0.7071
+    end
   end
 end
 
