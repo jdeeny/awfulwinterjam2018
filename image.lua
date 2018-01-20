@@ -3,6 +3,7 @@ local image = {}
 function image.init()
   image.dude = love.graphics.newImage("assets/sprites/dude.png")
   image.gear = love.graphics.newImage("assets/sprites/gear.png")
+  image.lumpgoon = love.graphics.newImage("assets/sprites/goon_sprite_sheet.png")
 
   image.sight_bullet_dot = love.graphics.newImage("assets/crosshairs/sight_bullet_dot.png")
   image.sight_bullet_line = love.graphics.newImage("assets/crosshairs/sight_bullet_line.png")

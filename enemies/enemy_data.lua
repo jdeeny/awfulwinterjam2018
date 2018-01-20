@@ -16,8 +16,15 @@ function enemy_data.spawn(kind, x, y)
   for i, v in pairs(enemy_data[kind]) do
     e[i] = v
   end
+
+  -- Clone animations if present, otherwise all enemies of that type will share timing data
   if e.animation then
     e.animation = e.animation:clone()
+  end
+  if e.animations then
+    for _, a in ipairs(e.animations) do
+      a = a:clone()
+    end
   end
 
   local personality = personalities[e.personality] or personalities['Wanderer']
@@ -58,16 +65,17 @@ enemy_data["schmuck"] =
                 {chance=0.25,item="health_pack"},},
 }
 
-enemy_data["fodder"] =
+enemy_data["lumpgoon"] =
 {
-  kind = "fodder", name = "Test Fodder",
-  sprite = "gear", death_sound = "snap",
-  animation = animation.gear_spin_ccw,
+  kind = "lumpgoon", name = "Lump Goon",
+  sprite = "lumpgoon", death_sound = "unh",
+--  animation = animation.gear_spin_ccw,
+  animations = { lumpgoon_run_ne = animation.lumpgoon_run_ne:clone(), lumpgoon_run_se = animation.lumpgoon_run_se:clone(), lumpgoon_run_nw = animation.lumpgoon_run_nw:clone(), lumpgoon_run_sw = animation.lumpgoon_run_sw:clone(),},
   max_hp = 30,
-  speed = 50,
-  radius = 15,
-  value = 0.5,
-  touch_damage = 10,
+  speed = 40,
+  radius = 25,
+  value = 1.5,
+  touch_damage = 20,
   personality = 'Seeker',
   drop_items = {{chance=0.05,item="max_ammo_increase"},
                 {chance=0.05,item="max_health_increase"},
