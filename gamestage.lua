@@ -4,9 +4,8 @@ local stages = {}
 
 stages[1] = {
 	-- Movie/cutscene settings
-	film_title = "Tesla\nArrives\nin America",
-	film_music = "figleaf",
-	film_music_start = 27,
+    intro_movie = movie_a,
+    outro_movie = nil,
 	
 	-- Rooms/dungeon
 	dungeon_x = 3,
@@ -22,9 +21,8 @@ stages[1] = {
 
 stages[2] = {
 	-- Movie/cutscene settings
-	film_title = "Edison\nHires\nTesla",
-	film_music = "figleaf",
-	film_music_start = 49,
+    intro_movie = movie_a,
+    outro_movie = nil,
 	
 	-- Rooms/dungeon
 	dungeon_x = 5,
@@ -36,9 +34,8 @@ stages[2] = {
 -- Test stage, feel free to mess around with these values
 stages[3] = {
 	-- Movie/cutscene settings
-	film_title = "Time\nto\nTest",
-	film_music = nil,
-	film_music_start = nil,
+    intro_movie = movie_a,
+    outro_movie = nil,
 	
 	-- Rooms/dungeon
 	dungeon_x = 2,
@@ -61,10 +58,7 @@ function gamestage.setup_next_stage(forced)
 	
 	local next_stage = gamestage.stages[gamestage.current_stage]
 	
-	film.set_title(next_stage.film_title)
-	film.set_music(next_stage.film_music, next_stage.film_music_start)
-	
-    current_dungeon = dungeon:new()
+	current_dungeon = dungeon:new()
     current_dungeon:init(next_stage.dungeon_x, next_stage.dungeon_y, next_stage.room_files, next_stage.spawns)
     current_dungeon:setup_main()
 	
@@ -80,6 +74,7 @@ function gamestage.advance_to_play()
     shots = nil
     doodads = nil
     sparks = nil
+    items = nil
 
     pathfinder.rebuild_time = 0
 

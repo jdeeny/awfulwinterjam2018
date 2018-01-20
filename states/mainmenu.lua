@@ -23,7 +23,7 @@ function mainmenu.update(dt)
 	player_input:update()
 
 	if player_input:pressed('fire') or player_input:pressed('sel') then
-    	film.enter()
+    	movie_a.enter()
 	elseif player_input:pressed('back') then
 		options.enter()
 	elseif player_input:pressed('quit') then
