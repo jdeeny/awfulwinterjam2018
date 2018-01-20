@@ -75,6 +75,8 @@ function Tile:takeDamage(dmg)
       spark_data.spawn("explosion", {r=255, g=230, b=100},
         self.x * TILESIZE + 32, self.y * TILESIZE + 32, 0, 0)
 
+      camera.shake(12, 0.6)
+
       -- replace self
       current_level:addTile(nil, self.x, self.y, current_level.tileset[self.destroyed_version])
     end
