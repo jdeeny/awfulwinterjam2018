@@ -77,7 +77,7 @@ end
 
 function ProjectileGun:_fire(targets)
   angle = self.owner.aim + (love.math.random() - 0.5) * 0.4 * self.cof_multiplier
-  self.next_shot_time = shot_data.spawn(self.projectile, self.owner.x, self.owner.y,
+  self.next_shot_time = shot_data.spawn(self.projectile, self.owner.x + 48 * math.cos(angle), self.owner.y + 48 * math.sin(angle),
       math.cos(angle)*(self.owner.shot_speed or self.shot_speed),
       math.sin(angle)*(self.owner.shot_speed or self.shot_speed), self.owner)
   audiomanager:playOnce(self.sound)
@@ -91,6 +91,19 @@ end
 function ProjectileGun:release()
   Weapon.release(self)
   self.cof_multiplier = 0
+end
+
+function ProjectileGun:draw()
+  local aim = self.owner.aim or 0
+  if math.cos(aim) < 0 then --left
+    love.graphics.draw(image['tesla_arm_gun'],
+      self.owner.x - camera.x + 8 * math.cos(aim), self.owner.y - camera.y + 8 * math.sin(aim),
+      aim, 1, -1, 64, 32)
+  else --right
+    love.graphics.draw(image['tesla_arm_gun'],
+      self.owner.x - camera.x + 8 * math.cos(aim), self.owner.y - camera.y + 8 * math.sin(aim),
+      aim, 1, 1, 64, 32)
+  end
 end
 
 -------------------------------------------------------------------------------
@@ -252,6 +265,17 @@ end
 
 
 function LightningGun:draw()
+  local aim = self.owner.aim or 0
+  if math.cos(aim) < 0 then --left
+    love.graphics.draw(image['tesla_arm_lightning'],
+      self.owner.x - camera.x + 8 * math.cos(aim), self.owner.y - camera.y + 8 * math.sin(aim),
+      aim, 1, -1, 64, 32)
+  else --right
+    love.graphics.draw(image['tesla_arm_lightning'],
+      self.owner.x - camera.x + 8 * math.cos(aim), self.owner.y - camera.y + 8 * math.sin(aim),
+      aim, 1, 1, 64, 32)
+  end
+
   if self.bolts then
     local drawn = false
     for _, b in pairs(self.bolts) do
@@ -336,7 +360,7 @@ function RayGun:update(dt)
     -- now look for enemies to hurt
     local sparked = false
     for _,z in pairs(enemies) do
-      a = self.angle - math.atan2(z.y - self.owner.y, z.x - self.owner.x)
+      a = self.angle - math.atan2(z.y - (self.owner.y + 48 * math.sin(self.angle)), z.x - self.owner.x + 48 * math.cos(self.angle))
 
       if (a > math.pi) then
         a = a - math.pi * 2
@@ -367,6 +391,16 @@ end
 
 
 function RayGun:draw()
+  local aim = (not self.is_firing and self.owner.aim) or self.angle or 0
+  if math.cos(aim) < 0 then --left
+    love.graphics.draw(image['tesla_arm_ray'],
+      self.owner.x - camera.x + 8 * math.cos(aim), self.owner.y - camera.y + 8 * math.sin(aim),
+      aim, 1, -1, 64, 32)
+  else --right
+    love.graphics.draw(image['tesla_arm_ray'],
+      self.owner.x - camera.x + 8 * math.cos(aim), self.owner.y - camera.y + 8 * math.sin(aim),
+      aim, 1, 1, 64, 32)
+  end
 
   if self.fired_at and self.diameter then
     local dx = self.range*math.cos(self.diameter)
@@ -402,7 +436,7 @@ function RayGun:draw()
     ray_effect(function()
       love.graphics.setBlendMode('alpha','premultiplied')
       love.graphics.draw(self.canvas,
-        camera.view_x(self.owner), camera.view_y(self.owner),
+        camera.view_x(self.owner) + 48 * math.cos(self.angle), camera.view_y(self.owner) + 48 * math.sin(self.angle),
         self.angle, 1, 1, 0, y_offset)
     end)
 

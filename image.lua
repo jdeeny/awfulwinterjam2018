@@ -31,6 +31,11 @@ function image.init()
 
   image.tesla = love.graphics.newImage("assets/sprites/tesla_sprite_sheet.png")
 
+  image.tesla_arm_wrench = love.graphics.newImage("assets/sprites/tesla_arm_wrench.png")
+  image.tesla_arm_gun = love.graphics.newImage("assets/sprites/tesla_arm_gun.png")
+  image.tesla_arm_ray = love.graphics.newImage("assets/sprites/tesla_arm_ray.png")
+  image.tesla_arm_lightning = love.graphics.newImage("assets/sprites/tesla_arm_lightning.png")
+
   image.intro = love.graphics.newImage("assets/fullscreen/silentFilmBack_template.png")
 
   image.gun_icon = love.graphics.newImage("assets/icons/gun.png")
