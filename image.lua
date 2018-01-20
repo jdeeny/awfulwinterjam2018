@@ -28,6 +28,8 @@ function image.init()
   image.spark_blue = love.graphics.newImage("assets/sprites/spark_blue.png")
   image.spark_big_blue = love.graphics.newImage("assets/sprites/spark_big_blue.png")
   image.pow = love.graphics.newImage("assets/sprites/pow.png")
+  image.shard = love.graphics.newImage("assets/sprites/shard.png")
+  image.explosion = love.graphics.newImage("assets/sprites/explosion.png")
 
   image.tesla = love.graphics.newImage("assets/sprites/tesla_sprite_sheet.png")
 

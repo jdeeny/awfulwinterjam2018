@@ -7,8 +7,8 @@ function spark_data.spawn(class, color, x, y, dx, dy, r, sx, sy)
   sparks[new_id].color = color
   sparks[new_id].x = x
   sparks[new_id].y = y
-  sparks[new_id].dx = dx
-  sparks[new_id].dy = dy
+  sparks[new_id].dx = dx or 0
+  sparks[new_id].dy = dy or 0
   sparks[new_id].birth_time = game_time
   sparks[new_id].r = r or 0
   sparks[new_id].sx = sx or 1
@@ -79,6 +79,26 @@ spark_data["pow"] =
   duration = 0.2,
   sprite_hwidth = 64,
   sprite_hheight = 64,
+}
+
+spark_data["shard"] =
+{
+  class = "shard",
+  sprite = "shard",
+  animation = animation.shard,
+  duration = 0.4,
+  sprite_hwidth = 32,
+  sprite_hheight = 8,
+}
+
+spark_data["explosion"] =
+{
+  class = "explosion",
+  sprite = "explosion",
+  animation = animation.explosion,
+  duration = 0.36,
+  sprite_hwidth = 128,
+  sprite_hheight = 128,
 }
 
 return spark_data

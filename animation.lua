@@ -17,6 +17,12 @@ function animation.init()
   local pow_grid = anim8.newGrid(128, 128, image.pow:getWidth(), image.pow:getHeight(), 0, 0, 0)
   animation.pow = anim8.newAnimation(pow_grid('1-4',1), 0.05)
 
+  local shard_grid = anim8.newGrid(64, 16, image.shard:getWidth(), image.shard:getHeight(), 0, 0, 0)
+  animation.shard = anim8.newAnimation(shard_grid('1-4',1), 0.1)
+
+  local explosion_grid = anim8.newGrid(256, 256, image.explosion:getWidth(), image.explosion:getHeight(), 0, 0, 0)
+  animation.explosion = anim8.newAnimation(explosion_grid('1-6',1), 0.06)
+
   local remotedude_grid = anim8.newGrid(64, 64, image.remotedude:getWidth(), image.remotedude:getHeight(), 0, 0, 0)
   animation.remotedude_red_run_se = anim8.newAnimation(remotedude_grid('1-1',1,'2-2',1), {0.5, 0.2})
   animation.remotedude_red_run_ne = anim8.newAnimation(remotedude_grid('3-3',1,'4-4',1), {0.5, 0.2})
