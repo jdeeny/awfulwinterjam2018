@@ -14,12 +14,10 @@ stages[1] = {
 	
 	-- This is optional; any blank entry will select from all available files
 	room_files = {['start'] = {3}, ['boss'] = {8}, ['generic'] = {1,2,3,4,5}},  -- See file_io for room index
-	spawns = {'ez_lvl'}
+	spawns = {['start'] = {'ez_lvl'}, ['boss'] = {'ez_lvl'}, ['generic'] = {'ez_lvl'}},  -- See spawner for spawn names
 	
 	-- Other things that'd be good to put in here:
-	--  * enemy waves (maybe based on room kind), or just enemy types
 	--  * tilesets (if they can change)
-	--  * who the boss is (not Tony Danza)
 }
 
 stages[2] = {
@@ -31,6 +29,7 @@ stages[2] = {
 	-- Rooms/dungeon
 	dungeon_x = 5,
 	dungeon_y = 4,
+	spawns = {['start'] = {'ez_lvl'}, ['boss'] = {'ez_lvl'}, ['generic'] = {'ez_lvl'}},
 	
 }
 

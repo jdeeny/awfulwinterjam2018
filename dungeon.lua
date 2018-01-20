@@ -6,6 +6,7 @@ function dungeon:init(w,h,room_files,spawns)
 	grid:init(w,h)
 	
 	self.room_files = {}
+	self.spawns = {}
 	-- fill in any empty sections
 	for k,t in pairs(room_kinds) do
 		if room_files and room_files[t] then
@@ -16,18 +17,17 @@ function dungeon:init(w,h,room_files,spawns)
 				table.insert(self.room_files[t], i)
 			end
 		end
-	end
-	
-	if spawns then
-		self.spawns = spawns
-	else
-		local n = 1
-		self.spawns = {}
-		for k in pairs(spawner.wave_data) do
-			self.spawns[n] = k
-			n = n + 1
+		
+		if spawns and spawns[t] then
+			self.spawns[t] = spawns[t]
+		else
+			self.spawns[t] = {}
+			for k,v in pairs(spawner.wave_data) do
+				table.insert(self.spawns[t],k)
+			end
 		end
 	end
+	
 end
 	
 
@@ -73,8 +73,14 @@ function dungeon:move_to_room(rx, ry, from_dir)
 
   camera.recenter()
 
-  local selected_wave = self.spawns[love.math.random(#(self.spawns))]
-  print("wave", selected_wave) -- DBG
+
+  local spawn_set = self.spawns[self:get_room_kind(rx, ry)]
+  -- DBG
+  for k,v in pairs(spawn_set) do
+	  print("spawns",k,v) 
+  end
+  -- DBG
+  local selected_wave = spawn_set[love.math.random(#(spawn_set))] -- random pick from list
   spawner.wave_data[selected_wave]()
 end
 
