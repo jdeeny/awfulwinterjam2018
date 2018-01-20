@@ -58,7 +58,9 @@ function mob:update_position(dt)
     else
       -- now we can actually -choose- where to go
       self:update_move_controls()
-			if self.speed_limit then self.dx, self.dy = self.dx * self.speed_limit, self.dy * self.speed_limit end
+
+			self.dx, self.dy = self.dx * (self.speed_limit or 1.0), self.dy * (self.speed_limit or 1.0) end
+			
       if math.abs(self.dx) >= 0.01 or math.abs(self.dy) >= 0.01 then
         if self.dy >= 0.01 then
           self.facing_north = false
