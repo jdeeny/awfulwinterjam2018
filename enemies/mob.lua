@@ -57,7 +57,7 @@ function mob:update_position(dt)
       self.animation_state = 'idle'
     else
       -- now we can actually -choose- where to go
-      self:update_move_controls()
+      self:update_move_controls(dt)
 
 			self.dx, self.dy = self.dx * (self.speed_limit or 1.0), self.dy * (self.speed_limit or 1.0)
 

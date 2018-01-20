@@ -27,7 +27,7 @@ function enemy_data.spawn(kind, x, y)
     end
   end
 
-  local personality = personalities[e.personality] or personalities['Wanderer']
+  local personality = personalities[e.personality] or personalities['Seeker']
   e.ai = personality:new(e)
 
   if e.weapon_type then
@@ -58,7 +58,7 @@ enemy_data["schmuck"] =
   value = 1,
   bleeds = 1,
   touch_damage = 10,
-  personality = 'Wanderer',
+  personality = 'Seeker',
   drop_items = {{chance=0.05,item="max_ammo_increase"},
                 {chance=0.05,item="max_health_increase"},
                 {chance=0.05,item="damage_mult"},
@@ -124,6 +124,8 @@ enemy_data["remotedude_red"] =
   next_splash = game_time,
   splash_delay = 0.2,
   splash_force = 15,
+  cornering = 0.1,
+  rotspeed = 1,
   personality = 'Remotedude',
 }
 
@@ -141,6 +143,8 @@ enemy_data["remotedude_blue"] =
   next_splash = game_time,
   splash_delay = 0.2,
   splash_force = 15,
+  cornering = 0.1,
+  rotspeed = 1,
   personality = 'Remotedude',
 }
 
@@ -158,6 +162,8 @@ enemy_data["remotedude_green"] =
   next_splash = game_time,
   splash_delay = 0.2,
   splash_force = 15,
+  cornering = 0.1,
+  rotspeed = 1,
   personality = 'Remotedude',
 }
 

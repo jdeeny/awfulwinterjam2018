@@ -6,7 +6,7 @@ function enemy:update(dt)
   self:update_animation(dt)
 end
 
-function enemy:update_move_controls()
+function enemy:update_move_controls(dt)
 --[[  if not self.dx or game_time >= self.wake_time then
     angle = math.atan2(player.y - self.y, player.x - self.x)
 
