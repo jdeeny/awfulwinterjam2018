@@ -184,16 +184,9 @@ function Level:coda()
   if self.kind == "boss" then
 	  fade.start_fade("fadeout", 1, false)
 	  -- set iframes so player doesn't die before progressing?
-<<<<<<< HEAD
 	  delay.start(1, function()
-		  --dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
-		  gamestage.setup_next()
-		  film.enter()
-=======
-	  delay.start(1, function()  
-		  gamestage.setup_next_stage()
-		  film.enter() 
->>>>>>> master
+	  gamestage.setup_next_stage()
+	  film.enter() 
 	  end)
   end
   if self.exits.north then
