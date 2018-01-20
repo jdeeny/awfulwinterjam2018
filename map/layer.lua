@@ -1,7 +1,7 @@
 local Layer = class("Layer")
 
-Layer.WATER = 1
-Layer.FLOOR = 2
+Layer.FLOOR = 1
+Layer.WATER = 2
 Layer.BLOOD = 3
 Layer.BODIES = 4
 Layer.FURNITURE = 5

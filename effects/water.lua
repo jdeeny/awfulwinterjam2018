@@ -5,38 +5,41 @@ Water.waterbase = image["water"]
 
 Water.moonwater = function()
   local shader = love.graphics.newShader[[
-    extern Image watermask;
+    extern Image waterbase;
+    extern Image watershape;
     extern float time;
     extern vec2 mapoffset;
     vec4 effect(vec4 color, Image texture, vec2 tc, vec2 sc) {
 
       float timex = time * 3;
+      vec2 mapc = ((sc.xy + mapoffset) / love_ScreenSize.xy) * 8;
 
-      vec2 mapc = (sc.xy + mapoffset) / love_ScreenSize.xy;
+      float x = ( sin( timex + 25 * mapc.x + 30 * mapc.y) + sin(-timex + 20 * mapc.x + 35 * mapc.y + 1) ) / 2;
+      float y = ( sin( timex + 25 * mapc.x + 30 * mapc.y) + sin(-timex + 16 * mapc.x + 3 * mapc.y + 1.5) ) / 2;
 
-       float x = ( sin( timex + 25 * mapc.x + 30 * mapc.y)
-                 + sin(-timex + 20 * mapc.x + 35 * mapc.y + 1)
-                 ) / 2;
-       float y = ( sin( timex + 25 * mapc.x + 30 * mapc.y)
-                 + sin(-timex + 16 * mapc.x + 3 * mapc.y + 1.5)
-                 ) / 2;
+      vec2 off = vec2(x,y) * 0.08 + 1;
+      vec2 wc  = (mapc + 0.15 * off);
 
-       vec2 off = vec2(x,y) * 0.08 + 1;
-       vec2 wc  = 3 * (mapc + 0.15 * off);
+      wc = mapc*wc * 3;
 
-       wc = wc * 3;
+      vec4 light = Texel(watershape, wc);
+      vec4 dark  = Texel(watershape, wc + 0.3);
+      vec4 shape = mix(mix(color, color * 0.9, dark), color * 2.2, light);
 
-       vec4 light = Texel(watermask, wc);
-       vec4 dark  = Texel(watermask, wc + 0.3);
-       vec4 base = Texel(texture, tc);
-       vec4 mask = mix(mix(color, color * 0.9, dark), color * 2.2, light);
-       return base * mask;
-    }]]
+      float m = Texel(texture, tc).r;
+      vec4 base = Texel(waterbase, mapc);
+      vec4 final = vec4(base.r*m, base.g*m, base.b*m, 1.0) * shape;
+      return final;//base * m;// * shape * mask ;
+    }
+  ]]
 
   local setters = {}
 
-  setters.watermask = function(v)
-    shader:send("watermask", v)
+  setters.waterbase = function(v)
+    shader:send("waterbase", v)
+  end
+  setters.watershape = function(v)
+    shader:send("watershape", v)
   end
   setters.time = function(v)
     shader:send("time", v)
@@ -45,11 +48,11 @@ Water.moonwater = function()
     shader:send("mapoffset", v)
   end
 
-  return moonshine.Effect{
+  return moonshine.Effect {
     name = "moonwater",
     shader = shader,
     setters = setters,
-    defaults = { watermask = image.watermask, time = 0.0, mapoffset = {0,0} },
+    defaults = { waterbase = image.water, mapoffset = {0,0}, watershape = image.watermask, time = 0.0 },
   }
 end
 

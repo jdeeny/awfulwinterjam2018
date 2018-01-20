@@ -48,9 +48,10 @@ function image.init()
   image.point = love.graphics.newImage("assets/icons/point.png")
   image.point_yellow = love.graphics.newImage("assets/icons/point_yellow.png")
 
-  image.watermask = love.graphics.newImage("assets/tiles/water/watermask.jpg")
-  image.watermask:setWrap('repeat', 'repeat')
+  image.watershape = love.graphics.newImage("assets/tiles/water/watermask.jpg")
+  image.watershape:setWrap('repeat', 'repeat')
   image.water = love.graphics.newImage("assets/tiles/water/waterbase.png")
+  image.water:setWrap('repeat', 'repeat')
   image.water_border = love.graphics.newImage("assets/tiles/water/waterborder.png")
 
 

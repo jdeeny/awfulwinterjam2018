@@ -3,6 +3,7 @@ local dungeon = class("dungeon", grid)
 local room_kinds = {'start','boss','generic'}
 
 function dungeon:init(w,h,room_files,spawns)
+	print("INIT END")
 	grid:init(w,h)
 
 	self.room_files = {}
@@ -28,6 +29,7 @@ function dungeon:init(w,h,room_files,spawns)
 			n = n + 1
 		end
 	end
+	print("INIT END")
 end
 
 
@@ -45,6 +47,7 @@ function dungeon:move_to_room(rx, ry, from_dir)
   local room_set = self.room_files[self:get_room_kind(rx, ry)]
   local room_index = self[rx][ry].file
 
+	print("BEFORE PARSE")
   current_level = file_io.parse_room_file(14)--current_dungeon[rx][ry].file)
   print("MOVE TO ROOM")
   current_level:updatewatertiles()

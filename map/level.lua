@@ -100,9 +100,9 @@ function Level:addTile(id, x, y, tile)
 
   local first = {}
   for i, t in ipairs(tile) do
-    print(i)
     local t = t()
     t.x, t.y = x, y
+    print("tile: "..t.kind)
     local e = t:toEntity(x, y)
     if i == 1 then first = e end
     self:_add(id, e)
@@ -303,30 +303,30 @@ end
 
 function Level:updatewatertiles()
   print("WATER!!")
-  --[[for tx = 1, self.width do
+  for tx = 1, self.width do
     for ty = 1, self.height do
       local waterstatus = self:northWater(tx,ty) * 8 + self:eastWater(tx,ty) * 4 + self:southWater(tx,ty) * 2 + self:westWater(tx,ty)
-
+      print("waterstatus: "..tx..","..ty.."  "..waterstatus)
       -- TODO: Account for corners
 
-      if wasterstatus == 0b0000 then Level:addTile(nil, tx, ty, tileset["water_surround1"]) end
-      if wasterstatus == 0b0001 then Level:addTile(nil, tx, ty, tileset["water_w1"]) end
-      if wasterstatus == 0b0010 then Level:addTile(nil, tx, ty, tileset["water_s1"]) end
-      if wasterstatus == 0b0011 then Level:addTile(nil, tx, ty, tileset["water_sw1"]) end
-      if wasterstatus == 0b0100 then Level:addTile(nil, tx, ty, tileset["water_e1"]) end
-      if wasterstatus == 0b0101 then Level:addTile(nil, tx, ty, tileset["water_ew1"]) end
-      if wasterstatus == 0b0110 then Level:addTile(nil, tx, ty, tileset["water_se1"]) end
-      if wasterstatus == 0b0111 then Level:addTile(nil, tx, ty, tileset["water_allbutn1"]) end
-      if wasterstatus == 0b1000 then Level:addTile(nil, tx, ty, tileset["water_n1"]) end
-      if wasterstatus == 0b1001 then Level:addTile(nil, tx, ty, tileset["water_nw1"]) end
-      if wasterstatus == 0b1010 then Level:addTile(nil, tx, ty, tileset["water_ns1"]) end
-      if wasterstatus == 0b1011 then Level:addTile(nil, tx, ty, tileset["water_allbute1"]) end
-      if wasterstatus == 0b1100 then Level:addTile(nil, tx, ty, tileset["water_ne1"]) end
-      if wasterstatus == 0b1101 then Level:addTile(nil, tx, ty, tileset["water_allbuts1"]) end
-      if wasterstatus == 0b1110 then Level:addTile(nil, tx, ty, tileset["water_allbutw1"]) end
-      if wasterstatus == 0b1111 then Level:addTile(nil, tx, ty, tileset["water_singleisland1"]) end
+      if waterstatus == 0 then self:addTile(nil, tx, ty, self.tileset["water_surround1"]) end
+      if waterstatus == 1 then self:addTile(nil, tx, ty, self.tileset["water_w1"]) end
+      if waterstatus == 2 then self:addTile(nil, tx, ty, self.tileset["water_s1"]) end
+      if waterstatus == 3 then self:addTile(nil, tx, ty, self.tileset["water_sw1"]) end
+      if waterstatus == 4 then self:addTile(nil, tx, ty, self.tileset["water_e1"]) end
+      if waterstatus == 5 then self:addTile(nil, tx, ty, self.tileset["water_ew1"]) end
+      if waterstatus == 6 then self:addTile(nil, tx, ty, self.tileset["water_se1"]) end
+      if waterstatus == 7 then self:addTile(nil, tx, ty, self.tileset["water_allbutn1"]) end
+      if waterstatus == 8 then self:addTile(nil, tx, ty, self.tileset["water_n1"]) end
+      if waterstatus == 9 then self:addTile(nil, tx, ty, self.tileset["water_nw1"]) end
+      if waterstatus == 10 then self:addTile(nil, tx, ty, self.tileset["water_ns1"]) end
+      if waterstatus == 11 then self:addTile(nil, tx, ty, self.tileset["water_allbute1"]) end
+      if waterstatus == 12 then self:addTile(nil, tx, ty, self.tileset["water_ne1"]) end
+      if waterstatus == 13 then self:addTile(nil, tx, ty, self.tileset["water_allbuts1"]) end
+      if waterstatus == 14 then self:addTile(nil, tx, ty, self.tileset["water_allbutw1"]) end
+      if waterstatus == 15 then self:addTile(nil, tx, ty, self.tileset["water_singleisland1"]) end
     end
-  end]]
+  end
   print("END OF WATER")
 end
 

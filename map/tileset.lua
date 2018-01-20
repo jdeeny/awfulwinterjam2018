@@ -40,9 +40,9 @@ TileSet["water_se1"]           = { function() return Tile:new('water_se1'):setLa
                                   function() return Tile:new('floor') end, }
 TileSet["water_allbutn1"]      = { function() return Tile:new('water_allbutn1'):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
-TileSet["water_n1"]            = { function() return Tile:new('water_water_n1'):setLayer(Layer.WATER) end,
+TileSet["water_n1"]            = { function() return Tile:new('water_n1'):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
-TileSet["water_nw1"]           = { function() return Tile:new('water_water_nw1'):setLayer(Layer.WATER) end,
+TileSet["water_nw1"]           = { function() return Tile:new('water_nw1'):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
 TileSet["water_ns1"]           = { function() return Tile:new('water_ns1'):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
@@ -54,7 +54,7 @@ TileSet["water_allbuts1"]      = { function() return Tile:new('water_allbuts1'):
                                   function() return Tile:new('floor') end, }
 TileSet["water_allbutw1"]      = { function() return Tile:new('water_attbutw1'):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
-TileSet["water_singleisland1"] = { function() return Tile:new('water_island1'):setLayer(Layer.WATER) end,
+TileSet["water_island1"] = { function() return Tile:new('water_island1'):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
 
 
