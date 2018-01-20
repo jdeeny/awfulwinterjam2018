@@ -1,6 +1,10 @@
 local Seeker = class("Seeker", Ai)
 
 local PI = 3.14159
+function Seeker:initialize(entity)
+  Ai.initialize(self, entity)
+  self.israndom = 0.05
+end
 
 function Seeker:update(dt)
   Ai.update(self, dt) -- call superclass constructor
@@ -20,7 +24,7 @@ function Seeker:update(dt)
     self.entity.dx = math.cos(angle) * self.entity.speed
     self.entity.dy = math.sin(angle) * self.entity.speed
 
-    self.entity.wake_time = game_time + love.math.random() * 1
+    self.entity.wake_time = game_time + 0.05 + love.math.random() * 1
   end
 end
 
