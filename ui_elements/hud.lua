@@ -15,8 +15,7 @@ function hud.draw_arrows()
 
 	r,g,b,a = love.graphics.getColor()
 	love.graphics.setColor(r,g,b,hud.arrow_alpha)
-
-	-- draw all arrows
+	
 	local dir
 	local distance = math.max(100, math.min(window.w/2 - 100, window.h/2 - 100)) + 20 * math.cos(6.9813 * gui_time)
 	if hud.arrows['up'] then
@@ -43,11 +42,15 @@ function hud.draw_arrows()
 	love.graphics.setColor(r,g,b,a)
 end
 
--- loops from max to min, repeating (must be stopped elsewhere)
+-- loops from max to min, repeating unless arrows are not needed (can be stopped elsewhere)
 function hud.flash_arrows()
-	hud.arrow_tween = game_flux.to(hud, hud.pulse_time, {arrow_alpha = hud.arrow_alpha_max}):ease("backinout")
-	hud.arrow_tween:after(hud, hud.pulse_time, {arrow_alpha = hud.arrow_alpha_min})
-	hud.arrow_tween:oncomplete(hud.flash_arrows)
+	if next(hud.arrows) == nil then
+		return
+	else
+		hud.arrow_tween = game_flux.to(hud, hud.pulse_time, {arrow_alpha = hud.arrow_alpha_max}):ease("backinout")
+		hud.arrow_tween:after(hud, hud.pulse_time, {arrow_alpha = hud.arrow_alpha_min})
+		hud.arrow_tween:oncomplete(hud.flash_arrows)
+	end
 end
 
 
@@ -77,7 +80,7 @@ function hud.draw()
 	local iconSeparation = 20
 
 	-- draw arrows if room is unlocked
-	if current_level.cleared then
+	if current_level.cleared then --and current_level.kind ~= "boss" then
 		if next(hud.arrows) == nil then
 			-- not currently flashing
 			if current_level.exits.north then
@@ -92,15 +95,15 @@ function hud.draw()
 	else
 		if next(hud.arrows) then
 			hud.arrow_tween:stop() -- comment out if flash disabled
+			hud.arrows = {}
 		end
-		hud.arrows = {}
 	end
 
 	if next(hud.arrows) then
 		hud:draw_arrows()
 	end
 
-
+	
 
 	-- draw timer in upper right
 	love.graphics.setFont(hud.font)

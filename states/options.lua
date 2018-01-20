@@ -45,14 +45,14 @@ function options.update(dt)
 	if player_input:pressed('back') or player_input:pressed('quit') or player_input:pressed('pause') or 
 	   (options.selected == #(options.allowed) and (player_input:pressed('fire') or player_input:pressed('sel'))) then
 		   if (gamestage.current_stage ~= options.prior_stage) and (options.prior_state ~= STATE_PAUSE) then
-			   gamestage.setup_next(gamestage.current_stage)
+			   gamestage.setup_next_stage(gamestage.current_stage)
 			end    
 		gamestates[options.prior_state]:enter()
 	end
 end
 
-local line_ht = mainmenu.font:getHeight()
-local sep_ht = 15 -- Spacing for separation
+local line_ht = options.font:getHeight()
+local sep_ht = 20 -- Spacing for separation
 local all_opts_height = 0
 function options.draw()
 	--love.graphics.setShader(options.background_shader)

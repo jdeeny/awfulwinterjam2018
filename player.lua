@@ -206,6 +206,19 @@ function player.weapon_switch()
 end
 
 
+function player:restore()
+	-- End of level adjustments
+	self.hp = self.max_hp
+    self.dying = false
+    self.stun = nil
+    self.iframe_end_time = 0
+    self.next_shot_time = 0
+	
+    player.rot = 0
+    player.aim = player.rot
+end
+	
+
 function player.be_invincible(duration)
   player.iframe_end_time = game_time + duration
 end

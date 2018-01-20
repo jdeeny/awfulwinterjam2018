@@ -1,6 +1,37 @@
 local dungeon = class("dungeon", grid)
 
-function dungeon.move_to_room(rx, ry, from_dir)
+local room_kinds = {'start','boss','generic'}
+
+function dungeon:init(w,h,room_files,spawns)
+	grid:init(w,h)
+
+	self.room_files = {}
+	-- fill in any empty sections
+	for k,t in pairs(room_kinds) do
+		if room_files and room_files[t] then
+			self.room_files[t] = room_files[t]
+		else
+			self.room_files[t] = {}
+			for i in ipairs(file_io.room_files) do
+				table.insert(self.room_files[t], i)
+			end
+		end
+	end
+
+	if spawns then
+		self.spawns = spawns
+	else
+		local n = 1
+		self.spawns = {}
+		for k in pairs(spawner.wave_data) do
+			self.spawns[n] = k
+			n = n + 1
+		end
+	end
+end
+
+
+function dungeon:move_to_room(rx, ry, from_dir)
   -- unload current map, load new one, place player appropriately, setup fights i guess
   print("move_to_room")
   enemies = {}
@@ -10,6 +41,9 @@ function dungeon.move_to_room(rx, ry, from_dir)
   sparks = {}
   items = {}
   spawner.reset()
+
+  local room_set = self.room_files[self:get_room_kind(rx, ry)]
+  local room_index = self[rx][ry].file
 
   current_level = file_io.parse_room_file(current_dungeon[rx][ry].file)
   print("MOVE TO ROOM")
@@ -42,21 +76,22 @@ function dungeon.move_to_room(rx, ry, from_dir)
 
   camera.recenter()
 
-  spawner.wave_data.test()
+  local selected_wave = self.spawns[love.math.random(#(self.spawns))]
+  print("wave", selected_wave) -- DBG
+  spawner.wave_data[selected_wave]()
 end
 
 function dungeon:setup_main()
-  local file_count = #file_io.room_files
   for rx = 1, self.width do
     for ry=1, self.height do
       if rx == 1 and ry == self.height then
-        self[rx][ry] = {room_kind = "start", file = love.math.random(file_count)}
+        self[rx][ry] = {room_kind = "start", file = love.math.random(#(self.room_files['start'])) }
         self.start_x = rx
         self.start_y = ry
       elseif rx == self.width and ry == 1 then
-        self[rx][ry] = {room_kind = "boss", file = love.math.random(file_count)}
+        self[rx][ry] = {room_kind = "boss", file = love.math.random(#(self.room_files['boss'])) }
       else
-        self[rx][ry] = {room_kind = "generic", file = love.math.random(file_count)}
+        self[rx][ry] = {room_kind = "generic", file = love.math.random(#(self.room_files['generic'])) }
       end
     end
   end
