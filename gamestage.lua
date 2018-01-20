@@ -8,6 +8,7 @@ stages[1] = {
 	film_title = "Tesla\nArrives\nin America",
 	film_music = "figleaf",
 	film_music_start = 27,
+	room_files = {['start'] = {3}, ['boss'] = {8}, ['generic'] = {1,2,3,4,5}},  -- See file_io for room index
 }
 
 stages[2] = {
@@ -25,7 +26,7 @@ stages[3] = {
 	film_title = "Time\nto\nTest",
 	film_music = nil,
 	film_music_start = nil,
-	room_files = {1,3,5,9},  -- indexed rooms in file_io
+	--room_files = {['start'] = {3}, ['boss'] = {8}, ['generic'] = {1,2,3,4,5}},  -- See file_io for room index
 }
 gamestage.stages = stages
 gamestage.current_stage = 0
@@ -65,7 +66,7 @@ function gamestage.advance()
 
     pathfinder.rebuild_time = 0
 
-	dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
+	current_dungeon:move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
 
     player:start_force_move(9999, player.speed, 0)
 
