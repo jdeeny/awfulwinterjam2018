@@ -29,6 +29,7 @@ function love.load()
   love.mouse.setGrabbed(true)
 
   init_settings()
+  player.init()
   gamestage.setup_next_stage(gamestage.current_stage)
 
   splash.enter()

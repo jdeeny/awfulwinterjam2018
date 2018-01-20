@@ -2,7 +2,7 @@ local dungeon = class("dungeon", grid)
 
 local room_kinds = {'start','boss','generic'}
 
-function dungeon:init(w,h,room_files)
+function dungeon:init(w,h,room_files,spawns)
 	grid:init(w,h)
 	
 	self.room_files = {}
@@ -18,6 +18,17 @@ function dungeon:init(w,h,room_files)
 		end
 	end
 	
+	if spawns then
+		self.spawns = spawns
+	else
+		local n = 1
+		self.spawns = {}
+		for k in pairs(spawner.wavedata) do
+			self.spawns[n] = k
+			n = n + 1
+			print("spawn", k)
+		end
+	end
 end
 	
 
@@ -63,7 +74,9 @@ function dungeon:move_to_room(rx, ry, from_dir)
 
   camera.recenter()
 
-  spawner.wave_data.test()
+  local selected_wave = self.spawns[love.math.random(#(self.spawns))]
+  print("wave", selected_wave) -- DBG
+  spawner.wave_data[selected_wave]()
 end
 
 function dungeon:setup_main()	

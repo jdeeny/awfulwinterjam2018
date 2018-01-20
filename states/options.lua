@@ -52,7 +52,7 @@ function options.update(dt)
 end
 
 local line_ht = options.font:getHeight()
-local sep_ht = 18 -- Spacing for separation
+local sep_ht = 20 -- Spacing for separation
 local all_opts_height = 0
 function options.draw()
 	--love.graphics.setShader(options.background_shader)
