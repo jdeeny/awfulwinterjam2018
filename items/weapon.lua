@@ -312,6 +312,7 @@ function RayGun:initialize()
   self.sound = audiomanager.sources['buzz'].source
   self.sfx = nil
   self.spark_time = 0
+  window.addCallback(self:sizeupdate())
 end
 
 function RayGun:_fire(targets)
@@ -389,6 +390,9 @@ function RayGun:update(dt)
   end
 end
 
+function RayGun:sizeupdate()
+  self.canvas = love.graphics.newCanvas()
+end
 
 function RayGun:draw()
   local aim = (not self.is_firing and self.owner.aim) or self.angle or 0

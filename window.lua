@@ -1,34 +1,43 @@
 window = {}
---window.callbacks = {}
+window.callbacks = {}
 
 local dw = 12   --desired width / height
 local dh = 9
 
+window.s = 1.0
 
-function window.update()
-  window.w = love.graphics.getWidth()
-  window.h = love.graphics.getHeight()
+function window.update(w, h)
+  window.realw, window.realh = love.graphics.getWidth(), love.graphics.getHeight()
+  window.w, window.h = window.realw/window.s, window.realw/window.s
+  if window.resetdone then cscreen.update(window.realw, window.realh, window.s) end
+  window._runcallbacks()
 end
 
---[[function window._runcallbacks()
-  for _, f in pairs(window.callbacks) do
-    print "callback"
+function window._runcallbacks()
+  for id, f in pairs(window.callbacks) do
+    print("callback: ".. id)
     f()
   end
 end
 
 function window.addCallback(f, id)
-  local i = id or ""..math.random()
+  local i = id or "callback"..math.random()
   window.callbacks[i] = f
   return i
 end
 
 function window.removeCallback(id)
   window.callbacks[id] = nil
-end]]
+end
 
 function window.reset()
-  window.sizebyscale(window.bestscale())
+  window.resetdone = true
+  window.s = window.bestscale()
+  print("Scale "..window.s)
+  window.sizebyscale(window.s)
+  print("WH: "..window.w.." "..window.h)
+  cscreen.init(window.w, window.h, false)
+
 end
 
 function window.bestscale()
@@ -39,18 +48,18 @@ function window.bestscale()
   end
 
   return s
+  --return 2
 end
 
 function window.sizebyscale(s)
-  local w = s * dw * TILESIZE
-  local h = s * dh * TILESIZE
-  love.window.setMode(w, h)
+  local w = dw * TILESIZE
+  local h = dh * TILESIZE
+  window.w, window.h = w, h
+  love.window.setMode(w*s, h*s, { resizable = true, minheight = 480, minwidth = 640, fullscreen = false } )
 end
 
 function love.resize(w, h)
   print(("Window resized to width: %d and height: %d."):format(w, h))
-  window.update()
+  window.update(w, h)
   print(("Window resized to width: %d and height: %d."):format(w, h))
 end
-
-window.update()

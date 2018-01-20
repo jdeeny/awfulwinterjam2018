@@ -10,7 +10,7 @@ function Level:initialize(w, h)
   self.height = h
   self.width = w
   self:createCanvases()
-  --window.addCallback(self:createCanvases())
+  window.addCallback(self:createCanvases())
   self.shadow_xoff = 2
   self.shadow_yoff = 8
 
@@ -183,9 +183,9 @@ function Level:coda()
   if self.kind == "boss" then
 	  fade.start_fade("fadeout", 1, false)
 	  -- set iframes so player doesn't die before progressing?
-	  delay.start(1, function()  
+	  delay.start(1, function()
 		  gamestage.setup_next()
-		  film.enter() 
+		  film.enter()
 	  end)
   end
   if self.exits.north then
@@ -265,12 +265,12 @@ function Level:draw()
           Water gets reflection
           Shadow over floor
   ]]
+  cscreen.cease()
 
   -- Draw shadows to shadow canvas
   love.graphics.setCanvas(self.shadow_canvas)
   love.graphics.setBackgroundColor(0,0,0,0)
   love.graphics.clear()
-
   shadow_effect(function()
     if self.layers[Layer.ENTITY] then self.layers[Layer.ENTITY]:draw() end
   end)
@@ -283,6 +283,7 @@ function Level:draw()
   if self.layers[Layer.ENTITY] then self.layers[Layer.ENTITY]:draw() end
   if self.layers[Layer.ENTITYNOSHADOW] then self.layers[Layer.ENTITYNOSHADOW]:draw() end
 
+  cscreen.apply()
   -- Draw everything now
   love.graphics.setCanvas()
   for i = 1, Layer.LASTLAYER do

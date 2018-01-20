@@ -15,6 +15,7 @@ gamestates = {[0]=splash, [1]=mainmenu, [2]=film, [3]=play,
 function love.load()
   TILESIZE = 64
 
+  window.reset()
   gui_time = love.timer.getTime()
 
   image.init()
@@ -31,10 +32,10 @@ function love.load()
   init_settings()
   gamestage.setup_next(gamestage.current_stage)
 
-  window.reset()
 
   splash.enter()
   timer.init()
+  window.update()
 end
 
 function love.update(dt)
@@ -46,8 +47,9 @@ end
 debug_font = love.graphics.newFont(12)
 function love.draw()
   local st = love.timer.getTime()
+  cscreen.apply()
   gamestates[state].draw()
-
+  cscreen.cease()
   -- debug
   love.graphics.setFont(debug_font)
   love.graphics.setColor(50, 200, 100, 200)

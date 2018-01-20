@@ -53,7 +53,13 @@ Water.moonwater = function()
   }
 end
 
+function Water.sizeupdate()
+  --water_effect.effect = moonshine(Water.moonwater)
+end
+
 Water.effect = moonshine(Water.moonwater)
+
+window.addCallback(Water.sizeupdate)
 
 function Water.update(dt)
   Water.effect.moonwater.time = game_time
