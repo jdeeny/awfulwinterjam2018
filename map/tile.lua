@@ -1,6 +1,7 @@
 local Tile = class("Tile")
 
 function Tile:initialize(name, mapsymbol)
+  print("New tile " .. name)
   self.layer = Layer.FLOOR
   self.id = name
   self.kind = name
@@ -93,6 +94,7 @@ function Tile:setLayer(l)
 end
 
 function Tile:toEntity(x, y)
+  print("sprite to entity "..self.id.." ".. self.sprite .. " " .. self.kind)
   local e = Entity:new(self, 'sprite' .. self.id, self.id, (x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE, self.layer, image[self.sprite], 0, 1.0, 1.0, TILESIZE / 2, TILESIZE / 2)
   return e
 end

@@ -1,7 +1,7 @@
 WWWWWWWWWWWWWWWW
 WW------------WW
 W--------------W
-W--WW--WW--WW--W
+W--WW--ww--WW--W
 W--WW--WW--WW--W
 W------tt------W
 W--------------W
@@ -10,7 +10,7 @@ W--WWt-WW-tWW--W
 W--------------W
 W------tt------W
 W--WW--WW--WW--W
-W--WW--WW--WW--W
+W--WW--ww--WW--W
 W--------------W
 WW------------WW
 WWWWWWWWWWWWWWWW

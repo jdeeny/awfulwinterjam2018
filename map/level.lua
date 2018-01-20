@@ -100,6 +100,7 @@ function Level:addTile(id, x, y, tile)
 
   local first = {}
   for i, t in ipairs(tile) do
+    print(i)
     local t = t()
     t.x, t.y = x, y
     local e = t:toEntity(x, y)
@@ -186,10 +187,10 @@ function Level:coda()
   if self.kind == "boss" then
 	  fade.start_fade("fadeout", 1, false)
 	  -- set iframes so player doesn't die before progressing?
-	  delay.start(1, function() 
-		  --dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west") 
+	  delay.start(1, function()
+		  --dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
 		  gamestage.setup_next()
-		  film.enter() 
+		  film.enter()
 	  end)
   end
   if self.exits.north then
@@ -201,28 +202,6 @@ function Level:coda()
     doodad_data.spawn("exit_east", current_level:pixel_width() - (TILESIZE / 2), current_level:pixel_height() / 2)
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 function Level:getLayer(n)
@@ -303,6 +282,56 @@ function Level:draw()
   end
 end
 
+function Level:northWater(x, y)
+  local k = self:feature_at(x, y - 1)
+
+  if k:sub(1, 5) == "water" then return 1 end
+  return 0
+end
+function Level:southWater(x, y)
+  if (self:feature_at(x, y + 1)):sub(1, 5) == "water" then return 1 end
+  return 0
+end
+function Level:eastWater(x, y)
+  if (self:feature_at(x + 1, y)):sub(1, 5) == "water" then return 1 end
+  return 0
+end
+function Level:westWater(x, y)
+  if (self:feature_at(x - 1, y - 1)):sub(1, 5) == "water" then return 1 end
+  return 0
+end
+
+local function iswater(kind)
+  return kind:sub(1,5) == "water"
+end
+
+function Level:updatewatertiles()
+  print("WATERE!!")
+  for tx = 1, self.width do
+    for ty = 1, self.height do
+      local waterstatus = self:northWater(tx,ty) * 8 + self:eastWater(tx,ty) * 4 + self:southWater(tx,ty) * 2 + self:westWater(tx,ty)
+
+      -- TODO: Account for corners
+
+      if wasterstatus == 0b0000 then Level:addTile(nil, tx, ty, tileset["water_surround1"]) end
+      if wasterstatus == 0b0001 then Level:addTile(nil, tx, ty, tileset["water_w1"]) end
+      if wasterstatus == 0b0010 then Level:addTile(nil, tx, ty, tileset["water_s1"]) end
+      if wasterstatus == 0b0011 then Level:addTile(nil, tx, ty, tileset["water_sw1"]) end
+      if wasterstatus == 0b0100 then Level:addTile(nil, tx, ty, tileset["water_e1"]) end
+      if wasterstatus == 0b0101 then Level:addTile(nil, tx, ty, tileset["water_ew1"]) end
+      if wasterstatus == 0b0110 then Level:addTile(nil, tx, ty, tileset["water_se1"]) end
+      if wasterstatus == 0b0111 then Level:addTile(nil, tx, ty, tileset["water_allbutn1"]) end
+      if wasterstatus == 0b1000 then Level:addTile(nil, tx, ty, tileset["water_n1"]) end
+      if wasterstatus == 0b1001 then Level:addTile(nil, tx, ty, tileset["water_nw1"]) end
+      if wasterstatus == 0b1010 then Level:addTile(nil, tx, ty, tileset["water_ns1"]) end
+      if wasterstatus == 0b1011 then Level:addTile(nil, tx, ty, tileset["water_allbute1"]) end
+      if wasterstatus == 0b1100 then Level:addTile(nil, tx, ty, tileset["water_ne1"]) end
+      if wasterstatus == 0b1101 then Level:addTile(nil, tx, ty, tileset["water_allbuts1"]) end
+      if wasterstatus == 0b1110 then Level:addTile(nil, tx, ty, tileset["water_allbutw1"]) end
+      if wasterstatus == 0b1111 then Level:addTile(nil, tx, ty, tileset["water_singleisland1"]) end
+    end
+  end
+end
 
 --[[function room:update()
   if self.door_close_time then
