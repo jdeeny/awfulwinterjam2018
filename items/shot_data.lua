@@ -33,10 +33,6 @@ shot_data["bullet"] =
     if hit and hit[1] == "enemy" then
       enemies[hit[2]]:take_damage(self.damage, false, math.atan2(self.dy, self.dx), 3, true)
     elseif hit and hit[1] == "block" then
-      print("hit")
-      print(hit[1])
-      print(hit[2])
-      print(hit[3])
       local tgx = hit[2]
       local tgy = hit[3]
       current_level.tiles[tgx][tgy]:takeDamage(self.damage)

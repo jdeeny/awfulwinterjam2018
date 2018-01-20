@@ -31,6 +31,8 @@ function love.load()
   init_settings()
   gamestage.setup_next(gamestage.current_stage)
 
+  window.reset()
+
   splash.enter()
   timer.init()
 end
@@ -69,4 +71,3 @@ function love.focus(f)
     end
   end
 end
-
