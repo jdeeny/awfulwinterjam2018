@@ -1,5 +1,18 @@
 local dungeon = class("dungeon", grid)
 
+function dungeon:init(w,h,room_files)
+	grid:init(w,h)
+	if room_files then
+		self.room_files = room_files
+	else
+		self.room_files = {}
+		for i in ipairs(file_io.room_files) do
+			table.insert(self.room_files, i)
+		end
+	end
+end
+	
+
 function dungeon.move_to_room(rx, ry, from_dir)
   -- unload current map, load new one, place player appropriately, setup fights i guess
   print("move_to_room")
@@ -11,7 +24,7 @@ function dungeon.move_to_room(rx, ry, from_dir)
   items = {}
   spawner.reset()
 
-  current_level = file_io.parse_room_file(current_dungeon[rx][ry].file)
+  current_level = file_io.parse_room_file(current_dungeon.room_files[current_dungeon[rx][ry].file])
   current_level.exits = current_dungeon:get_exits(rx, ry)
   current_level.kind = current_dungeon:get_room_kind(rx,ry)
   --current_level:prologue()
@@ -43,7 +56,7 @@ function dungeon.move_to_room(rx, ry, from_dir)
 end
 
 function dungeon:setup_main()
-  local file_count = #file_io.room_files
+  local file_count = #(self.room_files)
   for rx = 1, self.width do
     for ry=1, self.height do
       if rx == 1 and ry == self.height then

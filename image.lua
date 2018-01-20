@@ -3,6 +3,7 @@ local image = {}
 function image.init()
   image.dude = love.graphics.newImage("assets/sprites/dude.png")
   image.gear = love.graphics.newImage("assets/sprites/gear.png")
+  image.lumpgoon = love.graphics.newImage("assets/sprites/goon_sprite_sheet.png")
 
   image.sight_bullet_dot = love.graphics.newImage("assets/crosshairs/sight_bullet_dot.png")
   image.sight_bullet_line = love.graphics.newImage("assets/crosshairs/sight_bullet_line.png")
@@ -27,8 +28,15 @@ function image.init()
   image.spark_blue = love.graphics.newImage("assets/sprites/spark_blue.png")
   image.spark_big_blue = love.graphics.newImage("assets/sprites/spark_big_blue.png")
   image.pow = love.graphics.newImage("assets/sprites/pow.png")
+  image.shard = love.graphics.newImage("assets/sprites/shard.png")
+  image.explosion = love.graphics.newImage("assets/sprites/explosion.png")
 
   image.tesla = love.graphics.newImage("assets/sprites/tesla_sprite_sheet.png")
+
+  image.tesla_arm_wrench = love.graphics.newImage("assets/sprites/tesla_arm_wrench.png")
+  image.tesla_arm_gun = love.graphics.newImage("assets/sprites/tesla_arm_gun.png")
+  image.tesla_arm_ray = love.graphics.newImage("assets/sprites/tesla_arm_ray.png")
+  image.tesla_arm_lightning = love.graphics.newImage("assets/sprites/tesla_arm_lightning.png")
 
   image.intro = love.graphics.newImage("assets/fullscreen/silentFilmBack_template.png")
 

@@ -18,6 +18,15 @@ stages[2] = {
 	film_music_start = 49,
 }
 
+-- Test stage, feel free to mess around with these values
+stages[3] = {
+	dungeon_x = 2,
+	dungeon_y = 2,
+	film_title = "Time\nto\nTest",
+	film_music = nil,
+	film_music_start = nil,
+	room_files = {1,3,5,9},  -- indexed rooms in file_io
+}
 gamestage.stages = stages
 gamestage.current_stage = 0
 
@@ -38,7 +47,7 @@ function gamestage.setup_next(forced)
 	film.set_music(next_stage.film_music, next_stage.film_music_start)
 	
     current_dungeon = dungeon:new()
-    current_dungeon:init(next_stage.dungeon_x, next_stage.dungeon_y)
+    current_dungeon:init(next_stage.dungeon_x, next_stage.dungeon_y, next_stage.room_files)
     current_dungeon:setup_main()
 	
 end

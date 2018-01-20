@@ -1,6 +1,10 @@
 local Seeker = class("Seeker", Ai)
 
 local PI = 3.14159
+function Seeker:initialize(entity)
+  Ai.initialize(self, entity)
+  self.israndom = 0.05
+end
 
 function Seeker:update(dt)
   Ai.update(self, dt) -- call superclass constructor
@@ -12,16 +16,15 @@ function Seeker:update(dt)
   		self.goal_x = TILESIZE * (gx + dx + 0.5)
   		self.goal_y = TILESIZE * (gy + dy + 0.5)
   	end
-    angle = math.atan2(self.goal_y - self.entity.y, self.goal_x - self.entity.x)
+    local angle = math.atan2(self.goal_y - self.entity.y, self.goal_x - self.entity.x)
     if self.israndom and math.random() < self.israndom then
       angle = angle + math.random() * PI - PI / 2
     end
-
-    self.entity.dx = math.cos(angle) * self.entity.speed
-    self.entity.dy = math.sin(angle) * self.entity.speed
-
-    self.entity.wake_time = game_time + love.math.random() * 1
+    self.angle = angle
+    self.entity.wake_time = game_time + 0.05 + love.math.random() * 1
   end
+  self.entity.dx = math.cos(self.angle) * self.entity.speed
+  self.entity.dy = math.sin(self.angle) * self.entity.speed
 end
 
 return Seeker
