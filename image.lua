@@ -57,103 +57,16 @@ function image.init()
 
 image.water_surround1 = love.graphics.newImage("assets/tiles/water/4side1.png")
 image.water_surround2 = love.graphics.newImage("assets/tiles/water/4side2.png")
-image.water_surround3 = love.graphics.newImage("assets/tiles/water/4side1.png")
---image.water_surround3.rot = PI/2
-image.water_surround4 = love.graphics.newImage("assets/tiles/water/4side2.png")
---image.water_surround4.rot = PI/2
-image.water_surround5 = love.graphics.newImage("assets/tiles/water/4side1.png")
---image.water_surround5.rot = PI
-image.water_surround6 = love.graphics.newImage("assets/tiles/water/4side2.png")
---image.water_surround6.rot = PI
-image.water_surround7 = love.graphics.newImage("assets/tiles/water/4side1.png")
---image.water_surround7.rot = -PI/2
-image.water_surround8 = love.graphics.newImage("assets/tiles/water/4side2.png")
---image.water_surround8.rot = -PI/2
-
 image.water_w1 = love.graphics.newImage("assets/tiles/water/3side1.png")
 image.water_w2 = love.graphics.newImage("assets/tiles/water/3side2.png")
-image.water_s1 = love.graphics.newImage("assets/tiles/water/3side1.png")
---image.water_s1.rot = PI/2
-image.water_s2 = love.graphics.newImage("assets/tiles/water/3side2.png")
---image.water_s2.rot = PI/2
-image.water_e1 = love.graphics.newImage("assets/tiles/water/3side1.png")
---image.water_e1.rot = PI
-image.water_e2 = love.graphics.newImage("assets/tiles/water/3side2.png")
---image.water_e2.rot = PI
-image.water_n1 = love.graphics.newImage("assets/tiles/water/3side1.png")
---image.water_n1.rot = -PI/2
-image.water_n2 = love.graphics.newImage("assets/tiles/water/3side2.png")
---image.water_n2.rot = -PI/2
-
 image.water_sw1 = love.graphics.newImage("assets/tiles/water/ecorner1.png")
 image.water_sw2 = love.graphics.newImage("assets/tiles/water/ecorner2.png")
 image.water_sw3 = love.graphics.newImage("assets/tiles/water/ecorner3.png")
 image.water_sw4 = love.graphics.newImage("assets/tiles/water/ecorner4.png")
-
-image.water_nw1 = love.graphics.newImage("assets/tiles/water/ecorner1.png")
---image.water_nw1.rot = -PI/2
-image.water_nw2 = love.graphics.newImage("assets/tiles/water/ecorner2.png")
---image.water_nw2.rot = -PI/2
-image.water_nw3 = love.graphics.newImage("assets/tiles/water/ecorner3.png")
---image.water_nw3.rot = -PI/2
-image.water_nw4 = love.graphics.newImage("assets/tiles/water/ecorner4.png")
---image.water_nw4.rot = -PI/2
-
-image.water_se1 = love.graphics.newImage("assets/tiles/water/ecorner1.png")
---image.water_se1.rot = PI/2
-image.water_se2 = love.graphics.newImage("assets/tiles/water/ecorner2.png")
---image.water_se2.rot = PI/2
-image.water_se3 = love.graphics.newImage("assets/tiles/water/ecorner3.png")
---image.water_se3.rot = PI/2
-image.water_se4 = love.graphics.newImage("assets/tiles/water/ecorner4.png")
---image.water_se4.rot = PI/2
-
-image.water_ne1 = love.graphics.newImage("assets/tiles/water/ecorner1.png")
---image.water_ne1.rot = PI
-image.water_ne2 = love.graphics.newImage("assets/tiles/water/ecorner2.png")
---image.water_ne2.rot = PI
-image.water_ne3 = love.graphics.newImage("assets/tiles/water/ecorner3.png")
---image.water_ne3.rot = PI
-image.water_ne4 = love.graphics.newImage("assets/tiles/water/ecorner4.png")
---image.water_ne4.rot = PI
-
 image.water_allbutw1 = love.graphics.newImage("assets/tiles/water/3side1.png")
 image.water_allbutw2 = love.graphics.newImage("assets/tiles/water/3side2.png")
-image.water_allbuts1 = love.graphics.newImage("assets/tiles/water/3side1.png")
---image.water_allbuts1.rot = PI/2
-image.water_allbuts2 = love.graphics.newImage("assets/tiles/water/3side2.png")
---image.water_allbuts2.rot = PI/2
-image.water_allbute1 = love.graphics.newImage("assets/tiles/water/3side1.png")
---image.water_allbute1.rot = PI
-image.water_allbute2 = love.graphics.newImage("assets/tiles/water/3side2.png")
---image.water_allbute2.rot = PI
-image.water_allbutn1 = love.graphics.newImage("assets/tiles/water/3side1.png")
---image.water_allbutn1.rot = -PI/2
-image.water_allbutn2 = love.graphics.newImage("assets/tiles/water/3side2.png")
---image.water_allbutn2.rot = -PI/2
-
 image.water_singleisland1 = love.graphics.newImage("assets/tiles/water/4side1.png")
---image.water_singleisland1.inv = true
 image.water_singleisland2 = love.graphics.newImage("assets/tiles/water/4side2.png")
---image.water_singleisland2.inv = true
-image.water_singleisland3 = love.graphics.newImage("assets/tiles/water/4side1.png")
---image.water_singleisland3.rot = PI/2
---image.water_singleisland3.inv = true
-image.water_singleisland4 = love.graphics.newImage("assets/tiles/water/4side2.png")
---image.water_singleisland4.rot = PI/2
---image.water_singleisland4.inv = true
-image.water_singleisland5 = love.graphics.newImage("assets/tiles/water/4side1.png")
---image.water_singleisland5.rot = PI
---image.water_singleisland5.inv = true
-image.water_singleisland6 = love.graphics.newImage("assets/tiles/water/4side2.png")
---image.water_singleisland6.rot = PI
---image.water_singleisland6.inv = true
-image.water_singleisland7 = love.graphics.newImage("assets/tiles/water/4side1.png")
---image.water_singleisland7.rot = -PI/2
---image.water_singleisland7.inv = true
-image.water_singleisland8 = love.graphics.newImage("assets/tiles/water/4side2.png")
---image.water_singleisland8.rot = -PI/2
---image.water_singleisland8.inv = true
 
 
   image.deadbody = love.graphics.newImage("assets/sprites/deadbody.png")

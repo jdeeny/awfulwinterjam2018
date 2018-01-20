@@ -28,7 +28,7 @@ Water.moonwater = function()
 
       float m = Texel(texture, tc).r;
       vec4 base = Texel(waterbase, mapc);
-      vec4 final = vec4(base.r*m, base.g*m, base.b*m, 1.0) * shape;
+      vec4 final = mix(mix(vec4(base.r*m, base.g*m, base.b*m, 1.0), shape, light), shape, dark);
       return final;//base * m;// * shape * mask ;
     }
   ]]

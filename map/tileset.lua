@@ -24,38 +24,47 @@ TileSet['rubblefloor']        = { function() return Tile:new('rubble',          
 
 
 
-TileSet["water_surround1"]     = { function() return Tile:new('water_surround1'):setLayer(Layer.WATER) end,
+for i = 1, 2 do
+TileSet["water_surround"..i]     = { function() return Tile:new('water_surround'..i):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
-TileSet["water_w1"]            = { function() return Tile:new('water_w1'):setLayer(Layer.WATER) end,
+TileSet["water_w"..i]            = { function() return Tile:new('water_w'..i):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
-TileSet["water_s1"]            = { function() return Tile:new('water_s1'):setLayer(Layer.WATER) end,
+TileSet["water_s"..i]            = { function() return Tile:new('water_w'..i):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
-TileSet["water_sw1"]           = { function() return Tile:new('water_sw1'):setLayer(Layer.WATER) end,
+TileSet["water_n"..i]            = { function() return Tile:new('water_w'..i):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
-TileSet["water_e1"]            = { function() return Tile:new('water_e1'):setLayer(Layer.WATER) end,
+TileSet["water_e"..i]            = { function() return Tile:new('water_e'..i):setLayer(Layer.WATER) end,
+                                function() return Tile:new('floor') end, }
+
+
+
+TileSet["water_sw"..i]           = { function() return Tile:new('water_sw'..i):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
-TileSet["water_ew1"]           = { function() return Tile:new('water_ew1'):setLayer(Layer.WATER) end,
+TileSet["water_se"..i]           = { function() return Tile:new('water_sw'..i):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
-TileSet["water_se1"]           = { function() return Tile:new('water_se1'):setLayer(Layer.WATER) end,
+TileSet["water_ne"..i]           = { function() return Tile:new('water_sw'..i):setLayer(Layer.WATER) end,
+                                function() return Tile:new('floor') end, }
+TileSet["water_nw"..i]           = { function() return Tile:new('water_sw'..i):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
-TileSet["water_allbutn1"]      = { function() return Tile:new('water_allbutn1'):setLayer(Layer.WATER) end,
+
+TileSet["water_ew"..i]           = { function() return Tile:new('water_ew'..i):setLayer(Layer.WATER) end,
+function() return Tile:new('floor') end, }
+
+TileSet["water_ns"..i]           = { function() return Tile:new('water_ns'..i):setLayer(Layer.WATER) end,
+function() return Tile:new('floor') end, }
+
+TileSet["water_allbutn"..i]      = { function() return Tile:new('water_allbutn'..i):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
-TileSet["water_n1"]            = { function() return Tile:new('water_n1'):setLayer(Layer.WATER) end,
+TileSet["water_allbute"..i]      = { function() return Tile:new('water_allbute'..i):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
-TileSet["water_nw1"]           = { function() return Tile:new('water_nw1'):setLayer(Layer.WATER) end,
+TileSet["water_allbuts"..i]      = { function() return Tile:new('water_allbuts'..i):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
-TileSet["water_ns1"]           = { function() return Tile:new('water_ns1'):setLayer(Layer.WATER) end,
+TileSet["water_allbutw"..i]      = { function() return Tile:new('water_attbutw'..i):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
-TileSet["water_allbute1"]      = { function() return Tile:new('water_allbute1'):setLayer(Layer.WATER) end,
+
+TileSet["water_island"..i] = { function() return Tile:new('water_island'..i):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor') end, }
-TileSet["water_ne1"]           = { function() return Tile:new('water_ne1'):setLayer(Layer.WATER) end,
-                                  function() return Tile:new('floor') end, }
-TileSet["water_allbuts1"]      = { function() return Tile:new('water_allbuts1'):setLayer(Layer.WATER) end,
-                                  function() return Tile:new('floor') end, }
-TileSet["water_allbutw1"]      = { function() return Tile:new('water_attbutw1'):setLayer(Layer.WATER) end,
-                                  function() return Tile:new('floor') end, }
-TileSet["water_island1"] = { function() return Tile:new('water_island1'):setLayer(Layer.WATER) end,
-                                  function() return Tile:new('floor') end, }
+end
 
 
 
