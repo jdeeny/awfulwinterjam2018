@@ -45,7 +45,7 @@ function dungeon:move_to_room(rx, ry, from_dir)
   local room_set = self.room_files[self:get_room_kind(rx, ry)]
   local room_index = self[rx][ry].file
 
-  current_level = file_io.parse_room_file(current_dungeon[rx][ry].file)
+  current_level = file_io.parse_room_file(14)--current_dungeon[rx][ry].file)
   print("MOVE TO ROOM")
   current_level:updatewatertiles()
   print("MOVEDONE")
