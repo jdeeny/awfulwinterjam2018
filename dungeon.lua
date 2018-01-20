@@ -23,10 +23,9 @@ function dungeon:init(w,h,room_files,spawns)
 	else
 		local n = 1
 		self.spawns = {}
-		for k in pairs(spawner.wavedata) do
+		for k in pairs(spawner.wave_data) do
 			self.spawns[n] = k
 			n = n + 1
-			print("spawn", k)
 		end
 	end
 end
