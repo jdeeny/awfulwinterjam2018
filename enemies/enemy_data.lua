@@ -1,6 +1,6 @@
 enemy_data = {}
 
-function enemy_data.spawn(kind, x, y)
+function enemy_data.spawn(kind, x, y, parameter)
   local new_id = idcounter.get_id("enemy")
 
   local e = enemy:new()
@@ -8,6 +8,7 @@ function enemy_data.spawn(kind, x, y)
   e.id = new_id
   e.x = x
   e.y = y
+  e.parameter = parameter -- used for spawning a dude facing a certain way, for instance
 
   e.birth_time = game_time
   e.wake_time = game_time
@@ -141,8 +142,8 @@ enemy_data["remotedude_red"] =
   --animation = animation.remotedude_red_run_se,
   animations = { remotedude_red_run_ne = animation.remotedude_red_run_ne:clone(), remotedude_red_run_se = animation.remotedude_red_run_se:clone(), remotedude_red_run_nw = animation.remotedude_red_run_nw:clone(), remotedude_red_run_sw = animation.remotedude_red_run_sw:clone()},
   max_hp = 30,
-  speed = 40,
-  radius = 5,
+  speed = 100,
+  radius = 14,
   value = 0.25,
   touch_damage = 5,
   next_splash = game_time,
@@ -150,7 +151,7 @@ enemy_data["remotedude_red"] =
   splash_force = 15,
   cornering = 0.1,
   rotspeed = 1,
-  personality = 'Remotedude',
+  personality = 'Bouncer',
 }
 
 enemy_data["remotedude_blue"] =
@@ -161,7 +162,7 @@ enemy_data["remotedude_blue"] =
   animations = { remotedude_blue_run_ne = animation.remotedude_blue_run_ne:clone(), remotedude_blue_run_se = animation.remotedude_blue_run_se:clone(), remotedude_blue_run_nw = animation.remotedude_blue_run_nw:clone(), remotedude_blue_run_sw = animation.remotedude_blue_run_sw:clone(),},
   max_hp = 30,
   speed = 60,
-  radius = 5,
+  radius = 14,
   value = 0.5,
   touch_damage = 5,
   next_splash = game_time,
@@ -180,7 +181,7 @@ enemy_data["remotedude_green"] =
   animations = { remotedude_green_run_ne = animation.remotedude_green_run_ne:clone(), remotedude_green_run_se = animation.remotedude_green_run_se:clone(), remotedude_green_run_nw = animation.remotedude_green_run_nw:clone(), remotedude_green_run_sw = animation.remotedude_green_run_sw:clone(),},
   max_hp = 30,
   speed = 80,
-  radius = 5,
+  radius = 14,
   value = 0.75,
   touch_damage = 5,
   next_splash = game_time,

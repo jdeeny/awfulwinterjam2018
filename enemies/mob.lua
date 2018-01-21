@@ -95,6 +95,10 @@ function mob:update_position(dt)
     hit, mx, my, m_time, nx, ny = collision.aabb_room_sweep(self, self.dx * dt, self.dy * dt)
 
     if hit then
+      if self.ai and self.ai.react_to_collision then
+        self.ai:react_to_collision(nx, ny)
+      end
+
       dot = self.dx * ny - self.dy * nx
 
       self.dx = dot * ny
@@ -109,6 +113,8 @@ function mob:update_position(dt)
 
     self.x = mx
     self.y = my
+
+
   end
 
 	self:update_splash(dt)

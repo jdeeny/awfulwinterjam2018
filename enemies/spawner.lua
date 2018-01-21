@@ -32,34 +32,34 @@ function spawner.test_completion()
 	end
 end
 
-function spawner.spawn_from_north_door(kind)
+function spawner.spawn_from_north_door(kind, parameter)
 	current_level:open_door("north", true, 1)
-	id = enemy_data.spawn(kind, current_level:pixel_width() / 2, TILESIZE * 2.5 - enemy_data[kind].speed * 2)
+	id = enemy_data.spawn(kind, current_level:pixel_width() / 2, TILESIZE * 2.5 - enemy_data[kind].speed * 2, parameter)
 	enemies[id]:start_force_move(1, 0, enemies[id].speed)
 end
 
-function spawner.spawn_from_east_door(kind)
+function spawner.spawn_from_east_door(kind, parameter)
 	current_level:open_door("east", true, 1)
-	id = enemy_data.spawn(kind, current_level:pixel_width() - TILESIZE * 2.5 + enemy_data[kind].speed * 2, current_level:pixel_height() / 2)
+	id = enemy_data.spawn(kind, current_level:pixel_width() - TILESIZE * 2.5 + enemy_data[kind].speed * 2, current_level:pixel_height() / 2, parameter)
 	enemies[id]:start_force_move(1, -enemies[id].speed, 0)
 end
 
-function spawner.spawn_from_south_door(kind)
+function spawner.spawn_from_south_door(kind, parameter)
 	current_level:open_door("south", true, 1)
-	id = enemy_data.spawn(kind, current_level:pixel_width() / 2, current_level:pixel_height() - TILESIZE * 2.5 + enemy_data[kind].speed * 2)
+	id = enemy_data.spawn(kind, current_level:pixel_width() / 2, current_level:pixel_height() - TILESIZE * 2.5 + enemy_data[kind].speed * 2, parameter)
 	enemies[id]:start_force_move(1, 0, -enemies[id].speed)
 end
 
-function spawner.spawn_from_west_door(kind)
+function spawner.spawn_from_west_door(kind, parameter)
 	current_level:open_door("west", true, 1)
-	id = enemy_data.spawn(kind, TILESIZE * 2.5 - enemy_data[kind].speed * 2, current_level:pixel_height() / 2)
+	id = enemy_data.spawn(kind, TILESIZE * 2.5 - enemy_data[kind].speed * 2, current_level:pixel_height() / 2, parameter)
 	enemies[id]:start_force_move(1, enemies[id].speed, 0)
 end
 
-function spawner.spawn_from_teleporter(kind, number)
+function spawner.spawn_from_teleporter(kind, number, parameter)
 	if #spawner.teleporters > 0 then
 		n = love.math.random(#spawner.teleporters)
-		id = enemy_data.spawn(kind, (spawner.teleporters[n].x + 0.5) * TILESIZE, (spawner.teleporters[n].y + 0.5) * TILESIZE)
+		id = enemy_data.spawn(kind, (spawner.teleporters[n].x + 0.5) * TILESIZE, (spawner.teleporters[n].y + 0.5) * TILESIZE, parameter)
 		enemies[id]:start_force_move(1, 0, 0)
 	end
 end
@@ -69,9 +69,10 @@ spawner.wave_data = {}
 spawner.wave_data.ez_lvl = function()
 	spawner.add(2,
 		function()
-			spawner.spawn_from_north_door('schmuck')
-			for i = 1, 4 do
-				delay.start(0.5 * i, function() spawner.spawn_from_south_door('remotedude_red') end)
+			spawner.spawn_from_north_door('sniperdude')
+			local angle = math.pi * 1.4
+			for i = 1, 24 do
+				delay.start(0.3 * i, function() spawner.spawn_from_south_door('remotedude_red', angle) end)
 			end
 		end)
 	spawner.add(5,
