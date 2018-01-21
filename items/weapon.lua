@@ -77,7 +77,7 @@ end
 
 function ProjectileGun:_fire(targets)
   local angle = self.owner.aim + (love.math.random() - 0.5) * 0.4 * self.cof_multiplier
-  self.next_shot_time = shot_data.spawn(self.projectile, self.owner.x + 48 * math.cos(angle), self.owner.y + 48 * math.sin(angle),
+  shot_data.spawn(self.projectile, self.owner.x + 48 * math.cos(angle), self.owner.y + 48 * math.sin(angle),
       math.cos(angle)*(self.owner.shot_speed or self.shot_speed),
       math.sin(angle)*(self.owner.shot_speed or self.shot_speed), self.owner)
   audiomanager:playOnce(self.sound)
@@ -86,6 +86,8 @@ function ProjectileGun:_fire(targets)
   end
   self.owner:be_knocked_back(0.1, -100 * math.cos(angle), -100 * math.sin(angle))
   self.cof_multiplier = math.min(1, self.cof_multiplier + 0.15)
+  spark_data.spawn("muzzle", {r=255, g=170 + love.math.random(50), b=100}, self.owner.x + 112 * math.cos(angle), self.owner.y + 112 * math.sin(angle),
+    0, 0, angle)
 end
 
 function ProjectileGun:release()
@@ -121,7 +123,7 @@ end
 
 function SniperGun:_fire(targets)
   local angle = self.owner.aim
-  self.next_shot_time = shot_data.spawn(self.projectile, self.owner.x + 48 * math.cos(angle), self.owner.y + 48 * math.sin(angle),
+  shot_data.spawn(self.projectile, self.owner.x + 48 * math.cos(angle), self.owner.y + 48 * math.sin(angle),
       math.cos(angle)*(self.owner.shot_speed or self.shot_speed),
       math.sin(angle)*(self.owner.shot_speed or self.shot_speed), self.owner)
   audiomanager:playOnce(self.sound)
@@ -129,6 +131,8 @@ function SniperGun:_fire(targets)
     camera.bump(6, self.owner.aim)
   end
   self.owner:be_knocked_back(0.3, -300 * math.cos(angle), -300 * math.sin(angle))
+  spark_data.spawn("muzzle", {r=255, g=140 + love.math.random(100), b=100}, self.owner.x + 112 * math.cos(angle), self.owner.y + 112 * math.sin(angle),
+    0, 0, angle)
 end
 
 function SniperGun:release()
@@ -156,6 +160,52 @@ function SniperGun:draw()
     love.graphics.setColor(255,255,255,255)
   end
 
+  if math.cos(aim) < 0 then --left
+    love.graphics.draw(image['tesla_arm_gun'],
+      self.owner.x - camera.x + 8 * math.cos(aim), self.owner.y - camera.y + 8 * math.sin(aim),
+      aim, 1, -1, 64, 32)
+  else --right
+    love.graphics.draw(image['tesla_arm_gun'],
+      self.owner.x - camera.x + 8 * math.cos(aim), self.owner.y - camera.y + 8 * math.sin(aim),
+      aim, 1, 1, 64, 32)
+  end
+end
+
+-------------------------------------------------------------------------------
+
+local RocketLauncher = class("RocketLauncher", Weapon)
+
+function RocketLauncher:initialize()
+  Weapon.initialize(self)
+  self.name = 'RocketLauncher'
+  self.shot_speed = 20
+  self.sound = "gunshot"
+  self.icon = "gun_icon"
+  self.projectile = "rocket"
+end
+
+function RocketLauncher:_fire(targets)
+  local angle = self.owner.aim
+  shot_data.spawn(self.projectile, self.owner.x + 48 * math.cos(angle), self.owner.y + 48 * math.sin(angle),
+      math.cos(angle)*(self.owner.shot_speed or self.shot_speed),
+      math.sin(angle)*(self.owner.shot_speed or self.shot_speed), self.owner)
+  audiomanager:playOnce(self.sound)
+  if self.owner.is_player then
+    camera.bump(12, self.owner.aim)
+  end
+  self.owner:be_knocked_back(0.2, -200 * math.cos(angle), -200 * math.sin(angle))
+  spark_data.spawn("muzzle", {r=255, g=170 + love.math.random(50), b=100}, self.owner.x + 112 * math.cos(angle), self.owner.y + 112 * math.sin(angle),
+    0, 0, angle)
+  spark_data.spawn("muzzle", {r=255, g=170 + love.math.random(50), b=100}, self.owner.x + 112 * math.cos(angle + math.pi), self.owner.y + 112 * math.sin(angle + math.pi),
+    0, 0, angle)
+end
+
+function RocketLauncher:release()
+  Weapon.release(self)
+end
+
+function RocketLauncher:draw()
+  local aim = self.owner.aim or 0
   if math.cos(aim) < 0 then --left
     love.graphics.draw(image['tesla_arm_gun'],
       self.owner.x - camera.x + 8 * math.cos(aim), self.owner.y - camera.y + 8 * math.sin(aim),

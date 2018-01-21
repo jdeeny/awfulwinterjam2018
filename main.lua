@@ -16,6 +16,7 @@ gamestates = {[0]=splash, [1]=mainmenu, [2]=film, [3]=play,
 
 function love.load()
   TILESIZE = 64
+  print("LOAD")
 
   gui_time = love.timer.getTime()
 
@@ -32,7 +33,9 @@ function love.load()
 
   init_settings()
   player.init()
+  print("PRE GAMESTAGE setup next stage")
   gamestage.setup_next_stage(gamestage.current_stage)
+  print("post GAMESTAGE setup next stage")
 
   splash.enter()
   timer.init()
@@ -72,4 +75,3 @@ function love.focus(f)
     end
   end
 end
-

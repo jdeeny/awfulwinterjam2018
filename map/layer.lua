@@ -1,18 +1,19 @@
 local Layer = class("Layer")
 
-Layer.WATER = 1
-Layer.FLOOR = 2
-Layer.BLOOD = 3
-Layer.BODIES = 4
-Layer.FURNITURE = 5
-Layer.SHADOW = 6
-Layer.FXUNDER = 7
-Layer.ENTITY = 8
-Layer.ENTITYNOSHADOW = 9
-Layer.FXOVER = 10
-Layer.HUD = 11
-Layer.BROKEN = 12
-Layer.LASTLAYER = 12
+Layer.SUBFLOOR = 1
+Layer.WATER = 2
+Layer.FLOOR = 3
+Layer.BLOOD = 4
+Layer.BODIES = 5
+Layer.FURNITURE = 6
+Layer.SHADOW = 7
+Layer.FXUNDER = 8
+Layer.ENTITY = 9
+Layer.ENTITYNOSHADOW = 10
+Layer.FXOVER = 11
+Layer.HUD = 12
+Layer.BROKEN = 13
+Layer.LASTLAYER = 13
 
 function Layer:initialize(id, effects)
   self.id = id
@@ -49,15 +50,16 @@ end
 function Layer:draw()
   if self.effects then
     water_effect.effect(function()
+      love.graphics.setBlendMode("alpha", "alphamultiply")
       self:_drawall()
     end)
   else
+    love.graphics.setBlendMode("alpha", "alphamultiply")
     self:_drawall()
   end
 end
 
 function Layer:_drawall()
-  love.graphics.setColor(255,255,255,255)
   for kindname, kind  in pairs(self.entities) do  -- for each type of thing
     for id, e in pairs(kind) do    -- for each location
       e:draw()
