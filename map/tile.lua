@@ -36,12 +36,17 @@ function Tile:setDestroyable(kind, into, hp)
 end
 
 function Tile:takeDamage(dmg)
-  if self.destroyable then
-    self.hp = cpml.utils.clamp(self.hp - dmg, self.hp - dmg, self.maxhp)
+  if self.destroyable and self.hp > 0 then
+    self.hp = cpml.utils.clamp(self.hp - dmg, 0, self.maxhp)
     if self.hp <= 0 then
-      -- launch explosion
-      explosions.rubble(self.x * TILESIZE + 32, self.y * TILESIZE + 32)
-
+      if self.destroyable == "crumbles" then
+        -- rocky, fake explosion
+        explosions.rubble(self.x * TILESIZE + 32, self.y * TILESIZE + 32)
+      elseif self.destroyable == "explodes" then
+        -- real explosion
+        explosions.dynamite(self.x * TILESIZE + 32, self.y * TILESIZE + 32)
+        explosions.damage_radius(20, 5, self.x * TILESIZE + 32, self.y * TILESIZE + 32, 128)
+      end
       -- replace self
       current_level:addTile(nil, self.x, self.y, current_level.tileset[self.destroyed_version])
     end
