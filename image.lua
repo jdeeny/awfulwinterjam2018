@@ -60,6 +60,8 @@ function image.init()
   image.heart = love.graphics.newImage("assets/icons/heart_32x32.png")
   image.patent_icon = love.graphics.newImage("assets/icons/patent.png")
 
+  image.capacitor = love.graphics.newImage("assets/tiles/capacitor.png")
+
 
 end
 
