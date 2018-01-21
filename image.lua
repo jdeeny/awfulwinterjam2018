@@ -80,6 +80,12 @@ image.water_ns2 = love.graphics.newImage("assets/tiles/water/2edge2.png")
 image.water_cross = love.graphics.newImage("assets/tiles/water/4corners.png")
 image.water_t_nes = love.graphics.newImage("assets/tiles/water/1side2corners.png")
 image.water_open = love.graphics.newImage("assets/tiles/water/open.png")
+image.water_edge1 = love.graphics.newImage("assets/tiles/water/edge1.png")
+image.water_edge2 = love.graphics.newImage("assets/tiles/water/edge2.png")
+image.water_edge3 = love.graphics.newImage("assets/tiles/water/edge3.png")
+image.water_edge4 = love.graphics.newImage("assets/tiles/water/edge4.png")
+
+
   image.deadbody = love.graphics.newImage("assets/sprites/deadbody.png")
   image.chargemap = love.graphics.newImage("assets/sprites/chargemap.png")
 

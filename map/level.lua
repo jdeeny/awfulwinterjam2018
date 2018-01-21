@@ -362,7 +362,10 @@ function Level:updatewatertiles()
         if waterstatus_sides == S+E+N and waterstatus_diag == 0 then self:addTile(nil, tx, ty, self.tileset["water_t_sen"]) end
         if waterstatus_sides == E+N+W and waterstatus_diag == 0 then self:addTile(nil, tx, ty, self.tileset["water_t_enw"]) end
 
-
+        if waterstatus == 255 - (SW+W+NW) then self:addTile(nil, tx, ty, self.tileset["water_edge_w"..math.random(4)]) end
+        if waterstatus == 255 - (NE+N+NW) then self:addTile(nil, tx, ty, self.tileset["water_edge_n"..math.random(4)]) end
+        if waterstatus == 255 - (NE+E+SE) then self:addTile(nil, tx, ty, self.tileset["water_edge_e"..math.random(4)]) end
+        if waterstatus == 255 - (SW+SE+S) then self:addTile(nil, tx, ty, self.tileset["water_edge_s"..math.random(4)]) end
 
         --[[if waterstatus == 6 then self:addTile(nil, tx, ty, self.tileset["water_se"..math.random(2)]) end
         if waterstatus == 7 then self:addTile(nil, tx, ty, self.tileset["water_allbutn"..math.random(2)]) end
