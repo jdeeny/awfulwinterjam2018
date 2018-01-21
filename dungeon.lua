@@ -41,12 +41,14 @@ function dungeon:move_to_room(rx, ry, from_dir)
   sparks = {}
   if not items then items = {} end
   spawner.reset()
+  
 
   local room_set = self.room_files[self:get_room_kind(rx, ry)]
   local room_index = self[rx][ry].file
+  
 
   print("BEFORE PARSE")
-  current_level = file_io.parse_room_file(current_dungeon[rx][ry].file)
+  current_level = file_io.parse_room_file(room_set[room_index])
   print("MOVE TO ROOM")
   current_level:updatewatertiles()
   print("MOVEDONE")
@@ -79,11 +81,7 @@ function dungeon:move_to_room(rx, ry, from_dir)
 
 
   local spawn_set = self.spawns[self:get_room_kind(rx, ry)]
-  -- DBG
-  for k,v in pairs(spawn_set) do
-	  print("spawns",k,v)
-  end
-  -- DBG
+  
   local selected_wave = spawn_set[love.math.random(#(spawn_set))] -- random pick from list
   spawner.wave_data[selected_wave]()
 end
