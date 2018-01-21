@@ -2,6 +2,13 @@ local shot = class('shot')
 
 local hit, mx, mt, mt, nx, ny
 function shot:update(dt)
+  -- check for timeout
+  if self.duration and self.duration:finished() then
+    if self.timeout then self:timeout() end
+    self:die()
+    return
+  end
+
   -- collide: first with tiles, then mobs
   if self.collides_with_map then
     hit, mx, my, mt, nx, ny = collision.aabb_room_sweep(self, self.dx * dt, self.dy * dt)
@@ -44,8 +51,12 @@ function shot:die()
 end
 
 function shot:draw()
+  if self.duration then
+    love.graphics.setColor(255, 255, 255, 255 * math.min(1, 5.5 - 5 * self.duration:t()))
+  end
   love.graphics.draw(image[self.sprite], camera.view_x(self), camera.view_y(self), math.atan2(self.dy, self.dx), 1, 1,
     image[self.sprite]:getWidth()/2, image[self.sprite]:getHeight()/2)
+  love.graphics.setColor(255,255,255,255)
 end
 
 
