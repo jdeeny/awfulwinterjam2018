@@ -118,6 +118,7 @@ shot_data["sniper_bullet"] =
   damage = 10,
   sprite = "bullet",
   radius = 8,
+  duration = 5,
   collides_with_map = true,
   collides_with_enemies = false,
   collides_with_player = true,
@@ -142,6 +143,89 @@ shot_data["sniper_bullet"] =
 
     self:die()
   end,
+}
+
+shot_data["rocket"] =
+{
+  kind = "rocket", name = "Rocket",
+  damage = 0, -- damage is from the explosion
+  sprite = "rocket_green",
+  radius = 12,
+  duration = 5,
+  collides_with_map = true,
+  collides_with_enemies = false,
+  collides_with_player = true,
+
+  collide = function(self, hit, mx, my, mt, nx, ny)
+    print(hit[1])
+    for i = 1, 6 do
+      angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
+      speed = 200 + 1800 * love.math.random()
+      spark_data.spawn("spark", {r=255, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
+    end
+    for i = 1, 3 do
+      angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
+      speed = 200 + 1000 * love.math.random()
+      spark_data.spawn("spark_big", {r=255, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
+    end
+
+    spark_data.spawn("explosion", {r=255, g=230, b=50}, mx, my, 0, 0, love.math.random() * math.pi * 2, 2 * love.math.random(0, 1) - 1, 1)
+
+    self:die()
+  end,
+
+  custom_update = function(self, dt)
+    self.dx = self.dx + self.dx * 5 * dt
+    self.dy = self.dy + self.dy * 5 * dt
+  end
+}
+
+shot_data["homing_rocket"] =
+{
+  kind = "homing_rocket", name = "Homing Rocket",
+  damage = 0, -- damage is from the explosion
+  sprite = "rocket_red",
+  radius = 12,
+  duration = 5,
+  collides_with_map = true,
+  collides_with_enemies = false,
+  collides_with_player = true,
+
+  collide = function(self, hit, mx, my, mt, nx, ny)
+    print(hit[1])
+    for i = 1, 6 do
+      angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
+      speed = 200 + 1800 * love.math.random()
+      spark_data.spawn("spark", {r=255, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
+    end
+    for i = 1, 3 do
+      angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
+      speed = 200 + 1000 * love.math.random()
+      spark_data.spawn("spark_big", {r=255, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
+    end
+
+    spark_data.spawn("explosion", {r=255, g=230, b=50}, mx, my, 0, 0, love.math.random() * math.pi * 2, 2 * love.math.random(0, 1) - 1, 1)
+
+    self:die()
+  end,
+
+  custom_update = function(self, dt)
+    local speed = math.sqrt(self.dx * self.dx + self.dy * self.dy)
+    local angle = math.atan2(self.dy, self.dx)
+
+    speed = speed + speed * 5 * dt
+    local a = math.atan2(player.y - self.y, player.x - self.x) - angle
+
+    if (a > math.pi) then
+      a = a - math.pi * 2
+    elseif (a < -math.pi) then
+      a = a + math.pi * 2
+    end
+
+    angle = angle + a * (math.min(1, dt * 3))
+    self.dx = speed * math.cos(angle)
+    self.dy = speed * math.sin(angle)
+  end
 }
 
 return shot_data

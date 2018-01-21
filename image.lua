@@ -22,6 +22,8 @@ function image.init()
 
   image.bullet = love.graphics.newImage("assets/sprites/bullet.png")
   image.bullet_blue = love.graphics.newImage("assets/sprites/bullet_blue.png")
+  image.rocket_red = love.graphics.newImage("assets/sprites/rocket_red.png")
+  image.rocket_green = love.graphics.newImage("assets/sprites/rocket_green.png")
 
   image.spark = love.graphics.newImage("assets/sprites/spark.png")
   image.spark_big = love.graphics.newImage("assets/sprites/spark_big.png")

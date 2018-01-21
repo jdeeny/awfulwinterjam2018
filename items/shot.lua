@@ -9,6 +9,10 @@ function shot:update(dt)
     return
   end
 
+  if self.custom_update then
+    self:custom_update(dt)
+  end
+
   -- collide: first with tiles, then mobs
   if self.collides_with_map then
     hit, mx, my, mt, nx, ny = collision.aabb_room_sweep(self, self.dx * dt, self.dy * dt)

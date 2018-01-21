@@ -254,4 +254,52 @@ enemy_data["canbot"] =
                 {chance=0.25,item="health_pack"},},
 }
 
+enemy_data["rocketguy"] =
+{
+  kind = "rocketguy", name = "Rocket Guy",
+  sprite = "dude", death_sound = "unh",
+  max_hp = 80,
+  speed = 80,
+  radius = 30,
+  value = 2,
+  touch_damage = 0,
+  shot_speed = 100,
+  burst_size = 3,
+  next_splash = game_time,
+  splash_delay = 0.12,
+  bleeds = 1,
+  weapon_type = weapon.ProjectileGun,
+  projectile_type = 'rocket',
+  personality = 'Rocketeer',
+  drop_items = {{chance=0.05,item="max_ammo_increase"},
+                {chance=0.05,item="max_health_increase"},
+                {chance=0.05,item="damage_mult"},
+                {chance=0.05,item="charge_rate_mult"},
+                {chance=0.25,item="health_pack"},},
+}
+
+enemy_data["homingrocketguy"] =
+{
+  kind = "homingrocketguy", name = "Homing Rocket Guy",
+  sprite = "dude", death_sound = "unh",
+  max_hp = 80,
+  speed = 80,
+  radius = 30,
+  value = 2,
+  touch_damage = 0,
+  shot_speed = 100,
+  burst_size = 3,
+  next_splash = game_time,
+  splash_delay = 0.12,
+  bleeds = 1,
+  weapon_type = weapon.ProjectileGun,
+  projectile_type = 'homing_rocket',
+  personality = 'Rocketeer',
+  drop_items = {{chance=0.05,item="max_ammo_increase"},
+                {chance=0.05,item="max_health_increase"},
+                {chance=0.05,item="damage_mult"},
+                {chance=0.05,item="charge_rate_mult"},
+                {chance=0.25,item="health_pack"},},
+}
+
 return enemy_data
