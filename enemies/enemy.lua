@@ -29,8 +29,12 @@ function enemy:faceTowards(entity)
   --self.rot = cpml.vec2.to_polar(cpml.vec2.new(aim_x, aim_y))
 end
 
-function enemy:shootAt(entity)
+function enemy:aimAt(entity)
   self.aim = math.atan2(entity.y - self.y, entity.x - self.x)
+end
+
+function enemy:shootAt(entity)
+  self:aimAt(entity)
   --self.aim = cpml.vec2.to_polar(cpml.vec2.new(entity.x - self.x, entity.y - self.y))
   if self.equipped_items['weapon'] then
     self.equipped_items['weapon']:_fire(player)

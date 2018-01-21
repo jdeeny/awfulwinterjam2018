@@ -160,6 +160,7 @@ end
 function mob:start_force_move(dur, dx, dy)
   self.force_move = {duration = duration.start(dur),
                   dx = dx or 0, dy = dy or 0}
+  self.aim = math.atan2(dy, dx)
 end
 
 function mob:end_force_move()
