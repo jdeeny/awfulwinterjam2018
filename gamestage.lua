@@ -8,8 +8,8 @@ stages[1] = {
     outro_movie = nil,
 
 	-- Rooms/dungeon
-	dungeon_w = 3,
-	dungeon_h = 3,
+	dungeon_w = 2,
+	dungeon_h = 2,
 
 	-- This is optional; any blank entry will select from all available files
 	room_files = {['start'] = {3}, ['boss'] = {8}, ['generic'] = {1,2,3,4,5}},  -- See file_io for room index
@@ -44,6 +44,7 @@ stages[3] = {
 }
 gamestage.stages = stages
 gamestage.current_stage = 0
+gamestage.upgrades = {}
 
 -- This just sets up the stage; it does not change the state
 function gamestage.setup_next_stage(forced)
@@ -66,7 +67,9 @@ end
 function gamestage.advance_to_play()
     game_time = 0
 
-	  player:restore()
+	  player.init()
+	  
+	  gamestage.restore_upgrades() 
 
     --enemies = nil
     --enemy_value = nil
@@ -83,6 +86,20 @@ function gamestage.advance_to_play()
 
     fade.start_fade("fadein", 0.5, true)
     delay.start(0.5, function() player:end_force_move() end)
+end
+
+function gamestage.save_upgrades()
+	print("saving upgrades")
+	gamestage.upgrades = { max_hp = player.max_hp }
+end
+
+function gamestage.restore_upgrades()
+	if gamestage.upgrades then
+		print("restoring upgrades")
+		player.max_hp = gamestage.upgrades.max_hp
+		
+	end
+	player:heal(player.max_hp)
 end
 
 return gamestage

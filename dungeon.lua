@@ -30,11 +30,10 @@ function dungeon:initialize(w,h,room_files,spawns)
 
 end
 
-
 function dungeon:move_to_room(rx, ry, from_dir)
   -- unload current map, load new one, place player appropriately, setup fights i guess
   print("move_to_room")
-	player.init()
+  --player.init()
   enemies = {}
   enemy_value = 0
   shots = {}
@@ -43,7 +42,6 @@ function dungeon:move_to_room(rx, ry, from_dir)
   if not items then items = {} end
   spawner.reset()
   
-
   local room_set = self.room_files[self:get_room_kind(rx, ry)]
   local room_index = self[rx][ry].file
 
@@ -54,6 +52,7 @@ function dungeon:move_to_room(rx, ry, from_dir)
   print("MOVEDONE")
   current_level.exits = self:get_exits(rx, ry)
   current_level.kind = self:get_room_kind(rx,ry)
+
   --current_level:prologue()
 
   player.dungeon_x = rx
