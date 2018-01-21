@@ -8,11 +8,11 @@ require "requires"
 
 STATE_SPLASH, STATE_MAINMENU, STATE_FILM, STATE_PLAY,
     STATE_PAUSE, STATE_DEATH, STATE_CONTINUE, STATE_WIN, STATE_OPTIONS,
-    STATE_INTERTITLE, STATE_MOVIE_A = 0,1,2,3,4,5,6,7,8,9,10
+    STATE_MOVIE_PLAY = 0,1,2,3,4,5,6,7,8,9
 
 gamestates = {[0]=splash, [1]=mainmenu, [2]=film, [3]=play,
     [4]=pause, [5]=death, [6]=continue, [7]=win, [8]=options,
-    [9]=intertitle, [10]=movie_a}
+    [9]=movie_play}
 
 function love.load()
   TILESIZE = 64
@@ -33,9 +33,6 @@ function love.load()
 
   init_settings()
   player.init()
-  print("PRE GAMESTAGE setup next stage")
-  gamestage.setup_next_stage(gamestage.current_stage)
-  print("post GAMESTAGE setup next stage")
 
   splash.enter()
   timer.init()
@@ -45,6 +42,11 @@ function love.update(dt)
   gui_time = love.timer.getTime()
   gui_flux.update(dt)
   gamestates[state].update(dt)
+  if player_input:down('killall') then
+    for _, z in pairs(enemies) do
+      z:die()
+    end
+  end
 end
 
 debug_font = love.graphics.newFont(12)

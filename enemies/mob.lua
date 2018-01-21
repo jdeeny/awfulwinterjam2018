@@ -62,9 +62,9 @@ function mob:update_position(dt)
 			self.dx, self.dy = self.dx * (self.speed_limit or 1.0), self.dy * (self.speed_limit or 1.0)
 
       if math.abs(self.dx) >= 0.01 or math.abs(self.dy) >= 0.01 then
-        if self.dy >= 0.01 then
-          self.facing_north = false
-        elseif self.dy <= -0.01 then
+
+				self.facing_north = false
+        if self.dy <= -0.01 then
           self.facing_north = true
         end
 

@@ -48,13 +48,13 @@ TileSet["water_w"..i]            = { function() return Tile:new('water_e'..i):se
 
 
 
-TileSet["water_se"..i]           = { function() return Tile:new('water_se'..i):setLayer(Layer.WATER) end,
+TileSet["water_nw"..i]           = { function() return Tile:new('water_nw'..i):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
-TileSet["water_sw"..i]           = { function() return Tile:new('water_se'..i):setLayer(Layer.WATER):setRotation(PI/2) end,
+TileSet["water_ne"..i]           = { function() return Tile:new('water_nw'..i):setLayer(Layer.WATER):setRotation(PI/2) end,
                                   function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
-TileSet["water_ne"..i]           = { function() return Tile:new('water_se'..i):setLayer(Layer.WATER):setRotation(-PI/2) end,
+TileSet["water_se"..i]           = { function() return Tile:new('water_nw'..i):setLayer(Layer.WATER):setRotation(PI) end,
                                 function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
-TileSet["water_nw"..i]           = { function() return Tile:new('water_se'..i):setLayer(Layer.WATER):setRotation(PI) end,
+TileSet["water_sw"..i]           = { function() return Tile:new('water_nw'..i):setLayer(Layer.WATER):setRotation(-PI/2) end,
                                   function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
 
 TileSet["water_ew"..i]           = { function() return Tile:new('water_ns'..i):setLayer(Layer.WATER):setRotation(PI/2) end,
@@ -76,6 +76,18 @@ TileSet["water_island"..i] = { function() return Tile:new('water_island'..i):set
                                   function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
 
 end
+for i = 1, 4 do
+TileSet["water_edge_w"..i]     = { function() return Tile:new('water_edge'..i):setLayer(Layer.WATER) end,
+function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
+TileSet["water_edge_n"..i]     = { function() return Tile:new('water_edge'..i):setLayer(Layer.WATER):setRotation(PI/2) end,
+function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
+TileSet["water_edge_e"..i]     = { function() return Tile:new('water_edge'..i):setLayer(Layer.WATER):setRotation(PI) end,
+function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
+TileSet["water_edge_s"..i]     = { function() return Tile:new('water_edge'..i):setLayer(Layer.WATER):setRotation(-PI/2) end,
+function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
+
+end
+
 TileSet["water_open"] = { function() return Tile:new('water_open'):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
 

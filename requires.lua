@@ -34,7 +34,7 @@ play = require "states/play"
 splash = require "states/splash"
 win = require "states/win"
 options = require "states/options"
-movie_a = require "states/movie_a"
+movie_play = require "states/movie_play"
 
 
 camera = require "camera"

@@ -32,7 +32,7 @@ end
 
 function BinaryOptionItem:updateValue()
 	self.value = (self.setting and "ON") or "OFF"
-	
+
 	if self.control and self.control_field then
 		_G[self.control][self.control_field] = self.setting
 	elseif self.control then -- a plain variable
@@ -82,7 +82,7 @@ end
 
 function ListOptionItem:updateValue()
 	self.value = self.list[self.index]
-	
+
 	if self.control and self.control_field then
 		_G[self.control][self.control_field] = self.c_values[self.index]
 	elseif self.control then -- a plain variable
@@ -137,7 +137,7 @@ end
 
 local masterVolume = MasterVolumeOI:new()
 
-local gameSpeed = ListOptionItem:new("Game Speed",{"super-slow (debug)","slow","medium","fast"},
+local gameSpeed = ListOptionItem:new("Game Speed",{"Super-Slow (debug)","Slow","Normal","Fast"},
                                      'gameplay_speed', nil, {0.3,0.75,1.0,1.25})
 
 local stageSelect = ListOptionItem:new("Stage Select",{"Tesla's Arrival","Edison's Folly","Test"},'gamestage','current_stage',{1,2,3})

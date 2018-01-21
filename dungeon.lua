@@ -27,22 +27,20 @@ function dungeon:initialize(w,h,room_files,spawns)
 			end
 		end
 	end
-
 end
-
 
 function dungeon:move_to_room(rx, ry, from_dir)
   -- unload current map, load new one, place player appropriately, setup fights i guess
   print("move_to_room")
-	player.init()
+  --player.init()
   enemies = {}
   enemy_value = 0
   shots = {}
   doodads = {}
   sparks = {}
-  if not items then items = {} end
+  --if not items then items = {} end
+  items = {}
   spawner.reset()
-
 
   local room_set = self.room_files[self:get_room_kind(rx, ry)]
   local room_index = self[rx][ry].file
@@ -54,8 +52,10 @@ function dungeon:move_to_room(rx, ry, from_dir)
   current_level:updatewatertiles()
   current_level:updatewalltiles()
   print("MOVEDONE")
+
   current_level.exits = self:get_exits(rx, ry)
   current_level.kind = self:get_room_kind(rx,ry)
+
   --current_level:prologue()
 
   player.dungeon_x = rx
@@ -109,7 +109,7 @@ function dungeon:get_exits(rx, ry)
 end
 
 function dungeon:get_room_kind(rx,ry)
-	return self[rx][ry].room_kind
+  return self[rx][ry].room_kind
 end
 
 return dungeon
