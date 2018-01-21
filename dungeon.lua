@@ -46,7 +46,7 @@ function dungeon:move_to_room(rx, ry, from_dir)
   local room_index = self[rx][ry].file
 
 	print("BEFORE PARSE")
-  current_level = current_dungeon[rx][ry].file
+  current_level = file_io.parse_room_file(room_set[room_index])
   print("MOVE TO ROOM")
   current_level:updatewatertiles()
   print("MOVEDONE")
