@@ -36,19 +36,17 @@ function movie_a.exit()
 end
 
 function movie_a._update_level(dt)
-    mdt = dt * play.game_speed()
-    game_time = game_time + mdt
+    game_time = game_time + dt
 
-    game_flux.update(mdt)
+    game_flux.update(dt)
 
-    camera.update(mdt)
+    camera.update(dt)
     timer.update()
-
     delay.process()
-
+    pathfinder.update()
     player.update(dt)
-
-    current_level:update(mdt)
+    electricity:update(dt)
+    current_level:update(dt)
 end
 
 function movie_a._draw_level()
@@ -61,33 +59,28 @@ function movie_a._draw_level()
 end
 
 function movie_a.update(dt)
-  local leave_movie = false
-  
 
   player_input:update()
   if player_input:pressed('fire') or player_input:pressed('sel') then
-    leave_movie = true
+    movie_a.exit()
+    return
   end
-
-  movie_a._update_level(dt)
-
-  if movie_a.intertitle and movie_a.intertitle:complete() then
-    movie_a.intertitle = nil
-  end
-
-
-
-
 
   if love.timer.getTime() > (movie_a.start_time + 6) then
-    leave_movie=true
+    movie_a.exit()
+    return
   end
 
-  if leave_movie then
-    movie_a.exit()
-  else
-    
+  if not movie_a.intertitle then
+    player.dx = player.speed * dt
+    player.dy = player.speed * dt
+
+
+    movie_a._update_level(dt)
+  elseif movie_a.intertitle:complete() then
+    movie_a.intertitle = nil
   end
+  
 end
 
 function movie_a.draw()
