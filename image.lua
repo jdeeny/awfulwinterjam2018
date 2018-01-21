@@ -1,6 +1,7 @@
 local image = {}
 
 function image.init()
+  image.void = love.graphics.newImage("assets/tiles/void.png")
   image.dude = love.graphics.newImage("assets/sprites/dude.png")
   image.gear = love.graphics.newImage("assets/sprites/gear.png")
   image.lumpgoon = love.graphics.newImage("assets/sprites/goon_sprite_sheet.png")
