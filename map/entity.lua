@@ -24,7 +24,11 @@ function Entity:takeDamage(dmg)
 end
 
 function Entity:draw()
-  love.graphics.draw(self.drawable, self.loc.x - camera.x, self.loc.y - camera.y, self.rot, self.sx, self.sy, self.ox, self.oy)
+  if not self.drawable then
+    print("nil entity: "..self.id.." layer "..self.layer.." xy:"..self.x.." "..self.y)
+  else
+    love.graphics.draw(self.drawable, self.loc.x - camera.x, self.loc.y - camera.y, self.rot, self.sx, self.sy, self.ox, self.oy)
+  end
 end
 
 return Entity

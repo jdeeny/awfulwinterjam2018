@@ -102,6 +102,7 @@ function Level:addTile(id, x, y, tile)
   for i, t in ipairs(tile) do
     local t = t()
     t.x, t.y = x, y
+    print("tile: "..t.kind)
     local e = t:toEntity(x, y)
     if i == 1 then first = e end
     self:_add(id, e)
@@ -183,9 +184,9 @@ function Level:coda()
   if self.kind == "boss" then
 	  fade.start_fade("fadeout", 1, false)
 	  -- set iframes so player doesn't die before progressing?
-	  delay.start(1, function()  
-		  gamestage.setup_next_stage()
-		  film.enter() 
+	  delay.start(1, function()
+	  gamestage.setup_next_stage()
+	  film.enter()
 	  end)
   end
   if self.exits.north then
@@ -197,28 +198,6 @@ function Level:coda()
     doodad_data.spawn("exit_east", current_level:pixel_width() - (TILESIZE / 2), current_level:pixel_height() / 2)
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 function Level:getLayer(n)
@@ -286,7 +265,6 @@ function Level:draw()
   -- Draw everything now
   love.graphics.setCanvas()
   for i = 1, Layer.LASTLAYER do
-
     -- Exceptions here, could probably refactor
     if i == Layer.SHADOW then
       love.graphics.draw(self.shadow_canvas, self.shadow_xoff, self.shadow_yoff)
@@ -299,6 +277,90 @@ function Level:draw()
   end
 end
 
+function Level:northWater(x, y)
+  local k = self:feature_at(x, y - 1)
+
+  if k:sub(1, 5) == "water" then return 1 end
+  return 0
+end
+function Level:southWater(x, y)
+  if (self:feature_at(x, y + 1)):sub(1, 5) == "water" then return 1 end
+  return 0
+end
+function Level:eastWater(x, y)
+  if (self:feature_at(x + 1, y)):sub(1, 5) == "water" then return 1 end
+  return 0
+end
+function Level:westWater(x, y)
+  if (self:feature_at(x - 1, y)):sub(1, 5) == "water" then return 1 end
+  return 0
+end
+function Level:neWater(x, y)
+  if (self:feature_at(x + 1, y - 1)):sub(1, 5) == "water" then return 1 end
+  return 0
+end
+function Level:nwWater(x, y)
+  if (self:feature_at(x - 1, y - 1)):sub(1, 5) == "water" then return 1 end
+  return 0
+end
+function Level:swWater(x, y)
+  if (self:feature_at(x - 1, y + 1)):sub(1, 5) == "water" then return 1 end
+  return 0
+end
+function Level:seWater(x, y)
+  if (self:feature_at(x + 1, y + 1)):sub(1, 5) == "water" then return 1 end
+  return 0
+end
+
+
+
+local function iswater(kind)
+  return kind:sub(1,5) == "water"
+end
+
+function Level:updatewatertiles()
+  print("WATER!!")
+  local N, E, W, S = 8, 4, 2, 1
+  local NE, NW, SW, SE = 128, 64, 32, 16
+  for tx = 1, self.width do
+    for ty = 1, self.height do
+      if self:feature_at(tx, ty):sub(1,5) == 'water' then
+        local waterstatus_sides = self:northWater(tx,ty) * N + self:eastWater(tx,ty) * E + self:southWater(tx,ty) * S + self:westWater(tx,ty) * W
+        local waterstatus_diag = self:neWater(tx,ty) * NE + self:nwWater(tx,ty) * NW + self:seWater(tx,ty)*SE + self:swWater(tx,ty)*SW
+        local waterstatus = waterstatus_sides + waterstatus_diag
+        -- TODO: Account for corners
+        print("WSTAT: " ..waterstatus )
+        if waterstatus == 0 then self:addTile(nil, tx, ty, self.tileset["water_surround"..math.random(2)]) end
+
+        if waterstatus_sides == W then self:addTile(nil, tx, ty, self.tileset["water_w"..math.random(2)]) end
+        if waterstatus_sides == S then self:addTile(nil, tx, ty, self.tileset["water_s"..math.random(2)]) end
+        if waterstatus_sides == E then self:addTile(nil, tx, ty, self.tileset["water_e"..math.random(2)]) end
+        if waterstatus_sides == N then self:addTile(nil, tx, ty, self.tileset["water_n"..math.random(2)]) end
+
+        if waterstatus_sides == N+S then self:addTile(nil, tx, ty, self.tileset["water_ns"..math.random(2)]) end
+        if waterstatus_sides == E+W then self:addTile(nil, tx, ty, self.tileset["water_ew"..math.random(2)]) end
+
+        if waterstatus_sides == W+S then self:addTile(nil, tx, ty, self.tileset["water_sw"..math.random(2)]) end
+        if waterstatus_sides == E+S then self:addTile(nil, tx, ty, self.tileset["water_se"..math.random(2)]) end
+        if waterstatus_sides == W+N then self:addTile(nil, tx, ty, self.tileset["water_nw"..math.random(2)]) end
+        if waterstatus_sides == E+N then self:addTile(nil, tx, ty, self.tileset["water_ne"..math.random(2)]) end
+
+
+        --[[if waterstatus == 6 then self:addTile(nil, tx, ty, self.tileset["water_se"..math.random(2)]) end
+        if waterstatus == 7 then self:addTile(nil, tx, ty, self.tileset["water_allbutn"..math.random(2)]) end
+        if waterstatus == 8 then self:addTile(nil, tx, ty, self.tileset["water_n"..math.random(2)]) end
+        if waterstatus == 9 then self:addTile(nil, tx, ty, self.tileset["water_nw"..math.random(2)]) end
+        if waterstatus == 10 then self:addTile(nil, tx, ty, self.tileset["water_ns"..math.random(2)]) end
+        if waterstatus == 11 then self:addTile(nil, tx, ty, self.tileset["water_allbute"..math.random(2)]) end
+        if waterstatus == 12 then self:addTile(nil, tx, ty, self.tileset["water_ne"..math.random(2)]) end
+        if waterstatus == 13 then self:addTile(nil, tx, ty, self.tileset["water_allbuts"..math.random(2)]) end
+        if waterstatus == 14 then self:addTile(nil, tx, ty, self.tileset["water_allbutw"..math.random(2)]) end
+        if waterstatus == 15 then self:addTile(nil, tx, ty, self.tileset["water_singleisland"..math.random(2)]) end]]
+      end
+    end
+  end
+  print("END OF WATER")
+end
 
 --[[function room:update()
   if self.door_close_time then
