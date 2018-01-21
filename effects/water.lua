@@ -11,17 +11,19 @@ Water.moonwater = function()
     extern vec2 mapoffset;
     vec4 effect(vec4 color, Image texture, vec2 tc, vec2 sc) {
 
-      float timex = time;// * 3;
+      float timet = time;
+      float timem = time * 0.6;
+      float timel = time * 0.3;
       vec2 mapct = (sc.xy * 1.0 / love_ScreenSize.xy) + (mapoffset * 1.0 / love_ScreenSize.xy);
-      vec2 mapcm = (sc.xy * 1.0 / love_ScreenSize.xy) + (mapoffset * 0.6 / love_ScreenSize.xy);
-      vec2 mapcl = (sc.xy * 1.0 / love_ScreenSize.xy) + (mapoffset * 0.4 / love_ScreenSize.xy);
+      vec2 mapcm = (sc.xy * 1.0 / love_ScreenSize.xy) + (mapoffset * 1.1 / love_ScreenSize.xy);
+      vec2 mapcl = (sc.xy * 1.0 / love_ScreenSize.xy) + (mapoffset * 1.2 / love_ScreenSize.xy);
 
-      float xt = ( sin( timex + 25 * mapct.x + 30 * mapct.y) + sin(-timex + 20 * mapct.x + 35 * mapct.y + 1) ) / 2;
-      float yt = ( sin( timex + 25 * mapct.x + 30 * mapct.y) + sin(-timex + 16 * mapct.x + 3 * mapct.y + 1.5) ) / 2;
-      float xm = ( sin( timex + 25 * mapcm.x + 30 * mapcm.y) + sin(-timex + 17 * mapcm.x + 23 * mapcm.y + 1.1) ) / 2;
-      float ym = ( sin( timex + 25 * mapcm.x + 30 * mapcm.y) + sin(-timex + 18 * mapcm.x + 4 * mapcm.y + 1.6) ) / 2;
-      float xl = ( sin( timex + 25 * mapcl.x + 30 * mapcl.y) + sin(-timex + 15 * mapcl.x + 15 * mapcl.y + 0.9) ) / 2;
-      float yl = ( sin( timex + 25 * mapcl.x + 30 * mapcl.y) + sin(-timex + 14 * mapcl.x + 5 * mapcl.y + 1.4) ) / 2;
+      float xt = ( sin( timet + 25 * mapct.x + 30 * mapct.y) + sin(-timet + 20 * mapct.x + 35 * mapct.y + 1) ) / 2;
+      float yt = ( sin( timet + 25 * mapct.x + 30 * mapct.y) + sin(-timet + 16 * mapct.x + 3 * mapct.y + 1.5) ) / 2;
+      float xm = ( sin( timem + 25 * mapcm.x + 30 * mapcm.y) + sin(-timem + 17 * mapcm.x + 23 * mapcm.y + 1.1) ) / 2;
+      float ym = ( sin( timem + 25 * mapcm.x + 30 * mapcm.y) + sin(-timem + 18 * mapcm.x + 4 * mapcm.y + 1.6) ) / 2;
+      float xl = ( sin( timel + 25 * mapcl.x + 30 * mapcl.y) + sin(-timel + 15 * mapcl.x + 15 * mapcl.y + 0.9) ) / 2;
+      float yl = ( sin( timel + 25 * mapcl.x + 30 * mapcl.y) + sin(-timel + 14 * mapcl.x + 5 * mapcl.y + 1.4) ) / 2;
 
       vec2 offt = vec2(xt,yt) * 0.08 + 1;
       vec2 offm = vec2(xm,ym) * 0.16 + .9;
@@ -44,11 +46,11 @@ Water.moonwater = function()
       vec4 darkl  = Texel(watershape, (wcl + 0.3) * 0.5);
 
       vec4 shape = mix(mix(
-        mix(mix(base, base * 0.9, darkt), base * 1.8, lightt),
-        mix(mix(base, base * 0.5, darkm), base * 0.8, lightm),
+        mix(mix(base, base * 0.7, darkt), base * 1.6, lightt),
+        mix(mix(base, base * 0.5, darkm), base * 1.1, lightm),
         0.5),
-        mix(mix(base, base * 0.2, darkl), base * 1.3, lightl),
-        0.3);
+        mix(mix(base, base * 0.9, darkl), base * 1.1, lightl),
+        0.5);
 
       return shape * m * color;
     }
