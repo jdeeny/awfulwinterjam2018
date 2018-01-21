@@ -2,43 +2,131 @@ Intertitle = require "states/intertitle"
 
 local movie_a = {
   music = {track="figleaf", volume=1, offset=27},
-  intertitles = {
-    {"This is the first thing said.", 3},
-  },
 }
 
-local sequence_finished = true
-local sequence_index = 0
-local sequence_current_step = nil
-local sequence = {
-  {type='animation', action=function() 
-      sequence_finished = false
+-------------------------------------------------------------------------------
+local SequenceStep = class("SequenceStep")
+
+function SequenceStep:initialize( seq_table )
+  self.type = seq_table.type
+  self.run_time = seq_table.run_time or 9999
+  self._start = seq_table.start
+  self._stop = seq_table.stop
+  self._update = seq_table.update
+  self._draw = seq_table.draw
+end
+
+function SequenceStep:start( ... )
+  self.start_time = love.timer.getTime()
+  self._started = true
+  self._running = true
+  
+  if self._start then
+    self:_start()
+  end
+end
+
+function SequenceStep:update(dt)
+  if self._running then
+    if love.timer.getTime() > (self.start_time + self.run_time) then
+      self._running = false
+    else
+      if self._update then
+        self:_update(dt)
+      end
+      if self.type == 'animation' then
+        movie_a._update_level(dt)
+      end
+    end
+  end
+end
+
+function SequenceStep:stop( ... )
+  if self._running then
+    self._running = false
+    if self._stop then
+      self:_stop()
+    end
+  end
+end
+
+function SequenceStep:draw( ... )
+  if self._draw and self._running then
+    self:_draw()
+  end
+
+  if self.type == 'animation' then
+    movie_a._draw_level()
+  end
+end
+
+function SequenceStep:is_finished( ... )
+  if not self._started then
+    return false 
+  end
+  return not self._running
+end
+
+-------------------------------------------------------------------------------
+IntertitleStep = class("IntertitleStep",SequenceStep)
+
+function IntertitleStep:initialize(text, duration)
+  self._text = text
+  self._duration = duration
+  local startfunc = function(self)
+    self.intertitle = Intertitle:new(self._text,self._duration)
+  end
+  local updatefunc = function(self, dt)
+    if self.intertitle:complete() then
+        self:stop()
+      end
+  end
+  local drawfunc = function(self)
+    self.intertitle:draw()
+  end
+  SequenceStep.initialize(self, {start=startfunc, update=updatefunc,
+    draw=drawfunc, type='intertitle'})
+end
+
+-------------------------------------------------------------------------------
+-- type, start, update, stop, draw, run_time
+movie_a.sequence_steps = {
+  SequenceStep:new({
+    type = "animation",
+    start = function(self)
       player:start_force_move(0.5, player.speed, 0)
-      delay.start(2, function() 
-        player:end_force_move()
-        sequence_finished = true
-      end)
-    end},
-  {type='intertitle', action={"Hello. My name is Inigo montoya.",3}},
-  {type='animation', action=function() 
-      sequence_finished = false
+    end,
+    run_time = 1,
+  }),
+  IntertitleStep("My name is Nikola Tesla.", 2),
+  SequenceStep:new({
+    type = "animation",
+    start = function(self)
       player:start_force_move(0.5, player.speed, 0)
-      delay.start(2, function() 
-        player:end_force_move()
-        sequence_finished = true
-      end)
-    end},
-  {type='intertitle', action={"You killed my father.",3}},
-  {type='animation', action=function() 
-      sequence_finished = false
+    end,
+    run_time = 2,
+  }),
+  IntertitleStep("You kill my father.", 2),
+  SequenceStep:new({
+    type = "animation",
+    start = function(self)
       player:start_force_move(0.5, player.speed, 0)
-      delay.start(2, function() 
-        player:end_force_move()
-        sequence_finished = true
-      end)
-    end},
-  {type='intertitle', action={"Prepare to die.",3}},
+    end,
+    run_time = 2,
+  }),
+  IntertitleStep("Prepare to die ...", 2),
+  SequenceStep:new({
+    type = "animation",
+    run_time = 0.5,
+  }),
+  IntertitleStep("... by electricity", 2),
 }
+
+
+
+
+
+
 
 function movie_a.enter()
   movie_a.start_time = love.timer.getTime()
@@ -57,14 +145,9 @@ function movie_a.enter()
 
   player.input_disabled = true
 
-
-  fade.start_fade("fadein", 0.5, true)
-  player:start_force_move(player.speed, 0, 1)
-  sequence_finished = false
-  delay.start(0.5, function() 
-      player:end_force_move()
-      sequence_finished = true 
-    end)
+  movie_a.seq_i = 1
+  movie_a.seq = movie_a.sequence_steps[movie_a.seq_i]
+  movie_a.seq:start()
 
   state = STATE_MOVIE_A
 end
@@ -108,41 +191,30 @@ function movie_a.update(dt)
     return
   end
 
-  if not movie_a.intertitle then
-    movie_a._update_level(dt)
+  if movie_a.seq:is_finished() then
+    
 
-    if sequence_finished then
-      sequence_index = sequence_index + 1
-      
-      if sequence_index > #sequence then
-        movie_a.exit()
-        return
-      end
-
-      local seq = sequence[sequence_index]
-
-      print("sequence_index",sequence_index)
-      if seq['type'] == 'animation' then
-        print("animation")
-        seq['action']()
-      elseif seq['type'] == 'intertitle' then
-        print("intertitle")
-        movie_a.intertitle = Intertitle:new(unpack(seq['action']))
-        print("animation")
-      end
+    movie_a.seq:stop()
+    
+    movie_a.seq_i = movie_a.seq_i + 1
+    if movie_a.seq_i > #movie_a.sequence_steps then
+      movie_a.exit()
+      return
     end
+    movie_a.seq = movie_a.sequence_steps[movie_a.seq_i]   
 
-  elseif movie_a.intertitle:complete() then
-    movie_a.intertitle = nil
+    movie_a.seq:start()
+    
+  else
+    movie_a.seq:update(dt)
   end
+
   
 end
 
 function movie_a.draw()
-  if movie_a.intertitle then
-    movie_a.intertitle:draw()
-  else
-    movie_a._draw_level()
+  if movie_a.seq then
+    movie_a.seq:draw()
   end
 end
 
