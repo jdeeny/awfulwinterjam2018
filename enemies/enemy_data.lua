@@ -189,7 +189,23 @@ enemy_data["rifledude"] =
 enemy_data["sniperdude"] =
 {
   kind = "sniperdude", name = "Sniper Dude",
-  sprite = "dude", death_sound = "unh",
+  sprite = "pinkerton", death_sound = "unh",
+
+  animations = {
+    sniperdude_run_ne = animation.pinkerton_run_ne:clone(),
+    sniperdude_run_se = animation.pinkerton_run_se:clone(),
+    sniperdude_run_nw = animation.pinkerton_run_nw:clone(),
+    sniperdude_run_sw = animation.pinkerton_run_sw:clone(),
+    sniperdude_idle_ne = animation.pinkerton_idle_ne:clone(),
+    sniperdude_idle_se = animation.pinkerton_idle_se:clone(),
+    sniperdude_idle_nw = animation.pinkerton_idle_nw:clone(),
+    sniperdude_idle_sw = animation.pinkerton_idle_sw:clone(),
+    sniperdude_hurt_ne = animation.pinkerton_hurt_ne:clone(),
+    sniperdude_hurt_se = animation.pinkerton_hurt_se:clone(),
+    sniperdude_hurt_nw = animation.pinkerton_hurt_nw:clone(),
+    sniperdude_hurt_sw = animation.pinkerton_hurt_sw:clone(),
+  },
+
   max_hp = 30,
   speed = 80,
   radius = 30,
