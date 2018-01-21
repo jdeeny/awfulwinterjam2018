@@ -38,7 +38,7 @@ function player.init()
   player.aim = player.rot
   player.equipped_items = {}
   player:equip('weapon', player.weapons[player.weapon])
-  
+
   player.next_splash = game_time
   player.splash_delay = 0.12
 
@@ -84,7 +84,9 @@ function player.update(dt)
       end
 
       if player_input:pressed('swap') then
-        player.weapon_switch()
+        player.weapon_switch(-1)
+      elseif player_input:pressed('swap_rev') then
+        player.weapon_switch(1)
       end
 
       if (aim_x ~= 0 or aim_y ~= 0 or player_input:down('fire')) and not player.stun and not player.force_move and not player.dying then
@@ -199,9 +201,11 @@ function player:heal(hp)
   self.hp = math.min(self.hp+hp, self.max_hp)
 end
 
-function player.weapon_switch()
-  player.weapon = player.weapon + 1
+function player.weapon_switch(rev)
+  local inc = rev or 1
+  player.weapon = player.weapon + inc
   if player.weapon > player.weapon_max then player.weapon = 1 end
+  if player.weapon <= 0 then player.weapon = player.weapon_max end
 
   if #player.weapons > 1 then
     player.equipped_items['weapon']:release()

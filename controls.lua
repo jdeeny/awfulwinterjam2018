@@ -13,7 +13,8 @@ function controls.init()
       aimup = {'key:up', 'axis:righty-'},
       aimdown = {'key:down', 'axis:righty+'},
 
-      swap = {'key:q', 'button:a'},
+      swap = {'key:q', 'button:a', 'button:rightshoulder'},
+      swap_rev = {'key:e', 'button:x', 'button:leftshoulder'},
 
       fire = {'mouse:1'},
 
