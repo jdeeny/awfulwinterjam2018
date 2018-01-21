@@ -138,7 +138,7 @@ movie_play.credits = {
     --IntertitleStep("", 3),
     IntertitleStep("Music\n\nFig Leaf Times Two\n\nby Kevin MacLeod\n\nincompetech.com", 3),
   },
-  music = {track="figleaf", volume=1, offset=27},
+  music = {track="credits", volume=1, offset=0},
 }
 
 function movie_play.enter(movie_data, finish_callback)
@@ -146,7 +146,7 @@ function movie_play.enter(movie_data, finish_callback)
   movie_play.finish_callback = finish_callback
 
   movie_play.movie = Movie:new(movie_data)
-  movie_play.movie:start()  
+  movie_play.movie:start()
 
   state = STATE_MOVIE_PLAY
 end
