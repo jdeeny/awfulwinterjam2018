@@ -333,15 +333,18 @@ function Level:updatewatertiles()
         print("WSTAT: " ..waterstatus )
         if waterstatus == 0 then self:addTile(nil, tx, ty, self.tileset["water_surround"..math.random(2)]) end
 
-        if waterstatus == W then self:addTile(nil, tx, ty, self.tileset["water_w"..math.random(2)]) end
-        if waterstatus == S then self:addTile(nil, tx, ty, self.tileset["water_s"..math.random(2)]) end
-        if waterstatus == E then self:addTile(nil, tx, ty, self.tileset["water_e"..math.random(2)]) end
-        if waterstatus == N then self:addTile(nil, tx, ty, self.tileset["water_n"..math.random(2)]) end
+        if waterstatus_sides == W then self:addTile(nil, tx, ty, self.tileset["water_w"..math.random(2)]) end
+        if waterstatus_sides == S then self:addTile(nil, tx, ty, self.tileset["water_s"..math.random(2)]) end
+        if waterstatus_sides == E then self:addTile(nil, tx, ty, self.tileset["water_e"..math.random(2)]) end
+        if waterstatus_sides == N then self:addTile(nil, tx, ty, self.tileset["water_n"..math.random(2)]) end
 
         if waterstatus_sides == N+S then self:addTile(nil, tx, ty, self.tileset["water_ns"..math.random(2)]) end
         if waterstatus_sides == E+W then self:addTile(nil, tx, ty, self.tileset["water_ew"..math.random(2)]) end
 
         if waterstatus_sides == W+S then self:addTile(nil, tx, ty, self.tileset["water_sw"..math.random(2)]) end
+        if waterstatus_sides == E+S then self:addTile(nil, tx, ty, self.tileset["water_se"..math.random(2)]) end
+        if waterstatus_sides == W+N then self:addTile(nil, tx, ty, self.tileset["water_nw"..math.random(2)]) end
+        if waterstatus_sides == E+N then self:addTile(nil, tx, ty, self.tileset["water_ne"..math.random(2)]) end
 
 
         --[[if waterstatus == 6 then self:addTile(nil, tx, ty, self.tileset["water_se"..math.random(2)]) end
