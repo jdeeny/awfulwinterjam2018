@@ -4,7 +4,6 @@ function enemy_data.spawn(kind, x, y, parameter)
   local new_id = idcounter.get_id("enemy")
 
   local e = enemy:new()
-
   e.id = new_id
   e.x = x
   e.y = y
@@ -99,14 +98,14 @@ enemy_data["superlump"] =
   kind = "superlump", name = "Super Goon",
   sprite = "lumpgoon", death_sound = "unh",
   animations = {
-    lumpgoon_run_ne = animation.lumpgoon_run_ne:clone(),
-    lumpgoon_run_se = animation.lumpgoon_run_se:clone(),
-    lumpgoon_run_nw = animation.lumpgoon_run_nw:clone(),
-    lumpgoon_run_sw = animation.lumpgoon_run_sw:clone(),
-    lumpgoon_idle_ne = animation.lumpgoon_idle_ne:clone(),
-    lumpgoon_idle_se = animation.lumpgoon_idle_se:clone(),
-    lumpgoon_idle_nw = animation.lumpgoon_idle_nw:clone(),
-    lumpgoon_idle_sw = animation.lumpgoon_idle_sw:clone(),},
+    superlump_run_ne = animation.lumpgoon_run_ne:clone(),
+    superlump_run_se = animation.lumpgoon_run_se:clone(),
+    superlump_run_nw = animation.lumpgoon_run_nw:clone(),
+    superlump_run_sw = animation.lumpgoon_run_sw:clone(),
+    superlump_idle_ne = animation.lumpgoon_idle_ne:clone(),
+    superlump_idle_se = animation.lumpgoon_idle_se:clone(),
+    superlump_idle_nw = animation.lumpgoon_idle_nw:clone(),
+    superlump_idle_sw = animation.lumpgoon_idle_sw:clone(),},
   max_hp = 250,
   speed = 40,
   radius = 25,

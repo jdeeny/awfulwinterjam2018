@@ -41,7 +41,6 @@ function Seeker:update(dt)
     --print("angle: ".. self.angle.." "..newangle)
     --self.entity.wake_time = game_time + 0.05 + love.math.random() * 0.1
   --end
-print(self.cornering)
   if self.goalspeed > self.curspeed then
     self.curspeed = cpml.utils.clamp(self.curspeed + self.accel * dt, self.curspeed, self.goalspeed)
   else
