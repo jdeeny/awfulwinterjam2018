@@ -111,14 +111,24 @@ end
 
 function gamestage.save_upgrades()
 	print("saving upgrades")
-	gamestage.upgrades = { max_hp = player.max_hp }
+	gamestage.upgrades = { max_hp = player.max_hp, weapon_stats = {} }
+	for k,v in pairs(player.weapons) do
+		gamestage.upgrades.weapon_stats[k] = {}
+		gamestage.upgrades.weapon_stats[k].max_ammo = v.max_ammo
+		print("weapons",k,v) -- DBG
+		-- add any others?
+	end 
 end
 
 function gamestage.restore_upgrades()
 	if gamestage.upgrades then
 		print("restoring upgrades")
 		player.max_hp = gamestage.upgrades.max_hp
-		
+		for k,v in pairs(gamestage.upgrades.weapon_stats) do
+			print("upgrading",player.weapons[k]) -- DBG
+			player.weapons[k].max_ammo = v.max_ammo
+			print("weapons",k,v) -- DBG
+		end
 	end
 	player:heal(player.max_hp)
 end
