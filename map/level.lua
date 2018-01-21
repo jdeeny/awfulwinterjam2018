@@ -173,6 +173,56 @@ function Level:open_door(dir, fake, time)
     self:addTile(nil, 1,self.height/2, k)
     self:addTile(nil, 1,self.height/2+1, k)
   end
+
+  self:updatewalltiles()
+end
+
+function Level:close_door(dir)
+  local dtype = "door"
+  local k = self.tileset[dtype]
+
+  if not silent then
+    audiomanager:playOnce("unlatch")
+  end
+
+  if dir == "north" then
+    --self.tiles[self.width / 2][1].kind = k
+    --self.tiles[1 + self.width / 2][1].kind = k
+    self:addTile(nil, self.width/2, 1, k)
+    self:addTile(nil, 1+self.width/2, 1, k)
+  elseif dir == "south" then
+    --self.tiles[self.width / 2][self.height].kind = k
+    --self.tiles[1 + self.width / 2][self.height].kind = k
+    self:addTile(nil, self.width/2, self.height, k)
+    self:addTile(nil, 1+self.width/2, self.height, k)
+  elseif dir == "east" then
+    --self.tiles[self.width][self.height / 2].kind = k
+    --self.tiles[self.width][1 + self.height / 2].kind = k
+    self:addTile(nil, self.width, self.height/2, k)
+    self:addTile(nil, self.width, self.height/2 + 1, k)
+  elseif dir == "west" then
+    --self.tiles[1][self.height / 2].kind = k
+    --self.tiles[1][1 + self.height / 2].kind = k
+    self:addTile(nil, 1,self.height/2, k)
+    self:addTile(nil, 1,self.height/2+1, k)
+  end
+
+  self:updatewalltiles()
+end
+
+function Level:setup_outer_walls()
+  for x = 1, self.width do
+    self:addTile(nil, x, 1, self.tileset["invinciblewall"])
+    self:addTile(nil, x, self.height, self.tileset["invinciblewall"])
+  end
+  for y = 1, self.height do
+    self:addTile(nil, 1, y, self.tileset["invinciblewall"])
+    self:addTile(nil, self.width, y, self.tileset["invinciblewall"])
+  end
+  current_level:close_door('north', true)
+  current_level:close_door('south', true)
+  current_level:close_door('east', true)
+  current_level:close_door('west', true)
 end
 
 function Level:prologue()
@@ -239,6 +289,13 @@ function Level:update(dt)
   for i = 1, Layer.LASTLAYER do
     if self.layers[i] then
       self.layers[i]:update(dt)
+    end
+  end
+
+  for i,v in pairs(self.door_close_time) do
+    if game_time > v then
+      self:close_door(i)
+      self.door_close_time[i] = nil
     end
   end
 end
@@ -378,6 +435,141 @@ function Level:updatewatertiles()
     end
   end
 end
+
+------
+
+local function iswall(kind)
+  return kind:sub(1,4) == "wall" or kind:sub(1,4) == "void"
+end
+
+function Level:northWall(x, y)
+  if iswall(self:feature_at(x, y - 1)) then return 1 end
+  return 0
+end
+function Level:southWall(x, y)
+  if iswall(self:feature_at(x, y + 1)) then return 1 end
+  return 0
+end
+function Level:eastWall(x, y)
+  if iswall(self:feature_at(x + 1, y)) then return 1 end
+  return 0
+end
+function Level:westWall(x, y)
+  if iswall(self:feature_at(x - 1, y)) then return 1 end
+  return 0
+end
+function Level:neWall(x, y)
+  if iswall(self:feature_at(x + 1, y - 1)) then return 1 end
+  return 0
+end
+function Level:nwWall(x, y)
+  if iswall(self:feature_at(x - 1, y - 1)) then return 1 end
+  return 0
+end
+function Level:swWall(x, y)
+  if iswall(self:feature_at(x - 1, y + 1)) then return 1 end
+  return 0
+end
+function Level:seWall(x, y)
+  if iswall(self:feature_at(x + 1, y + 1)) then return 1 end
+  return 0
+end
+
+function Level:updatewalltiles()
+  local southblock
+
+  for tx = 1, self.width do
+    for ty = 1, self.height do
+      if self:feature_at(tx, ty):sub(1,4) == "wall" then
+        southblock = self:feature_at(tx, ty + 1)
+        if southblock == "opendoor" or southblock == "fakedoor" then
+          self:addTile(nil, tx, ty, self.tileset["wall_southdoor"])
+        elseif southblock:sub(1,4) == "wall" or southblock:sub(1,14) == "invinciblewall"
+          or southblock == "void" or southblock:sub(1,4) == "door" then
+          self:addTile(nil, tx, ty, self.tileset["wall"])
+        else
+          self:addTile(nil, tx, ty, self.tileset["wall_southface"])
+        end
+      elseif self:feature_at(tx, ty):sub(1,14) == "invinciblewall" then
+        southblock = self:feature_at(tx, ty + 1)
+        if southblock == "opendoor" or southblock == "fakedoor" then
+          self:addTile(nil, tx, ty, self.tileset["invinciblewall_southdoor"])
+        elseif southblock:sub(1,4) == "wall" or southblock:sub(1,14) == "invinciblewall"
+          or southblock == "void" or southblock:sub(1,4) == "door" then
+          self:addTile(nil, tx, ty, self.tileset["invinciblewall"])
+        else
+          self:addTile(nil, tx, ty, self.tileset["invinciblewall_southface"])
+        end
+      elseif (self:feature_at(tx, ty)):sub(1,4) == "door" then
+        southblock = self:feature_at(tx, ty + 1)
+        if southblock:sub(1,4) == "wall" or southblock:sub(1,14) == "invinciblewall"
+          or southblock == "void" or southblock:sub(1,4) == "door" then
+          self:addTile(nil, tx, ty, self.tileset["door"])
+        else
+          self:addTile(nil, tx, ty, self.tileset["door_southface"])
+        end
+      end
+    end
+  end
+end
+
+-- function Level:updatewalltiles()
+--   local N, E, W, S = 8, 4, 2, 1
+--   local NE, NW, SW, SE = 128, 64, 32, 16
+--   for tx = 1, self.width do
+--     for ty = 1, self.height do
+--       local wallstatus_sides = self:northWater(tx,ty) * N + self:eastWater(tx,ty) * E + self:southWater(tx,ty) * S + self:westWater(tx,ty) * W
+--       local wallstatus_diag = self:neWater(tx,ty) * NE + self:nwWater(tx,ty) * NW + self:seWater(tx,ty)*SE + self:swWater(tx,ty)*SW
+--       local wallstatus = wallstatus_sides + wallstatus_diag
+
+--       -- first, if -this tile- is a wall, draw south-facing wall
+--       if self:feature_at(tx, ty):sub(1,4) == "wall" then
+--         if wallstatus % 2 = 0 then
+--           self:addTile(nil, tx, ty, self.tileset["wall_southface"])
+--         else
+--           self:addTile(nil, tx, ty, self.tileset["wall_void"])
+--         end
+--       end
+
+--       if waterstatus == 0 then self:addTile(nil, tx, ty, self.tileset["water_surround"..math.random(2)]) end
+
+--       if waterstatus_sides == W then self:addTile(nil, tx, ty, self.tileset["water_w"..math.random(2)]) end
+--       if waterstatus_sides == S then self:addTile(nil, tx, ty, self.tileset["water_s"..math.random(2)]) end
+--       if waterstatus_sides == E then self:addTile(nil, tx, ty, self.tileset["water_e"..math.random(2)]) end
+--       if waterstatus_sides == N then self:addTile(nil, tx, ty, self.tileset["water_n"..math.random(2)]) end
+
+--       if waterstatus_sides == N+S then self:addTile(nil, tx, ty, self.tileset["water_ns"..math.random(2)]) end
+--       if waterstatus_sides == E+W then self:addTile(nil, tx, ty, self.tileset["water_ew"..math.random(2)]) end
+
+--       if waterstatus_sides == W+S then self:addTile(nil, tx, ty, self.tileset["water_sw"..math.random(2)]) end
+--       if waterstatus_sides == E+S then self:addTile(nil, tx, ty, self.tileset["water_se"..math.random(2)]) end
+--       if waterstatus_sides == W+N then self:addTile(nil, tx, ty, self.tileset["water_nw"..math.random(2)]) end
+--       if waterstatus_sides == E+N then self:addTile(nil, tx, ty, self.tileset["water_ne"..math.random(2)]) end
+
+--       if waterstatus_sides == N+S+E+W and waterstatus_diag == 0 then self:addTile(nil, tx, ty, self.tileset['water_cross']) end
+
+--       if waterstatus_sides == N+E+S and waterstatus_diag == 0 then self:addTile(nil, tx, ty, self.tileset["water_t_nes"]) end
+--       if waterstatus_sides == E+S+W and waterstatus_diag == 0 then self:addTile(nil, tx, ty, self.tileset["water_t_esw"]) end
+--       if waterstatus_sides == S+E+N and waterstatus_diag == 0 then self:addTile(nil, tx, ty, self.tileset["water_t_sen"]) end
+--       if waterstatus_sides == E+N+W and waterstatus_diag == 0 then self:addTile(nil, tx, ty, self.tileset["water_t_enw"]) end
+
+
+
+--       --[[if waterstatus == 6 then self:addTile(nil, tx, ty, self.tileset["water_se"..math.random(2)]) end
+--       if waterstatus == 7 then self:addTile(nil, tx, ty, self.tileset["water_allbutn"..math.random(2)]) end
+--       if waterstatus == 8 then self:addTile(nil, tx, ty, self.tileset["water_n"..math.random(2)]) end
+--       if waterstatus == 9 then self:addTile(nil, tx, ty, self.tileset["water_nw"..math.random(2)]) end
+--       if waterstatus == 10 then self:addTile(nil, tx, ty, self.tileset["water_ns"..math.random(2)]) end
+--       if waterstatus == 11 then self:addTile(nil, tx, ty, self.tileset["water_allbute"..math.random(2)]) end
+--       if waterstatus == 12 then self:addTile(nil, tx, ty, self.tileset["water_ne"..math.random(2)]) end
+--       if waterstatus == 13 then self:addTile(nil, tx, ty, self.tileset["water_allbuts"..math.random(2)]) end
+--       if waterstatus == 14 then self:addTile(nil, tx, ty, self.tileset["water_allbutw"..math.random(2)]) end
+--       if waterstatus == 15 then self:addTile(nil, tx, ty, self.tileset["water_singleisland"..math.random(2)]) end]]
+--   end
+--   end
+-- end
+
+
 
 --[[function room:update()
   if self.door_close_time then

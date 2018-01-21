@@ -11,8 +11,17 @@ function image.init()
   image.sight_triangle = love.graphics.newImage("assets/crosshairs/sight_triangle.png")
   image.sight_v = love.graphics.newImage("assets/crosshairs/sight_v.png")
 
-  image.wall = love.graphics.newImage("assets/tiles/wallStoneTiling.png")
+  image.wall = love.graphics.newImage("assets/tiles/void.png")
+  image.wall_southface = love.graphics.newImage("assets/tiles/wallStoneTiling.png")
+  image.wall_southdoor = love.graphics.newImage("assets/tiles/door.png")
+  image.invinciblewall = image.wall
+  image.invinciblewall_southface = image.wall_southface
+  image.invinciblewall_southdoor = image.wall_southdoor
+  image.door = love.graphics.newImage("assets/tiles/void.png")
+  image.door_southface = love.graphics.newImage("assets/tiles/door.png")
   image.floor = love.graphics.newImage("assets/tiles/woodFloorTile.png")
+  image.opendoor = image.floor
+  image.fakedoor = image.floor
   image.rubble = love.graphics.newImage("assets/tiles/woodFloorTileRubble.png")
   image.corner_nw = love.graphics.newImage("assets/tiles/wallStoneCorner.png")
   image.wallcorner_transition = love.graphics.newImage("assets/tiles/wallStoneCTransition.png")

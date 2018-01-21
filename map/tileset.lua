@@ -4,11 +4,16 @@ local TileSet = {}
 -- TODO: change this to have the sprite filepath in this file so you dont have to edit two places
 
 TileSet['void']               = { function() return Tile:new('void'):setSolid(true):setLayer(Layer.FURNITURE) end, }
-TileSet['invinciblewall']     = { function() return Tile:new('wall',            '#'):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable(false) end, }
+TileSet['invinciblewall']     = { function() return Tile:new('invinciblewall',  '#'):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable(false) end, }
+TileSet['invinciblewall_southface']     = { function() return Tile:new('invinciblewall_southface',  '#'):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable(false) end, }
+TileSet['invinciblewall_southdoor']     = { function() return Tile:new('invinciblewall_southdoor',  '#'):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable(false) end, }
 TileSet['wall']               = { function() return Tile:new('wall',            'W'):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable('crumbles', 'rubblefloor', 150) end, }
-TileSet['door']               = { function() return Tile:new('wall',            'D'):setDoor(true):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable('crumbles', 'rubblefloor', 150) end, }
-TileSet['opendoor']           = { function() return Tile:new('floor',           'd'):setDoor(true):setSolid(false) end, }
-TileSet['fakedoor']           = { function() return Tile:new('floor')               :setDoor(true):setSolid(true):setDestroyable(false) end, }
+TileSet['wall_southface']     = { function() return Tile:new('wall_southface'):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable('crumbles', 'rubblefloor', 150) end, }
+TileSet['wall_southdoor']     = { function() return Tile:new('wall_southdoor'):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable('crumbles', 'rubblefloor', 150) end, }
+TileSet['door']               = { function() return Tile:new('door',            'D'):setDoor(true):setSolid(true):setLayer(Layer.FURNITURE)end, }
+TileSet['door_southface']     = { function() return Tile:new('door_southface'):setDoor(true):setSolid(true):setLayer(Layer.FURNITURE)end, }
+TileSet['opendoor']           = { function() return Tile:new('opendoor',        'd'):setDoor(true):setSolid(false) end, }
+TileSet['fakedoor']           = { function() return Tile:new('fakedoor')           :setDoor(true):setSolid(true) end, }
 TileSet['floor']              = { function() return Tile:new('floor',           '-') end, }
 TileSet['teleporter']         = { function() return Tile:new('teleporter',      't') end, }
 TileSet['ballpost']           = { function() return Tile:new('ballpost',        'b'):setLayer(Layer.FURNITURE):setDestroyable('explodes', 'rubblefloor', 50) end,
