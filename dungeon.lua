@@ -38,7 +38,8 @@ function dungeon:move_to_room(rx, ry, from_dir)
   shots = {}
   doodads = {}
   sparks = {}
-  if not items then items = {} end
+  --if not items then items = {} end
+  items = {}
   spawner.reset()
   
   local room_set = self.room_files[self:get_room_kind(rx, ry)]
