@@ -293,9 +293,27 @@ function Level:eastWater(x, y)
   return 0
 end
 function Level:westWater(x, y)
+  if (self:feature_at(x - 1, y)):sub(1, 5) == "water" then return 1 end
+  return 0
+end
+function Level:neWater(x, y)
+  if (self:feature_at(x + 1, y - 1)):sub(1, 5) == "water" then return 1 end
+  return 0
+end
+function Level:nwWater(x, y)
   if (self:feature_at(x - 1, y - 1)):sub(1, 5) == "water" then return 1 end
   return 0
 end
+function Level:swWater(x, y)
+  if (self:feature_at(x - 1, y + 1)):sub(1, 5) == "water" then return 1 end
+  return 0
+end
+function Level:seWater(x, y)
+  if (self:feature_at(x + 1, y + 1)):sub(1, 5) == "water" then return 1 end
+  return 0
+end
+
+
 
 local function iswater(kind)
   return kind:sub(1,5) == "water"
@@ -303,19 +321,30 @@ end
 
 function Level:updatewatertiles()
   print("WATER!!")
+  local N, E, W, S = 8, 4, 2, 1
+  local NE, NW, SW, SE = 128, 64, 32, 16
   for tx = 1, self.width do
     for ty = 1, self.height do
       if self:feature_at(tx, ty):sub(1,5) == 'water' then
-        local waterstatus = self:northWater(tx,ty) * 8 + self:eastWater(tx,ty) * 4 + self:southWater(tx,ty) * 2 + self:westWater(tx,ty)
-        print("waterstatus: "..tx..","..ty.."  "..waterstatus)
+        local waterstatus_sides = self:northWater(tx,ty) * N + self:eastWater(tx,ty) * E + self:southWater(tx,ty) * S + self:westWater(tx,ty) * W
+        local waterstatus_diag = self:neWater(tx,ty) * NE + self:nwWater(tx,ty) * NW + self:seWater(tx,ty)*SE + self:swWater(tx,ty)*SW
+        local waterstatus = waterstatus_sides + waterstatus_diag
         -- TODO: Account for corners
+        print("WSTAT: " ..waterstatus )
         if waterstatus == 0 then self:addTile(nil, tx, ty, self.tileset["water_surround"..math.random(2)]) end
-        if waterstatus == 1 then self:addTile(nil, tx, ty, self.tileset["water_w"..math.random(2)]) end
-        if waterstatus == 2 then self:addTile(nil, tx, ty, self.tileset["water_s"..math.random(2)]) end
-        if waterstatus == 3 then self:addTile(nil, tx, ty, self.tileset["water_sw"..math.random(2)]) end
-        if waterstatus == 4 then self:addTile(nil, tx, ty, self.tileset["water_e"..math.random(2)]) end
-        if waterstatus == 5 then self:addTile(nil, tx, ty, self.tileset["water_ew"..math.random(2)]) end
-        if waterstatus == 6 then self:addTile(nil, tx, ty, self.tileset["water_se"..math.random(2)]) end
+
+        if waterstatus == W then self:addTile(nil, tx, ty, self.tileset["water_w"..math.random(2)]) end
+        if waterstatus == S then self:addTile(nil, tx, ty, self.tileset["water_s"..math.random(2)]) end
+        if waterstatus == E then self:addTile(nil, tx, ty, self.tileset["water_e"..math.random(2)]) end
+        if waterstatus == N then self:addTile(nil, tx, ty, self.tileset["water_n"..math.random(2)]) end
+
+        if waterstatus_sides == N+S then self:addTile(nil, tx, ty, self.tileset["water_ns"..math.random(2)]) end
+        if waterstatus_sides == E+W then self:addTile(nil, tx, ty, self.tileset["water_ew"..math.random(2)]) end
+
+        if waterstatus_sides == W+S then self:addTile(nil, tx, ty, self.tileset["water_sw"..math.random(2)]) end
+
+
+        --[[if waterstatus == 6 then self:addTile(nil, tx, ty, self.tileset["water_se"..math.random(2)]) end
         if waterstatus == 7 then self:addTile(nil, tx, ty, self.tileset["water_allbutn"..math.random(2)]) end
         if waterstatus == 8 then self:addTile(nil, tx, ty, self.tileset["water_n"..math.random(2)]) end
         if waterstatus == 9 then self:addTile(nil, tx, ty, self.tileset["water_nw"..math.random(2)]) end
@@ -324,7 +353,7 @@ function Level:updatewatertiles()
         if waterstatus == 12 then self:addTile(nil, tx, ty, self.tileset["water_ne"..math.random(2)]) end
         if waterstatus == 13 then self:addTile(nil, tx, ty, self.tileset["water_allbuts"..math.random(2)]) end
         if waterstatus == 14 then self:addTile(nil, tx, ty, self.tileset["water_allbutw"..math.random(2)]) end
-        if waterstatus == 15 then self:addTile(nil, tx, ty, self.tileset["water_singleisland"..math.random(2)]) end
+        if waterstatus == 15 then self:addTile(nil, tx, ty, self.tileset["water_singleisland"..math.random(2)]) end]]
       end
     end
   end
