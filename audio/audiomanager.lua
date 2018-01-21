@@ -21,7 +21,8 @@ local AudioManager = class("AudioManager")
       "assets/sfx/362975__follytowers__big-tesla-coil-sound-cut.wav")
     self.sources['spark'] = PooledSource:new("assets/sfx/94132__bmaczero__spark.wav")
     self.sources['crash'] = PooledSource:new("assets/sfx/crash.ogg")
-
+    self.sources['explosion'] = PooledSource:new("assets/sfx/explosion.ogg")
+    self.sources['crumble'] = PooledSource:new("assets/sfx/crumble.ogg")
     -- Music is probably better to stream.  Only one music track is playable at a time.
     self.music_tracks['figleaf'] = love.audio.newSource(
       "assets/music/Fig Leaf Times Two.ogg", "stream")

@@ -41,9 +41,10 @@ function Tile:takeDamage(dmg)
     if self.hp <= 0 then
       if self.destroyable == "crumbles" then
         -- rocky, fake explosion
+        audiomanager:playOnce('crumble')
         explosions.rubble(self.x * TILESIZE + 32, self.y * TILESIZE + 32)
       elseif self.destroyable == "explodes" then
-        -- real explosion
+        audiomanager:playOnce('explosion')
         explosions.dynamite(self.x * TILESIZE + 32, self.y * TILESIZE + 32)
         explosions.damage_radius(20, 5, self.x * TILESIZE + 32, self.y * TILESIZE + 32, 128)
       end
