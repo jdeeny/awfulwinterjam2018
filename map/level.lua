@@ -30,7 +30,9 @@ function Level:find_symbol(symbol)
 end
 
 function Level:is_solid(gx, gy)
-  return self.tiles[gx] and self.tiles[gx][gy] and self.tiles[gx][gy].t.issolid
+  if not self.tiles[gx] then return true end
+  if not self.tiles[gx][gy] then return true end
+  return self.tiles[gx][gy].t.issolid
 end
 
 function Level:pixel_width()

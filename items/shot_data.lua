@@ -44,7 +44,9 @@ shot_data["bullet"] =
       print(hit[3])
       local tgx = hit[2]
       local tgy = hit[3]
-      current_level.tiles[tgx][tgy]:takeDamage(self.damage)
+      if current_level.tiles[tgx] and current_level.tiles[tgx][tgy] then --and current_level.tiles[tgx][tgy]:takeDamage then
+        current_level.tiles[tgx][tgy]:takeDamage(self.damage)
+      end
     end
     for i = 1, 6 do
       angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
