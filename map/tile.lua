@@ -19,6 +19,12 @@ function Tile:setDoor(state)
   return self
 end
 
+function Tile:setRotation(state)
+  self.rot = state or 0
+  return self
+end
+
+
 function Tile:setDestroyable(kind, into, hp)
   self.destroyable = kind or false
   if kind and into then
@@ -96,7 +102,7 @@ end
 
 function Tile:toEntity(x, y)
   --print("sprite to entity "..self.id.." ".. self.sprite .. " " .. self.kind)
-  local e = Entity:new(self, 'sprite' .. self.id, self.id, (x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE, self.layer, image[self.sprite], 0, 1.0, 1.0, TILESIZE / 2, TILESIZE / 2)
+  local e = Entity:new(self, 'sprite' .. self.id, self.id, (x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE, self.layer, image[self.sprite], self.rot or 0, 1.0, 1.0, TILESIZE / 2, TILESIZE / 2)
   return e
 end
 
