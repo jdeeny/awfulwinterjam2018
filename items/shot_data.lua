@@ -17,15 +17,20 @@ function shot_data.spawn(kind, x, y, dx, dy, owner)
     shots[new_id][i] = v
   end
 
+  if shot_data[kind].duration then
+    shots[new_id].duration = duration.start(shot_data[kind].duration, false)
+  end
+
   return new_id
 end
 
 shot_data["bullet"] =
 {
-  kind = "bullet", name = "Test Bullet",
+  kind = "bullet", name = "Bullet",
   damage = 20,
   sprite = "bullet_blue",
   radius = 8,
+  duration = 0.5,
   collides_with_map = true,
   collides_with_enemies = true,
 
@@ -56,12 +61,60 @@ shot_data["bullet"] =
 
     self:die()
   end,
-}
 
+  timeout = function(self)
+    for i = 1, 3 do
+      angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
+      speed = 200 + 1800 * love.math.random()
+      spark_data.spawn("spark_blue", {r=255, g=255, b=255}, self.x, self.y, speed * math.cos(angle), speed * math.sin(angle))
+    end
+  end,
+}
 
 shot_data["enemybullet"] =
 {
-  kind = "bullet", name = "Test Bullet",
+  kind = "enemybullet", name = "Bullet",
+  damage = 10,
+  sprite = "bullet",
+  radius = 8,
+  duration = 1,
+  collides_with_map = true,
+  collides_with_enemies = false,
+  collides_with_player = true,
+
+  collide = function(self, hit, mx, my, mt, nx, ny)
+    if hit and hit[1] == "player" then
+      player:take_damage(self.damage, false, math.atan2(self.dy, self.dx), 3, true)
+    end
+    print(hit[1])
+    for i = 1, 6 do
+      angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
+      speed = 200 + 1800 * love.math.random()
+      spark_data.spawn("spark", {r=255, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
+    end
+    for i = 1, 3 do
+      angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
+      speed = 200 + 1000 * love.math.random()
+      spark_data.spawn("spark_big", {r=255, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
+    end
+
+    spark_data.spawn("pow", {r=255, g=230, b=50}, mx, my, 0, 0, love.math.random() * math.pi * 2, 2 * love.math.random(0, 1) - 1, 1)
+
+    self:die()
+  end,
+
+  timeout = function(self)
+    for i = 1, 3 do
+      angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
+      speed = 200 + 1800 * love.math.random()
+      spark_data.spawn("spark", {r=255, g=255, b=255}, self.x, self.y, speed * math.cos(angle), speed * math.sin(angle))
+    end
+  end,
+}
+
+shot_data["sniper_bullet"] =
+{
+  kind = "sniper_bullet", name = "Sniper Bullet",
   damage = 10,
   sprite = "bullet",
   radius = 8,
