@@ -28,8 +28,12 @@ function OptionItem:atMax()
 	return false -- indicates that option can go no higher
 end
 
-function OptionItem:clickedOn(xhit, yhit)
+function OptionItem:clickedIn(xhit, yhit)
 	-- Indicates a click received, relative to the center of the displayed value
+end
+
+function OptionItem:activate()
+	-- Happens when the user hits fire/space while this item is selected
 end
 
 

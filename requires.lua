@@ -24,6 +24,8 @@ require 'window'
 require 'map'
 
 OptionItem = require "ui_elements/optionitem"
+ActionOptItem = require "ui_elements/actionoptitem"
+ScreenMenu = require "ui_elements/screenmenu"
 allowed_options = require "ui_elements/allowed_options"
 
 continue = require "states/continue"
