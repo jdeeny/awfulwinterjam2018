@@ -79,7 +79,7 @@ spawner.wave_data.ez_lvl = function()
 	function()
 		spawner.spawn_from_west_door('rifledude')
 		for i = 1, 4 do
-			delay.start(0.5 * i, function() spawner.spawn_from_east_door('schmuck') end)
+			delay.start(0.5 * i, function() spawner.spawn_from_east_door('canbot') end)
 		end
 		delay.start(2,
 			function()
