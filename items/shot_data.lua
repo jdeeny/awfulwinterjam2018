@@ -83,6 +83,12 @@ shot_data["enemybullet"] =
   collide = function(self, hit, mx, my, mt, nx, ny)
     if hit and hit[1] == "player" then
       player:take_damage(self.damage, false, math.atan2(self.dy, self.dx), 3, true)
+    elseif hit and hit[1] == "block" then
+      local tgx = hit[2]
+      local tgy = hit[3]
+      if current_level.tiles[tgx] and current_level.tiles[tgx][tgy] then --and current_level.tiles[tgx][tgy]:takeDamage then
+        current_level.tiles[tgx][tgy]:takeDamage(self.damage)
+      end
     end
     print(hit[1])
     for i = 1, 6 do
@@ -124,6 +130,12 @@ shot_data["sniper_bullet"] =
   collide = function(self, hit, mx, my, mt, nx, ny)
     if hit and hit[1] == "player" then
       player:take_damage(self.damage, false, math.atan2(self.dy, self.dx), 3, true)
+    elseif hit and hit[1] == "block" then
+      local tgx = hit[2]
+      local tgy = hit[3]
+      if current_level.tiles[tgx] and current_level.tiles[tgx][tgy] then --and current_level.tiles[tgx][tgy]:takeDamage then
+        current_level.tiles[tgx][tgy]:takeDamage(self.damage)
+      end
     end
     print(hit[1])
     for i = 1, 6 do
@@ -146,7 +158,7 @@ shot_data["sniper_bullet"] =
 shot_data["rocket"] =
 {
   kind = "rocket", name = "Rocket",
-  damage = 0, -- damage is from the explosion
+  damage = 10, -- will be doubled on direct hit
   sprite = "rocket_green",
   radius = 12,
   duration = 5,
@@ -156,6 +168,15 @@ shot_data["rocket"] =
 
   collide = function(self, hit, mx, my, mt, nx, ny)
     print(hit[1])
+    if hit and hit[1] == "player" then
+      player:take_damage(self.damage, false, math.atan2(self.dy, self.dx), 3, true)
+    elseif hit and hit[1] == "block" then
+      local tgx = hit[2]
+      local tgy = hit[3]
+      if current_level.tiles[tgx] and current_level.tiles[tgx][tgy] then --and current_level.tiles[tgx][tgy]:takeDamage then
+        current_level.tiles[tgx][tgy]:takeDamage(self.damage)
+      end
+    end
     for i = 1, 6 do
       angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
       speed = 200 + 1800 * love.math.random()
@@ -167,7 +188,8 @@ shot_data["rocket"] =
       spark_data.spawn("spark_big", {r=255, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
     end
 
-    spark_data.spawn("explosion", {r=255, g=230, b=50}, mx, my, 0, 0, love.math.random() * math.pi * 2, 2 * love.math.random(0, 1) - 1, 1)
+    explosions.dynamite(self.x, self.y)
+    explosions.damage_radius(self.damage, 5, self.x, self.y, 128)
 
     self:die()
   end,
@@ -181,7 +203,7 @@ shot_data["rocket"] =
 shot_data["homing_rocket"] =
 {
   kind = "homing_rocket", name = "Homing Rocket",
-  damage = 0, -- damage is from the explosion
+  damage = 10, -- will be doubled on direct hit
   sprite = "rocket_red",
   radius = 12,
   duration = 5,
@@ -202,7 +224,8 @@ shot_data["homing_rocket"] =
       spark_data.spawn("spark_big", {r=255, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
     end
 
-    spark_data.spawn("explosion", {r=255, g=230, b=50}, mx, my, 0, 0, love.math.random() * math.pi * 2, 2 * love.math.random(0, 1) - 1, 1)
+    explosions.dynamite(self.x, self.y)
+    explosions.damage_radius(self.damage, 5, self.x, self.y, 128)
 
     self:die()
   end,

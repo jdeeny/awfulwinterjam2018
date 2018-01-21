@@ -63,6 +63,7 @@ enemy = require "enemies/enemy"
 player = require "player"
 spawner = require "enemies/spawner"
 spark = require "spark"
+explosions = require "explosions"
 
 weapon = require "items/weapon"
 shot = require "items/shot"
