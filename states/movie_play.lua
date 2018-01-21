@@ -16,6 +16,7 @@ local movie_play = {
 -- type, start, update, stop, draw, run_time
 movie_play.movie_data = {
   sequence_steps = {
+    IntertitleStep("We find Nikola Tesla\nnewly arrived in America,\nworking at the Edison Machine works.", 2),
     SequenceStep:new({
       type = "animation",
       start = function(self)
@@ -23,7 +24,8 @@ movie_play.movie_data = {
       end,
       run_time = 1,
     }),
-    IntertitleStep("My name is Nikola Tesla.", 2),
+    IntertitleStep("Mr. Batchelor,\nI've invented the 24 standard machines.", 2),
+    IntertitleStep("I'm here for my reward!", 2),
     SequenceStep:new({
       type = "animation",
       start = function(self)
@@ -31,7 +33,9 @@ movie_play.movie_data = {
       end,
       run_time = 2,
     }),
-    IntertitleStep("You kill my father.", 2),
+    IntertitleStep("Ha ha ha ha ha ...", 2),
+    IntertitleStep("There was no reward you fool!", 2),
+    IntertitleStep("Thomas Alva Edison will never pay!", 2),
     SequenceStep:new({
       type = "animation",
       start = function(self)
@@ -39,12 +43,12 @@ movie_play.movie_data = {
       end,
       run_time = 2,
     }),
-    IntertitleStep("Prepare to die ...", 2),
+    IntertitleStep("Oh ... He WILL pay ..", 2),
     SequenceStep:new({
       type = "animation",
       run_time = 0.5,
     }),
-    IntertitleStep("... by electricity", 2),
+    IntertitleStep("He Will PAY!", 2),
   },
   music = {track="figleaf", volume=1, offset=27},
 }
