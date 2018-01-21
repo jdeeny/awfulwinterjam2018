@@ -28,13 +28,13 @@ allowed_options = require "ui_elements/allowed_options"
 
 continue = require "states/continue"
 death = require "states/death"
-film = require "states/film"
 mainmenu = require "states/mainmenu"
 pause = require "states/pause"
 play = require "states/play"
 splash = require "states/splash"
 win = require "states/win"
 options = require "states/options"
+movie_a = require "states/movie_a"
 
 
 camera = require "camera"

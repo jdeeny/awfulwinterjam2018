@@ -28,7 +28,7 @@ function crosshairs.draw(center_x, center_y)
     love.graphics.draw(image['sight_bullet_line'], center_x, center_y - 16 - 32*crosshairs.offset, math.pi * 1.5, 1, 1, 16, 8)
   elseif player.equipped_items['weapon'].name == 'RayGun' then
     love.graphics.setColor(180,120,255,255)
-    if player.equipped_items['weapon'].fired_at then
+    if player.equipped_items['weapon'].is_firing then
       crosshairs.offset = 0.5 * (crosshairs.offset + (1.125 - 1.25 * player.equipped_items['weapon'].focus))
     else
       crosshairs.offset = 0.5 * crosshairs.offset
