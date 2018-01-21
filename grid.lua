@@ -1,6 +1,6 @@
 local grid = class('grid')
 
-function grid:init(w, h)
+function grid:initialize(w, h)
   self.width = w
   self.height = h
 

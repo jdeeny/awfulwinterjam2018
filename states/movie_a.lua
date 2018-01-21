@@ -137,8 +137,7 @@ function movie_a.enter()
       movie_a.music.offset)
   end
 
-  movie_a.dungeon = dungeon:new()
-  movie_a.dungeon:init(1, 1, {['start'] = {3}}, nil)
+  movie_a.dungeon = dungeon:new(1, 1, {['start'] = {3}}, nil)
   movie_a.dungeon:setup_main()
   
   movie_a.dungeon:move_to_room(1,1,'west')
@@ -153,7 +152,7 @@ function movie_a.enter()
 end
 
 function movie_a.exit()
-  gamestage.setup_next_stage(gamestage.current_level)
+  gamestage.setup_next_stage(gamestage.current_stage)
   gamestage.advance_to_play()
   audiomanager:stopMusic()
   player.input_disabled = false
