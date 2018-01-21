@@ -1,7 +1,7 @@
 local allowed_options = {}
 
+-- Custom classes for Options menu
 ---------------
-
 local BinaryOptionItem = class('BinaryOptionItem', OptionItem)
 
 function BinaryOptionItem:initialize(label,control_name,control_field)
@@ -9,6 +9,7 @@ function BinaryOptionItem:initialize(label,control_name,control_field)
 	self.control = control_name
 	self.control_field = control_field
 	self.setting = false
+	self.invert_pointers = true
 end
 
 function BinaryOptionItem:decrease()
@@ -39,7 +40,6 @@ function BinaryOptionItem:updateValue()
 		_G[self.control] = self.setting
 	end
 end
-
 
 ---------------
 local ListOptionItem = class('ListOptionItem', OptionItem)
@@ -149,6 +149,7 @@ allowed_options[1] = masterVolume
 allowed_options[2] = gameSpeed
 allowed_options[3] = stageSelect
 allowed_options[4] = drawCrosshairs
-allowed_options[5] = OptionItem:new("Back")
+allowed_options[5] = ActionOptItem:new("Credits")
+allowed_options[6] = ActionOptItem:new("Back")
 
 return allowed_options

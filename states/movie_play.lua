@@ -132,6 +132,7 @@ movie_play.credits = {
     IntertitleStep("Amy Zurko\n\namyzurko@gmail.com", 3),
     IntertitleStep("Andrew Chaniotis\n\nandreas.xaniotis@gmail.com", 3),
     IntertitleStep("Jason Nyland\n\njasonnyland@fastmail.com", 3),
+	IntertitleStep("Michael Winterstein\n\nkangra@quirksand.net",3),
     IntertitleStep("Mason Pluimer\n\ntherealpickle@gmail.com", 3),
     IntertitleStep("Michael Winterstein\n\nkangra@quirksand.net", 3),
     --IntertitleStep("", 3),

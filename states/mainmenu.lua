@@ -33,6 +33,7 @@ function mainmenu.update(dt)
 	end
 end
 
+
 function mainmenu.draw()
 	love.graphics.setShader(mainmenu.background_shader)
 	love.graphics.setFont(mainmenu.font)
@@ -51,5 +52,6 @@ function mainmenu.draw()
 	love.graphics.setFont(love.graphics.newFont()) --reset to default
 	love.graphics.setShader()
 end
+
 
 return mainmenu
