@@ -69,7 +69,24 @@ TileSet["water_allbutw"..i]      = { function() return Tile:new('water_attbutw'.
 
 TileSet["water_island"..i] = { function() return Tile:new('water_island'..i):setLayer(Layer.WATER) end,
                                   function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
+
 end
+TileSet["water_open"] = { function() return Tile:new('water_open'):setLayer(Layer.WATER) end,
+                                  function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
+
+
+TileSet["water_cross"] = { function() return Tile:new('water_cross'):setLayer(Layer.WATER) end,
+function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
+
+TileSet["water_t_nes"] = { function() return Tile:new('water_t_nes'):setLayer(Layer.WATER) end,
+function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
+TileSet["water_t_esw"] = { function() return Tile:new('water_t_nes'):setLayer(Layer.WATER):setRotation(PI/2) end,
+function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
+TileSet["water_t_sen"] = { function() return Tile:new('water_t_nes'):setLayer(Layer.WATER):setRotation(PI) end,
+function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
+TileSet["water_t_enw"] = { function() return Tile:new('water_t_nes'):setLayer(Layer.WATER):setRotation(-PI/2) end,
+function() return Tile:new('floor'):setLayer(Layer.SUBFLOOR) end, }
+
 
 
 
