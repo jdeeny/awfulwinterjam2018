@@ -18,6 +18,11 @@ TileSet['water_border']       = { function() return Tile:new('water_border',    
                                   function() return Tile:new('water'):setLayer(Layer.WATER) end,
                                 }
 
+TileSet['capacitor']        = { function() return Tile:new('capacitor',          'c' ):setLayer(Layer.FURNITURE):setDestroyable('explodes', 'rubblefloor', 12):setSolid(true) end,
+                                  function() return Tile:new('floor') end,
+                                }
+
+
 TileSet['rubblefloor']        = { function() return Tile:new('rubble',          'r' ):setLayer(Layer.FURNITURE) end,
                                   function() return Tile:new('floor') end,
                                 }

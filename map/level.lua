@@ -184,7 +184,7 @@ function Level:coda()
 	  fade.start_fade("fadeout", 1, false)
 	  -- set iframes so player doesn't die before progressing?
 	  delay.start(1, function()  
-		  gamestage.setup_next()
+		  gamestage.setup_next_stage()
 		  film.enter() 
 	  end)
   end

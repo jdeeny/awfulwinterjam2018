@@ -57,7 +57,7 @@ function mob:update_position(dt)
       self.animation_state = 'idle'
     else
       -- now we can actually -choose- where to go
-      self:update_move_controls()
+      self:update_move_controls(dt)
 
 			self.dx, self.dy = self.dx * (self.speed_limit or 1.0), self.dy * (self.speed_limit or 1.0)
 
@@ -160,6 +160,7 @@ end
 function mob:start_force_move(dur, dx, dy)
   self.force_move = {duration = duration.start(dur),
                   dx = dx or 0, dy = dy or 0}
+  self.aim = math.atan2(dy, dx)
 end
 
 function mob:end_force_move()

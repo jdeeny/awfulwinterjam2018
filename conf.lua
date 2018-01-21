@@ -9,8 +9,10 @@ function love.conf(t)
   t.accelerometerjoystick = false      -- Enable the accelerometer on iOS and Android by exposing it as a Joystick (boolean)
 
   t.window.resizable = true           -- Let the window be user-resizable (boolean)
-  t.window.minwidth = 400               -- Minimum window width if the window is resizable (number)
-  t.window.minheight = 300              -- Minimum window height if the window is resizable (number)
+  t.window.minwidth = 640               -- Minimum window width if the window is resizable (number)
+  t.window.minheight = 480              -- Minimum window height if the window is resizable (number)
+  t.window.width = 64*18                -- The window width (number)
+  t.window.height = 64*12               -- The window height (number)
   t.window.vsync = true               -- Enable vertical sync (boolean)
 
 

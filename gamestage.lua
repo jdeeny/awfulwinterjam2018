@@ -3,35 +3,53 @@ local gamestage = {}
 local stages = {}
 
 stages[1] = {
-	dungeon_x = 3,
-	dungeon_y = 3,
+	-- Movie/cutscene settings
 	film_title = "Tesla\nArrives\nin America",
 	film_music = "figleaf",
 	film_music_start = 27,
+	
+	-- Rooms/dungeon
+	dungeon_x = 3,
+	dungeon_y = 3,
+	
+	-- This is optional; any blank entry will select from all available files
+	room_files = {['start'] = {3}, ['boss'] = {8}, ['generic'] = {1,2,3,4,5}},  -- See file_io for room index
+	spawns = {['start'] = {'ez_lvl'}, ['boss'] = {'ez_lvl'}, ['generic'] = {'ez_lvl'}},  -- See spawner for spawn names
+	
+	-- Other things that'd be good to put in here:
+	--  * tilesets (if they can change)
 }
 
 stages[2] = {
-	dungeon_x = 5,
-	dungeon_y = 4,
+	-- Movie/cutscene settings
 	film_title = "Edison\nHires\nTesla",
 	film_music = "figleaf",
 	film_music_start = 49,
+	
+	-- Rooms/dungeon
+	dungeon_x = 5,
+	dungeon_y = 4,
+	spawns = {['start'] = {'ez_lvl'}, ['boss'] = {'ez_lvl'}, ['generic'] = {'ez_lvl'}},
+	
 }
 
 -- Test stage, feel free to mess around with these values
 stages[3] = {
-	dungeon_x = 2,
-	dungeon_y = 2,
+	-- Movie/cutscene settings
 	film_title = "Time\nto\nTest",
 	film_music = nil,
 	film_music_start = nil,
-	room_files = {1,3,5,9},  -- indexed rooms in file_io
+	
+	-- Rooms/dungeon
+	dungeon_x = 2,
+	dungeon_y = 2,
+	--room_files = {['start'] = {3}, ['boss'] = {8}, ['generic'] = {1,2,3,4,5}},  -- See file_io for room index
 }
 gamestage.stages = stages
 gamestage.current_stage = 0
 
 -- This just sets up the stage; it does not change the state
-function gamestage.setup_next(forced)
+function gamestage.setup_next_stage(forced)
 	local ns_number = forced or (gamestage.current_stage + 1)
 	
 	if ns_number > #(gamestage.stages)  then
@@ -47,15 +65,15 @@ function gamestage.setup_next(forced)
 	film.set_music(next_stage.film_music, next_stage.film_music_start)
 	
     current_dungeon = dungeon:new()
-    current_dungeon:init(next_stage.dungeon_x, next_stage.dungeon_y, next_stage.room_files)
+    current_dungeon:init(next_stage.dungeon_x, next_stage.dungeon_y, next_stage.room_files, next_stage.spawns)
     current_dungeon:setup_main()
 	
 end
 
-function gamestage.advance()
+function gamestage.advance_to_play()
     game_time = 0
 
-	player.init()
+	player:restore()
 	
     enemies = nil
     enemy_value = nil
@@ -65,7 +83,7 @@ function gamestage.advance()
 
     pathfinder.rebuild_time = 0
 
-	dungeon.move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
+	current_dungeon:move_to_room(current_dungeon.start_x, current_dungeon.start_y, "west")
 
     player:start_force_move(9999, player.speed, 0)
 

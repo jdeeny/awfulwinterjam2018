@@ -23,8 +23,10 @@ end
 function pause.update()
 	player_input:update()
 
-	if player_input:pressed('pause') or player_input:pressed('back') then
-    play.enter()
+	if player_input:pressed('pause') then
+    	play.enter()
+	elseif player_input:pressed('back') then
+		options.enter()
 	elseif player_input:pressed('quit') then
 		mainmenu.enter()
 	end
@@ -40,9 +42,9 @@ function pause.draw()
 
 	local text
 	if player_input:getActiveDevice() == 'joystick' then
-		text = "PAUSED\nPress Back to end game\nPress B to continue"
+		text = "PAUSED\nPress Start to continue\n\nPress B for Options\nPress Back to end game"
 	else
-		text = "PAUSED\nPress Q to end game\nPress Esc to continue"
+		text = "PAUSED\nPress Esc to continue\n\nPress Backspace for Options\nPress Q to end game"
 	end
 
 	local th = pause.font:getHeight()*3

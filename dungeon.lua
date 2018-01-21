@@ -1,19 +1,37 @@
 local dungeon = class("dungeon", grid)
 
-function dungeon:init(w,h,room_files)
+local room_kinds = {'start','boss','generic'}
+
+function dungeon:init(w,h,room_files,spawns)
 	grid:init(w,h)
-	if room_files then
-		self.room_files = room_files
-	else
-		self.room_files = {}
-		for i in ipairs(file_io.room_files) do
-			table.insert(self.room_files, i)
+	
+	self.room_files = {}
+	self.spawns = {}
+	-- fill in any empty sections
+	for k,t in pairs(room_kinds) do
+		if room_files and room_files[t] then
+			self.room_files[t] = room_files[t]
+		else
+			self.room_files[t] = {}
+			for i in ipairs(file_io.room_files) do
+				table.insert(self.room_files[t], i)
+			end
+		end
+		
+		if spawns and spawns[t] then
+			self.spawns[t] = spawns[t]
+		else
+			self.spawns[t] = {}
+			for k,v in pairs(spawner.wave_data) do
+				table.insert(self.spawns[t],k)
+			end
 		end
 	end
+	
 end
 	
 
-function dungeon.move_to_room(rx, ry, from_dir)
+function dungeon:move_to_room(rx, ry, from_dir)
   -- unload current map, load new one, place player appropriately, setup fights i guess
   print("move_to_room")
   enemies = {}
@@ -23,10 +41,13 @@ function dungeon.move_to_room(rx, ry, from_dir)
   sparks = {}
   items = {}
   spawner.reset()
+  
+  local room_set = self.room_files[self:get_room_kind(rx, ry)]
+  local room_index = self[rx][ry].file
 
-  current_level = file_io.parse_room_file(current_dungeon.room_files[current_dungeon[rx][ry].file])
-  current_level.exits = current_dungeon:get_exits(rx, ry)
-  current_level.kind = current_dungeon:get_room_kind(rx,ry)
+  current_level = file_io.parse_room_file(room_set[room_index])
+  current_level.exits = self:get_exits(rx, ry)
+  current_level.kind = self:get_room_kind(rx,ry)
   --current_level:prologue()
 
   player.dungeon_x = rx
@@ -52,21 +73,28 @@ function dungeon.move_to_room(rx, ry, from_dir)
 
   camera.recenter()
 
-  spawner.wave_data.test()
+
+  local spawn_set = self.spawns[self:get_room_kind(rx, ry)]
+  -- DBG
+  for k,v in pairs(spawn_set) do
+	  print("spawns",k,v) 
+  end
+  -- DBG
+  local selected_wave = spawn_set[love.math.random(#(spawn_set))] -- random pick from list
+  spawner.wave_data[selected_wave]()
 end
 
-function dungeon:setup_main()
-  local file_count = #(self.room_files)
+function dungeon:setup_main()	
   for rx = 1, self.width do
     for ry=1, self.height do
       if rx == 1 and ry == self.height then
-        self[rx][ry] = {room_kind = "start", file = love.math.random(file_count)}
+        self[rx][ry] = {room_kind = "start", file = love.math.random(#(self.room_files['start'])) }
         self.start_x = rx
         self.start_y = ry
       elseif rx == self.width and ry == 1 then
-        self[rx][ry] = {room_kind = "boss", file = love.math.random(file_count)}
+        self[rx][ry] = {room_kind = "boss", file = love.math.random(#(self.room_files['boss'])) }
       else
-        self[rx][ry] = {room_kind = "generic", file = love.math.random(file_count)}
+        self[rx][ry] = {room_kind = "generic", file = love.math.random(#(self.room_files['generic'])) } 
       end
     end
   end
