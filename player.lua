@@ -38,6 +38,7 @@ function player.init()
   player.aim = player.rot
   player.equipped_items = {}
   player:equip('weapon', player.weapons[player.weapon])
+  
   player.next_splash = game_time
   player.splash_delay = 0.12
 
@@ -218,11 +219,11 @@ function player:restore()
     self.dying = false
     self.stun = nil
     self.iframe_end_time = 0
-  
+
     player.rot = 0
     player.aim = player.rot
 end
-	
+
 
 function player.be_invincible(duration)
   player.iframe_end_time = game_time + duration

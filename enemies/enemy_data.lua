@@ -79,7 +79,7 @@ enemy_data["lumpgoon"] =
     lumpgoon_idle_se = animation.lumpgoon_idle_se:clone(),
     lumpgoon_idle_nw = animation.lumpgoon_idle_nw:clone(),
     lumpgoon_idle_sw = animation.lumpgoon_idle_sw:clone(),},
-  max_hp = 250,
+  max_hp = 120,
   speed = 40,
   radius = 25,
   value = 1.5,
@@ -106,11 +106,11 @@ enemy_data["superlump"] =
     superlump_idle_se = animation.lumpgoon_idle_se:clone(),
     superlump_idle_nw = animation.lumpgoon_idle_nw:clone(),
     superlump_idle_sw = animation.lumpgoon_idle_sw:clone(),},
-  max_hp = 250,
+  max_hp = 160,
   speed = 40,
   radius = 25,
   value = 1.5,
-  bleeds = 2,
+  -- bleeds = 2,
   touch_damage = 20,
   personality = 'Seeker',
   drop_items = {{chance=0.05,item="max_ammo_increase"},
@@ -127,7 +127,7 @@ enemy_data["superlump"] =
       enemies[id]:be_stunned(t)
       enemies[id]:be_knocked_back(t, 300 * math.cos(angle + 1.0471975512 * i), 300 * math.sin(angle + 1.0471975512 * i))
     end
-    spark_data.spawn("explosion", {r=200, g=0, b=0}, self.x, self.y)
+    explosions.blood(self.x, self.y)
   end,
 }
 

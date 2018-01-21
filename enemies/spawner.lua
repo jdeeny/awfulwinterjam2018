@@ -135,7 +135,7 @@ spawner.wave_data.test = function()
 	spawner.add(5,
 		function()
 			spawner.spawn_from_east_door('lumpgoon')
-			for i = 1, 40 do
+			for i = 1, 5 do
 				delay.start(0.5 * i, function() spawner.spawn_from_east_door('lumpgoon') end)
 			end
 		end)

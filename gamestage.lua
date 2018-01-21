@@ -23,7 +23,7 @@ stages[2] = {
 	-- Movie/cutscene settings
     intro_movie = movie_a.movie_data,
     outro_movie = nil,
-	
+
 	-- Rooms/dungeon
 	dungeon_x = 5,
 	dungeon_y = 4,
@@ -36,11 +36,11 @@ stages[3] = {
 	-- Movie/cutscene settings
     intro_movie = movie_a.movie_data,
     outro_movie = nil,
-	
+
 	-- Rooms/dungeon
 	dungeon_x = 2,
 	dungeon_y = 2,
-	--room_files = {['start'] = {3}, ['boss'] = {8}, ['generic'] = {1,2,3,4,5}},  -- See file_io for room index
+	room_files = {['start'] = {14}, ['boss'] = {14}, ['generic'] = {14}},  -- See file_io for room index
 }
 
 gamestage.stages = stages
@@ -58,7 +58,7 @@ function gamestage.setup_next_stage(forced)
 	gamestage.current_stage = ns_number
 
 	local next_stage = gamestage.stages[gamestage.current_stage]
-	
+
 	current_dungeon = dungeon:new()
     current_dungeon:init(next_stage.dungeon_x, next_stage.dungeon_y, 
         next_stage.room_files, next_stage.spawns)
@@ -69,14 +69,14 @@ end
 function gamestage.advance_to_play()
     game_time = 0
 
-	player:restore()
+	  player:restore()
 
-    enemies = nil
-    enemy_value = nil
-    shots = nil
-    doodads = nil
-    sparks = nil
-    items = nil
+    --enemies = nil
+    --enemy_value = nil
+    --shots = nil
+    --doodads = nil
+    --sparks = nil
+    --items = nil
 
     pathfinder.rebuild_time = 0
 

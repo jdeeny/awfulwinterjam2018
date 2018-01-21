@@ -2,9 +2,7 @@ local dungeon = class("dungeon", grid)
 
 local room_kinds = {'start','boss','generic'}
 
-function dungeon:init(w,h,room_files,spawns)
-	print("INIT END")
-	grid:init(w,h)
+function dungeon:initialize()--w,h,room_files,spawns)
 
 	self.room_files = {}
 	self.spawns = {}
@@ -35,19 +33,22 @@ end
 function dungeon:move_to_room(rx, ry, from_dir)
   -- unload current map, load new one, place player appropriately, setup fights i guess
   print("move_to_room")
+	player.init()
   enemies = {}
   enemy_value = 0
   shots = {}
   doodads = {}
   sparks = {}
-  items = {}
+  if not items then items = {} end
   spawner.reset()
+  
 
   local room_set = self.room_files[self:get_room_kind(rx, ry)]
   local room_index = self[rx][ry].file
+  
 
-	print("BEFORE PARSE")
-  current_level = file_io.parse_room_file(14)--current_dungeon[rx][ry].file)
+  print("BEFORE PARSE")
+  current_level = file_io.parse_room_file(room_set[room_index])
   print("MOVE TO ROOM")
   current_level:updatewatertiles()
   print("MOVEDONE")
@@ -80,11 +81,7 @@ function dungeon:move_to_room(rx, ry, from_dir)
 
 
   local spawn_set = self.spawns[self:get_room_kind(rx, ry)]
-  -- DBG
-  for k,v in pairs(spawn_set) do
-	  print("spawns",k,v)
-  end
-  -- DBG
+  
   local selected_wave = spawn_set[love.math.random(#(spawn_set))] -- random pick from list
   spawner.wave_data[selected_wave]()
 end
