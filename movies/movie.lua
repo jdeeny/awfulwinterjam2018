@@ -31,12 +31,13 @@ end
 
 function Movie:update(dt)
   player_input:update()
+  local player_skip = false
   if player_input:pressed('fire') or player_input:pressed('sel') then
-    self:stop()
+    player_skip = true
   end
 
   if not self._finished then 
-    if self.current_step:is_finished() then
+    if self.current_step:is_finished() or player_skip then
       self.current_step:stop()
       
       self.step_index = self.step_index + 1
