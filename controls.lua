@@ -21,6 +21,8 @@ function controls.init()
       back = {'key:backspace', 'button:b'},
       sel = {'key:space', 'button:a', 'key:return'},
       quit = {'key:q', 'button:back'},
+
+      killall = {'key:k'}
     },
     pairs = {
       move = {'moveleft', 'moveright', 'moveup', 'movedown'},
