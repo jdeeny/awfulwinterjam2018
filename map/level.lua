@@ -190,11 +190,7 @@ function Level:coda()
 
 	  delay.start(1, function()  
         gamestage.setup_next_stage()
-        if gamestage.stages[gamestage.current_stage].intro_movie then
-  		    gamestage.stages[gamestage.current_stage].intro_movie.enter()
-  	    else
-          play.enter()
-        end
+        gamestage.advance_to_play()
       end)
 
   else
