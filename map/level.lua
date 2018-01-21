@@ -181,20 +181,27 @@ function Level:coda()
   -- we're done in this room; open doors and let the player move on
   self.cleared = true
   if self.kind == "boss" then
-	  fade.start_fade("fadeout", 1, false)
+	  
+    fade.start_fade("fadeout", 1, false)
 	  -- set iframes so player doesn't die before progressing?
 	  delay.start(1, function()  
-		  gamestage.setup_next_stage()
-		  film.enter() 
-	  end)
-  end
-  if self.exits.north then
-    self:open_door("north", false) -- no time given, so it should stay open forever
-    doodad_data.spawn("exit_north", current_level:pixel_width() / 2, TILESIZE / 2)
-  end
-  if self.exits.east then
-    self:open_door("east", false)
-    doodad_data.spawn("exit_east", current_level:pixel_width() - (TILESIZE / 2), current_level:pixel_height() / 2)
+        gamestage.setup_next_stage()
+        if gamestage.stages[gamestage.current_stage].intro_movie then
+  		    gamestage.stages[gamestage.current_stage].intro_movie.enter()
+  	    else
+          play.enter()
+        end
+      end)
+
+  else
+    if self.exits.north then
+      self:open_door("north", false) -- no time given, so it should stay open forever
+      doodad_data.spawn("exit_north", current_level:pixel_width() / 2, TILESIZE / 2)
+    end
+    if self.exits.east then
+      self:open_door("east", false)
+      doodad_data.spawn("exit_east", current_level:pixel_width() - (TILESIZE / 2), current_level:pixel_height() / 2)
+    end
   end
 end
 

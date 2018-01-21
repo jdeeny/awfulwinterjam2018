@@ -7,9 +7,42 @@ local movie_a = {
   },
 }
 
+local sequence_finished = true
+local sequence_index = 0
+local sequence_current_step = nil
+local sequence = {
+  {type='animation', action=function() 
+      sequence_finished = false
+      player:start_force_move(0.5, player.speed, 0)
+      delay.start(2, function() 
+        player:end_force_move()
+        sequence_finished = true
+      end)
+    end},
+  {type='intertitle', action={"Hello. My name is Inigo montoya.",3}},
+  {type='animation', action=function() 
+      sequence_finished = false
+      player:start_force_move(0.5, player.speed, 0)
+      delay.start(2, function() 
+        player:end_force_move()
+        sequence_finished = true
+      end)
+    end},
+  {type='intertitle', action={"You killed my father.",3}},
+  {type='animation', action=function() 
+      sequence_finished = false
+      player:start_force_move(0.5, player.speed, 0)
+      delay.start(2, function() 
+        player:end_force_move()
+        sequence_finished = true
+      end)
+    end},
+  {type='intertitle', action={"Prepare to die.",3}},
+}
+
 function movie_a.enter()
   movie_a.start_time = love.timer.getTime()
-  movie_a.intertitle = Intertitle:new(unpack(movie_a.intertitles[1]))
+  -- movie_a.intertitle = Intertitle:new(unpack(movie_a.intertitles[1]))
 
   if movie_a.music then
 	  audiomanager:playMusic(movie_a.music.track, movie_a.music.volume, 
@@ -23,6 +56,15 @@ function movie_a.enter()
   movie_a.dungeon:move_to_room(1,1,'west')
 
   player.input_disabled = true
+
+
+  fade.start_fade("fadein", 0.5, true)
+  player:start_force_move(player.speed, 0, 1)
+  sequence_finished = false
+  delay.start(0.5, function() 
+      player:end_force_move()
+      sequence_finished = true 
+    end)
 
   state = STATE_MOVIE_A
 end
@@ -66,17 +108,30 @@ function movie_a.update(dt)
     return
   end
 
-  if love.timer.getTime() > (movie_a.start_time + 6) then
-    movie_a.exit()
-    return
-  end
-
   if not movie_a.intertitle then
-    player.dx = player.speed * dt
-    player.dy = player.speed * dt
-
-
     movie_a._update_level(dt)
+
+    if sequence_finished then
+      sequence_index = sequence_index + 1
+      
+      if sequence_index > #sequence then
+        movie_a.exit()
+        return
+      end
+
+      local seq = sequence[sequence_index]
+
+      print("sequence_index",sequence_index)
+      if seq['type'] == 'animation' then
+        print("animation")
+        seq['action']()
+      elseif seq['type'] == 'intertitle' then
+        print("intertitle")
+        movie_a.intertitle = Intertitle:new(unpack(seq['action']))
+        print("animation")
+      end
+    end
+
   elseif movie_a.intertitle:complete() then
     movie_a.intertitle = nil
   end

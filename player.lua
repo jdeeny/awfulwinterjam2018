@@ -15,7 +15,6 @@ function player.init()
   player.dying = false
   player.stun = nil
   player.iframe_end_time = 0
-  player.next_shot_time = 0
   player.shot_delay = 0.1
   player.shot_speed = 800
   player.weapon = 1
@@ -219,8 +218,7 @@ function player:restore()
     self.dying = false
     self.stun = nil
     self.iframe_end_time = 0
-    self.next_shot_time = 0
-	
+  
     player.rot = 0
     player.aim = player.rot
 end
