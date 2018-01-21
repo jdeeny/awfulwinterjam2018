@@ -135,12 +135,12 @@ movie_play.credits = {
     IntertitleStep("Mason Pluimer\n\ntherealpickle@gmail.com", 3),
     IntertitleStep("Michael Winterstein\n\nkangra@quirksand.net", 3),
     --IntertitleStep("", 3),
-    IntertitleStep("Music\n\nFig Leaf Times Two\n\nKevin MacLeod (incompetech.com)", 3),
+    IntertitleStep("Music\n\nFig Leaf Times Two\n\nby Kevin MacLeod\n\nincompetech.com", 3),
   },
   music = {track="figleaf", volume=1, offset=27},
 }
 
-function movie_play.enter(movie_data, dungeon, finish_callback)
+function movie_play.enter(movie_data, finish_callback)
 
   movie_play.finish_callback = finish_callback
 

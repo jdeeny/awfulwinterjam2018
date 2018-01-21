@@ -99,7 +99,7 @@ function gamestage.advance_to_play()
     if gamestage.stages[gamestage.current_stage].intro_movie then
         print("Playing movie")
         movie_play.enter(gamestage.stages[gamestage.current_stage].intro_movie,
-            current_dungeon, movie_finished_cb)
+            movie_finished_cb)
     else
         print("No Movie")
 
