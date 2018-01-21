@@ -104,7 +104,6 @@ function Level:addTile(id, x, y, tile)
   for i, t in ipairs(tile) do
     local t = t()
     t.x, t.y = x, y
-    print("tile: "..t.kind)
     local e = t:toEntity(x, y)
     if i == 1 then first = e end
     self:_add(id, e)
@@ -184,11 +183,11 @@ function Level:coda()
   -- we're done in this room; open doors and let the player move on
   self.cleared = true
   if self.kind == "boss" then
-	  
+
     fade.start_fade("fadeout", 1, false)
 	  -- set iframes so player doesn't die before progressing?
 
-	  delay.start(1, function()  
+	  delay.start(1, function()
         gamestage.setup_next_stage()
         if gamestage.stages[gamestage.current_stage].intro_movie then
   		    gamestage.stages[gamestage.current_stage].intro_movie.enter()
@@ -329,7 +328,6 @@ local function iswater(kind)
 end
 
 function Level:updatewatertiles()
-  print("WATER!!")
   local N, E, W, S = 8, 4, 2, 1
   local NE, NW, SW, SE = 128, 64, 32, 16
   for tx = 1, self.width do
@@ -339,7 +337,6 @@ function Level:updatewatertiles()
         local waterstatus_diag = self:neWater(tx,ty) * NE + self:nwWater(tx,ty) * NW + self:seWater(tx,ty)*SE + self:swWater(tx,ty)*SW
         local waterstatus = waterstatus_sides + waterstatus_diag
         -- TODO: Account for corners
-        print("WSTAT: " ..waterstatus )
         if waterstatus == 0 then self:addTile(nil, tx, ty, self.tileset["water_surround"..math.random(2)]) end
 
         if waterstatus_sides == W then self:addTile(nil, tx, ty, self.tileset["water_w"..math.random(2)]) end
@@ -369,7 +366,6 @@ function Level:updatewatertiles()
       end
     end
   end
-  print("END OF WATER")
 end
 
 --[[function room:update()
