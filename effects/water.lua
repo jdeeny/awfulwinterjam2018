@@ -11,7 +11,7 @@ Water.moonwater = function()
     extern vec2 mapoffset;
     vec4 effect(vec4 color, Image texture, vec2 tc, vec2 sc) {
 
-      float timex = time * 3;
+      float timex = time;// * 3;
       vec2 mapct = (sc.xy * 1.0 / love_ScreenSize.xy) + (mapoffset * 1.0 / love_ScreenSize.xy);
       vec2 mapcm = (sc.xy * 1.0 / love_ScreenSize.xy) + (mapoffset * 0.6 / love_ScreenSize.xy);
       vec2 mapcl = (sc.xy * 1.0 / love_ScreenSize.xy) + (mapoffset * 0.4 / love_ScreenSize.xy);
