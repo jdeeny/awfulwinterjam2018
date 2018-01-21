@@ -61,6 +61,10 @@ function image.init()
   image.lightning_icon = love.graphics.newImage("assets/icons/lightning.png")
   image.ray_icon = love.graphics.newImage("assets/icons/ray.png")
 
+  image.timer_bg = love.graphics.newImage("assets/icons/timer_bg.png")
+  image.bar = love.graphics.newImage("assets/icons/bar.png")
+  image.bar_shading = love.graphics.newImage("assets/icons/bar_shading.png")
+
   image.arrow = love.graphics.newImage("assets/icons/arrow.png")
   image.point = love.graphics.newImage("assets/icons/point.png")
   image.point_yellow = love.graphics.newImage("assets/icons/point_yellow.png")

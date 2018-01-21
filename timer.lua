@@ -1,6 +1,7 @@
 os = require "os"
 
-local timer = {}
+local timer = { font = love.graphics.newFont(
+		'assets/fonts/babes-in-toyland-nf/BabesInToylandNF.ttf', 36),}
 
 local deadline = os.time({year=2018,month=1,day=21,hour=22,min=59,sec=59})
 
@@ -22,18 +23,18 @@ function timer.update()
 		local elapsedTime = love.timer.getTime() - timerOffset
 		local s = math.floor(elapsedTime % 60)
 		local m = math.floor(elapsedTime / 60)
-		
+
 		-- uncomment this to show game time
 		-- timeStamp = string.format("%d:%02d",m,s)
-	
+
 		-- showing time to deadline for now remove this chunk later
 		local timeleft = deadline-os.time()
 		s = math.floor(timeleft%60)
 		timeleft = math.floor(timeleft/60)
-		
+
 		m = math.floor(timeleft%60)
 		timeleft = math.floor(timeleft/60)
-		
+
 		local h = math.floor(timeleft%24)
 		timeleft = math.floor(timeleft/24)
 
@@ -55,7 +56,9 @@ function timer.update()
 end
 
 function timer.draw(xloc, yloc)
-	love.graphics.print(timeStamp, xloc, yloc)
+	love.graphics.setFont(timer.font)
+	love.graphics.draw(image["timer_bg"], xloc, yloc)
+	love.graphics.printf(timeStamp, xloc + 20, yloc + 16, 200, "center")
 end
 
 return timer
