@@ -30,9 +30,6 @@ function SequenceStep:update(dt)
       if self._update then
         self:_update(dt)
       end
-      if self.type == 'animation' then
-        movie_a._update_level(dt)
-      end
     end
   end
 end
@@ -49,10 +46,6 @@ end
 function SequenceStep:draw( ... )
   if self._draw and self._running then
     self:_draw()
-  end
-
-  if self.type == 'animation' then
-    movie_a._draw_level()
   end
 end
 

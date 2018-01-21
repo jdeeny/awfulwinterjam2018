@@ -110,6 +110,7 @@ function dungeon:get_exits(rx, ry)
 end
 
 function dungeon:get_room_kind(rx,ry)
+  print(self[rx][ry],rx,ry)
 	return self[rx][ry].room_kind
 end
 
