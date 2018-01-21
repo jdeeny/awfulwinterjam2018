@@ -243,7 +243,7 @@ shot_data["homing_rocket"] =
       a = a + math.pi * 2
     end
 
-    angle = angle + a * (math.min(1, dt * 3))
+    angle = angle + a * (math.min(1, 2 * dt))
     self.dx = speed * math.cos(angle)
     self.dy = speed * math.sin(angle)
   end

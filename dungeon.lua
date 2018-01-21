@@ -6,7 +6,7 @@ function dungeon:initialize(w,h,room_files,spawns)
 	grid:initialize(w,h)
 	self.room_files = {}
 	self.spawns = {}
-	
+
 	-- fill in any empty sections
 	for _,t in pairs(room_kinds) do
 		if room_files and room_files[t] then
@@ -41,14 +41,16 @@ function dungeon:move_to_room(rx, ry, from_dir)
   --if not items then items = {} end
   items = {}
   spawner.reset()
-  
+
   local room_set = self.room_files[self:get_room_kind(rx, ry)]
   local room_index = self[rx][ry].file
 
   print("BEFORE PARSE")
   current_level = file_io.parse_room_file(room_set[room_index])
+  current_level:setup_outer_walls()
   print("MOVE TO ROOM")
   current_level:updatewatertiles()
+  current_level:updatewalltiles()
   print("MOVEDONE")
 
   current_level.exits = self:get_exits(rx, ry)
@@ -81,7 +83,7 @@ function dungeon:move_to_room(rx, ry, from_dir)
 
 
   local spawn_set = self.spawns[self:get_room_kind(rx, ry)]
-  
+
   local selected_wave = spawn_set[love.math.random(#(spawn_set))] -- random pick from list
   spawner.wave_data[selected_wave]()
 end

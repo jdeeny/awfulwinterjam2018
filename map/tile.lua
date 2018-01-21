@@ -49,6 +49,7 @@ function Tile:takeDamage(dmg)
       end
       -- replace self
       current_level:addTile(nil, self.x, self.y, current_level.tileset[self.destroyed_version])
+      current_level:updatewalltiles()
     end
   end
 end
