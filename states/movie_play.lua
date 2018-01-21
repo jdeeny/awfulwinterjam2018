@@ -123,6 +123,21 @@ movie_play.movie_data3 = {
   music = {track="figleaf", volume=1, offset=27},
 }
 
+movie_play.credits = {
+  sequence_steps = {
+    IntertitleStep("Wardenclyffe Laboratory\n\nTechnicians\n\nwould like to thank you\n\nfor playing our game.", 5),
+    IntertitleStep("John Deeny\n\njdeeny@gmail.com", 3),
+    IntertitleStep("Samuel Wilson\n\nyokomeshi@gmail.com", 3),
+    IntertitleStep("Graham Chambers\n\nmshadowy.Art@gmail.com", 3),
+    IntertitleStep("Amy Zurko\n\namyzurko@gmail.com", 3),
+    IntertitleStep("Andrew Chaniotis\n\nandreas.xaniotis@gmail.com", 3),
+    IntertitleStep("Jason Nyland\n\njasonnyland@fastmail.com", 3),
+    IntertitleStep("Mason Pluimer\n\ntherealpickle@gmail.com", 3),
+    --IntertitleStep("", 3),
+  },
+  music = {track="figleaf", volume=1, offset=27},
+}
+
 function movie_play.enter(movie_data, dungeon, finish_callback)
 
   movie_play.finish_callback = finish_callback

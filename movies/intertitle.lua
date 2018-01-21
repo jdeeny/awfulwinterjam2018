@@ -1,7 +1,7 @@
 local Intertitle = class("intertitle")
 
 local font = love.graphics.newFont(
-    'assets/fonts/babes-in-toyland-nf/BabesInToylandNF.ttf', 50)
+    'assets/fonts/Birmingham.ttf', 50)
  
 local filmgrain_effect = moonshine(moonshine.effects.desaturate)
                       .chain(moonshine.effects.filmgrain)

@@ -4,7 +4,7 @@ local stages = {}
 
 stages[1] = {
 	-- Movie/cutscene settings
-    intro_movie = movie_play.movie_data,
+    intro_movie = movie_play.credits,--movie_data,
     outro_movie = nil,
 
 	-- Rooms/dungeon
