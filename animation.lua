@@ -52,6 +52,37 @@ function animation.init()
   animation.lumpgoon_idle_ne = anim8.newAnimation(lump_grid('8-9',2), 0.8)
   animation.lumpgoon_idle_sw = anim8.newAnimation(lump_grid('8-9',1), 0.8):flipH()
   animation.lumpgoon_idle_nw = anim8.newAnimation(lump_grid('8-9',2), 0.8):flipH()
+
+  local canbot_grid = anim8.newGrid(64, 96, image.canbot:getWidth(), image.canbot:getHeight(), 0, 0, 0)
+  animation.canbot_run_se = anim8.newAnimation(canbot_grid('1-4',1), 0.8)
+  animation.canbot_run_ne = anim8.newAnimation(canbot_grid('1-4',2), 0.8)
+  animation.canbot_run_sw = anim8.newAnimation(canbot_grid('1-4',1), 0.8):flipH()
+  animation.canbot_run_nw = anim8.newAnimation(canbot_grid('1-4',2), 0.8):flipH()
+  animation.canbot_idle_se = anim8.newAnimation(canbot_grid('5-6',1), 0.8)
+  animation.canbot_idle_ne = anim8.newAnimation(canbot_grid('5-6',2), 0.8)
+  animation.canbot_idle_sw = anim8.newAnimation(canbot_grid('5-6',1), 0.8):flipH()
+  animation.canbot_idle_nw = anim8.newAnimation(canbot_grid('5-6',2), 0.8):flipH()
+  animation.canbot_hurt_se = anim8.newAnimation(canbot_grid('7-7',1), 0.8)
+  animation.canbot_hurt_ne = anim8.newAnimation(canbot_grid('7-7',2), 0.8)
+  animation.canbot_hurt_sw = anim8.newAnimation(canbot_grid('7-7',1), 0.8):flipH()
+  animation.canbot_hurt_nw = anim8.newAnimation(canbot_grid('7-7',2), 0.8):flipH()
+
+
+  local pinkerton_grid = anim8.newGrid(64, 96, image.pinkerton:getWidth(), image.pinkerton:getHeight(), 0, 0, 0)
+  animation.pinkerton_run_sw = anim8.newAnimation(pinkerton_grid('1-10',2), 0.8)
+  animation.pinkerton_run_nw = anim8.newAnimation(pinkerton_grid('1-10',1), 0.8)
+  animation.pinkerton_run_se = anim8.newAnimation(pinkerton_grid('1-10',2), 0.8):flipH()
+  animation.pinkerton_run_ne = anim8.newAnimation(pinkerton_grid('1-10',1), 0.8):flipH()
+  animation.pinkerton_idle_sw = anim8.newAnimation(pinkerton_grid('1-1',3), 0.8)
+  animation.pinkerton_idle_nw = anim8.newAnimation(pinkerton_grid('2-2',3), 0.8)
+  animation.pinkerton_idle_se = anim8.newAnimation(pinkerton_grid('1-1',3), 0.8):flipH()
+  animation.pinkerton_idle_ne = anim8.newAnimation(pinkerton_grid('2-2',3), 0.8):flipH()
+  animation.pinkerton_hurt_se = anim8.newAnimation(pinkerton_grid('9-9',3), 0.8)
+  animation.pinkerton_hurt_ne = anim8.newAnimation(pinkerton_grid('10-10',3), 0.8)
+  animation.pinkerton_hurt_sw = anim8.newAnimation(pinkerton_grid('9-9',3), 0.8):flipH()
+  animation.pinkerton_hurt_nw = anim8.newAnimation(pinkerton_grid('10-10',3), 0.8):flipH()
+
+
 end
 
 return animation
