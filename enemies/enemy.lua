@@ -71,6 +71,9 @@ end
 
 function enemy:die()
   if self.dead then return end
+  if self.death_action then
+    self:death_action()
+  end
   self.dead = true
   self.personality = nil
   current_level:addBody(self.body or 'deadbody', self.x, self.y)

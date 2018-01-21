@@ -71,8 +71,15 @@ enemy_data["lumpgoon"] =
 {
   kind = "lumpgoon", name = "Lump Goon",
   sprite = "lumpgoon", death_sound = "unh",
---  animation = animation.gear_spin_ccw,
-  animations = { lumpgoon_run_ne = animation.lumpgoon_run_ne:clone(), lumpgoon_run_se = animation.lumpgoon_run_se:clone(), lumpgoon_run_nw = animation.lumpgoon_run_nw:clone(), lumpgoon_run_sw = animation.lumpgoon_run_sw:clone(),},
+  animations = {
+    lumpgoon_run_ne = animation.lumpgoon_run_ne:clone(),
+    lumpgoon_run_se = animation.lumpgoon_run_se:clone(),
+    lumpgoon_run_nw = animation.lumpgoon_run_nw:clone(),
+    lumpgoon_run_sw = animation.lumpgoon_run_sw:clone(),
+    lumpgoon_idle_ne = animation.lumpgoon_idle_ne:clone(),
+    lumpgoon_idle_se = animation.lumpgoon_idle_se:clone(),
+    lumpgoon_idle_nw = animation.lumpgoon_idle_nw:clone(),
+    lumpgoon_idle_sw = animation.lumpgoon_idle_sw:clone(),},
   max_hp = 250,
   speed = 40,
   radius = 25,
@@ -85,6 +92,44 @@ enemy_data["lumpgoon"] =
                 {chance=0.05,item="damage_mult"},
                 {chance=0.05,item="charge_rate_mult"},
                 {chance=0.25,item="health_pack"},},
+}
+
+enemy_data["superlump"] =
+{
+  kind = "superlump", name = "Super Goon",
+  sprite = "lumpgoon", death_sound = "unh",
+  animations = {
+    lumpgoon_run_ne = animation.lumpgoon_run_ne:clone(),
+    lumpgoon_run_se = animation.lumpgoon_run_se:clone(),
+    lumpgoon_run_nw = animation.lumpgoon_run_nw:clone(),
+    lumpgoon_run_sw = animation.lumpgoon_run_sw:clone(),
+    lumpgoon_idle_ne = animation.lumpgoon_idle_ne:clone(),
+    lumpgoon_idle_se = animation.lumpgoon_idle_se:clone(),
+    lumpgoon_idle_nw = animation.lumpgoon_idle_nw:clone(),
+    lumpgoon_idle_sw = animation.lumpgoon_idle_sw:clone(),},
+  max_hp = 250,
+  speed = 40,
+  radius = 25,
+  value = 1.5,
+  bleeds = 2,
+  touch_damage = 20,
+  personality = 'Seeker',
+  drop_items = {{chance=0.05,item="max_ammo_increase"},
+                {chance=0.05,item="max_health_increase"},
+                {chance=0.05,item="damage_mult"},
+                {chance=0.05,item="charge_rate_mult"},
+                {chance=0.25,item="health_pack"},},
+
+  death_action = function(self)
+    local angle = 1.0471975512 * love.math.random()
+    for i = 1, 6 do
+      local id = enemy_data.spawn("lumpgoon", self.x, self.y)
+      local t = 0.5 + love.math.random()
+      enemies[id]:be_stunned(t)
+      enemies[id]:be_knocked_back(t, 300 * math.cos(angle + 1.0471975512 * i), 300 * math.sin(angle + 1.0471975512 * i))
+    end
+    spark_data.spawn("explosion", {r=200, g=0, b=0}, self.x, self.y)
+  end,
 }
 
 enemy_data["rifledude"] =

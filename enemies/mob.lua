@@ -113,8 +113,6 @@ function mob:update_position(dt)
 
     self.x = mx
     self.y = my
-
-
   end
 
 	self:update_splash(dt)

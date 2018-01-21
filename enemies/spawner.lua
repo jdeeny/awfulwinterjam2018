@@ -69,7 +69,7 @@ spawner.wave_data = {}
 spawner.wave_data.ez_lvl = function()
 	spawner.add(2,
 		function()
-			spawner.spawn_from_north_door('sniperdude')
+			spawner.spawn_from_north_door('superlump')
 			local angle = math.pi * 1.4
 			for i = 1, 24 do
 				delay.start(0.3 * i, function() spawner.spawn_from_south_door('remotedude_red', angle) end)
