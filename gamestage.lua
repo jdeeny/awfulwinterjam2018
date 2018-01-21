@@ -8,8 +8,8 @@ stages[1] = {
     outro_movie = nil,
 
 	-- Rooms/dungeon
-	dungeon_w = 3,
-	dungeon_h = 3,
+	dungeon_w = 2,
+	dungeon_h = 1,
 
 	-- This is optional; any blank entry will select from all available files
 	room_files = {['start'] = {3}, ['boss'] = {8}, ['generic'] = {1,2,3,4,5}},  -- See file_io for room index
@@ -89,16 +89,16 @@ function gamestage.advance_to_play()
     current_dungeon:move_to_room(current_dungeon.start_x, 
         current_dungeon.start_y, "west")
 
+    player:start_force_move(9999, player.speed, 0)
+    fade.start_fade("fadein", 0.5, true)
+    delay.start(0.5, function() player:end_force_move() end)
+
     if gamestage.stages[gamestage.current_stage].intro_movie then
         print("Playing movie")
         movie_play.enter(gamestage.stages[gamestage.current_stage].intro_movie,
             current_dungeon, movie_finished_cb)
     else
         print("No Movie")
-        player:start_force_move(9999, player.speed, 0)
-
-        fade.start_fade("fadein", 0.5, true)
-        delay.start(0.5, function() player:end_force_move() end)
 
         movie_finished_cb()
     end
