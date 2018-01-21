@@ -89,6 +89,37 @@ spawner.wave_data.ez_lvl = function()
 	)
 end
 
+spawner.wave_data.rifle_time = function()
+	spawner.add(2,
+		function()
+			spawner.spawn_from_south_door('rifledude')
+			spawner.spawn_from_north_door('rifledude')
+			for i = 1, 9 do
+				delay.start(0.5 * i, function()
+					spawner.spawn_from_south_door('rifledude')
+					spawner.spawn_from_north_door('rifledude')
+				end)
+			end
+		end)
+	spawner.add(5,
+	function()
+		spawner.spawn_from_west_door('rifledude')
+		spawner.spawn_from_east_door('rifledude')
+		for i = 1, 4 do
+			delay.start(0.5 * i, function()
+				spawner.spawn_from_west_door('rifledude')
+				spawner.spawn_from_east_door('rifledude')
+			end)
+		end
+		delay.start(2,
+			function()
+				spawner.complete = true
+				spawner.test_completion()
+			end)
+	end
+	)
+end
+
 spawner.wave_data.test = function()
 	spawner.add(2,
 		function()
