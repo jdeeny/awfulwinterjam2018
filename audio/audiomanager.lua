@@ -26,6 +26,18 @@ local AudioManager = class("AudioManager")
     -- Music is probably better to stream.  Only one music track is playable at a time.
     self.music_tracks['figleaf'] = love.audio.newSource(
       "assets/music/Fig Leaf Times Two.ogg", "stream")
+    self.music_tracks['01'] = love.audio.newSource(
+      "assets/music/kliq/01.mp3", "stream")
+    self.music_tracks['02'] = love.audio.newSource(
+      "assets/music/kliq/02.mp3", "stream")
+    self.music_tracks['03'] = love.audio.newSource(
+      "assets/music/kliq/03.mp3", "stream")
+    self.music_tracks['04'] = love.audio.newSource(
+      "assets/music/kliq/04.mp3", "stream")
+    self.music_tracks['05'] = love.audio.newSource(
+      "assets/music/kliq/05.mp3", "stream")
+    self.music_tracks['06'] = love.audio.newSource(
+      "assets/music/kliq/06.mp3", "stream")
   end
 
   function AudioManager:update(dt)
