@@ -88,7 +88,7 @@ end
 
 function dungeon:setup_main()
   for rx = 1, self.width do
-    for ry=1, self.height do
+    for ry = 1, self.height do
       if rx == 1 and ry == self.height then
         self[rx][ry] = {room_kind = "start", file = love.math.random(#(self.room_files['start'])) }
         self.start_x = rx
@@ -107,8 +107,7 @@ function dungeon:get_exits(rx, ry)
 end
 
 function dungeon:get_room_kind(rx,ry)
-  print(self[rx][ry],rx,ry)
-	return self[rx][ry].room_kind
+  return self[rx][ry].room_kind
 end
 
 return dungeon

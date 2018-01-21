@@ -4,12 +4,12 @@ local stages = {}
 
 stages[1] = {
 	-- Movie/cutscene settings
-    intro_movie = nil,--movie_a.movie_data,
+    intro_movie = movie_a.movie_data,
     outro_movie = nil,
 
 	-- Rooms/dungeon
-	dungeon_x = 3,
-	dungeon_y = 3,
+	dungeon_x = 2,--3,
+	dungeon_y = 2,--3,
 
 	-- This is optional; any blank entry will select from all available files
 	room_files = {['start'] = {3}, ['boss'] = {8}, ['generic'] = {1,2,3,4,5}},  -- See file_io for room index
@@ -21,7 +21,7 @@ stages[1] = {
 
 stages[2] = {
 	-- Movie/cutscene settings
-    intro_movie = movie_a.movie_data,
+    intro_movie = movie_a.movie_data2,
     outro_movie = nil,
 
 	-- Rooms/dungeon
@@ -34,7 +34,7 @@ stages[2] = {
 -- Test stage, feel free to mess around with these values
 stages[3] = {
 	-- Movie/cutscene settings
-    intro_movie = movie_a.movie_data,
+    intro_movie = movie_a.movie_data3,
     outro_movie = nil,
 
 	-- Rooms/dungeon
@@ -48,7 +48,8 @@ gamestage.current_stage = 0
 
 -- This just sets up the stage; it does not change the state
 function gamestage.setup_next_stage(forced)
-	local ns_number = forced or (gamestage.current_stage + 1)
+    local ns_number = forced or (gamestage.current_stage + 1)
+    print("setup next stage",ns_number)
 
 	if ns_number > #(gamestage.stages)  then
 		-- you win!
@@ -67,36 +68,39 @@ function gamestage.setup_next_stage(forced)
 end
 
 function gamestage.advance_to_play()
+    print("Load done advance_to_play")
+    
     game_time = 0
 
-	  player:restore()
+    player:restore()
 
-    --enemies = nil
-    --enemy_value = nil
-    --shots = nil
-    --doodads = nil
-    --sparks = nil
-    --items = nil
+    enemies = nil
+    enemy_value = nil
+    shots = nil
+    doodads = nil
+    sparks = nil
+    items = nil
 
     pathfinder.rebuild_time = 0
 
     local function movie_finished_cb()
-    	current_dungeon:move_to_room(current_dungeon.start_x, 
-            current_dungeon.start_y, "west")
-    	
-        print("Load done advance_to_play")
+        play.enter()
+    end
+
+    current_dungeon:move_to_room(current_dungeon.start_x, 
+        current_dungeon.start_y, "west")
+
+    if gamestage.stages[gamestage.current_stage].intro_movie then
+        print("Playing movie")
+        movie_a.enter(gamestage.stages[gamestage.current_stage].intro_movie,
+            current_dungeon, movie_finished_cb)
+    else
+        print("No Movie")
         player:start_force_move(9999, player.speed, 0)
 
         fade.start_fade("fadein", 0.5, true)
         delay.start(0.5, function() player:end_force_move() end)
 
-        play.enter()
-    end
-
-    if gamestage.stages[gamestage.current_stage].intro_movie then
-        movie_a.enter(gamestage.stages[gamestage.current_stage].intro_movie,
-            current_dungeon, movie_finished_cb)
-    else
         movie_finished_cb()
     end
 

@@ -33,9 +33,6 @@ function love.load()
 
   init_settings()
   player.init()
-  print("PRE GAMESTAGE setup next stage")
-  gamestage.setup_next_stage(gamestage.current_stage)
-  print("post GAMESTAGE setup next stage")
 
   splash.enter()
   timer.init()
@@ -45,6 +42,11 @@ function love.update(dt)
   gui_time = love.timer.getTime()
   gui_flux.update(dt)
   gamestates[state].update(dt)
+  if player_input:down('killall') then
+    for _, z in pairs(enemies) do
+      z:die()
+    end
+  end
 end
 
 debug_font = love.graphics.newFont(12)

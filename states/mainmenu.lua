@@ -23,7 +23,7 @@ function mainmenu.update(dt)
 	player_input:update()
 
 	if player_input:pressed('fire') or player_input:pressed('sel') then
-		gamestage.setup_next_stage(gamestage.current_level)
+		gamestage.setup_next_stage(1)
   		gamestage.advance_to_play()
 	elseif player_input:pressed('back') then
 		options.enter()
