@@ -9,3 +9,13 @@ Fig Leaf Times Two Kevin MacLeod (incompetech.com)
 Licensed under Creative Commons: By Attribution 3.0 License
 http://creativecommons.org/licenses/by/3.0/
 
+
+Album: Movements EP
+Artist: Professor Kliq
+License: CC BY-NC-SA 3.0
+This is how it should appear:
+
+Movements EP by Professor Kliq
+Licensed under Creative Commons: Attribution-NonCommercial-ShareAlike 3.0
+https://creativecommons.org/licenses/by-nc-sa/3.0/
+Note: Some tracks shortened to fit gameplay
