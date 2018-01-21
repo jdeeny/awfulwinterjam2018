@@ -5,5 +5,6 @@ Personalities['Rifleman'] = require 'enemies/ai/rifleman'
 Personalities['Sniper'] = require 'enemies/ai/sniper'
 Personalities['Remotedude'] = require 'enemies/ai/remotedude'
 Personalities['Bouncer'] = require 'enemies/ai/bouncer'
+Personalities['Charger'] = require 'enemies/ai/charger'
 
 return Personalities

@@ -236,6 +236,22 @@ enemy_data["remotedude_green"] =
   personality = 'Remotedude',
 }
 
-
+enemy_data["canbot"] =
+{
+  kind = "canbot", name = "Canbot 0.8",
+  sprite = "dude",  death_sound = "unh",
+  max_hp = 60,
+  speed = 100,
+  radius = 30,
+  value = 1,
+  bleeds = 1,
+  touch_damage = 20,
+  personality = 'Charger',
+  drop_items = {{chance=0.05,item="max_ammo_increase"},
+                {chance=0.05,item="max_health_increase"},
+                {chance=0.05,item="damage_mult"},
+                {chance=0.05,item="charge_rate_mult"},
+                {chance=0.25,item="health_pack"},},
+}
 
 return enemy_data

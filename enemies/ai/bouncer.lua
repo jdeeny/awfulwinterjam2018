@@ -1,13 +1,11 @@
-local super = require 'enemies/ai/seeker'
-local Bouncer = class("Bouncer", Seeker)
+local Bouncer = class("Bouncer", Ai)
 
 function Bouncer:initialize(entity)
-  super.initialize(self, entity)
+  Ai.initialize(self, entity)
   self.angle = self.entity.parameter or love.math.random() * 2 * math.pi
 end
 
 function Bouncer:update(dt)
-  super.update(self, dt)
   self.entity.dx = math.cos(self.angle) * self.entity.speed
   self.entity.dy = math.sin(self.angle) * self.entity.speed
 end
