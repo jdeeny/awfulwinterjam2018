@@ -13,19 +13,19 @@ Water.moonwater = function()
 
       float timex = time * 3;
       vec2 mapct = (sc.xy * 1.0 / love_ScreenSize.xy) + (mapoffset * 1.0 / love_ScreenSize.xy);
-      vec2 mapcm = (sc.xy * 1.0 / love_ScreenSize.xy) + (mapoffset * 0.8 / love_ScreenSize.xy);
-      vec2 mapcl = (sc.xy * 1.0 / love_ScreenSize.xy) + (mapoffset * 0.6 / love_ScreenSize.xy);
+      vec2 mapcm = (sc.xy * 1.0 / love_ScreenSize.xy) + (mapoffset * 0.6 / love_ScreenSize.xy);
+      vec2 mapcl = (sc.xy * 1.0 / love_ScreenSize.xy) + (mapoffset * 0.4 / love_ScreenSize.xy);
 
       float xt = ( sin( timex + 25 * mapct.x + 30 * mapct.y) + sin(-timex + 20 * mapct.x + 35 * mapct.y + 1) ) / 2;
       float yt = ( sin( timex + 25 * mapct.x + 30 * mapct.y) + sin(-timex + 16 * mapct.x + 3 * mapct.y + 1.5) ) / 2;
-      float xm = ( sin( timex + 25 * mapcm.x + 30 * mapcm.y) + sin(-timex + 20 * mapcm.x + 35 * mapcm.y + 1) ) / 2;
-      float ym = ( sin( timex + 25 * mapcm.x + 30 * mapcm.y) + sin(-timex + 16 * mapcm.x + 3 * mapcm.y + 1.5) ) / 2;
-      float xl = ( sin( timex + 25 * mapcl.x + 30 * mapcl.y) + sin(-timex + 20 * mapcl.x + 35 * mapcl.y + 1) ) / 2;
-      float yl = ( sin( timex + 25 * mapcl.x + 30 * mapcl.y) + sin(-timex + 16 * mapcl.x + 3 * mapcl.y + 1.5) ) / 2;
+      float xm = ( sin( timex + 25 * mapcm.x + 30 * mapcm.y) + sin(-timex + 17 * mapcm.x + 23 * mapcm.y + 1.1) ) / 2;
+      float ym = ( sin( timex + 25 * mapcm.x + 30 * mapcm.y) + sin(-timex + 18 * mapcm.x + 4 * mapcm.y + 1.6) ) / 2;
+      float xl = ( sin( timex + 25 * mapcl.x + 30 * mapcl.y) + sin(-timex + 15 * mapcl.x + 15 * mapcl.y + 0.9) ) / 2;
+      float yl = ( sin( timex + 25 * mapcl.x + 30 * mapcl.y) + sin(-timex + 14 * mapcl.x + 5 * mapcl.y + 1.4) ) / 2;
 
       vec2 offt = vec2(xt,yt) * 0.08 + 1;
-      vec2 offm = vec2(xm,ym) * 0.08 + 1;
-      vec2 offl = vec2(xl,yl) * 0.08 + 1;
+      vec2 offm = vec2(xm,ym) * 0.16 + .9;
+      vec2 offl = vec2(xl,yl) * 0.11 + 1;
 
 
       vec2 wct  = 12 * (mapct + 0.15 * offt);
@@ -35,18 +35,18 @@ Water.moonwater = function()
       float m = Texel(texture, tc).r;
       vec4 base = Texel(waterbase, tc);
 
-      vec4 lightt = Texel(watershape, wct * 0.8);
-      vec4 lightm = Texel(watershape, wcm * 0.6);
-      vec4 lightl = Texel(watershape, wcl * 0.3);
-      vec4 darkt  = Texel(watershape, (wct + 0.3) * 1.2);
-      vec4 darkm  = Texel(watershape, (wcm + 0.3) * 0.9);
+      vec4 lightt = Texel(watershape, wct * 0.9);
+      vec4 lightm = Texel(watershape, wcm * 0.8);
+      vec4 lightl = Texel(watershape, wcl * 0.7);
+      vec4 darkt  = Texel(watershape, (wct + 0.3) * 0.7);
+      vec4 darkm  = Texel(watershape, (wcm + 0.3) * 0.6);
       vec4 darkl  = Texel(watershape, (wcl + 0.3) * 0.5);
 
       vec4 shape = mix(mix(
         mix(mix(base, base * 0.9, darkt), base * 1.8, lightt),
-        mix(mix(base, base * 0.4, darkm), base * 1.2, lightm),
+        mix(mix(base, base * 0.5, darkm), base * 0.8, lightm),
         0.5),
-        mix(mix(base, base * 0.2, darkl), base * 0.9, lightl),
+        mix(mix(base, base * 0.2, darkl), base * 1.3, lightl),
         0.3);
 
       shape.a = m;
