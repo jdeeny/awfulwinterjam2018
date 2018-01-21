@@ -30,6 +30,11 @@ function image.init()
   image.pow = love.graphics.newImage("assets/sprites/pow.png")
   image.shard = love.graphics.newImage("assets/sprites/shard.png")
   image.explosion = love.graphics.newImage("assets/sprites/explosion.png")
+  image.muzzle1 = love.graphics.newImage("assets/sprites/muzzle1.png")
+  image.muzzle2 = love.graphics.newImage("assets/sprites/muzzle2.png")
+  image.muzzle3 = love.graphics.newImage("assets/sprites/muzzle3.png")
+  image.muzzle4 = love.graphics.newImage("assets/sprites/muzzle4.png")
+  image.muzzle5 = love.graphics.newImage("assets/sprites/muzzle5.png")
 
   image.tesla = love.graphics.newImage("assets/sprites/tesla_sprite_sheet.png")
 

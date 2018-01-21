@@ -17,6 +17,8 @@ function spark_data.spawn(class, color, x, y, dx, dy, r, sx, sy)
   for i, v in pairs(spark_data[class]) do
     if i == "animation" then
       sparks[new_id][i] = v:clone()
+    elseif i == "sprite" and type(v) == "table" then
+      sparks[new_id][i] = v[love.math.random(#v)]
     else
       sparks[new_id][i] = v
     end
@@ -75,6 +77,16 @@ spark_data["pow"] =
 {
   class = "pow",
   sprite = "pow",
+  animation = animation.pow,
+  duration = 0.2,
+  sprite_hwidth = 64,
+  sprite_hheight = 64,
+}
+
+spark_data["muzzle"] =
+{
+  class = "muzzle",
+  sprite = {"muzzle1", "muzzle2", "muzzle3", "muzzle4", "muzzle5"},
   animation = animation.pow,
   duration = 0.2,
   sprite_hwidth = 64,

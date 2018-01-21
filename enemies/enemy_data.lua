@@ -33,7 +33,7 @@ function enemy_data.spawn(kind, x, y)
   if e.weapon_type then
     local w = e.weapon_type:new()
     if e.projectile_type then
-      w.projectile = "enemybullet"
+      w.projectile = e.projectile_type
     end
     e:equip('weapon', w)
   end

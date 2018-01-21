@@ -86,6 +86,8 @@ function ProjectileGun:_fire(targets)
   end
   self.owner:be_knocked_back(0.1, -100 * math.cos(angle), -100 * math.sin(angle))
   self.cof_multiplier = math.min(1, self.cof_multiplier + 0.15)
+  spark_data.spawn("muzzle", {r=255, g=170 + love.math.random(50), b=100}, self.owner.x + 112 * math.cos(angle), self.owner.y + 112 * math.sin(angle),
+    0, 0, angle)
 end
 
 function ProjectileGun:release()
@@ -129,6 +131,8 @@ function SniperGun:_fire(targets)
     camera.bump(6, self.owner.aim)
   end
   self.owner:be_knocked_back(0.3, -300 * math.cos(angle), -300 * math.sin(angle))
+  spark_data.spawn("muzzle", {r=255, g=140 + love.math.random(100), b=100}, self.owner.x + 112 * math.cos(angle), self.owner.y + 112 * math.sin(angle),
+    0, 0, angle)
 end
 
 function SniperGun:release()
