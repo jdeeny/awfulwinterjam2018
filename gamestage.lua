@@ -40,7 +40,7 @@ stages[3] = {
 	-- Rooms/dungeon
 	dungeon_x = 2,
 	dungeon_y = 2,
-	--room_files = {['start'] = {3}, ['boss'] = {8}, ['generic'] = {1,2,3,4,5}},  -- See file_io for room index
+	room_files = {['start'] = {14}, ['boss'] = {14}, ['generic'] = {14}},  -- See file_io for room index
 }
 gamestage.stages = stages
 gamestage.current_stage = 0
