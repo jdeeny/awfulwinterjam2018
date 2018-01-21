@@ -124,8 +124,7 @@ function movie_a.enter(movie_data, dungeon, finish_callback)
   movie_a.finish_callback = finish_callback
 
   movie_a.movie = Movie:new(movie_data)
-  movie_a.movie:start()
-  
+  movie_a.movie:start()  
 
   state = STATE_MOVIE_A
 end

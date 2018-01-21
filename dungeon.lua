@@ -2,12 +2,13 @@ local dungeon = class("dungeon", grid)
 
 local room_kinds = {'start','boss','generic'}
 
-function dungeon:initialize()--w,h,room_files,spawns)
-
+function dungeon:initialize(w,h,room_files,spawns)
+	grid:initialize(w,h)
 	self.room_files = {}
 	self.spawns = {}
+	
 	-- fill in any empty sections
-	for k,t in pairs(room_kinds) do
+	for _,t in pairs(room_kinds) do
 		if room_files and room_files[t] then
 			self.room_files[t] = room_files[t]
 		else
@@ -45,15 +46,14 @@ function dungeon:move_to_room(rx, ry, from_dir)
 
   local room_set = self.room_files[self:get_room_kind(rx, ry)]
   local room_index = self[rx][ry].file
-  
 
   print("BEFORE PARSE")
   current_level = file_io.parse_room_file(room_set[room_index])
   print("MOVE TO ROOM")
   current_level:updatewatertiles()
   print("MOVEDONE")
-  current_level.exits = current_dungeon:get_exits(rx, ry)
-  current_level.kind = current_dungeon:get_room_kind(rx,ry)
+  current_level.exits = self:get_exits(rx, ry)
+  current_level.kind = self:get_room_kind(rx,ry)
   --current_level:prologue()
 
   player.dungeon_x = rx
@@ -87,8 +87,8 @@ function dungeon:move_to_room(rx, ry, from_dir)
 end
 
 function dungeon:setup_main()
-  for rx = 1, self.width do
-    for ry = 1, self.height do
+  for rx=1, self.width do
+    for ry=1, self.height do
       if rx == 1 and ry == self.height then
         self[rx][ry] = {room_kind = "start", file = love.math.random(#(self.room_files['start'])) }
         self.start_x = rx

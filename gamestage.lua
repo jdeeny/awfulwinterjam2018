@@ -8,8 +8,8 @@ stages[1] = {
     outro_movie = nil,
 
 	-- Rooms/dungeon
-	dungeon_x = 2,--3,
-	dungeon_y = 2,--3,
+	dungeon_w = 3,
+	dungeon_h = 3,
 
 	-- This is optional; any blank entry will select from all available files
 	room_files = {['start'] = {3}, ['boss'] = {8}, ['generic'] = {1,2,3,4,5}},  -- See file_io for room index
@@ -25,8 +25,8 @@ stages[2] = {
     outro_movie = nil,
 
 	-- Rooms/dungeon
-	dungeon_x = 5,
-	dungeon_y = 4,
+	dungeon_w = 5,
+	dungeon_h = 4,
 	spawns = {['start'] = {'ez_lvl'}, ['boss'] = {'ez_lvl'}, ['generic'] = {'ez_lvl'}},
 
 }
@@ -38,8 +38,8 @@ stages[3] = {
     outro_movie = nil,
 
 	-- Rooms/dungeon
-	dungeon_x = 2,
-	dungeon_y = 2,
+	dungeon_w = 2,
+	dungeon_h = 2,
 	room_files = {['start'] = {14}, ['boss'] = {14}, ['generic'] = {14}},  -- See file_io for room index
 }
 
@@ -59,9 +59,8 @@ function gamestage.setup_next_stage(forced)
 	gamestage.current_stage = ns_number
 
 	local next_stage = gamestage.stages[gamestage.current_stage]
-
-	current_dungeon = dungeon:new()
-    current_dungeon:init(next_stage.dungeon_x, next_stage.dungeon_y, 
+    
+    current_dungeon = dungeon:new(next_stage.dungeon_w, next_stage.dungeon_h, 
         next_stage.room_files, next_stage.spawns)
     current_dungeon:setup_main()
 
