@@ -12,7 +12,6 @@ Water.moonwater = function()
     vec4 effect(vec4 color, Image texture, vec2 tc, vec2 sc) {
 
       float timex = time * 3;
-//      vec2 mapc = ((sc.xy + mapoffset) / love_ScreenSize.xy);
       vec2 mapct = (sc.xy * 1.0 / love_ScreenSize.xy) + (mapoffset * 1.0 / love_ScreenSize.xy);
       vec2 mapcm = (sc.xy * 1.0 / love_ScreenSize.xy) + (mapoffset * 0.8 / love_ScreenSize.xy);
       vec2 mapcl = (sc.xy * 1.0 / love_ScreenSize.xy) + (mapoffset * 0.6 / love_ScreenSize.xy);
@@ -51,7 +50,7 @@ Water.moonwater = function()
         0.3);
 
       shape.a = m;
-      return shape;
+      return shape;// * color;
     }
   ]]
 
@@ -86,13 +85,13 @@ function Water.update(dt)
 end
 
 function Water.draw(drawable, x, y, r, sx, sy, ox, oy, kx, ky)
-  local bg = { love.graphics.getBackgroundColor() }
-  love.graphics.setBackgroundColor({0,0,0,0})
+--[[]  local bg = { love.graphics.getBackgroundColor() }
+  love.graphics.setBackgroundColor({0,0,0,255})
   Water.effect(function()
     love.graphics.draw(Water.waterbase, x, y, r, sx, sy, ox, oy, kx, ky)
   end)
   love.graphics.setBackgroundColor(bg)
-  love.graphics.draw(drawable, x, y, r, sx, sy, ox, oy, kx, ky)
+  love.graphics.draw(drawable, x, y, r, sx, sy, ox, oy, kx, ky)]]
 end
 
 return Water
