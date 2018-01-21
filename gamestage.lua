@@ -60,8 +60,8 @@ function gamestage.setup_next_stage(forced)
 	gamestage.current_stage = ns_number
 
 	local next_stage = gamestage.stages[gamestage.current_stage]
-    
-    current_dungeon = dungeon:new(next_stage.dungeon_w, next_stage.dungeon_h, 
+
+    current_dungeon = dungeon:new(next_stage.dungeon_w, next_stage.dungeon_h,
         next_stage.room_files, next_stage.spawns)
     current_dungeon:setup_main()
 
@@ -69,12 +69,11 @@ end
 
 function gamestage.advance_to_play()
     print("Load done advance_to_play")
-    
     game_time = 0
 
     player.init()
-	  
-    gamestage.restore_upgrades() 
+
+    gamestage.restore_upgrades()
 
     enemies = nil
     enemy_value = nil
@@ -89,7 +88,7 @@ function gamestage.advance_to_play()
         play.enter()
     end
 
-    current_dungeon:move_to_room(current_dungeon.start_x, 
+    current_dungeon:move_to_room(current_dungeon.start_x,
         current_dungeon.start_y, "west")
 
     player:start_force_move(9999, player.speed, 0)
@@ -106,7 +105,6 @@ function gamestage.advance_to_play()
         movie_finished_cb()
     end
 
-
 end
 
 function gamestage.save_upgrades()
@@ -117,7 +115,7 @@ function gamestage.save_upgrades()
 		gamestage.upgrades.weapon_stats[k].max_ammo = v.max_ammo
 		print("weapons",k,v) -- DBG
 		-- add any others?
-	end 
+	end
 end
 
 function gamestage.restore_upgrades()

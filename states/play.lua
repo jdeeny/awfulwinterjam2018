@@ -2,6 +2,7 @@ local play = { freezeframe_start_time = 0, freezeframe_end_time = 0}
 
 function play.enter()
   state = STATE_PLAY
+  audiomanager:playRandomMusic()
 end
 
 function play.update(dt)
