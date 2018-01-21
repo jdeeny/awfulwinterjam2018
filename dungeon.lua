@@ -2,12 +2,13 @@ local dungeon = class("dungeon", grid)
 
 local room_kinds = {'start','boss','generic'}
 
-function dungeon:initialize()--w,h,room_files,spawns)
-
+function dungeon:initialize(w,h,room_files,spawns)
+	grid:initialize(w,h)
 	self.room_files = {}
 	self.spawns = {}
+	
 	-- fill in any empty sections
-	for k,t in pairs(room_kinds) do
+	for _,t in pairs(room_kinds) do
 		if room_files and room_files[t] then
 			self.room_files[t] = room_files[t]
 		else
@@ -41,17 +42,18 @@ function dungeon:move_to_room(rx, ry, from_dir)
   sparks = {}
   if not items then items = {} end
   spawner.reset()
+  
 
   local room_set = self.room_files[self:get_room_kind(rx, ry)]
   local room_index = self[rx][ry].file
 
-	print("BEFORE PARSE")
-  current_level = file_io.parse_room_file(14)--current_dungeon[rx][ry].file)
+  print("BEFORE PARSE")
+  current_level = file_io.parse_room_file(room_set[room_index])
   print("MOVE TO ROOM")
   current_level:updatewatertiles()
   print("MOVEDONE")
-  current_level.exits = current_dungeon:get_exits(rx, ry)
-  current_level.kind = current_dungeon:get_room_kind(rx,ry)
+  current_level.exits = self:get_exits(rx, ry)
+  current_level.kind = self:get_room_kind(rx,ry)
   --current_level:prologue()
 
   player.dungeon_x = rx
@@ -79,17 +81,13 @@ function dungeon:move_to_room(rx, ry, from_dir)
 
 
   local spawn_set = self.spawns[self:get_room_kind(rx, ry)]
-  -- DBG
-  for k,v in pairs(spawn_set) do
-	  print("spawns",k,v)
-  end
-  -- DBG
+  
   local selected_wave = spawn_set[love.math.random(#(spawn_set))] -- random pick from list
   spawner.wave_data[selected_wave]()
 end
 
 function dungeon:setup_main()
-  for rx = 1, self.width do
+  for rx=1, self.width do
     for ry=1, self.height do
       if rx == 1 and ry == self.height then
         self[rx][ry] = {room_kind = "start", file = love.math.random(#(self.room_files['start'])) }
