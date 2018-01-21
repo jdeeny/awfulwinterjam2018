@@ -7,6 +7,7 @@ function image.init()
   image.lumpgoon = love.graphics.newImage("assets/sprites/goon_sprite_sheet.png")
   image.canbot = love.graphics.newImage("assets/sprites/canbot_sprite_sheet.png")
   image.pinkerton = love.graphics.newImage("assets/sprites/pinkerton_sprite_sheet.png")
+  image.sniper = love.graphics.newImage("assets/sprites/sniper_sprite_sheet.png")
 
 
   image.sight_bullet_dot = love.graphics.newImage("assets/crosshairs/sight_bullet_dot.png")

@@ -82,6 +82,20 @@ function animation.init()
   animation.pinkerton_hurt_sw = anim8.newAnimation(pinkerton_grid('9-9',3), 0.8):flipH()
   animation.pinkerton_hurt_nw = anim8.newAnimation(pinkerton_grid('10-10',3), 0.8):flipH()
 
+  local sniper_grid = anim8.newGrid(64, 96, image.sniper:getWidth(), image.sniper:getHeight(), 0, 0, 0)
+  animation.sniper_run_sw = anim8.newAnimation(sniper_grid('1-10',2), 0.8)
+  animation.sniper_run_nw = anim8.newAnimation(sniper_grid('1-10',1), 0.8)
+  animation.sniper_run_se = anim8.newAnimation(sniper_grid('1-10',2), 0.8):flipH()
+  animation.sniper_run_ne = anim8.newAnimation(sniper_grid('1-10',1), 0.8):flipH()
+  animation.sniper_idle_sw = anim8.newAnimation(sniper_grid('1-1',3), 0.8)
+  animation.sniper_idle_nw = anim8.newAnimation(sniper_grid('2-2',3), 0.8)
+  animation.sniper_idle_se = anim8.newAnimation(sniper_grid('1-1',3), 0.8):flipH()
+  animation.sniper_idle_ne = anim8.newAnimation(sniper_grid('2-2',3), 0.8):flipH()
+  animation.sniper_hurt_se = anim8.newAnimation(sniper_grid('9-9',3), 0.8)
+  animation.sniper_hurt_ne = anim8.newAnimation(sniper_grid('10-10',3), 0.8)
+  animation.sniper_hurt_sw = anim8.newAnimation(sniper_grid('9-9',3), 0.8):flipH()
+  animation.sniper_hurt_nw = anim8.newAnimation(sniper_grid('10-10',3), 0.8):flipH()
+
 
 end
 
