@@ -265,7 +265,7 @@ function Level:draw()
   -- Draw everything now
   love.graphics.setCanvas()
   for i = 1, Layer.LASTLAYER do
-    love.graphics.setBackgroundColor(0,0,0,0)
+    love.graphics.setBackgroundColor(0,0,0,255)
     -- Exceptions here, could probably refactor
     if i == Layer.SHADOW then
       love.graphics.draw(self.shadow_canvas, self.shadow_xoff, self.shadow_yoff)

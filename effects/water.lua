@@ -50,7 +50,7 @@ Water.moonwater = function()
         0.3);
 
       shape.a = m;
-      return shape;// * color;
+      return shape * color;
     }
   ]]
 
