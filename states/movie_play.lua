@@ -133,6 +133,7 @@ movie_play.credits = {
     IntertitleStep("Andrew Chaniotis\n\nandreas.xaniotis@gmail.com", 3),
     IntertitleStep("Jason Nyland\n\njasonnyland@fastmail.com", 3),
     IntertitleStep("Mason Pluimer\n\ntherealpickle@gmail.com", 3),
+    IntertitleStep("Kangra", 3),
     --IntertitleStep("", 3),
   },
   music = {track="figleaf", volume=1, offset=27},
