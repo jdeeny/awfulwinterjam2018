@@ -4,7 +4,7 @@ local stages = {}
 
 stages[1] = {
 	-- Movie/cutscene settings
-    intro_movie = movie_a.movie_data,
+    intro_movie = movie_play.movie_data,
     outro_movie = nil,
 
 	-- Rooms/dungeon
@@ -21,7 +21,7 @@ stages[1] = {
 
 stages[2] = {
 	-- Movie/cutscene settings
-    intro_movie = movie_a.movie_data2,
+    intro_movie = movie_play.movie_data2,
     outro_movie = nil,
 
 	-- Rooms/dungeon
@@ -34,7 +34,7 @@ stages[2] = {
 -- Test stage, feel free to mess around with these values
 stages[3] = {
 	-- Movie/cutscene settings
-    intro_movie = movie_a.movie_data3,
+    intro_movie = movie_play.movie_data3,
     outro_movie = nil,
 
 	-- Rooms/dungeon
@@ -91,7 +91,7 @@ function gamestage.advance_to_play()
 
     if gamestage.stages[gamestage.current_stage].intro_movie then
         print("Playing movie")
-        movie_a.enter(gamestage.stages[gamestage.current_stage].intro_movie,
+        movie_play.enter(gamestage.stages[gamestage.current_stage].intro_movie,
             current_dungeon, movie_finished_cb)
     else
         print("No Movie")

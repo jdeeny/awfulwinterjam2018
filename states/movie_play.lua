@@ -6,7 +6,7 @@ local sequence = require "movies/sequence"
 local SequenceStep = sequence.SequenceStep
 local IntertitleStep = sequence.IntertitleStep
 
-local movie_a = {
+local movie_play = {
 
 }
 
@@ -14,7 +14,7 @@ local movie_a = {
 
 -------------------------------------------------------------------------------
 -- type, start, update, stop, draw, run_time
-movie_a.movie_data = {
+movie_play.movie_data = {
   sequence_steps = {
     SequenceStep:new({
       type = "animation",
@@ -49,7 +49,7 @@ movie_a.movie_data = {
   music = {track="figleaf", volume=1, offset=27},
 }
 
-movie_a.movie_data2 = {
+movie_play.movie_data2 = {
   sequence_steps = {
     SequenceStep:new({
       type = "animation",
@@ -84,7 +84,7 @@ movie_a.movie_data2 = {
   music = {track="figleaf", volume=1, offset=27},
 }
 
-movie_a.movie_data3 = {
+movie_play.movie_data3 = {
   sequence_steps = {
     SequenceStep:new({
       type = "animation",
@@ -119,30 +119,30 @@ movie_a.movie_data3 = {
   music = {track="figleaf", volume=1, offset=27},
 }
 
-function movie_a.enter(movie_data, dungeon, finish_callback)
+function movie_play.enter(movie_data, dungeon, finish_callback)
 
-  movie_a.finish_callback = finish_callback
+  movie_play.finish_callback = finish_callback
 
-  movie_a.movie = Movie:new(movie_data)
-  movie_a.movie:start()  
+  movie_play.movie = Movie:new(movie_data)
+  movie_play.movie:start()  
 
-  state = STATE_MOVIE_A
+  state = STATE_MOVIE_PLAY
 end
 
-function movie_a.exit()
-  movie_a.movie:stop()
-  movie_a.finish_callback()
+function movie_play.exit()
+  movie_play.movie:stop()
+  movie_play.finish_callback()
 end
 
-function movie_a.update(dt)
-  movie_a.movie:update(dt)
-  if movie_a.movie:is_finished() then
-    movie_a.exit()
+function movie_play.update(dt)
+  movie_play.movie:update(dt)
+  if movie_play.movie:is_finished() then
+    movie_play.exit()
   end
 end
 
-function movie_a.draw()
-  movie_a.movie:draw()
+function movie_play.draw()
+  movie_play.movie:draw()
 end
 
-return movie_a
+return movie_play
