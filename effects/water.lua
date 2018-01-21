@@ -32,7 +32,8 @@ Water.moonwater = function()
       vec2 wcm  = 15 * (mapcm + 0.15 * offm);
       vec2 wcl  = 19 * (mapcl + 0.15 * offl);
 
-      float m = Texel(texture, tc).r;
+      vec4 m = Texel(texture, tc);
+      m.a = m.r;
       vec4 base = Texel(waterbase, tc);
 
       vec4 lightt = Texel(watershape, wct * 0.9);
@@ -49,8 +50,7 @@ Water.moonwater = function()
         mix(mix(base, base * 0.2, darkl), base * 1.3, lightl),
         0.3);
 
-      shape.a = m;
-      return shape * color;
+      return shape * m * color;
     }
   ]]
 
@@ -82,16 +82,6 @@ Water.effect = moonshine(Water.moonwater)
 function Water.update(dt)
   Water.effect.moonwater.time = game_time
   Water.effect.moonwater.mapoffset = { camera.x, camera.y }
-end
-
-function Water.draw(drawable, x, y, r, sx, sy, ox, oy, kx, ky)
---[[]  local bg = { love.graphics.getBackgroundColor() }
-  love.graphics.setBackgroundColor({0,0,0,255})
-  Water.effect(function()
-    love.graphics.draw(Water.waterbase, x, y, r, sx, sy, ox, oy, kx, ky)
-  end)
-  love.graphics.setBackgroundColor(bg)
-  love.graphics.draw(drawable, x, y, r, sx, sy, ox, oy, kx, ky)]]
 end
 
 return Water
