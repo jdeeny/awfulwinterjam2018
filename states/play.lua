@@ -79,7 +79,7 @@ function play.draw()
   hud:draw()
 
   -- debug
-  pathfinder.draw_debug()
+  -- pathfinder.draw_debug()
 
   fade:draw()
   crosshairs.draw()
