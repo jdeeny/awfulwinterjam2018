@@ -28,7 +28,6 @@ function Rifleman:update(dt)
           or (self.entity.x - player.x) * (self.entity.x - player.x) + (self.entity.y - player.y) * (self.entity.y - player.y) > 102400 + 80000 * love.math.random()
           or not self.entity:canSee(player) then
           self.state = "moving"
-          self.hasseen = false
         end
       end
       self.wake_time = game_time + 0.5 + love.math.random()

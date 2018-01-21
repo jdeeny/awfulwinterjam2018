@@ -76,7 +76,7 @@ function ProjectileGun:initialize()
 end
 
 function ProjectileGun:_fire(targets)
-  angle = self.owner.aim + (love.math.random() - 0.5) * 0.4 * self.cof_multiplier
+  local angle = self.owner.aim + (love.math.random() - 0.5) * 0.4 * self.cof_multiplier
   self.next_shot_time = shot_data.spawn(self.projectile, self.owner.x + 48 * math.cos(angle), self.owner.y + 48 * math.sin(angle),
       math.cos(angle)*(self.owner.shot_speed or self.shot_speed),
       math.sin(angle)*(self.owner.shot_speed or self.shot_speed), self.owner)
@@ -107,6 +107,68 @@ function ProjectileGun:draw()
 end
 
 -------------------------------------------------------------------------------
+
+local SniperGun = class("SniperGun", Weapon)
+
+function SniperGun:initialize()
+  Weapon.initialize(self)
+  self.name = 'SniperGun'
+  self.shot_speed = 1800
+  self.sound = "gunshot"
+  self.icon = "gun_icon"
+  self.projectile = "sniper_bullet"
+end
+
+function SniperGun:_fire(targets)
+  local angle = self.owner.aim
+  self.next_shot_time = shot_data.spawn(self.projectile, self.owner.x + 48 * math.cos(angle), self.owner.y + 48 * math.sin(angle),
+      math.cos(angle)*(self.owner.shot_speed or self.shot_speed),
+      math.sin(angle)*(self.owner.shot_speed or self.shot_speed), self.owner)
+  audiomanager:playOnce(self.sound)
+  if self.owner.is_player then
+    camera.bump(6, self.owner.aim)
+  end
+  self.owner:be_knocked_back(0.3, -300 * math.cos(angle), -300 * math.sin(angle))
+end
+
+function SniperGun:release()
+  Weapon.release(self)
+end
+
+function SniperGun:draw()
+  local aim = self.owner.aim or 0
+
+  if self.owner.scoping and self.owner.ai.shot_confidence then
+    -- draw sight
+    _, mx, my, mt = collision.aabb_room_sweep({x = self.owner.x, y = self.owner.y, radius = 0},
+      2000 * math.cos(aim), 2000 * math.sin(aim))
+
+    pmx, pmy, pmt = collision.aabb_sweep({x = self.owner.x, y = self.owner.y, radius = 0}, player,
+      2000 * math.cos(aim), 2000 * math.sin(aim))
+    if pmt and pmt < mt then
+      mx, my, mt = pmx, pmy, pmt
+    end
+
+    love.graphics.setColor(255, 50, 0, math.min(255, 120 + self.owner.ai.shot_confidence * 100))
+    love.graphics.setLineWidth(1 + self.owner.ai.shot_confidence * 2)
+    love.graphics.line(self.owner.x - camera.x, self.owner.y - camera.y, mx - camera.x, my - camera.y)
+    love.graphics.setLineWidth(1)
+    love.graphics.setColor(255,255,255,255)
+  end
+
+  if math.cos(aim) < 0 then --left
+    love.graphics.draw(image['tesla_arm_gun'],
+      self.owner.x - camera.x + 8 * math.cos(aim), self.owner.y - camera.y + 8 * math.sin(aim),
+      aim, 1, -1, 64, 32)
+  else --right
+    love.graphics.draw(image['tesla_arm_gun'],
+      self.owner.x - camera.x + 8 * math.cos(aim), self.owner.y - camera.y + 8 * math.sin(aim),
+      aim, 1, 1, 64, 32)
+  end
+end
+
+-------------------------------------------------------------------------------
+
 local LightningGun = class("LightningGun", Weapon)
 
 function LightningGun:initialize()
@@ -451,6 +513,7 @@ end
 
 -------------------------------------------------------------------------------
 weapon.ProjectileGun = ProjectileGun
+weapon.SniperGun = SniperGun
 weapon.LightningGun = LightningGun
 weapon.RayGun = RayGun
 

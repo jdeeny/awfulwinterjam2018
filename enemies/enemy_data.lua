@@ -110,6 +110,30 @@ enemy_data["rifledude"] =
                 {chance=0.25,item="health_pack"},},
 }
 
+enemy_data["sniperdude"] =
+{
+  kind = "sniperdude", name = "Sniper Dude",
+  sprite = "dude", death_sound = "unh",
+  max_hp = 30,
+  speed = 80,
+  radius = 30,
+  value = 2,
+  touch_damage = 0,
+  shot_speed = 1800,
+  burst_size = 3,
+  next_splash = game_time,
+  splash_delay = 0.12,
+  bleeds = 1,
+  weapon_type = weapon.SniperGun,
+  projectile_type = 'sniper_bullet',
+  personality = 'Sniper',
+  drop_items = {{chance=0.05,item="max_ammo_increase"},
+                {chance=0.05,item="max_health_increase"},
+                {chance=0.05,item="damage_mult"},
+                {chance=0.05,item="charge_rate_mult"},
+                {chance=0.25,item="health_pack"},},
+}
+
 enemy_data["remotedude_red"] =
 {
   kind = "remotedude_red", name = "RC Mower",
