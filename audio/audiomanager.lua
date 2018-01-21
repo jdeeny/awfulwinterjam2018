@@ -34,6 +34,8 @@ local AudioManager = class("AudioManager")
       self.music_tracks['kliq4'] = love.audio.newSource("assets/music/kliq/04.mp3", "stream")
       self.music_tracks['kliq5'] = love.audio.newSource("assets/music/kliq/05.mp3", "stream")
       self.music_tracks['kliq6'] = love.audio.newSource("assets/music/kliq/06.mp3", "stream")
+      self.music_tracks['credits'] = love.audio.newSource("assets/music/musical_tesla_coil_playing_portal_still_alive_on_kaizer_drsstc_3.ogg", "stream")
+
       self.current_track = ""
       self:resetTracks()
   end
