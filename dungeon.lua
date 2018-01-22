@@ -44,6 +44,7 @@ function dungeon:move_to_room(rx, ry, from_dir)
 
   local room_set = self.room_files[self:get_room_kind(rx, ry)]
   local room_index = self[rx][ry].file
+  image.swap_floor_tile(self[rx][ry].floor_tile)
 
   print("BEFORE PARSE")
   current_level = file_io.parse_room_file(room_set[room_index])
@@ -95,10 +96,13 @@ function dungeon:setup_main()
         self[rx][ry] = {room_kind = "start", file = love.math.random(#(self.room_files['start'])) }
         self.start_x = rx
         self.start_y = ry
+        self[rx][ry].floor_tile = image.get_random_floor()
       elseif rx == self.width and ry == 1 then
         self[rx][ry] = {room_kind = "boss", file = love.math.random(#(self.room_files['boss'])) }
+        self[rx][ry].floor_tile = image.get_random_floor()
       else
         self[rx][ry] = {room_kind = "generic", file = love.math.random(#(self.room_files['generic'])) }
+        self[rx][ry].floor_tile = image.get_random_floor()
       end
     end
   end

@@ -111,19 +111,19 @@ end
 
 function MasterVolumeOI:decrease()
 	self.vol = math.max(0, self.vol-10)
-	AudioManager:setMasterVolume(self.vol/10)
+	AudioManager:setMasterVolume(self.vol/300)
 	self:updateValue()
 end
 
 function MasterVolumeOI:increase()
 	self.vol = math.min(100, self.vol+10)
-	AudioManager:setMasterVolume(self.vol/10)
+	AudioManager:setMasterVolume(self.vol/300)
 	self:updateValue()
 end
 
 function MasterVolumeOI:setTo(val)
 	self.vol = val
-	AudioManager:setMasterVolume(self.vol/10)
+	AudioManager:setMasterVolume(self.vol/300)
 	self:updateValue()
 end
 

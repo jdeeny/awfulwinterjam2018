@@ -29,7 +29,7 @@ end
 
 function Intertitle:draw()
   if love.math.random() > 0.7 then filmgrain_effect.filmgrain.size = love.math.random() * 10 + 5 end
-  if love.math.random() > 0.7 then filmgrain_effect.filmgrain.opacity = love.math.random() * 0.6 end
+  if love.math.random() > 0.7 then filmgrain_effect.filmgrain.opacity = love.math.random() * 0.3 end
   if love.math.random() > 0.7 then filmgrain_effect.desaturate.strength = love.math.random() * .1 + .1 end
   if love.math.random() > 0.7 then filmgrain_effect.vignette.radius = love.math.random() * .1 + .6 end
   if love.math.random() > 0.7 then filmgrain_effect.vignette.opacity = love.math.random() * .1 + .6 end

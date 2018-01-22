@@ -79,32 +79,31 @@ function image.init()
   image.water:setWrap('repeat', 'repeat')
   image.water_border = love.graphics.newImage("assets/tiles/water/waterborder.png")
 
+  image.water_surround1 = love.graphics.newImage("assets/tiles/water/4side1.png")
+  image.water_surround2 = love.graphics.newImage("assets/tiles/water/4side2.png")
+  image.water_e1 = love.graphics.newImage("assets/tiles/water/3side1.png")
+  image.water_e2 = love.graphics.newImage("assets/tiles/water/3side2.png")
+  image.water_nw1 = love.graphics.newImage("assets/tiles/water/ecorner1.png")
+  image.water_nw2 = love.graphics.newImage("assets/tiles/water/ecorner2.png")
+  image.water_nw3 = love.graphics.newImage("assets/tiles/water/ecorner3.png")
+  image.water_nw4 = love.graphics.newImage("assets/tiles/water/ecorner4.png")
+  image.water_allbute1 = love.graphics.newImage("assets/tiles/water/3side1.png")
+  image.water_allbute2 = love.graphics.newImage("assets/tiles/water/3side2.png")
+  image.water_singleisland1 = love.graphics.newImage("assets/tiles/water/4side1.png")
+  image.water_singleisland2 = love.graphics.newImage("assets/tiles/water/4side2.png")
+  image.water_ns1 = love.graphics.newImage("assets/tiles/water/2edge1.png")
+  image.water_ns2 = love.graphics.newImage("assets/tiles/water/2edge2.png")
+  image.water_cross = love.graphics.newImage("assets/tiles/water/4corners.png")
+  image.water_t_nes = love.graphics.newImage("assets/tiles/water/1side2corners.png")
+  image.water_open = love.graphics.newImage("assets/tiles/water/open.png")
+  image.water_edge1 = love.graphics.newImage("assets/tiles/water/edge1.png")
+  image.water_edge2 = love.graphics.newImage("assets/tiles/water/edge2.png")
+  image.water_edge3 = love.graphics.newImage("assets/tiles/water/edge3.png")
+  image.water_edge4 = love.graphics.newImage("assets/tiles/water/edge4.png")
 
-image.water_surround1 = love.graphics.newImage("assets/tiles/water/4side1.png")
-image.water_surround2 = love.graphics.newImage("assets/tiles/water/4side2.png")
-image.water_e1 = love.graphics.newImage("assets/tiles/water/3side1.png")
-image.water_e2 = love.graphics.newImage("assets/tiles/water/3side2.png")
-image.water_nw1 = love.graphics.newImage("assets/tiles/water/ecorner1.png")
-image.water_nw2 = love.graphics.newImage("assets/tiles/water/ecorner2.png")
-image.water_nw3 = love.graphics.newImage("assets/tiles/water/ecorner3.png")
-image.water_nw4 = love.graphics.newImage("assets/tiles/water/ecorner4.png")
-image.water_allbute1 = love.graphics.newImage("assets/tiles/water/3side1.png")
-image.water_allbute2 = love.graphics.newImage("assets/tiles/water/3side2.png")
-image.water_singleisland1 = love.graphics.newImage("assets/tiles/water/4side1.png")
-image.water_singleisland2 = love.graphics.newImage("assets/tiles/water/4side2.png")
-image.water_ns1 = love.graphics.newImage("assets/tiles/water/2edge1.png")
-image.water_ns2 = love.graphics.newImage("assets/tiles/water/2edge2.png")
-image.water_cross = love.graphics.newImage("assets/tiles/water/4corners.png")
-image.water_t_nes = love.graphics.newImage("assets/tiles/water/1side2corners.png")
-image.water_open = love.graphics.newImage("assets/tiles/water/open.png")
-image.water_edge1 = love.graphics.newImage("assets/tiles/water/edge1.png")
-image.water_edge2 = love.graphics.newImage("assets/tiles/water/edge2.png")
-image.water_edge3 = love.graphics.newImage("assets/tiles/water/edge3.png")
-image.water_edge4 = love.graphics.newImage("assets/tiles/water/edge4.png")
-
-image.title1 = love.graphics.newImage("assets/titles/title1.jpg")
-image.title2 = love.graphics.newImage("assets/titles/title2.jpg")
-image.title3 = love.graphics.newImage("assets/titles/title3.jpg")
+  image.title1 = love.graphics.newImage("assets/titles/title1.jpg")
+  image.title2 = love.graphics.newImage("assets/titles/title2.jpg")
+  image.title3 = love.graphics.newImage("assets/titles/title3.jpg")
 
   image.deadbody = love.graphics.newImage("assets/sprites/deadbody.png")
   image.chargemap = love.graphics.newImage("assets/sprites/chargemap.png")
@@ -115,9 +114,19 @@ image.title3 = love.graphics.newImage("assets/titles/title3.jpg")
   image.patent_icon = love.graphics.newImage("assets/icons/patent.png")
 
   image.capacitor = love.graphics.newImage("assets/tiles/capacitor.png")
+end
 
+function image.swap_floor_tile(filename)
+  image.floor = love.graphics.newImage(filename)
+  image.opendoor = image.floor
+  image.fakedoor = image.floor
+end
 
-
+local floor_tiles = {"concreteFloor", "metalFloor",
+  "Stonewall", "woodenFloor", "woodenFloor2", "woodenFloor3",
+  "woodFloorTile"}
+function image.get_random_floor()
+  return "assets/tiles/" .. floor_tiles[love.math.random(#floor_tiles)] .. ".png"
 end
 
 return image

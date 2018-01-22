@@ -1,7 +1,10 @@
 local PooledSource = class('PooledSource')
 
-function PooledSource:initialize(path)
+function PooledSource:initialize(path, volume)
   self.source = love.audio.newSource(path, "static")
+  if volume then
+    self.source:setVolume(volume)
+  end
   self.pool = {}
   self.count = 0
 end

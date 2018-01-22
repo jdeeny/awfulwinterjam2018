@@ -53,7 +53,7 @@ function init_settings()
 	allowed_options[2]:setTo(settings.game_speed)
 	allowed_options[3]:setTo(settings.start_stage)
 	allowed_options[4]:setTo(settings.draw_crosshairs_always)
-	gamestage.upgrades = settings.stage_upgrades	
+	--gamestage.upgrades = settings.stage_upgrades	
 end
 
 function save_settings()
@@ -61,7 +61,8 @@ function save_settings()
 	settings.game_speed = allowed_options[2]:getSetting()
 	settings.start_stage = allowed_options[3]:getSetting() 
 	settings.draw_crosshairs_always = allowed_options[4]:getSetting()
-	settings.stage_upgrades = gamestage.upgrades
+	-- disabled for playtesting
+	--settings.stage_upgrades = gamestage.upgrades
 	bitser.dumpLoveFile('savedata', settings)
 end
 

@@ -8,13 +8,12 @@ stages[1] = {
     outro_movie = nil,
 
 	-- Rooms/dungeon
-	dungeon_w = 3,
-	dungeon_h = 3,
+	dungeon_w = 2,
+	dungeon_h = 2,
 	
 	-- This is optional; any blank entry will select from all available options
-	room_files = {['start'] = {3}, ['boss'] = {8}, ['generic'] = {1,2,3,4,5}},  -- See file_io for room index
-	spawns = {['start'] = {'ez_lvl'}, ['boss'] = {'ez_lvl'}, ['generic'] = {'ez_lvl'}},  -- See spawner for spawn names
-
+	room_files = {['start'] = {4}, ['boss'] = {5}, ['generic'] = {1,2,4,5,6}},  -- See file_io for room index
+	spawns = {['start'] = {'first'}, ['boss'] = {'second'}, ['generic'] = {'stage1boss'}},  -- See spawner for spawn names
 	-- Other things that'd be good to put in here:
 	--  * tilesets (if they can change)
 }
@@ -27,7 +26,7 @@ stages[2] = {
 	-- Rooms/dungeon
 	dungeon_w = 5,
 	dungeon_h = 4,
-	spawns = {['start'] = {'ez_lvl'}, ['boss'] = {'ez_lvl'}, ['generic'] = {'ez_lvl'}},
+	spawns = {['start'] = {'first','second'}, ['boss'] = {'stage1boss'}}, -- randomized waves 
 
 }
 
@@ -45,7 +44,7 @@ stages[3] = {
 
 gamestage.stages = stages
 gamestage.current_stage = 0
-gamestage.upgrades = {}
+--gamestage.upgrades = {}
 
 -- This just sets up the stage; it does not change the state
 function gamestage.setup_next_stage(forced)

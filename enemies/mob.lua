@@ -62,18 +62,6 @@ function mob:update_position(dt)
 			self.dx, self.dy = self.dx * (self.speed_limit or 1.0), self.dy * (self.speed_limit or 1.0)
 
       if math.abs(self.dx) >= 0.01 or math.abs(self.dy) >= 0.01 then
-
-				self.facing_north = false
-        if self.dy <= -0.01 then
-          self.facing_north = true
-        end
-
-        if self.dx >= 0.01 then
-          self.facing_east = true
-        elseif self.dx <= -0.01 then
-          self.facing_east = false
-        end
-
         self.animation_state = 'run'
       else
         self.animation_state = 'idle'
