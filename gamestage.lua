@@ -52,7 +52,7 @@ function gamestage.setup_next_stage(forced)
     print("setup next stage",ns_number)
 
 	if ns_number > #(gamestage.stages)  then
-		-- you win!
+		movie_play.enter(movie_play.credits, function() mainmenu.enter() end)
 		ns_number = 1
 	end
 
