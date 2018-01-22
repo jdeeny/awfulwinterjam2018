@@ -13,9 +13,12 @@ function splash.enter()
 end
 
 function splash.update()
-	--if player_input:pressed('fire') or player_input:pressed('sel') then
-		mainmenu.enter()
-	--end
+  player_input:update()
+
+  if player_input:pressed('pause') or player_input:pressed('back') or player_input:pressed('quit') or player_input:pressed('fire') or player_input:pressed('sel' then
+    mainmenu.enter()
+  end
+
 end
 
 function splash.draw()
