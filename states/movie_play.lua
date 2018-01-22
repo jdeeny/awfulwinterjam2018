@@ -50,7 +50,7 @@ movie_play.movie_data = {
     }),
     IntertitleStep("He Will PAY!", 2),
   },
-  music = {track="figleaf", volume=1, offset=27},
+  music = {track="figleaf", volume=0.3, offset=27},
 }
 
 movie_play.movie_data2 = {
@@ -85,7 +85,7 @@ movie_play.movie_data2 = {
     }),
     IntertitleStep("Fuck.", 2),
   },
-  music = {track="figleaf", volume=1, offset=27},
+  music = {track="figleaf", volume=0.3, offset=27},
 }
 
 movie_play.movie_data3 = {
@@ -120,7 +120,7 @@ movie_play.movie_data3 = {
     }),
     IntertitleStep("$$$", 2),
   },
-  music = {track="figleaf", volume=1, offset=27},
+  music = {track="figleaf", volume=0.3, offset=27},
 }
 
 movie_play.credits = {
@@ -138,7 +138,7 @@ movie_play.credits = {
     --IntertitleStep("", 3),
     IntertitleStep("Music\n\nFig Leaf Times Two\n\nby Kevin MacLeod\n\nincompetech.com", 3),
   },
-  music = {track="credits", volume=1, offset=0},
+  music = {track="credits", volume=0.3, offset=0},
 }
 
 function movie_play.enter(movie_data, finish_callback)

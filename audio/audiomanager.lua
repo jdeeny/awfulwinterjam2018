@@ -12,12 +12,12 @@ local AudioManager = class("AudioManager")
     -- Short sound effects should be loaded with static to store in memory.
     self.sources['snap'] = PooledSource:new("assets/sfx/snap.wav")
     self.sources['unh'] = PooledSource:new("assets/sfx/unh.wav")
-    self.sources['unlatch'] = PooledSource:new("assets/sfx/unlatch.wav")
+    self.sources['unlatch'] = PooledSource:new("assets/sfx/unlatch.wav", 0.5)
     self.sources['crackle'] = PooledSource:new("assets/sfx/crackle.wav")
     -- self.sources['car1'] = PooledSource:new("assets/sfx/car1.ogg")
     -- self.sources['car2'] = PooledSource:new("assets/sfx/car2.ogg")
     -- self.sources['car3'] = PooledSource:new("assets/sfx/car3.ogg")
-    self.sources['gunshot'] = PooledSource:new("assets/sfx/gunshot.wav")
+    self.sources['gunshot'] = PooledSource:new("assets/sfx/gunshot.wav", 0.2)
     self.sources['buzz'] = PooledSource:new("assets/sfx/buzz-super-short.wav")
     self.sources['tesla_hum1'] = PooledSource:new(
       "assets/sfx/362975__follytowers__big-tesla-coil-sound-cut.wav")
@@ -26,18 +26,17 @@ local AudioManager = class("AudioManager")
     self.sources['explosion'] = PooledSource:new("assets/sfx/explosion.ogg")
     self.sources['crumble'] = PooledSource:new("assets/sfx/crumble.ogg")
     -- Music is probably better to stream.  Only one music track is playable at a time.
-    self.music_tracks['figleaf'] = love.audio.newSource(
-      "assets/music/Fig Leaf Times Two.ogg", "stream")
-      self.music_tracks['kliq1'] = love.audio.newSource("assets/music/kliq/01.mp3", "stream")
-      self.music_tracks['kliq2'] = love.audio.newSource("assets/music/kliq/02.mp3", "stream")
-      self.music_tracks['kliq3'] = love.audio.newSource("assets/music/kliq/03.mp3", "stream")
-      self.music_tracks['kliq4'] = love.audio.newSource("assets/music/kliq/04.mp3", "stream")
-      self.music_tracks['kliq5'] = love.audio.newSource("assets/music/kliq/05.mp3", "stream")
-      self.music_tracks['kliq6'] = love.audio.newSource("assets/music/kliq/06.mp3", "stream")
-      self.music_tracks['credits'] = love.audio.newSource("assets/music/musical_tesla_coil_playing_portal_still_alive_on_kaizer_drsstc_3.ogg", "stream")
+    self.music_tracks['figleaf'] = love.audio.newSource("assets/music/Fig Leaf Times Two.ogg", "stream")
+    self.music_tracks['kliq1'] = love.audio.newSource("assets/music/kliq/01.mp3", "stream")
+    self.music_tracks['kliq2'] = love.audio.newSource("assets/music/kliq/02.mp3", "stream")
+    self.music_tracks['kliq3'] = love.audio.newSource("assets/music/kliq/03.mp3", "stream")
+    self.music_tracks['kliq4'] = love.audio.newSource("assets/music/kliq/04.mp3", "stream")
+    self.music_tracks['kliq5'] = love.audio.newSource("assets/music/kliq/05.mp3", "stream")
+    self.music_tracks['kliq6'] = love.audio.newSource("assets/music/kliq/06.mp3", "stream")
+    self.music_tracks['credits'] = love.audio.newSource("assets/music/musical_tesla_coil_playing_portal_still_alive_on_kaizer_drsstc_3.ogg", "stream")
 
-      self.current_track = ""
-      self:resetTracks()
+    self.current_track = ""
+    self:resetTracks()
   end
 
   function AudioManager:resetTracks()
@@ -117,7 +116,7 @@ end]]
     for i=1, n do
       t = self.unplayed_tracks[i]
     end
-    self:playMusic(t, 1.0, 0.0)
+    self:playMusic(t, 0.3, 0.0)
   end
 
   -- Plays music (only track at a time). Volume is 0-1, offset is in seconds
