@@ -3,6 +3,8 @@ local AudioManager = class("AudioManager")
   function AudioManager:initialize()
     self.sources = {}
     self.music_tracks = {}
+    self.unplayed_tracks = {}
+    self.current_track = {}
     self.looped = {}
     self.loop_count = 0
     self.music = nil -- currently playing track
@@ -26,18 +28,25 @@ local AudioManager = class("AudioManager")
     -- Music is probably better to stream.  Only one music track is playable at a time.
     self.music_tracks['figleaf'] = love.audio.newSource(
       "assets/music/Fig Leaf Times Two.ogg", "stream")
-    self.music_tracks['01'] = love.audio.newSource(
-      "assets/music/kliq/01.mp3", "stream")
-    self.music_tracks['02'] = love.audio.newSource(
-      "assets/music/kliq/02.mp3", "stream")
-    self.music_tracks['03'] = love.audio.newSource(
-      "assets/music/kliq/03.mp3", "stream")
-    self.music_tracks['04'] = love.audio.newSource(
-      "assets/music/kliq/04.mp3", "stream")
-    self.music_tracks['05'] = love.audio.newSource(
-      "assets/music/kliq/05.mp3", "stream")
-    self.music_tracks['06'] = love.audio.newSource(
-      "assets/music/kliq/06.mp3", "stream")
+      self.music_tracks['kliq1'] = love.audio.newSource("assets/music/kliq/01.mp3", "stream")
+      self.music_tracks['kliq2'] = love.audio.newSource("assets/music/kliq/02.mp3", "stream")
+      self.music_tracks['kliq3'] = love.audio.newSource("assets/music/kliq/03.mp3", "stream")
+      self.music_tracks['kliq4'] = love.audio.newSource("assets/music/kliq/04.mp3", "stream")
+      self.music_tracks['kliq5'] = love.audio.newSource("assets/music/kliq/05.mp3", "stream")
+      self.music_tracks['kliq6'] = love.audio.newSource("assets/music/kliq/06.mp3", "stream")
+      self.music_tracks['credits'] = love.audio.newSource("assets/music/musical_tesla_coil_playing_portal_still_alive_on_kaizer_drsstc_3.ogg", "stream")
+
+      self.current_track = ""
+      self:resetTracks()
+  end
+
+  function AudioManager:resetTracks()
+    for i = 1, 6 do
+      local tname = 'kliq' .. i
+      if tname ~= (current_track or "") then
+        self.unplayed_tracks[i] = tname
+      end
+    end
   end
 
   function AudioManager:update(dt)
@@ -99,8 +108,21 @@ local AudioManager = class("AudioManager")
 end]]
   end
 
+  function AudioManager:playRandomMusic()
+    if #self.unplayed_tracks == 0 then
+      self:resetTracks()
+    end
+    local n= math.random(#self.unplayed_tracks)
+    local t = ""
+    for i=1, n do
+      t = self.unplayed_tracks[i]
+    end
+    self:playMusic(t, 1.0, 0.0)
+  end
+
   -- Plays music (only track at a time). Volume is 0-1, offset is in seconds
   function AudioManager:playMusic(name, volume, offset)
+    print("audio "..name)
     local vol = volume or 1.0
       if self.music_tracks[name] then
       if self.music then

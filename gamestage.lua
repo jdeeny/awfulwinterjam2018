@@ -4,14 +4,14 @@ local stages = {}
 
 stages[1] = {
 	-- Movie/cutscene settings
-    intro_movie = movie_play.credits,--movie_data,
+    intro_movie = movie_play.movie_data,
     outro_movie = nil,
 
 	-- Rooms/dungeon
-	dungeon_w = 2,
-	dungeon_h = 2,
-
-	-- This is optional; any blank entry will select from all available files
+	dungeon_w = 3,
+	dungeon_h = 3,
+	
+	-- This is optional; any blank entry will select from all available options
 	room_files = {['start'] = {3}, ['boss'] = {8}, ['generic'] = {1,2,3,4,5}},  -- See file_io for room index
 	spawns = {['start'] = {'ez_lvl'}, ['boss'] = {'ez_lvl'}, ['generic'] = {'ez_lvl'}},  -- See spawner for spawn names
 
@@ -60,8 +60,8 @@ function gamestage.setup_next_stage(forced)
 	gamestage.current_stage = ns_number
 
 	local next_stage = gamestage.stages[gamestage.current_stage]
-    
-    current_dungeon = dungeon:new(next_stage.dungeon_w, next_stage.dungeon_h, 
+
+    current_dungeon = dungeon:new(next_stage.dungeon_w, next_stage.dungeon_h,
         next_stage.room_files, next_stage.spawns)
     current_dungeon:setup_main()
 
@@ -69,12 +69,11 @@ end
 
 function gamestage.advance_to_play()
     print("Load done advance_to_play")
-    
     game_time = 0
 
     player.init()
-	  
-    gamestage.restore_upgrades() 
+
+    gamestage.restore_upgrades()
 
     enemies = nil
     enemy_value = nil
@@ -89,7 +88,7 @@ function gamestage.advance_to_play()
         play.enter()
     end
 
-    current_dungeon:move_to_room(current_dungeon.start_x, 
+    current_dungeon:move_to_room(current_dungeon.start_x,
         current_dungeon.start_y, "west")
 
     player:start_force_move(9999, player.speed, 0)
@@ -106,28 +105,22 @@ function gamestage.advance_to_play()
         movie_finished_cb()
     end
 
-
 end
 
 function gamestage.save_upgrades()
-	print("saving upgrades")
 	gamestage.upgrades = { max_hp = player.max_hp, weapon_stats = {} }
 	for k,v in pairs(player.weapons) do
 		gamestage.upgrades.weapon_stats[k] = {}
 		gamestage.upgrades.weapon_stats[k].max_ammo = v.max_ammo
-		print("weapons",k,v) -- DBG
 		-- add any others?
-	end 
+	end
 end
 
 function gamestage.restore_upgrades()
 	if gamestage.upgrades then
-		print("restoring upgrades")
 		player.max_hp = gamestage.upgrades.max_hp
 		for k,v in pairs(gamestage.upgrades.weapon_stats) do
-			print("upgrading",player.weapons[k]) -- DBG
 			player.weapons[k].max_ammo = v.max_ammo
-			print("weapons",k,v) -- DBG
 		end
 	end
 	player:heal(player.max_hp)

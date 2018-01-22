@@ -189,7 +189,7 @@ enemy_data["rifledude"] =
 enemy_data["sniperdude"] =
 {
   kind = "sniperdude", name = "Sniper Dude",
-  sprite = "pinkerton", death_sound = "unh",
+  sprite = "sniper", death_sound = "unh",
 
   animations = {
     sniperdude_run_ne = animation.pinkerton_run_ne:clone(),
@@ -286,13 +286,30 @@ enemy_data["remotedude_green"] =
 enemy_data["canbot"] =
 {
   kind = "canbot", name = "Canbot 0.8",
-  sprite = "dude",  death_sound = "unh",
+  sprite = "canbot",  death_sound = "crash",
   max_hp = 60,
   speed = 100,
   radius = 30,
   value = 1,
   bleeds = 1,
   touch_damage = 20,
+
+  animations = {
+    canbot_run_ne = animation.canbot_run_ne:clone(),
+    canbot_run_se = animation.canbot_run_se:clone(),
+    canbot_run_nw = animation.canbot_run_nw:clone(),
+    canbot_run_sw = animation.canbot_run_sw:clone(),
+    canbot_idle_ne = animation.canbot_idle_ne:clone(),
+    canbot_idle_se = animation.canbot_idle_se:clone(),
+    canbot_idle_nw = animation.canbot_idle_nw:clone(),
+    canbot_idle_sw = animation.canbot_idle_sw:clone(),
+    canbot_hurt_ne = animation.canbot_hurt_ne:clone(),
+    canbot_hurt_se = animation.canbot_hurt_se:clone(),
+    canbot_hurt_nw = animation.canbot_hurt_nw:clone(),
+    canbot_hurt_sw = animation.canbot_hurt_sw:clone(),
+  },
+
+
   personality = 'Charger',
   drop_items = {{chance=0.05,item="max_ammo_increase"},
                 {chance=0.05,item="max_health_increase"},

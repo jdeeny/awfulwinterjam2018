@@ -7,6 +7,7 @@ function image.init()
   image.lumpgoon = love.graphics.newImage("assets/sprites/goon_sprite_sheet.png")
   image.canbot = love.graphics.newImage("assets/sprites/canbot_sprite_sheet.png")
   image.pinkerton = love.graphics.newImage("assets/sprites/pinkerton_sprite_sheet.png")
+  image.sniper = love.graphics.newImage("assets/sprites/sniper_sprite_sheet.png")
 
 
   image.sight_bullet_dot = love.graphics.newImage("assets/crosshairs/sight_bullet_dot.png")
@@ -101,6 +102,9 @@ image.water_edge2 = love.graphics.newImage("assets/tiles/water/edge2.png")
 image.water_edge3 = love.graphics.newImage("assets/tiles/water/edge3.png")
 image.water_edge4 = love.graphics.newImage("assets/tiles/water/edge4.png")
 
+image.title1 = love.graphics.newImage("assets/titles/title1.jpg")
+image.title2 = love.graphics.newImage("assets/titles/title2.jpg")
+image.title3 = love.graphics.newImage("assets/titles/title3.jpg")
 
   image.deadbody = love.graphics.newImage("assets/sprites/deadbody.png")
   image.chargemap = love.graphics.newImage("assets/sprites/chargemap.png")
