@@ -233,6 +233,8 @@ spawner.wave_data.easy_6 = function()
 		end)
 end
 
+------
+
 spawner.wave_data.stage1boss = function()
 
 	spawner.add(2,
@@ -258,23 +260,176 @@ spawner.wave_data.stage1boss = function()
 		end)
 end
 
-spawner.wave_data.rifle_time = function()
+------
+
+spawner.wave_data.second = function()
 	spawner.add(2,
 		function()
-			spawner.spawn_from_south_door('rifledude')
+			for i = 1, 7 do
+				delay.start(0.6 * i, function() spawner.spawn_from_north_door('rifledude') end)
+			end
+			for i = 1, 7 do
+				delay.start(0.1 + 0.6 * i, function() spawner.spawn_from_south_door('rifledude') end)
+			end
+		end)
+	spawner.add(5,
+		function()
+			spawner.spawn_from_south_door('sniperdude')
+			spawner.spawn_from_north_door('sniperdude')
+			spawner.spawn_from_west_door('sniperdude')
+			spawner.spawn_from_east_door('sniperdude')
+			delay.start(2,
+				function()
+					spawner.complete = true
+					spawner.test_completion()
+				end)
+		end)
+end
+
+spawner.wave_data.medium_1 = function()
+	spawner.add(2,
+		function()
+			local angle = math.pi * 0.5
+			for i = 1, 12 do
+				delay.start(0.3 * i, function() spawner.spawn_from_north_door('remotedude_red', angle) end)
+			end
+			local angle2 = math.pi * 1.1
+			for i = 1, 12 do
+				delay.start(0.1 + 0.3 * i, function() spawner.spawn_from_south_door('remotedude_red', angle2) end)
+			end
+		end)
+	spawner.add(5,
+		function()
+			for i = 1, 3 do
+				spawner.spawn_from_south_door('rifledude')
+				spawner.spawn_from_north_door('rifledude')
+				spawner.spawn_from_south_door('rifledude')
+				spawner.spawn_from_north_door('rifledude')
+			end
+			spawner.spawn_from_west_door('sniperguy')
+			spawner.spawn_from_east_door('sniper')
+		end)
+	spawner.add(10,
+		function()
+			for i = 1, 3 do
+				spawner.spawn_from_west_door('lumpgoon')
+				spawner.spawn_from_west_door('lumpgoon')
+				spawner.spawn_from_east_door('lumpgoon')
+				spawner.spawn_from_east_door('lumpgoon')
+			end
+			delay.start(2,
+				function()
+					spawner.complete = true
+					spawner.test_completion()
+				end)
+		end)
+end
+
+spawner.wave_data.medium_2 = function()
+	spawner.add(2,
+		function()
+			spawner.spawn_from_east_door('canbot')
+			spawner.spawn_from_north_door('canbot')
+			spawner.spawn_from_west_door('canbot')
+			spawner.spawn_from_south_door('canbot')
+			spawner.spawn_from_east_door('canbot')
+			spawner.spawn_from_north_door('canbot')
+			spawner.spawn_from_west_door('canbot')
+			spawner.spawn_from_south_door('canbot')
+		end)
+	spawner.add(5,
+		function()
+			spawner.spawn_from_west_door('rocketdude')
+			spawner.spawn_from_east_door('rocketdude')
+			delay.start(2,
+				function()
+					spawner.complete = true
+					spawner.test_completion()
+				end)
+		end)
+end
+
+spawner.wave_data.medium_3 = function()
+	spawner.add(2,
+		function()
+			spawner.spawn_from_north_door('lumpgoon')
+			spawner.spawn_from_south_door('lumpgoon')
+			spawner.spawn_from_north_door('lumpgoon')
+			spawner.spawn_from_south_door('lumpgoon')
+		end)
+	spawner.add(5,
+		function()
+			local angle = math.pi * -1.2
+			for i = 1, 8 do
+				delay.start(0.3 * i, function() spawner.spawn_from_east_door('remotedude_red', angle) end)
+			end
+			local angle2 = math.pi * 0.6
+			for i = 1, 8 do
+				delay.start(0.1 + 0.3 * i, function() spawner.spawn_from_west_door('remotedude_red', angle2) end)
+			end
+			spawner.spawn_from_east_door('sniperdude')
+		end)
+	spawner.add(10,
+		function()
+			local angle = math.pi * 0.75
+			for i = 1, 12 do
+				delay.start(0.3 * i, function() spawner.spawn_from_east_door('remotedude_red', angle) end)
+			end
+			local angle2 = math.pi * -0.25
+			for i = 1, 12 do
+				delay.start(0.1 + 0.3 * i, function() spawner.spawn_from_west_door('remotedude_red', angle2) end)
+			end
 			spawner.spawn_from_north_door('rifledude')
+			delay.start(0.5, function() spawner.spawn_from_west_door('rifledude') end)
+			spawner.spawn_from_east_door('rifledude')
+			delay.start(0.5, function() spawner.spawn_from_south_door('rifledude') end)
+			delay.start(5,
+				function()
+					spawner.complete = true
+					spawner.test_completion()
+				end)
+		end)
+end
+
+spawner.wave_data.medium_4 = function()
+	spawner.add(2,
+		function()
+			spawner.spawn_from_west_door('sniperdude')
+			spawner.spawn_from_west_door('rifledude')
+			spawner.spawn_from_west_door('rifledude')
+			spawner.spawn_from_west_door('rifledude')
+			spawner.spawn_from_south_door('sniperdude')
+			spawner.spawn_from_south_door('rifledude')
+			spawner.spawn_from_south_door('rifledude')
+			spawner.spawn_from_west_door('rifledude')
+		end)
+	spawner.add(5,
+		function()
+			spawner.spawn_from_north_door('missileguy')
+			spawner.spawn_from_south_door('missileguy')
+			delay.start(2,
+				function()
+					spawner.complete = true
+					spawner.test_completion()
+				end)
+		end)
+end
+
+spawner.wave_data.medium_5 = function()
+	spawner.add(2,
+		function()
+			spawner.spawn_from_south_door('rocketguy')
 			for i = 1, 9 do
 				delay.start(0.5 * i, function()
-					spawner.spawn_from_south_door('rifledude')
-					spawner.spawn_from_north_door('rifledude')
+					spawner.spawn_from_east_door('rifledude')
 				end)
 			end
 		end)
 	spawner.add(5,
 	function()
-		spawner.spawn_from_west_door('rifledude')
-		spawner.spawn_from_east_door('rifledude')
-		for i = 1, 4 do
+		spawner.spawn_from_west_door('canbot')
+		spawner.spawn_from_east_door('canbot')
+		for i = 1, 5 do
 			delay.start(0.5 * i, function()
 				spawner.spawn_from_west_door('rifledude')
 				spawner.spawn_from_east_door('rifledude')
@@ -288,6 +443,80 @@ spawner.wave_data.rifle_time = function()
 	end
 	)
 end
+
+spawner.wave_data.medium_6 = function()
+	spawner.add(2,
+		function()
+			spawner.spawn_from_north_door('sniperdude')
+			spawner.spawn_from_south_door('lumpgoon')
+			spawner.spawn_from_north_door('lumpgoon')
+			spawner.spawn_from_south_door('lumpgoon')
+			spawner.spawn_from_north_door('lumpgoon')
+			spawner.spawn_from_south_door('lumpgoon')
+			spawner.spawn_from_north_door('lumpgoon')
+			spawner.spawn_from_south_door('lumpgoon')
+			spawner.spawn_from_north_door('lumpgoon')
+			spawner.spawn_from_south_door('lumpgoon')
+			spawner.spawn_from_north_door('lumpgoon')
+		end)
+	spawner.add(5,
+		function()
+			spawner.spawn_from_east_door('missileguy')
+		end)
+	spawner.add(10,
+		function()
+			spawner.spawn_from_north_door('rifledude')
+			spawner.spawn_from_north_door('rifledude')
+			spawner.spawn_from_north_door('rifledude')
+			delay.start(0.5, function() spawner.spawn_from_west_door('rifledude') end)
+			spawner.spawn_from_east_door('rifledude')
+			spawner.spawn_from_east_door('rifledude')
+			spawner.spawn_from_east_door('rifledude')
+			delay.start(0.5, function() spawner.spawn_from_south_door('rifledude') end)
+			delay.start(5,
+				function()
+					spawner.complete = true
+					spawner.test_completion()
+				end)
+		end)
+end
+
+------
+
+spawner.wave_data.stage2boss = function()
+	spawner.add(2,
+		function()
+			for i = 1, 5 do
+				spawner.spawn_from_north_door('canbot')
+				spawner.spawn_from_south_door('canbot')
+				spawner.spawn_from_east_door('canbot')
+				spawner.spawn_from_west_door('canbot')
+			end
+		end)
+	spawner.add(5,
+		function()
+			spawner.spawn_from_east_door('sniperdude')
+			spawner.spawn_from_west_door('sniperdude')
+			spawner.spawn_from_east_door('sniperdude')
+			spawner.spawn_from_west_door('sniperdude')
+		end)
+	spawner.add(10,
+		function()
+			for i = 1, 5 do
+				spawner.spawn_from_north_door('rifledude')
+				spawner.spawn_from_south_door('rifledude')
+				spawner.spawn_from_east_door('canbot')
+				spawner.spawn_from_west_door('canbot')
+			end
+			delay.start(5,
+				function()
+					spawner.complete = true
+					spawner.test_completion()
+				end)
+		end)
+end
+
+------
 
 spawner.wave_data.test = function()
 	spawner.add(2,
@@ -330,7 +559,5 @@ spawner.wave_data.test = function()
 				end)
 		end)
 end
-
-
 
 return spawner
