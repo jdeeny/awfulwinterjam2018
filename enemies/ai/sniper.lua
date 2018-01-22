@@ -44,8 +44,23 @@ function Sniper:update(dt)
     elseif self.state == "firing" then
       if self.nextshot_time >= game_time then
         -- just look at the player, we can't start scoping in yet
-        self.entity:faceTowards(player)
         self.entity:aimAt(player)
+        if self.entity.aim then
+          local sin = math.sin(self.entity.aim)
+          local cos = math.cos(self.entity.aim)
+          if sin < 0 then
+            self.entity.facing_north = true
+          else
+            self.entity.facing_north = false
+          end
+
+          if cos < 0 then
+            self.entity.facing_east = false
+          else
+            self.entity.facing_east = true
+          end
+          self.facing_override = true
+        end
         self.entity:stopMoving()
       else
         if not self.entity.scoping then
@@ -88,8 +103,23 @@ function Sniper:update(dt)
           end
         end
 
-        self.entity:faceTowards(player)
         self.entity.aim = self.scope_angle
+        if self.entity.aim then
+          local sin = math.sin(self.entity.aim)
+          local cos = math.cos(self.entity.aim)
+          if sin < 0 then
+            self.entity.facing_north = true
+          else
+            self.entity.facing_north = false
+          end
+
+          if cos < 0 then
+            self.entity.facing_east = false
+          else
+            self.entity.facing_east = true
+          end
+          self.facing_override = true
+        end
         self.entity:stopMoving()
       end
     end

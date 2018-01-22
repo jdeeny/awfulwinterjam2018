@@ -30,7 +30,7 @@ function controls.init()
       aim = {'aimleft', 'aimright', 'aimup', 'aimdown'},
     },
   }
-
+  player_input.deadzone = 0.25
   return player_input
 end
 
