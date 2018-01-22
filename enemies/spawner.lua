@@ -195,7 +195,7 @@ spawner.wave_data.test = function()
 		function()
 			spawner.spawn_from_west_door('lumpgoon')
 			for i = 1, 2 do
-				delay.start(i - 0.5, function() spawner.spawn_from_west_door('schmuck') end)
+				delay.start(i - 0.5, function() spawner.spawn_from_west_door('canbot') end)
 			end
 			for i = 1, 2 do
 				delay.start(i , function() spawner.spawn_from_west_door('lumpgoon') end)
@@ -203,7 +203,7 @@ spawner.wave_data.test = function()
 		end)
 	spawner.add(11,
 		function()
-			spawner.spawn_from_south_door('schmuck')
+			spawner.spawn_from_south_door('canbot')
 			for i = 1, 4 do
 				delay.start(0.5 * i, function() spawner.spawn_from_south_door('lumpgoon') end)
 			end
