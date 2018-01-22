@@ -13,7 +13,7 @@ stages[1] = {
 	dungeon_h = 2,
 
 	-- This is optional; any blank entry will select from all available options
-	room_files = {['start'] = {7}, ['boss'] = {2}, ['generic'] = {1,2,4,5,6,7,8,11,13,16,18}},  -- See file_io for room index
+	room_files = {['start'] = {7}, ['boss'] = {2}, ['generic'] = {1,4,5,6,7,8,11,13,16,18}},  -- See file_io for room index
 	spawns = {['start'] = {'first'}, ['boss'] = {'stage1boss'},
 		['generic'] = {'easy_1', 'easy_2', 'easy_3', 'easy_4', 'easy_5', 'easy_6'}},  -- See spawner for spawn names
 	floor_tiles = {"woodFloorTile", "concreteFloor"},
@@ -29,10 +29,12 @@ stages[2] = {
 	-- Rooms/dungeon
 	dungeon_w = 5,
 	dungeon_h = 4,
-	room_files = {['start'] = {14}, ['boss'] = {18}, ['generic'] = {5,8,4,16,17}},
 
-	spawns = {['start'] = {'second'}, ['boss'] = {'stage2boss'},['generic'] = {'second','rifle_time','remotes'}}, -- randomized waves
-	floor_tiles = {"woodenFloor", "woodenFloor3"},
+	room_files = {['start'] = {14}, ['boss'] = {18}, ['generic'] = {5,8,4,16,17,22}},
+
+	spawns = {['start'] = {'second'}, ['boss'] = {'stage2boss'},
+		['generic'] = {'second', 'remotes', 'easy_1', 'easy_2', 'easy_3', 'easy_4', 'easy_5', 'easy_6', 'medium_1', 'medium_2', 'medium_3', 'medium_4', 'medium_5', 'medium_6'}}, -- randomized waves
+	floor_tiles = {"woodenFloor", "Stonewall"},
 	boss_floor = "metalFloor",
 }
 
@@ -45,9 +47,10 @@ stages[3] = {
 	-- Rooms/dungeon
 	dungeon_w = 6,
 	dungeon_h = 6,
-	room_files = {['start'] = {14}, ['boss'] = {3}, ['generic'] = {1,4,5,8,9,11,12,13,19,21}},  -- See file_io for room index,  -- See file_io for room index
+	room_files = {['start'] = {9}, ['boss'] = {3}, ['generic'] = {1,4,5,8,9,11,12,13,19,21}},  -- See file_io for room index,  -- See file_io for room index
 	floor_tiles = {"Stonewall", "woodenFloor2"},
 	boss_floor = "woodenFloor3",
+
 }
 
 gamestage.stages = stages

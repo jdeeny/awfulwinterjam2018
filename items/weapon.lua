@@ -179,7 +179,7 @@ function RocketLauncher:initialize()
   Weapon.initialize(self)
   self.name = 'RocketLauncher'
   self.shot_speed = 20
-  self.sound = "gunshot"
+  self.sound = "rocketlaunch"
   self.icon = "gun_icon"
   self.projectile = "rocket"
 end
@@ -442,7 +442,7 @@ function RayGun:initialize()
   self.icon = "ray_icon"
   self.range = 4000
   self.firing_arc = math.pi/4
-  self.damage = 50
+  self.damage = 175
   self.beam_width = 10
   self.focus_time = 5.0
   self.min_focus = 0.1

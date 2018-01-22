@@ -96,8 +96,8 @@ enemy_data["lumpgoon"] =
     lumpgoon_idle_se = animation.lumpgoon_idle_se:clone(),
     lumpgoon_idle_nw = animation.lumpgoon_idle_nw:clone(),
     lumpgoon_idle_sw = animation.lumpgoon_idle_sw:clone(),},
-  max_hp = 120,
-  speed = 40,
+  max_hp = 80,
+  speed = 100,
   radius = 25,
   value = 1.5,
   bleeds = 2,
@@ -124,7 +124,7 @@ enemy_data["superlump"] =
     superlump_idle_nw = animation.lumpgoon_idle_nw:clone(),
     superlump_idle_sw = animation.lumpgoon_idle_sw:clone(),},
   max_hp = 160,
-  speed = 40,
+  speed = 100,
   radius = 25,
   value = 1.5,
   -- bleeds = 2,
@@ -142,7 +142,7 @@ enemy_data["superlump"] =
       local id = enemy_data.spawn("lumpgoon", self.x, self.y)
       local t = 0.5 + love.math.random()
       enemies[id]:be_stunned(t)
-      enemies[id]:be_knocked_back(t, 300 * math.cos(angle + 1.0471975512 * i), 300 * math.sin(angle + 1.0471975512 * i))
+      enemies[id]:be_knocked_back(t, 200 * math.cos(angle + 1.0471975512 * i), 200 * math.sin(angle + 1.0471975512 * i))
     end
     explosions.blood(self.x, self.y)
   end,
