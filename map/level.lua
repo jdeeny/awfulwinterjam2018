@@ -56,6 +56,7 @@ function Level:in_bounds(gx, gy)
 end
 
 function Level:feature_at(gx, gy)
+  local gx, gy = math.floor(gx), math.floor(gy)
   if not self:in_bounds(gx, gy) then
     return "void" -- the void
   else

@@ -13,13 +13,14 @@ stages[1] = {
 	dungeon_h = 2,
 
 	-- This is optional; any blank entry will select from all available options
-	room_files = {['start'] = {7}, ['boss'] = {10}, ['generic'] = {1,2,4,5,6,7,8,11,13,16,18}},  -- See file_io for room index
-	spawns = {['start'] = {'first'}, ['boss'] = {'stage1boss'}, ['generic'] = {'second'}},  -- See spawner for spawn names
+	room_files = {['start'] = {7}, ['boss'] = {2}, ['generic'] = {1,2,4,5,6,7,8,11,13,16,18}},  -- See file_io for room index
+	spawns = {['start'] = {'first'}, ['boss'] = {'stage1boss'},
+		['generic'] = {'easy_1', 'easy_2', 'easy_3', 'easy_4', 'easy_5', 'easy_6'}},  -- See spawner for spawn names
 	floor_tiles = {"woodFloorTile", "concreteFloor"},
 	boss_floor = "woodenFloor2",
 }
 
--- Edison Machine Works
+-- Marconi plays the mamba
 stages[2] = {
 	-- Movie/cutscene settings
     intro_movie = movie_play.movie_data2,
@@ -56,7 +57,7 @@ gamestage.current_stage = 0
 -- This just sets up the stage; it does not change the state
 function gamestage.setup_next_stage(forced)
     local ns_number = forced or (gamestage.current_stage + 1)
-    print("setup next stage",ns_number)
+    --print("setup next stage",ns_number)
 
 	if ns_number > #(gamestage.stages)  then
 		-- you win!
@@ -74,7 +75,6 @@ function gamestage.setup_next_stage(forced)
 end
 
 function gamestage.advance_to_play()
-    print("Load done advance_to_play")
     game_time = 0
 
     player.init()
@@ -101,12 +101,12 @@ function gamestage.advance_to_play()
     fade.start_fade("fadein", 0.5, true)
     delay.start(0.5, function() player:end_force_move() end)
 
-    if gamestage.stages[gamestage.current_stage].intro_movie then
-        print("Playing movie")
-        movie_play.enter(gamestage.stages[gamestage.current_stage].intro_movie,
-            movie_finished_cb)
-    else
-        print("No Movie")
+        if gamestage.stages[gamestage.current_stage].intro_movie then
+--            print("Playing movie")
+            movie_play.enter(gamestage.stages[gamestage.current_stage].intro_movie,
+                movie_finished_cb)
+        else
+            --print("No Movie")
 
         movie_finished_cb()
     end
@@ -130,8 +130,8 @@ function gamestage.restore_upgrades()
 		end
 	end
 	player:heal(player.max_hp)
-	print("maxhp", player.max_hp) -- DBG
-	print("wpn 1 ammo", player.weapons[1].max_ammo) -- DBG
+	--print("maxhp", player.max_hp) -- DBG
+	--print("wpn 1 ammo", player.weapons[1].max_ammo) -- DBG
 end
 
 local floor_tiles = {"concreteFloor", "metalFloor",

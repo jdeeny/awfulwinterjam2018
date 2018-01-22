@@ -31,6 +31,8 @@ function player.init()
   player.animations['idle_se'] = animation.tesla_idle_se
   player.animations['idle_sw'] = animation.tesla_idle_sw
   player.animations['idle_nw'] = animation.tesla_idle_sw
+  player.animations['electrocute_e'] = animation.tesla_electrocute_e
+  player.animations['electrocute_w'] = animation.tesla_electrocute_w
   player.animation = player.animations['run_sw']
   player.animation_state = 'run'
 
@@ -146,6 +148,13 @@ function player.update(dt)
   player.animation = player.animations[player.animation_state .. '_' .. player.get_facing_string(player.facing_north, player.facing_east)]
   for _, anim in pairs(player.animations) do
     anim:update(dt)
+  end
+  if (player.electro_time or 0) > game_time then
+    if player.facing_east then
+      player.animation = player.animations['electrocute_e']
+    else
+      player.animation = player.animations['electrocute_w']
+    end
   end
 end
 
