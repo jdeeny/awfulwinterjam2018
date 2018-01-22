@@ -315,15 +315,15 @@ function Level:draw()
 
   shadow_effect(function()
     if self.layers[Layer.ENTITY] then self.layers[Layer.ENTITY]:draw() end
+    player:draw()
   end)
-  player:draw()
 
   -- Draw entities to entity canvas (for reflection)
   love.graphics.setCanvas(self.entity_canvas)
   love.graphics.setBackgroundColor(0,0,0,0)
   love.graphics.clear()
 
-  if self.layers[Layer.ENTITY] then self.layers[Layer.ENTITY]:draw() end
+  if self.layers[Layer.ENTITY] then self.layers[Layer.ENTITY]:draw() player:draw() end
   if self.layers[Layer.ENTITYNOSHADOW] then self.layers[Layer.ENTITYNOSHADOW]:draw() end
 
   -- Draw everything now

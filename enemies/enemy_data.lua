@@ -48,7 +48,7 @@ function enemy_data.spawn(kind, x, y, parameter)
   return new_id
 end
 
---[[
+
 enemy_data["canbot"] =
 {
   kind = "canbot", name = "CAN BOT!",
@@ -81,7 +81,7 @@ enemy_data["canbot"] =
                 {chance=0.05,item="charge_rate_mult"},
                 {chance=0.25,item="health_pack"},},
 }
-]]
+
 
 enemy_data["lumpgoon"] =
 {
