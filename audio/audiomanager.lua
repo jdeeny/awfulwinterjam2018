@@ -4,7 +4,6 @@ local AudioManager = class("AudioManager")
     self.sources = {}
     self.music_tracks = {}
     self.unplayed_tracks = {}
-    self.current_track = {}
     self.looped = {}
     self.loop_count = 0
     self.music = nil -- currently playing track
@@ -35,7 +34,7 @@ local AudioManager = class("AudioManager")
     self.music_tracks['kliq6'] = love.audio.newSource("assets/music/kliq/06.mp3", "stream")
     self.music_tracks['credits'] = love.audio.newSource("assets/music/musical_tesla_coil_playing_portal_still_alive_on_kaizer_drsstc_3.ogg", "stream")
 
-    self.current_track = ""
+    current_track = ""
     self:resetTracks()
   end
 
