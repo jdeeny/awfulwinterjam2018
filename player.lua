@@ -74,6 +74,20 @@ function player.update(dt)
         mvec = cpml.vec2.new(mx, my)
         _, player.aim = cpml.vec2.to_polar(mvec-pvec) -- angle to mouse pos. is new aim
       end
+
+      if player.aim then
+        if player.aim >= math.pi then
+          player.facing_north = true
+        else
+          player.facing_north = false
+        end
+
+        if player.aim > math.pi * 0.5 and player.aim < math.pi * 1.5 then
+          player.facing_east = false
+        else
+          player.facing_east = true
+        end
+      end
     end
 
     -- fire weapon (or not)
