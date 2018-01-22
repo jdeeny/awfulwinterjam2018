@@ -10,12 +10,12 @@ stages[1] = {
 	-- Rooms/dungeon
 	dungeon_w = 2,
 	dungeon_h = 2,
-	
+
 	-- This is optional; any blank entry will select from all available options
-	room_files = {['start'] = {4}, ['boss'] = {5}, ['generic'] = {1,2,4,5,6}},  -- See file_io for room index
-	spawns = {['start'] = {'first'}, ['boss'] = {'second'}, ['generic'] = {'stage1boss'}},  -- See spawner for spawn names
-	-- Other things that'd be good to put in here:
-	--  * tilesets (if they can change)
+	room_files = {['start'] = {7}, ['boss'] = {10}, ['generic'] = {1,2,4,5,6,7,8,11,13,16,18}},  -- See file_io for room index
+	spawns = {['start'] = {'first'}, ['boss'] = {'stage1boss'}, ['generic'] = {'second'}},  -- See spawner for spawn names
+	floor_tiles = {"woodFloorTile", "concreteFloor"},
+	boss_floor = "woodenFloor2",
 }
 
 stages[2] = {
@@ -26,8 +26,9 @@ stages[2] = {
 	-- Rooms/dungeon
 	dungeon_w = 5,
 	dungeon_h = 4,
-	spawns = {['start'] = {'first','second'}, ['boss'] = {'stage1boss'}}, -- randomized waves 
-
+	spawns = {['start'] = {'first','second'}, ['boss'] = {'stage1boss'}}, -- randomized waves
+	floor_tiles = {"woodenFloor", "woodenFloor3"},
+	boss_floor = "metalFloor",
 }
 
 -- Test stage, feel free to mess around with these values
@@ -40,6 +41,8 @@ stages[3] = {
 	dungeon_w = 2,
 	dungeon_h = 2,
 	room_files = {['start'] = {14}, ['boss'] = {14}, ['generic'] = {14}},  -- See file_io for room index
+	floor_tiles = {"Stonewall", "woodenFloor2"},
+	boss_floor = "woodenFloor3",
 }
 
 gamestage.stages = stages
@@ -52,18 +55,19 @@ function gamestage.setup_next_stage(forced)
     print("setup next stage",ns_number)
 
 	if ns_number > #(gamestage.stages)  then
-		-- you win!
-		ns_number = 1
-	end
+        print("You win!")
+        ns_number = 1
+        current_dungeon = nil
+		movie_play.enter(movie_play.credits, function() mainmenu.enter() end)
+    else
+        gamestage.current_stage = ns_number
 
-	gamestage.current_stage = ns_number
+        local next_stage = gamestage.stages[gamestage.current_stage]
 
-	local next_stage = gamestage.stages[gamestage.current_stage]
-
-    current_dungeon = dungeon:new(next_stage.dungeon_w, next_stage.dungeon_h,
-        next_stage.room_files, next_stage.spawns)
-    current_dungeon:setup_main()
-
+        current_dungeon = dungeon:new(next_stage.dungeon_w, next_stage.dungeon_h,
+            next_stage.room_files, next_stage.spawns)
+        current_dungeon:setup_main()
+    end
 end
 
 function gamestage.advance_to_play()
@@ -83,27 +87,28 @@ function gamestage.advance_to_play()
 
     pathfinder.rebuild_time = 0
 
-    local function movie_finished_cb()
-        play.enter()
+    if current_dungeon then
+        local function movie_finished_cb()
+            play.enter()
+        end
+
+        current_dungeon:move_to_room(current_dungeon.start_x,
+            current_dungeon.start_y, "west")
+
+        player:start_force_move(9999, player.speed, 0)
+        fade.start_fade("fadein", 0.5, true)
+        delay.start(0.5, function() player:end_force_move() end)
+
+        if gamestage.stages[gamestage.current_stage].intro_movie then
+            print("Playing movie")
+            movie_play.enter(gamestage.stages[gamestage.current_stage].intro_movie,
+                movie_finished_cb)
+        else
+            print("No Movie")
+
+            movie_finished_cb()
+        end
     end
-
-    current_dungeon:move_to_room(current_dungeon.start_x,
-        current_dungeon.start_y, "west")
-
-    player:start_force_move(9999, player.speed, 0)
-    fade.start_fade("fadein", 0.5, true)
-    delay.start(0.5, function() player:end_force_move() end)
-
-    if gamestage.stages[gamestage.current_stage].intro_movie then
-        print("Playing movie")
-        movie_play.enter(gamestage.stages[gamestage.current_stage].intro_movie,
-            movie_finished_cb)
-    else
-        print("No Movie")
-
-        movie_finished_cb()
-    end
-
 end
 
 function gamestage.save_upgrades()
@@ -123,6 +128,20 @@ function gamestage.restore_upgrades()
 		end
 	end
 	player:heal(player.max_hp)
+	print("maxhp", player.max_hp) -- DBG
+	print("wpn 1 ammo", player.weapons[1].max_ammo) -- DBG
+end
+
+local floor_tiles = {"concreteFloor", "metalFloor",
+  "Stonewall", "woodenFloor", "woodenFloor2", "woodenFloor3",
+  "woodFloorTile"}
+
+function gamestage.get_random_floor()
+  return "assets/tiles/" .. gamestage.stages[gamestage.current_stage].floor_tiles[love.math.random(#gamestage.stages[gamestage.current_stage].floor_tiles)] .. ".png"
+end
+
+function gamestage.get_boss_floor()
+  return "assets/tiles/" .. gamestage.stages[gamestage.current_stage].boss_floor .. ".png"
 end
 
 return gamestage
