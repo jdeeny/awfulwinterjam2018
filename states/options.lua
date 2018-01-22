@@ -18,7 +18,7 @@ options.background_shader = love.graphics.newShader[[
 ]]
 
 local line_ht = options.font:getHeight()
-local sep_ht = 20 -- Spacing for separation
+local sep_ht = 16 -- Spacing for separation
 local all_opts_height = 0
 
 options.option_menu = ScreenMenu:new(options.allowed,line_ht,sep_ht,{255,255,255},{127,127,127})
@@ -29,6 +29,7 @@ function options.enter()
 	options.prior_stage = gamestage.current_stage
 	state = STATE_OPTIONS
 	options.warned = false
+	options.selected = #(options.allowed) -- Always start at the bottom
 end
 
 function options.update(dt)
@@ -71,20 +72,19 @@ function options.draw()
 end
 
 -- Credits screen
-allowed_options[5]:setAction(function() 
+allowed_options[option_index['credits']]:setAction(function() 
 	movie_play.enter(movie_play.credits, function() state = STATE_OPTIONS end)  
  end)
  
  -- Reset Player stats
- --allowed_options[3]:setAction(function()
---	 settings.stage_upgrades = nil
---	 gamestage.stage_upgrades = nil
---	)
+allowed_options[option_index['reset_stats']]:setAction( function()
+     settings.stage_upgrades = nil
+     gamestage.stage_upgrades = nil
+   end)
 
 -- Back must be the last item allowed.
 allowed_options[#(allowed_options)]:setAction(function() options.exit() end)
 options.selected = #(options.allowed) 
 
-	
 
 return options
