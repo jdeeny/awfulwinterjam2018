@@ -63,7 +63,8 @@ function gamestage.setup_next_stage(forced)
 
 	if ns_number > #(gamestage.stages)  then
 		-- you win!
-		ns_number = 1
+		movie_play.enter(movie_play.credits, function() mainmenu.enter() end)
+        ns_number = 1
 	end
 
 	gamestage.current_stage = ns_number
