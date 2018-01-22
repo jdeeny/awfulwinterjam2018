@@ -15,6 +15,9 @@ function controls.init()
 
       swap = {'key:q', 'button:a', 'button:rightshoulder'},
       swap_rev = {'key:e', 'button:x', 'button:leftshoulder'},
+      weap1 = {'key:1'},
+      weap2 = {'key:2'},
+      weap3 = {'key:3'},
 
       fire = {'mouse:1'},
 
