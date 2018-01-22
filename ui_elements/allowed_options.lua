@@ -144,12 +144,14 @@ local stageSelect = ListOptionItem:new("Stage Select",{"Tesla's Arrival","Edison
 
 local drawCrosshairs = BinaryOptionItem:new("Draw Crosshairs for Joystick",'crosshairs','draw_cursor')
 
+option_index = {['volume'] = 1, ['speed'] = 2, ['crosshairs'] = 3, ['start']= 4, ['reset_stats'] = 5, ['credits'] = 6, ['back'] = 7}
 
 allowed_options[1] = masterVolume
 allowed_options[2] = gameSpeed
-allowed_options[3] = stageSelect
-allowed_options[4] = drawCrosshairs
-allowed_options[5] = ActionOptItem:new("Credits")
-allowed_options[6] = ActionOptItem:new("Back")
+allowed_options[3] = drawCrosshairs
+allowed_options[4] = stageSelect
+allowed_options[5] = ActionOptItem:new("Reset Player Stats")
+allowed_options[6] = ActionOptItem:new("Credits")
+allowed_options[7] = ActionOptItem:new("Back")
 
 return allowed_options

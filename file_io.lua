@@ -41,7 +41,7 @@ function file_io.parse_room_file(n)
 end
 
 file_io.room_files = {
-
+    -- ADD NEW ROOMS TO THE END OF THIS LIST 
 	{"assets/rooms/room_cart.txt", 8, 22},
 	{"assets/rooms/room_columns.txt", 16, 16},
 	{"assets/rooms/room_empty.txt", 14, 14},

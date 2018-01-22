@@ -26,7 +26,8 @@ stages[2] = {
 	-- Rooms/dungeon
 	dungeon_w = 5,
 	dungeon_h = 4,
-	spawns = {['start'] = {'first','second'}, ['boss'] = {'stage1boss'}}, -- randomized waves 
+	room_files = {['start'] = {14}, ['boss'] = {14}, } -- ['generic'] = {14}},
+	--spawns = {['start'] = {'first','second'}, ['boss'] = {'stage2boss'}, ['generic'] = {'second','third'}}, -- randomized waves 
 
 }
 
@@ -123,6 +124,8 @@ function gamestage.restore_upgrades()
 		end
 	end
 	player:heal(player.max_hp)
+	print("maxhp", player.max_hp) -- DBG
+	print("wpn 1 ammo", player.weapons[1].max_ammo) -- DBG
 end
 
 return gamestage
