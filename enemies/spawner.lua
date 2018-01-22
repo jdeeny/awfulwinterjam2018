@@ -333,7 +333,7 @@ spawner.wave_data.medium_1 = function()
 				spawner.spawn_from_south_door('rifledude')
 				spawner.spawn_from_north_door('rifledude')
 			end
-			spawner.spawn_from_west_door('sniperguy')
+			spawner.spawn_from_west_door('sniper')
 			spawner.spawn_from_east_door('sniper')
 		end)
 	spawner.add(10,
