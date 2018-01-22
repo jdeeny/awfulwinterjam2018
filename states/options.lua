@@ -72,7 +72,7 @@ end
 
 -- Credits screen
 allowed_options[5]:setAction(function() 
-	movie_play.enter(movie_play.credits, nil, function() state = STATE_OPTIONS end)  
+	movie_play.enter(movie_play.credits, function() state = STATE_OPTIONS end)  
  end)
  
  -- Reset Player stats
