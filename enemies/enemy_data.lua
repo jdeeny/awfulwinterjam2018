@@ -374,7 +374,7 @@ enemy_data["remotedude_red"] =
   kind = "edison", name = "Edison",
   sprite = "edison", death_sound = "grunts",
   max_hp = 800,
-  speed = 260,
+  speed = 160,
   radius = 60,
   value = 100,
   touch_damage = 0,
