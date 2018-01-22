@@ -333,7 +333,7 @@ spawner.wave_data.medium_1 = function()
 				spawner.spawn_from_south_door('rifledude')
 				spawner.spawn_from_north_door('rifledude')
 			end
-			spawner.spawn_from_west_door('sniperguy')
+			spawner.spawn_from_west_door('sniper')
 			spawner.spawn_from_east_door('sniper')
 		end)
 	spawner.add(10,
@@ -432,8 +432,8 @@ spawner.wave_data.medium_4 = function()
 		end)
 	spawner.add(5,
 		function()
-			spawner.spawn_from_north_door('missileguy')
-			spawner.spawn_from_south_door('missileguy')
+			spawner.spawn_from_north_door('rocketguy')
+			spawner.spawn_from_south_door('homingrocketguy')
 			delay.start(2,
 				function()
 					spawner.complete = true
@@ -445,7 +445,7 @@ end
 spawner.wave_data.medium_5 = function()
 	spawner.add(2,
 		function()
-			spawner.spawn_from_south_door('rocketguy')
+			spawner.spawn_from_south_door('homingrocketguy')
 			for i = 1, 9 do
 				delay.start(0.5 * i, function()
 					spawner.spawn_from_east_door('rifledude')
@@ -488,7 +488,7 @@ spawner.wave_data.medium_6 = function()
 		end)
 	spawner.add(5,
 		function()
-			spawner.spawn_from_east_door('missileguy')
+			spawner.spawn_from_east_door('rocketguy')
 		end)
 	spawner.add(10,
 		function()

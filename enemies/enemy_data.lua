@@ -2,6 +2,7 @@ enemy_data = {}
 
 function enemy_data.spawn(kind, x, y, parameter)
   local new_id = idcounter.get_id("enemy")
+  if not enemy_data[kind] then return end
 
   local e = enemy:new()
   e.id = new_id
