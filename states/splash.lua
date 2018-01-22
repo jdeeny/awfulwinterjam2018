@@ -13,9 +13,9 @@ function splash.enter()
 end
 
 function splash.update()
-	if player_input:pressed('fire') or player_input:pressed('sel') then
+	--if player_input:pressed('fire') or player_input:pressed('sel') then
 		mainmenu.enter()
-	end
+	--end
 end
 
 function splash.draw()
@@ -23,7 +23,7 @@ function splash.draw()
 	local img = image["title"..f]
 
 	if love.math.random() > 0.7 then filmgrain_effect.filmgrain.size = love.math.random() * 10 + 5 end
-  if love.math.random() > 0.7 then filmgrain_effect.filmgrain.opacity = love.math.random() * 0.3 end
+  if love.math.random() > 0.7 then filmgrain_effect.filmgrain.opacity = love.math.random() * 0.2 end
   if love.math.random() > 0.7 then filmgrain_effect.desaturate.strength = love.math.random() * .1 + .1 end
   if love.math.random() > 0.7 then filmgrain_effect.vignette.radius = love.math.random() * .1 + .6 end
   if love.math.random() > 0.7 then filmgrain_effect.vignette.opacity = love.math.random() * .1 + .6 end
