@@ -98,9 +98,15 @@ function player.update(dt)
       end
 
       if player_input:pressed('swap') then
-        player.weapon_switch(-1)
-      elseif player_input:pressed('swap_rev') then
         player.weapon_switch(1)
+      elseif player_input:pressed('swap_rev') then
+        player.weapon_switch(-1)
+      elseif player_input:pressed('weap1') then
+        player.weapon_switch_direct(1)
+      elseif player_input:pressed('weap2') then
+        player.weapon_switch_direct(2)
+      elseif player_input:pressed('weap3') then
+        player.weapon_switch_direct(3)
       end
 
       if (aim_x ~= 0 or aim_y ~= 0 or player_input:down('fire')) and not player.stun and not player.force_move and not player.dying then
@@ -218,6 +224,21 @@ end
 function player.weapon_switch(rev)
   local inc = rev or 1
   player.weapon = player.weapon + inc
+  if player.weapon > player.weapon_max then player.weapon = 1 end
+  if player.weapon <= 0 then player.weapon = player.weapon_max end
+
+  if #player.weapons > 1 then
+    player.equipped_items['weapon']:release()
+    player:unequip('weapon')
+    player:equip('weapon', player.weapons[player.weapon])
+    play.crosshair_offset = 0
+  end
+
+end
+
+function player.weapon_switch_direct(weap)
+  local w = weap or 1
+  player.weapon = w
   if player.weapon > player.weapon_max then player.weapon = 1 end
   if player.weapon <= 0 then player.weapon = player.weapon_max end
 
