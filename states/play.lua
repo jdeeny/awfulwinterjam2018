@@ -74,7 +74,6 @@ function play.draw()
   electricity:draw()
 
 
-  player:draw()
   play.draw_screen_flash()
 
   hud:draw()

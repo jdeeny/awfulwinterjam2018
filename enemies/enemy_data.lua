@@ -368,4 +368,39 @@ enemy_data["homingrocketguy"] =
                 {chance=0.25,item="health_pack"},},
 }
 
+
+enemy_data["edison"] =
+{
+  kind = "edison", name = "Edison",
+  sprite = "edison", death_sound = "unh",
+  max_hp = 800,
+  speed = 160,
+  radius = 60,
+  value = 100,
+  touch_damage = 0,
+  shot_speed = 160,
+  burst_size = 3,
+  next_splash = game_time,
+  splash_delay = 0.12,
+  bleeds = 5,
+  weapon_type = weapon.ProjectileGun,
+  projectile_type = 'homing_rocket',
+  personality = 'EdisonRocketeer',
+  animations = {
+    edison_run_ne = animation.edison_run_ne:clone(),
+    edison_run_se = animation.edison_run_se:clone(),
+    edison_run_nw = animation.edison_run_nw:clone(),
+    edison_run_sw = animation.edison_run_sw:clone(),
+    edison_takeoff_ne = animation.edison_takeoff_ne:clone(),
+    edison_takeoff_se = animation.edison_takeoff_se:clone(),
+    edison_takeoff_nw = animation.edison_takeoff_nw:clone(),
+    edison_takeoff_sw = animation.edison_takeoff_sw:clone(),},
+  drop_items = {{chance=0.05,item="max_ammo_increase"},
+                {chance=0.05,item="max_health_increase"},
+                {chance=0.05,item="damage_mult"},
+                {chance=0.05,item="charge_rate_mult"},
+                {chance=0.25,item="health_pack"},},
+}
+
+
 return enemy_data
