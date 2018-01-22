@@ -122,11 +122,6 @@ function image.swap_floor_tile(filename)
   image.fakedoor = image.floor
 end
 
-local floor_tiles = {"concreteFloor", "metalFloor",
-  "Stonewall", "woodenFloor", "woodenFloor2", "woodenFloor3",
-  "woodFloorTile"}
-function image.get_random_floor()
-  return "assets/tiles/" .. floor_tiles[love.math.random(#floor_tiles)] .. ".png"
-end
+
 
 return image
