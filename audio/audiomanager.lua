@@ -34,6 +34,12 @@ local AudioManager = class("AudioManager")
     self.music_tracks['kliq6'] = love.audio.newSource("assets/music/kliq/06.mp3", "stream")
     self.music_tracks['credits'] = love.audio.newSource("assets/music/musical_tesla_coil_playing_portal_still_alive_on_kaizer_drsstc_3.ogg", "stream")
 
+    self.sources['grunt1'] = PooledSource:new("assets/sfx/grunt1.wav")
+    self.sources['grunt2'] = PooledSource:new("assets/sfx/grunt2.wav")
+    self.sources['grunt3'] = PooledSource:new("assets/sfx/grunt3.wav")
+    self.sources['grunt4'] = PooledSource:new("assets/sfx/grunt4.wav")
+    self.sources['grunt5'] = PooledSource:new("assets/sfx/grunt5.wav")
+
     current_track = ""
     self:resetTracks()
   end

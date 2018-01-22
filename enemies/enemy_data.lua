@@ -86,7 +86,7 @@ enemy_data["canbot"] =
 enemy_data["lumpgoon"] =
 {
   kind = "lumpgoon", name = "Lump Goon",
-  sprite = "lumpgoon", death_sound = "unh",
+  sprite = "lumpgoon", death_sound = "grunt",
   animations = {
     lumpgoon_run_ne = animation.lumpgoon_run_ne:clone(),
     lumpgoon_run_se = animation.lumpgoon_run_se:clone(),
@@ -113,7 +113,7 @@ enemy_data["lumpgoon"] =
 enemy_data["superlump"] =
 {
   kind = "superlump", name = "Super Goon",
-  sprite = "lumpgoon", death_sound = "unh",
+  sprite = "lumpgoon", death_sound = "grunt",
   animations = {
     superlump_run_ne = animation.lumpgoon_run_ne:clone(),
     superlump_run_se = animation.lumpgoon_run_se:clone(),
@@ -151,7 +151,7 @@ enemy_data["superlump"] =
 enemy_data["rifledude"] =
 {
   kind = "rifledude", name = "Rifle Dude",
-  sprite = "pinkerton", death_sound = "unh",
+  sprite = "pinkerton", death_sound = "grunt",
   animations = {
     rifledude_run_ne = animation.pinkerton_run_ne:clone(),
     rifledude_run_se = animation.pinkerton_run_se:clone(),
@@ -191,7 +191,7 @@ enemy_data["rifledude"] =
 enemy_data["sniperdude"] =
 {
   kind = "sniperdude", name = "Sniper Dude",
-  sprite = "sniper", death_sound = "unh",
+  sprite = "sniper", death_sound = "grunt",
 
   animations = {
     sniperdude_run_ne = animation.pinkerton_run_ne:clone(),
@@ -323,7 +323,7 @@ enemy_data["canbot"] =
 enemy_data["rocketguy"] =
 {
   kind = "rocketguy", name = "Rocket Guy",
-  sprite = "dude", death_sound = "unh",
+  sprite = "dude", death_sound = "grunt",
   max_hp = 80,
   speed = 80,
   radius = 30,
@@ -347,7 +347,7 @@ enemy_data["rocketguy"] =
 enemy_data["homingrocketguy"] =
 {
   kind = "homingrocketguy", name = "Homing Rocket Guy",
-  sprite = "dude", death_sound = "unh",
+  sprite = "dude", death_sound = "grunt",
   max_hp = 80,
   speed = 80,
   radius = 30,
