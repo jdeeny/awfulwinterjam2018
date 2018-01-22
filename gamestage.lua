@@ -13,10 +13,10 @@ stages[1] = {
 	dungeon_h = 2,
 
 	-- This is optional; any blank entry will select from all available options
-	room_files = {['start'] = {7}, ['boss'] = {10}, ['generic'] = {1,2,4,5,6}},  -- See file_io for room index
-	spawns = {['start'] = {'first'}, ['boss'] = {'second'}, ['generic'] = {'stage1boss'}},  -- See spawner for spawn names
-	-- Other things that'd be good to put in here:
-	--  * tilesets (if they can change)
+	room_files = {['start'] = {7}, ['boss'] = {10}, ['generic'] = {1,2,4,5,6,7,8,11,13,16,18}},  -- See file_io for room index
+	spawns = {['start'] = {'first'}, ['boss'] = {'stage1boss'}, ['generic'] = {'second'}},  -- See spawner for spawn names
+	floor_tiles = {"woodFloorTile", "concreteFloor"},
+	boss_floor = "woodenFloor2",
 }
 
 -- Edison Machine Works
@@ -29,7 +29,10 @@ stages[2] = {
 	dungeon_w = 5,
 	dungeon_h = 4,
 	room_files = {['start'] = {14}, ['boss'] = {18}, ['generic'] = {5,8,4,16,17}},
-	--spawns = {['start'] = {'first','second'}, ['boss'] = {'stage2boss'}, ['generic'] = {'second','third'}}, -- randomized waves 
+
+	spawns = {['start'] = {'second'}, ['boss'] = {'stage2boss'},['generic'] = {'second','rifle_time','remotes'}}, -- randomized waves
+	floor_tiles = {"woodenFloor", "woodenFloor3"},
+	boss_floor = "metalFloor",
 }
 
 
@@ -42,6 +45,8 @@ stages[3] = {
 	dungeon_w = 6,
 	dungeon_h = 6,
 	room_files = {['start'] = {14}, ['boss'] = {14}, ['generic'] = {14}},  -- See file_io for room index
+	floor_tiles = {"Stonewall", "woodenFloor2"},
+	boss_floor = "woodenFloor3",
 }
 
 gamestage.stages = stages
@@ -127,6 +132,18 @@ function gamestage.restore_upgrades()
 	player:heal(player.max_hp)
 	print("maxhp", player.max_hp) -- DBG
 	print("wpn 1 ammo", player.weapons[1].max_ammo) -- DBG
+end
+
+local floor_tiles = {"concreteFloor", "metalFloor",
+  "Stonewall", "woodenFloor", "woodenFloor2", "woodenFloor3",
+  "woodFloorTile"}
+
+function gamestage.get_random_floor()
+  return "assets/tiles/" .. gamestage.stages[gamestage.current_stage].floor_tiles[love.math.random(#gamestage.stages[gamestage.current_stage].floor_tiles)] .. ".png"
+end
+
+function gamestage.get_boss_floor()
+  return "assets/tiles/" .. gamestage.stages[gamestage.current_stage].boss_floor .. ".png"
 end
 
 return gamestage
