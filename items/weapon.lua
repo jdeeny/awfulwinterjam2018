@@ -179,7 +179,7 @@ function RocketLauncher:initialize()
   Weapon.initialize(self)
   self.name = 'RocketLauncher'
   self.shot_speed = 20
-  self.sound = "gunshot"
+  self.sound = "rocketlaunch"
   self.icon = "gun_icon"
   self.projectile = "rocket"
 end

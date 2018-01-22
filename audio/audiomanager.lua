@@ -40,6 +40,8 @@ local AudioManager = class("AudioManager")
     self.sources['grunt4'] = PooledSource:new("assets/sfx/grunt4.wav")
     self.sources['grunt5'] = PooledSource:new("assets/sfx/grunt5.wav")
 
+    self.sources['rocketlaunch'] = PooledSource:new("assets/sfx/rocketlaunch1.wav")
+
     current_track = ""
     self:resetTracks()
   end
