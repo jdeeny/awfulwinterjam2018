@@ -147,6 +147,13 @@ function player.update(dt)
   for _, anim in pairs(player.animations) do
     anim:update(dt)
   end
+  if (player.electro_time or 0) > game_time then
+    if player.facing_east then
+      player.animation = player.animations['tesla_electrocute_e']
+    else
+      player.animation = player.animations['tesla_electrocute_w']
+    end
+  end
 end
 
 function player.update_move_controls()
