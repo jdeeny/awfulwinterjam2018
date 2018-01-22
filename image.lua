@@ -102,6 +102,9 @@ image.water_edge2 = love.graphics.newImage("assets/tiles/water/edge2.png")
 image.water_edge3 = love.graphics.newImage("assets/tiles/water/edge3.png")
 image.water_edge4 = love.graphics.newImage("assets/tiles/water/edge4.png")
 
+image.title1 = love.graphics.newImage("assets/titles/title1.jpg")
+image.title2 = love.graphics.newImage("assets/titles/title2.jpg")
+image.title3 = love.graphics.newImage("assets/titles/title3.jpg")
 
   image.deadbody = love.graphics.newImage("assets/sprites/deadbody.png")
   image.chargemap = love.graphics.newImage("assets/sprites/chargemap.png")
