@@ -1,5 +1,5 @@
-local super = require 'enemies/ai/wanderer'
-local Rocketeer = class("Rocketeer", rocketeer)  -- subclass seeker
+local super = require 'enemies/ai/rocketeer'
+local Rocketeer = class("Rocketeer", super)  -- subclass seeker
 
 function EdisonRocketeer:initialize(entity)
   super.initialize(self, entity)
