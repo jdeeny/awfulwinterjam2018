@@ -48,6 +48,8 @@ stages[3] = {
 	dungeon_w = 6,
 	dungeon_h = 6,
 	room_files = {['start'] = {9}, ['boss'] = {3}, ['generic'] = {1,4,5,8,9,11,12,13,19,21}},  -- See file_io for room index,  -- See file_io for room index
+	spawns = {['start'] = {'medium5'}, ['boss'] = {'stage3boss'},
+		['generic'] = {'second', 'remotes', 'easy_1', 'easy_2', 'easy_3', 'easy_4', 'easy_5', 'easy_6', 'medium_1', 'medium_2', 'medium_3', 'medium_4', 'medium_5', 'medium_6'}}
 	floor_tiles = {"Stonewall", "woodenFloor2"},
 	boss_floor = "woodenFloor3",
 
