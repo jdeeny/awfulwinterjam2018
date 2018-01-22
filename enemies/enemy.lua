@@ -106,7 +106,11 @@ function enemy:die()
   enemy_value = enemy_value - self.value
   enemies[self.id] = nil
   current_level:remove(self.id)
-  audiomanager:playOnce(self.death_sound)
+  if self.death_sound == "grunt" then
+    self.death_sound = "grunt"..math.random(5)
+  end
+    audiomanager:playOnce(self.death_sound)
+
   if self.drop_items then
     for _, drop_item in pairs(self.drop_items) do
       if math.random() < drop_item.chance then
