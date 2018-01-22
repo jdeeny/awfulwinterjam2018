@@ -5,8 +5,8 @@ W--WW--ww--WW--W
 W--WW--WW--WW--W
 W------tt------W
 W--------------W
-W--WWt-WW-tWW--W
-W--WWt-WW-tWW--W
+W--WWc-WW-cWW--W
+W--WWc-WW-cWW--W
 W--------------W
 W------tt------W
 W--WW--WW--WW--W

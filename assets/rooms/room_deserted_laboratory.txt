@@ -7,6 +7,6 @@ W-------------------W------W------------------------W-ww---W-WWW-------W
 W-------------------W------W-------------------------------------------W
 W-----WWWWW---------W------W-------------------------------------------W
 W-----WwwwW---------W------WWWWW----------------------WWWWWWWWWWWWWWWWWW
-W-----WWWWWW---------------W-t------------------------W-----------------
-W-----Wt-------------------W--------------------------W-----------------
-WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW-----------------
+W-----WWWWWW---------------W-t---------------------rrrWWWWWWWWWWWWWWWWWW
+W-----Wt-------------------W--------------------r--rrrWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
