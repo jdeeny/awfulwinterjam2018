@@ -45,7 +45,7 @@ stages[3] = {
 
 gamestage.stages = stages
 gamestage.current_stage = 0
-gamestage.upgrades = {}
+--gamestage.upgrades = {}
 
 -- This just sets up the stage; it does not change the state
 function gamestage.setup_next_stage(forced)
