@@ -486,7 +486,7 @@ function Level:updatewalltiles()
   local southblock
 
   for tx = 1, self.width do
-    for ty = 1, self.height do
+    for ty = 0, self.height do
       if self:feature_at(tx, ty):sub(1,4) == "wall" then
         southblock = self:feature_at(tx, ty + 1)
         if southblock == "opendoor" or southblock == "fakedoor" then
@@ -496,6 +496,14 @@ function Level:updatewalltiles()
           self:addTile(nil, tx, ty, self.tileset["wall"])
         else
           self:addTile(nil, tx, ty, self.tileset["wall_southface"])
+        end
+      elseif self:feature_at(tx, ty):sub(1,4) == "void" then
+        southblock = self:feature_at(tx, ty + 1)
+        if southblock:sub(1,4) == "wall" or southblock:sub(1,14) == "invinciblewall"
+          or southblock == "void" or southblock:sub(1,4) == "door" then
+          self:addTile(nil, tx, ty, self.tileset["void_walltop"])
+        else
+          self:addTile(nil, tx, ty, self.tileset["void"])
         end
       elseif self:feature_at(tx, ty):sub(1,14) == "invinciblewall" then
         southblock = self:feature_at(tx, ty + 1)
