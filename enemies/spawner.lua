@@ -488,7 +488,7 @@ spawner.wave_data.medium_6 = function()
 		end)
 	spawner.add(5,
 		function()
-			spawner.spawn_from_east_door('missileguy')
+			spawner.spawn_from_east_door('rocketeer')
 		end)
 	spawner.add(10,
 		function()
