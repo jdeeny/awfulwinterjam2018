@@ -10,9 +10,9 @@ stages[1] = {
 	-- Rooms/dungeon
 	dungeon_w = 2,
 	dungeon_h = 2,
-	
+
 	-- This is optional; any blank entry will select from all available options
-	room_files = {['start'] = {4}, ['boss'] = {5}, ['generic'] = {1,2,4,5,6}},  -- See file_io for room index
+	room_files = {['start'] = {7}, ['boss'] = {10}, ['generic'] = {1,2,4,5,6}},  -- See file_io for room index
 	spawns = {['start'] = {'first'}, ['boss'] = {'second'}, ['generic'] = {'stage1boss'}},  -- See spawner for spawn names
 	-- Other things that'd be good to put in here:
 	--  * tilesets (if they can change)
@@ -26,7 +26,7 @@ stages[2] = {
 	-- Rooms/dungeon
 	dungeon_w = 5,
 	dungeon_h = 4,
-	spawns = {['start'] = {'first','second'}, ['boss'] = {'stage1boss'}}, -- randomized waves 
+	spawns = {['start'] = {'first','second'}, ['boss'] = {'stage1boss'}}, -- randomized waves
 
 }
 
