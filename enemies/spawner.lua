@@ -556,6 +556,7 @@ spawner.wave_data.stage3boss = function()
 			end
 			for i = 1,16 do
 				delay.start(0.5 * i, function() spawner.span_frown_west_door('canbot') end)
+			end
 			delay.start(2,
 				function()
 					spawner.complete = true
