@@ -315,7 +315,9 @@ function Level:draw()
 
   shadow_effect(function()
     if self.layers[Layer.ENTITY] then self.layers[Layer.ENTITY]:draw() end
-    player:draw()
+    if player.iframe_end_time and player.iframe_end_time < game_time then 
+      player:draw()
+    end
   end)
 
   -- Draw entities to entity canvas (for reflection)
