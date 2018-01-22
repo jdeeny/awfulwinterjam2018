@@ -120,7 +120,7 @@ end]]
 
   -- Plays music (only track at a time). Volume is 0-1, offset is in seconds
   function AudioManager:playMusic(name, volume, offset)
-    print("audio "..name)
+    --print("audio "..name)
     local vol = volume or 1.0
       if self.music_tracks[name] then
       if self.music then

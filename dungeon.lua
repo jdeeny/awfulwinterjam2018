@@ -31,7 +31,6 @@ end
 
 function dungeon:move_to_room(rx, ry, from_dir)
   -- unload current map, load new one, place player appropriately, setup fights i guess
-  print("move_to_room")
   --player.init()
   enemies = {}
   enemy_value = 0
@@ -46,13 +45,10 @@ function dungeon:move_to_room(rx, ry, from_dir)
   local room_index = self[rx][ry].file
   image.swap_floor_tile(self[rx][ry].floor_tile)
 
-  print("BEFORE PARSE")
   current_level = file_io.parse_room_file(room_set[room_index])
   current_level:setup_outer_walls()
-  print("MOVE TO ROOM")
   current_level:updatewatertiles()
   current_level:updatewalltiles()
-  print("MOVEDONE")
 
   current_level.exits = self:get_exits(rx, ry)
   current_level.kind = self:get_room_kind(rx,ry)

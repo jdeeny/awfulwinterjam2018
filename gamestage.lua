@@ -71,7 +71,6 @@ function gamestage.setup_next_stage(forced)
 end
 
 function gamestage.advance_to_play()
-    print("Load done advance_to_play")
     game_time = 0
 
     player.init()
@@ -100,11 +99,11 @@ function gamestage.advance_to_play()
         delay.start(0.5, function() player:end_force_move() end)
 
         if gamestage.stages[gamestage.current_stage].intro_movie then
-            print("Playing movie")
+--            print("Playing movie")
             movie_play.enter(gamestage.stages[gamestage.current_stage].intro_movie,
                 movie_finished_cb)
         else
-            print("No Movie")
+            --print("No Movie")
 
             movie_finished_cb()
         end
@@ -128,8 +127,8 @@ function gamestage.restore_upgrades()
 		end
 	end
 	player:heal(player.max_hp)
-	print("maxhp", player.max_hp) -- DBG
-	print("wpn 1 ammo", player.weapons[1].max_ammo) -- DBG
+	--print("maxhp", player.max_hp) -- DBG
+	--print("wpn 1 ammo", player.weapons[1].max_ammo) -- DBG
 end
 
 local floor_tiles = {"concreteFloor", "metalFloor",
