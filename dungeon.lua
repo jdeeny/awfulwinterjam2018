@@ -31,7 +31,6 @@ end
 
 function dungeon:move_to_room(rx, ry, from_dir)
   -- unload current map, load new one, place player appropriately, setup fights i guess
-  print("move_to_room")
   --player.init()
   enemies = {}
   enemy_value = 0
@@ -46,13 +45,10 @@ function dungeon:move_to_room(rx, ry, from_dir)
   local room_index = self[rx][ry].file
   image.swap_floor_tile(self[rx][ry].floor_tile)
 
-  print("BEFORE PARSE")
   current_level = file_io.parse_room_file(room_set[room_index])
   current_level:setup_outer_walls()
-  print("MOVE TO ROOM")
   current_level:updatewatertiles()
   current_level:updatewalltiles()
-  print("MOVEDONE")
 
   current_level.exits = self:get_exits(rx, ry)
   current_level.kind = self:get_room_kind(rx,ry)
@@ -96,13 +92,13 @@ function dungeon:setup_main()
         self[rx][ry] = {room_kind = "start", file = love.math.random(#(self.room_files['start'])) }
         self.start_x = rx
         self.start_y = ry
-        self[rx][ry].floor_tile = image.get_random_floor()
+        self[rx][ry].floor_tile = gamestage.get_random_floor()
       elseif rx == self.width and ry == 1 then
         self[rx][ry] = {room_kind = "boss", file = love.math.random(#(self.room_files['boss'])) }
-        self[rx][ry].floor_tile = image.get_random_floor()
+        self[rx][ry].floor_tile = gamestage.get_boss_floor()
       else
         self[rx][ry] = {room_kind = "generic", file = love.math.random(#(self.room_files['generic'])) }
-        self[rx][ry].floor_tile = image.get_random_floor()
+        self[rx][ry].floor_tile = gamestage.get_random_floor()
       end
     end
   end

@@ -1,8 +1,34 @@
 local enemy = class('enemy', mob)
 
 function enemy:update(dt)
+  if not self.force_move and current_level:feature_at(current_level:pos_to_grid(self.x), current_level:pos_to_grid(self.y)) == "void" then
+    -- out of bounds
+    self:die()
+  end
+
+  if not self.facing_override and not self.stun and not self.knockback then
+    if self.dy then
+      if self.dy < -0.01 then
+        self.facing_north = true
+      else
+        self.facing_north = false
+      end
+    end
+
+    if self.dx then
+      if self.dx < -0.01 then
+        self.facing_east = false
+      else
+        self.facing_east = true
+      end
+    end
+  end
+  self.facing_override = false
+
   self:update_position(dt)
+
   self.facing = self:get_facing_string()
+
   self:update_animation(dt)
 end
 
@@ -25,7 +51,7 @@ function enemy:stopMoving()
 end
 
 function enemy:faceTowards(entity)
-  local angle = math.atan2(entity.y - self.y, entity.x - self.x)
+  -- local angle = math.atan2(entity.y - self.y, entity.x - self.x)
   --self.rot = cpml.vec2.to_polar(cpml.vec2.new(aim_x, aim_y))
 end
 

@@ -301,6 +301,26 @@ function LightningGun:_fire(targets)
 
     table.insert(self.bolts, newbolt)
 
+    if current_level:feature_at(player.x/TILESIZE, player.y/TILESIZE):sub(1,5) == 'water' then
+
+      local newbolt = lovelightning:new(255,255,255)
+
+      newbolt.power = .5
+      newbolt.jitter_factor = 0.75
+      newbolt.fork_chance = .9
+      newbolt.max_fork_angle = math.pi
+
+      local ptarg = { x = self.owner.x +math.random()*16 - 8, y = self.owner.y +math.random()*16 - 8 }
+      newbolt:setSource({x=camera.view_x(self.owner), y=camera.view_y(self.owner)})
+      newbolt:setPrimaryTarget({x=camera.view_x(ptarg), y=camera.view_y(ptarg)})
+      newbolt:create(function (ftarg, level)
+              table.insert(self.fork_targets,{target=ftarg,level=level})
+            end)
+
+      table.insert(self.bolts, newbolt)
+    end
+
+
   else
     local last_target = self.owner
     for i, t in ipairs(targets) do
@@ -334,12 +354,18 @@ end
 
 function LightningGun:update(dt)
   Weapon.update(self, dt)
+
   if self.bolts and self.fired_at then
     if game_time < self.fired_at + self.draw_time then
       for _, b in pairs(self.bolts) do
         b:update(dt)
       end
     else
+      if self.is_firing and current_level:feature_at(player.x/TILESIZE, player.y/TILESIZE):sub(1,5) == 'water' then
+        player:take_damage(self.damage * 0.25 * dt)
+        camera.shake(5,1)
+        player.electro_time = game_time + 0.4
+      end
       if self.targets and #self.targets > 0 then
         for _, t in pairs(self.targets) do
           if t.take_damage then
@@ -481,16 +507,34 @@ function RayGun:update(dt)
       end
 
       if math.abs(a) < self.diameter/2 + 0.1 then
-        z:take_damage(self.damage * dt * (1 - self.focus), false, self.angle + a, 3 * dt, false)
-        if game_time > self.spark_time then
+        local dist = cpml.vec2.new(self.x, self.y):dist(cpml.vec2.new(z.x,z.y))
+        local d = self.damage * dt * (1 - cpml.utils.clamp(self.focus + 0.2, 0, 1.0))*2
+        --print("distmod: " .. distmod .. " focus: "..self.focus .. " dmg: "..d)
+        z:take_damage(d, false, self.angle + a, 3 * dt, false)
+        if game_time > self.spark_time and d > 0.01 then
           for i = 1, math.floor(7 - 6 * self.focus) do
             angle = self.angle + a + 0.5 * (love.math.random() - 0.5)
-            speed = (200 + 1800 * love.math.random()) * (1.5 - self.focus)
+            speed = (200 + 1800 * love.math.random()) * (1.5 - self.focus) + math.random(d* 5)
             spark_data.spawn("spark_blue", {r=255, g=100, b=150}, z.x, z.y, speed * math.cos(angle), speed * math.sin(angle))
+            angle = self.angle + a + 0.5 * (love.math.random() - 0.5)
+            speed = (200 + 1800 * love.math.random()) * (1.5 - self.focus) + math.random(d* 3)
+            spark_data.spawn("spark_blue", {r=255, g=100, b=150}, z.x, z.y, speed * math.cos(angle), speed * math.sin(angle))
+            angle = self.angle + a + 0.5 * (love.math.random() - 0.5)
+            speed = (200 + 1800 * love.math.random()) * (1.5 - self.focus) + math.random(d)
+            spark_data.spawn("spark_big_blue", {r=255, g=100, b=150}, z.x, z.y, speed * math.cos(angle), speed * math.sin(angle))
           end
           for i = 1, math.floor(3 - 2 * self.focus) do
             angle = self.angle + a + 0.5 * (love.math.random() - 0.5)
-            speed = (200 + 1000 * love.math.random()) * (1.5 - self.focus)
+            speed = (200 + 1800 * love.math.random()) * (1.5 - self.focus) + math.random(d*4)
+            spark_data.spawn("spark_blue", {r=255, g=100, b=150}, z.x, z.y, speed * math.cos(angle), speed * math.sin(angle))
+            angle = self.angle + a + 0.5 * (love.math.random() - 0.5)
+            speed = (200 + 1800 * love.math.random()) * (1.5 - self.focus) + math.random(d*3)
+            spark_data.spawn("spark_big_blue", {r=255, g=100, b=150}, z.x, z.y, speed * math.cos(angle), speed * math.sin(angle))
+            angle = self.angle + a + 0.5 * (love.math.random() - 0.5)
+            speed = (200 + 1800 * love.math.random()) * (1.5 - self.focus) + math.random(d*2)
+            spark_data.spawn("spark_big_blue", {r=255, g=100, b=150}, z.x, z.y, speed * math.cos(angle), speed * math.sin(angle))
+            angle = self.angle + a + 0.5 * (love.math.random() - 0.5)
+            speed = (200 + 1800 * love.math.random()) * (1.5 - self.focus) + math.random(d)
             spark_data.spawn("spark_big_blue", {r=255, g=100, b=150}, z.x, z.y, speed * math.cos(angle), speed * math.sin(angle))
           end
           sparked = true

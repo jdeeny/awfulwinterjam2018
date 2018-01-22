@@ -31,6 +31,8 @@ function player.init()
   player.animations['idle_se'] = animation.tesla_idle_se
   player.animations['idle_sw'] = animation.tesla_idle_sw
   player.animations['idle_nw'] = animation.tesla_idle_sw
+  player.animations['electrocute_e'] = animation.tesla_electrocute_e
+  player.animations['electrocute_w'] = animation.tesla_electrocute_w
   player.animation = player.animations['run_sw']
   player.animation_state = 'run'
 
@@ -98,9 +100,15 @@ function player.update(dt)
       end
 
       if player_input:pressed('swap') then
-        player.weapon_switch(-1)
-      elseif player_input:pressed('swap_rev') then
         player.weapon_switch(1)
+      elseif player_input:pressed('swap_rev') then
+        player.weapon_switch(-1)
+      elseif player_input:pressed('weap1') then
+        player.weapon_switch_direct(1)
+      elseif player_input:pressed('weap2') then
+        player.weapon_switch_direct(2)
+      elseif player_input:pressed('weap3') then
+        player.weapon_switch_direct(3)
       end
 
       if (aim_x ~= 0 or aim_y ~= 0 or player_input:down('fire')) and not player.stun and not player.force_move and not player.dying then
@@ -140,6 +148,13 @@ function player.update(dt)
   player.animation = player.animations[player.animation_state .. '_' .. player.get_facing_string(player.facing_north, player.facing_east)]
   for _, anim in pairs(player.animations) do
     anim:update(dt)
+  end
+  if (player.electro_time or 0) > game_time then
+    if player.facing_east then
+      player.animation = player.animations['electrocute_e']
+    else
+      player.animation = player.animations['electrocute_w']
+    end
   end
 end
 
@@ -218,6 +233,21 @@ end
 function player.weapon_switch(rev)
   local inc = rev or 1
   player.weapon = player.weapon + inc
+  if player.weapon > player.weapon_max then player.weapon = 1 end
+  if player.weapon <= 0 then player.weapon = player.weapon_max end
+
+  if #player.weapons > 1 then
+    player.equipped_items['weapon']:release()
+    player:unequip('weapon')
+    player:equip('weapon', player.weapons[player.weapon])
+    play.crosshair_offset = 0
+  end
+
+end
+
+function player.weapon_switch_direct(weap)
+  local w = weap or 1
+  player.weapon = w
   if player.weapon > player.weapon_max then player.weapon = 1 end
   if player.weapon <= 0 then player.weapon = player.weapon_max end
 
