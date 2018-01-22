@@ -45,7 +45,7 @@ stages[3] = {
 	-- Rooms/dungeon
 	dungeon_w = 6,
 	dungeon_h = 6,
-	room_files = {['start'] = {14}, ['boss'] = {14}, ['generic'] = {14}},  -- See file_io for room index
+	room_files = {['start'] = {14}, ['boss'] = {3}, ['generic'] = {1,4,5,8,9,11,12,13,19,21}},  -- See file_io for room index,  -- See file_io for room index
 	floor_tiles = {"Stonewall", "woodenFloor2"},
 	boss_floor = "woodenFloor3",
 }
