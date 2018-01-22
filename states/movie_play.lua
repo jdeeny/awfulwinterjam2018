@@ -27,7 +27,7 @@ movie_play.movie_data = {
     --   end,
     --   run_time = 1,
     -- }),
-    IntertitleStep("Mr. Batchelor,\n\nI've invented the\n\n24 standard machines.", 3),
+    IntertitleStep("Nikola Tesla:\n\nMr. Batchelor,\n\nI've invented the\n\n24 standard machines.", 3),
     IntertitleStep("I'm here for my reward.", 2),
     
     -- -- charles moves toward tesla
@@ -49,7 +49,7 @@ movie_play.movie_data = {
     --   end,
     --   run_time = 2,
     -- }),
-    IntertitleStep("Mikola Tesla:\n\nOh ... He WILL pay.", 2),
+    IntertitleStep("Nikola Tesla:\n\nOh ... He WILL pay.", 2),
     -- SequenceStep:new({
     --   type = "animation",
     --   run_time = 0.5,
@@ -137,7 +137,7 @@ movie_play.movie_data3 = {
     --   end,
     --   run_time = 1,
     -- }),
-    IntertitleStep("Nobel Price Committee:\n\Congratulations\n\nMr. Tesla", 2),
+    IntertitleStep("Nobel Price Committee:\n\nCongratulations\n\nMr. Tesla", 2),
     IntertitleStep("We'd like to award\n\nyou and Mr. Edison\n\n the Nobel Prize.", 2),
 
     -- -- 2 guys leave
