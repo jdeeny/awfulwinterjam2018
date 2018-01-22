@@ -71,7 +71,9 @@ function play.draw()
     z:draw()
   end
 
+player:draw()
   electricity:draw()
+
 
 
   play.draw_screen_flash()
