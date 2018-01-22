@@ -27,8 +27,8 @@ movie_play.movie_data = {
     --   end,
     --   run_time = 1,
     -- }),
-    IntertitleStep("Nikola Tesla:\n\nMr. Batchelor,\n\nI've invented the\n\n24 standard machines.", 3),
-    IntertitleStep("I'm here for my reward.", 2),
+    IntertitleStep("Nikola Tesla:\n\n\"Mr. Batchelor,\n\nI've invented the\n\n24 standard machines.\"", 3),
+    IntertitleStep("\"I'm here for my reward.\"", 2),
     
     -- -- charles moves toward tesla
     -- SequenceStep:new({
@@ -39,9 +39,9 @@ movie_play.movie_data = {
     --   run_time = 2,
     -- }),
 
-    IntertitleStep("Charles Batchelor:\n\nHa ha ha ha ha.\n\nThere was no reward.", 2),
-    IntertitleStep("You FOOL.", 2),
-    IntertitleStep("Thomas Alva Edison\n\nwill never pay.", 2),
+    IntertitleStep("Charles Batchelor:\n\n\"Ha ha ha ha ha.\n\nThere was no reward.\"", 2),
+    IntertitleStep("\"You FOOL.\"", 2),
+    IntertitleStep("\"Thomas Alva Edison\n\nwill never pay.\"", 2),
     -- SequenceStep:new({
     --   type = "animation",
     --   start = function(self)
@@ -49,12 +49,12 @@ movie_play.movie_data = {
     --   end,
     --   run_time = 2,
     -- }),
-    IntertitleStep("Nikola Tesla:\n\nOh ... He WILL pay.", 2),
+    IntertitleStep("Nikola Tesla:\n\n\"Oh ... He WILL pay.\"", 2),
     -- SequenceStep:new({
     --   type = "animation",
     --   run_time = 0.5,
     -- }),
-    IntertitleStep("And so will YOU", 2),
+    IntertitleStep("\"And so will YOU\"", 2),
   },
   music = {track="figleaf", volume=0.3, offset=27},
 }
@@ -69,7 +69,7 @@ movie_play.movie_data2 = {
     --   end,
     --   run_time = 2,
     -- }),
-    IntertitleStep("Nikola Tesla:\n\nAhh. My Tesla\n\nExperimental Station.", 2),
+    IntertitleStep("Nikola Tesla:\n\n\"Ahh. My Tesla\n\nExperimental Station.\"", 2),
     
     -- -- Tesla walks over to to bench
     -- SequenceStep:new({
@@ -79,8 +79,8 @@ movie_play.movie_data2 = {
     --   end,
     --   run_time = 2,
     -- }),
-    IntertitleStep("I wonder ...", 2),
-    IntertitleStep("What signals will\n\nI find today?", 2.5),
+    IntertitleStep("\"I wonder ...\"", 2),
+    IntertitleStep("\"What signals will\n\nI find today?\"", 2.5),
     
     -- -- tesls just stands there
     -- SequenceStep:new({
@@ -90,7 +90,7 @@ movie_play.movie_data2 = {
     --   end,
     --   run_time = 4,
     -- }),
-    IntertitleStep("Eureka", 1),
+    IntertitleStep("\"Eureka\"", 1),
     
     -- -- tesls just stands there
     -- SequenceStep:new({
@@ -100,7 +100,7 @@ movie_play.movie_data2 = {
     --   end,
     --   run_time = 0.5,
     -- }),
-    IntertitleStep("Martian Signals", 2),
+    IntertitleStep("\"Martian Signals\"", 2),
     
     -- marconi walks in
     -- SequenceStep:new({
@@ -110,9 +110,9 @@ movie_play.movie_data2 = {
     --   end,
     --   run_time = 2,
     -- }),
-    IntertitleStep("Guglielmo Marconi:\n\nHa ha ha.", 2),
-    IntertitleStep("You Fool", 2),
-    IntertitleStep("You just detected\n\nMY experiments ", 3),
+    IntertitleStep("Guglielmo Marconi:\n\n\"Ha ha ha.\"", 2),
+    IntertitleStep("\"You Fool\"", 2),
+    IntertitleStep("\"You just detected\n\nMY experiments \"", 3),
     
     -- -- Marconi runs away, tesla moves a bit toward the direction he left
     -- SequenceStep:new({
@@ -122,7 +122,7 @@ movie_play.movie_data2 = {
     --   end,
     --   run_time = 2,
     -- }),
-    IntertitleStep("Nikola Telsa:\n\nYou will answer for what\n\nyou've done, Marconi.", 2),
+    IntertitleStep("Nikola Telsa:\n\n\"You will answer for what\n\nyou've done, Marconi.\"", 2),
   },
   music = {track="figleaf", volume=0.3, offset=27},
 }
@@ -137,8 +137,8 @@ movie_play.movie_data3 = {
     --   end,
     --   run_time = 1,
     -- }),
-    IntertitleStep("Nobel Price Committee:\n\nCongratulations\n\nMr. Tesla", 2),
-    IntertitleStep("We'd like to award\n\nyou and Mr. Edison\n\n the Nobel Prize.", 2),
+    IntertitleStep("Nobel Price Committee:\n\n\"Congratulations\n\nMr. Tesla\"", 2),
+    IntertitleStep("\"We'd like to award\n\nyou and Mr. Edison\n\n the Nobel Prize.\"", 2),
 
     -- -- 2 guys leave
     -- SequenceStep:new({
@@ -158,8 +158,8 @@ movie_play.movie_data3 = {
     --   run_time = 3,
     -- }),
 
-    IntertitleStep("Thomas Edison: You'll have\n\n to kill me", 2),
-    IntertitleStep("before i ever share\n\n a Nobel Prize with you", 2),
+    IntertitleStep("Thomas Edison: \n\n\"You'll have\n\n to kill me\"", 2),
+    IntertitleStep("\"before i ever share\n\n a Nobel Prize with you\"", 2),
 
     -- -- tesla walks forward, zoom in if you can
     -- SequenceStep:new({
@@ -169,7 +169,7 @@ movie_play.movie_data3 = {
     --   end,
     --   run_time = 2,
     -- }),
-    IntertitleStep("Nikola Telsa:\n\nSo be it.", 2),
+    IntertitleStep("Nikola Telsa:\n\n\"So be it.\"", 2),
 
     -- edison runs away
     -- SequenceStep:new({
