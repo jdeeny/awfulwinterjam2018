@@ -22,7 +22,6 @@ end
 function file_io.parse_room_file(n)
 	local f = file_io.lines_from(file_io.room_files[n][1])
 	local m = Level:new(file_io.room_files[n][2], file_io.room_files[n][3]):setLayerEffects(Layer.WATER, water_effect)
-	print("parse_room_file")
 	--m:init(file_io.room_files[n][2], file_io.room_files[n][3])
 	for j,str in ipairs(f) do
 		local i = 1
@@ -42,7 +41,7 @@ end
 
 file_io.room_files = {
     -- ONLY ADD NEW ROOMS TO THE END OF THIS LIST
-	-- Stages use the direct index of these values to set its rooms. 
+	-- Stages use the direct index of these values to set its rooms.
 	{"assets/rooms/room_boom.txt", 16, 20},
 	{"assets/rooms/room_cart.txt", 8, 22},
 	{"assets/rooms/room_cavern.txt", 54, 18},

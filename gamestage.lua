@@ -52,7 +52,7 @@ gamestage.current_stage = 0
 -- This just sets up the stage; it does not change the state
 function gamestage.setup_next_stage(forced)
     local ns_number = forced or (gamestage.current_stage + 1)
-    print("setup next stage",ns_number)
+    --print("setup next stage",ns_number)
 
 	if ns_number > #(gamestage.stages)  then
         print("You win!")
