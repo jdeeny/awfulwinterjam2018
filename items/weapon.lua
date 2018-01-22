@@ -361,9 +361,10 @@ function LightningGun:update(dt)
         b:update(dt)
       end
     else
-      if current_level:feature_at(player.x/TILESIZE, player.y/TILESIZE):sub(1,5) == 'water' then
-        player:take_damage(self.damage * 0 * dt)
+      if self.is_firing and current_level:feature_at(player.x/TILESIZE, player.y/TILESIZE):sub(1,5) == 'water' then
+        player:take_damage(self.damage * 0.25 * dt)
         camera.shake(5,1)
+        player.electro_time = game_time + 0.4
       end
       if self.targets and #self.targets > 0 then
         for _, t in pairs(self.targets) do

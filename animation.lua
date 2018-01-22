@@ -9,6 +9,8 @@ function animation.init()
   animation.tesla_run_nw = anim8.newAnimation(tesla_grid('1-10',2), 0.12):flipH()
   animation.tesla_idle_se = anim8.newAnimation(tesla_grid(11,1), 0.8)
   animation.tesla_idle_sw = anim8.newAnimation(tesla_grid(11,1), 0.8):flipH()
+  animation.tesla_electrocute_e = anim8.newAnimation(tesla_grid('9-10',3), 0.1)
+  animation.tesla_electrocute_w = anim8.newAnimation(tesla_grid('9-10',3), 0.1):flipH()
 
   local gear_grid = anim8.newGrid(64, 72, image.gear:getWidth(), image.gear:getHeight(), 0, 0, 0)
   animation.gear_spin_cw = anim8.newAnimation(gear_grid('1-6',1), 0.12)
