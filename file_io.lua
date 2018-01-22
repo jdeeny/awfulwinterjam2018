@@ -41,12 +41,9 @@ function file_io.parse_room_file(n)
 end
 
 file_io.room_files = {
-<<<<<<< HEAD
-    -- ADD NEW ROOMS TO THE END OF THIS LIST 
-=======
-
+    -- ONLY ADD NEW ROOMS TO THE END OF THIS LIST
+	-- Stages use the direct index of these values to set its rooms. 
 	{"assets/rooms/room_boom.txt", 16, 20},
->>>>>>> f39e6748f55f9ac21cb24941fb3e8450ce398ae6
 	{"assets/rooms/room_cart.txt", 8, 22},
 	{"assets/rooms/room_cavern.txt", 54, 18},
 	{"assets/rooms/room_columns.txt", 16, 16},
