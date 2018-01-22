@@ -32,6 +32,8 @@ function love.load()
   love.mouse.setVisible(false)
   love.mouse.setGrabbed(true)
 
+  gamestage.current_stage = 1
+
   init_settings()
   player.init()
 
