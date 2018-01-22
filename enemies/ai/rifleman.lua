@@ -40,8 +40,24 @@ function Rifleman:update(dt)
       end
     elseif self.state == "firing" then
       -- shoot at the player
-      self.entity:faceTowards(player)
       self.entity:aimAt(player)
+
+      if self.entity.aim then
+        local sin = math.sin(self.entity.aim)
+        local cos = math.cos(self.entity.aim)
+        if sin < 0 then
+          self.entity.facing_north = true
+        else
+          self.entity.facing_north = false
+        end
+
+        if cos < 0 then
+          self.entity.facing_east = false
+        else
+          self.entity.facing_east = true
+        end
+        self.facing_override = true
+      end
       self.entity:stopMoving()
       if self.nextshot_time < game_time then
         self.entity:shootAt(player)

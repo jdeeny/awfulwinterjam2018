@@ -66,7 +66,6 @@ end
 
 spawner.wave_data = {}
 
-
 spawner.wave_data.first = function()
 	spawner.add(2,
 		function()

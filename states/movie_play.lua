@@ -55,14 +55,7 @@ movie_play.movie_data = {
 
 movie_play.movie_data2 = {
   sequence_steps = {
-    SequenceStep:new({
-      type = "animation",
-      start = function(self)
-        player:start_force_move(0.5, player.speed, 0)
-      end,
-      run_time = 1,
-    }),
-    IntertitleStep("Inconceivable!", 2),
+    -- Tesla walks into lab
     SequenceStep:new({
       type = "animation",
       start = function(self)
@@ -70,7 +63,9 @@ movie_play.movie_data2 = {
       end,
       run_time = 2,
     }),
-    IntertitleStep("I do not think you know what that means.", 2),
+    IntertitleStep("Ahh. My Tesla\n\nExperimental Station.", 2),
+    
+    -- Tesla walks over to to bench
     SequenceStep:new({
       type = "animation",
       start = function(self)
@@ -78,12 +73,50 @@ movie_play.movie_data2 = {
       end,
       run_time = 2,
     }),
-    IntertitleStep("...", 2),
+    IntertitleStep("I wonder ...", 2),
+    IntertitleStep("What signals will\n\nI find today?", 2.5),
+    
+    -- tesls just stands there
     SequenceStep:new({
       type = "animation",
+      start = function(self)
+        player:start_force_move(0.5, player.speed, 0)
+      end,
+      run_time = 4,
+    }),
+    IntertitleStep("Eureka", 1),
+    
+    -- tesls just stands there
+    SequenceStep:new({
+      type = "animation",
+      start = function(self)
+        -- player:start_force_move(0.5, player.speed, 0)
+      end,
       run_time = 0.5,
     }),
-    IntertitleStep("Fuck.", 2),
+    IntertitleStep("Martian Signals", 2),
+    
+    -- marconi walks in
+    SequenceStep:new({
+      type = "animation",
+      start = function(self)
+        -- player:start_force_move(0.5, player.speed, 0)
+      end,
+      run_time = 2,
+    }),
+    IntertitleStep("Guglielmo Marconi:\n\nHa ha ha.", 2),
+    IntertitleStep("You Fool", 2),
+    IntertitleStep("You just detected\n\nMY experiments ", 3),
+    
+    -- Marconi runs away, tesla moves a bit toward the direction he left
+    SequenceStep:new({
+      type = "animation",
+      start = function(self)
+        player:start_force_move(-0.5, player.speed, 0)
+      end,
+      run_time = 2,
+    }),
+    IntertitleStep("You will answer for what\n\nyou've done, Marconi.", 2),
   },
   music = {track="figleaf", volume=0.3, offset=27},
 }

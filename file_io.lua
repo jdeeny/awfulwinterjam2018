@@ -41,15 +41,26 @@ function file_io.parse_room_file(n)
 end
 
 file_io.room_files = {
+<<<<<<< HEAD
     -- ADD NEW ROOMS TO THE END OF THIS LIST 
+=======
+
+	{"assets/rooms/room_boom.txt", 16, 20},
+>>>>>>> f39e6748f55f9ac21cb24941fb3e8450ce398ae6
 	{"assets/rooms/room_cart.txt", 8, 22},
+	{"assets/rooms/room_cavern.txt", 54, 18},
 	{"assets/rooms/room_columns.txt", 16, 16},
+	{"assets/rooms/room_complex.txt", 18, 22},
 	{"assets/rooms/room_empty.txt", 14, 14},
 	{"assets/rooms/room_empty_horiz.txt", 24, 8},
+	{"assets/rooms/room_moat.txt", 24, 20},
+	{"assets/rooms/room_octagon.txt", 24, 24},
 	{"assets/rooms/room_pillar.txt", 24, 24},
 	{"assets/rooms/room_pool.txt", 16, 16},
+	{"assets/rooms/room_rubble.txt", 24, 8},
 	{"assets/rooms/room_s.txt", 8, 24},
 	{"assets/rooms/room_small.txt", 16, 12},
+	{"assets/rooms/room_symbol.txt", 46, 24},
 	{"assets/rooms/room_test.txt", 16, 14},
 	{"assets/rooms/room_z.txt", 18, 12},
 	{"assets/rooms/room_deserted_laboratory.txt", 72, 12},
