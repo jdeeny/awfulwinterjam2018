@@ -2,6 +2,7 @@ local gamestage = {}
 
 local stages = {}
 
+-- Tesla's Arrival
 stages[1] = {
 	-- Movie/cutscene settings
     intro_movie = movie_play.movie_data,
@@ -18,6 +19,7 @@ stages[1] = {
 	--  * tilesets (if they can change)
 }
 
+-- Edison Machine Works
 stages[2] = {
 	-- Movie/cutscene settings
     intro_movie = movie_play.movie_data2,
@@ -26,20 +28,19 @@ stages[2] = {
 	-- Rooms/dungeon
 	dungeon_w = 5,
 	dungeon_h = 4,
-	room_files = {['start'] = {14}, ['boss'] = {14}, } -- ['generic'] = {14}},
+	room_files = {['start'] = {14}, ['boss'] = {18}, ['generic'] = {5,8,4,16,17}},
 	--spawns = {['start'] = {'first','second'}, ['boss'] = {'stage2boss'}, ['generic'] = {'second','third'}}, -- randomized waves 
-
 }
 
--- Test stage, feel free to mess around with these values
+
 stages[3] = {
 	-- Movie/cutscene settings
     intro_movie = movie_play.movie_data3,
     outro_movie = nil,
 
 	-- Rooms/dungeon
-	dungeon_w = 2,
-	dungeon_h = 2,
+	dungeon_w = 6,
+	dungeon_h = 6,
 	room_files = {['start'] = {14}, ['boss'] = {14}, ['generic'] = {14}},  -- See file_io for room index
 }
 
@@ -53,19 +54,18 @@ function gamestage.setup_next_stage(forced)
     print("setup next stage",ns_number)
 
 	if ns_number > #(gamestage.stages)  then
-        print("You win!")
-        ns_number = 1
-        current_dungeon = nil
-		movie_play.enter(movie_play.credits, function() mainmenu.enter() end)
-    else
-        gamestage.current_stage = ns_number
+		-- you win!
+		ns_number = 1
+	end
 
-        local next_stage = gamestage.stages[gamestage.current_stage]
+	gamestage.current_stage = ns_number
 
-        current_dungeon = dungeon:new(next_stage.dungeon_w, next_stage.dungeon_h,
-            next_stage.room_files, next_stage.spawns)
-        current_dungeon:setup_main()
-    end
+	local next_stage = gamestage.stages[gamestage.current_stage]
+
+    current_dungeon = dungeon:new(next_stage.dungeon_w, next_stage.dungeon_h,
+        next_stage.room_files, next_stage.spawns)
+    current_dungeon:setup_main()
+
 end
 
 function gamestage.advance_to_play()
@@ -85,28 +85,27 @@ function gamestage.advance_to_play()
 
     pathfinder.rebuild_time = 0
 
-    if current_dungeon then
-        local function movie_finished_cb()
-            play.enter()
-        end
-
-        current_dungeon:move_to_room(current_dungeon.start_x,
-            current_dungeon.start_y, "west")
-
-        player:start_force_move(9999, player.speed, 0)
-        fade.start_fade("fadein", 0.5, true)
-        delay.start(0.5, function() player:end_force_move() end)
-
-        if gamestage.stages[gamestage.current_stage].intro_movie then
-            print("Playing movie")
-            movie_play.enter(gamestage.stages[gamestage.current_stage].intro_movie,
-                movie_finished_cb)
-        else
-            print("No Movie")
-
-            movie_finished_cb()
-        end
+    local function movie_finished_cb()
+        play.enter()
     end
+
+    current_dungeon:move_to_room(current_dungeon.start_x,
+        current_dungeon.start_y, "west")
+
+    player:start_force_move(9999, player.speed, 0)
+    fade.start_fade("fadein", 0.5, true)
+    delay.start(0.5, function() player:end_force_move() end)
+
+    if gamestage.stages[gamestage.current_stage].intro_movie then
+        print("Playing movie")
+        movie_play.enter(gamestage.stages[gamestage.current_stage].intro_movie,
+            movie_finished_cb)
+    else
+        print("No Movie")
+
+        movie_finished_cb()
+    end
+
 end
 
 function gamestage.save_upgrades()
