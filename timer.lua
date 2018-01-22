@@ -25,9 +25,9 @@ function timer.update()
 		local m = math.floor(elapsedTime / 60)
 
 		-- uncomment this to show game time
-		-- timeStamp = string.format("%d:%02d",m,s)
+		timeStamp = string.format("%d:%02d",m,s)
 
-		-- showing time to deadline for now remove this chunk later
+		--[[ showing time to deadline for now remove this chunk later
 		local timeleft = deadline-os.time()
 		s = math.floor(timeleft%60)
 		timeleft = math.floor(timeleft/60)
@@ -40,6 +40,7 @@ function timer.update()
 
 		local days = timeleft
 		timeStamp = string.format("%dd %dh %02dm %02ds",days,h,m,s)
+		]]
 	end
 
 	if currentPlayState == false and priorPlayState == true then --pause initiated
