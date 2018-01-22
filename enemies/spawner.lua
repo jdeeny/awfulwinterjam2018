@@ -258,6 +258,82 @@ spawner.wave_data.stage1boss = function()
 		end)
 end
 
+spawner.wave_data.remotes = function()
+	spawner.add(2,
+	function()
+		for i = 1,16 do
+			delay.start(0.3 * i, function () spawner.spawn_from_north_door('remotedude_red') end)
+		end
+	end)
+	spawner.add(4,
+	function()
+		for i = 1,12 do
+			delay.start(0.5 * i, function () spawner.spawn_from_west_door('remotedude_blue') end)
+		end
+		
+	end)
+	spawner.add(12,
+	function()
+		for i = 1,24 do
+			delay.start(0.3 * i, function () spawner.spawn_from_east_door('remotedude_green') end)
+		end
+		delay.start(2,
+			function()
+				spawner.complete = true
+				spawner.test_completion()
+			end)
+	end)
+end
+
+spawner.wave_data.stage2boss = function()
+
+	spawner.add(4,
+		function()
+			local angle = math.pi * 1.4
+			for i = 1,16  do
+				delay.start(0.3 * i, function() spawner.spawn_from_south_door('remotedude_red', angle) end)
+			end
+			for i = 1,16  do
+				delay.start(0.3 * i, function () spawner.spawn_from_west_door('remotedude_green', angle) end)
+			end
+		end)
+		
+	spawner.add(7,
+	function()
+		for i = 1, 3 do
+			delay.start(0.5 * i, function() spawner.spawn_from_east_door('rifledude') end)
+		end
+		for i = 1, 3 do
+			delay.start(0.5 * i, function() spawner.spawn_from_south_door('rifledude') end)
+		end
+		for i = 1, 3 do
+			delay.start(0.5 * i, function() spawner.spawn_from_west_door('rifledude') end)
+		end
+	end
+	)
+	spawner.add(14,
+     function()
+		 for i = 1, 8 do
+			 delay.start(0.8 * i, function() spawner.spawn_from_north_door('canbot') end)
+	     end
+	 end)
+	spawner.add(18,
+      function()
+	    for i = 1, 20 do
+			delay.start(0.3 * i, function() spawner.spawn_from_east_door('remotedude_blue') end)
+	   end
+	   spawner.spawn_from_south_door('lumpgoon')
+       for i = 1, 20 do
+		   delay.start(0.3 * i, function() spawner.spawn_from_west_door('remotedude_blue') end)
+	   end
+   		delay.start(2,
+   			function()
+   				spawner.complete = true
+   				spawner.test_completion()
+   			end)
+		end)
+end
+
 spawner.wave_data.rifle_time = function()
 	spawner.add(2,
 		function()
