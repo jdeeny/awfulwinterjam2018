@@ -98,6 +98,16 @@ function animation.init()
   animation.sniper_hurt_sw = anim8.newAnimation(sniper_grid('9-9',3), 0.8):flipH()
   animation.sniper_hurt_nw = anim8.newAnimation(sniper_grid('10-10',3), 0.8):flipH()
 
+  local edison_grid = anim8.newGrid(128, 96, image.edison:getWidth(), image.edison:getHeight(), 0, 0, 0)
+  animation.edison_run_sw = anim8.newAnimation(edison_grid('2-3',4), 0.6):flipH()
+  animation.edison_run_nw = anim8.newAnimation(edison_grid('2-3',4), 0.6):flipH()
+  animation.edison_run_se = anim8.newAnimation(edison_grid('2-3',4), 0.6)
+  animation.edison_run_ne = anim8.newAnimation(edison_grid('2-3',4), 0.6)
+
+  animation.edison_takeoff_sw = anim8.newAnimation(edison_grid('1-3',1, '1-3',2, '1-3',3,'1-1',4), 0.8):flipH()
+  animation.edison_takeoff_nw = anim8.newAnimation(edison_grid('1-3',1, '1-3',2, '1-3',3,'1-1',4), 0.8):flipH()
+  animation.edison_takeoff_se = anim8.newAnimation(edison_grid('1-3',1, '1-3',2, '1-3',3,'1-1',4), 0.8)
+  animation.edison_takeoff_ne = anim8.newAnimation(edison_grid('1-3',1, '1-3',2, '1-3',3,'1-1',4), 0.8)
 
 end
 
