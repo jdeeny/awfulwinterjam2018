@@ -1,6 +1,11 @@
 local enemy = class('enemy', mob)
 
 function enemy:update(dt)
+  if not self.force_move and current_level:feature_at(current_level:pos_to_grid(self.x), current_level:pos_to_grid(self.y)) == "void" then
+    -- out of bounds
+    self:die()
+  end
+
   if not self.facing_override and not self.stun and not self.knockback then
     if self.dy then
       if self.dy < -0.01 then
