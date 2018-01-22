@@ -316,6 +316,7 @@ function Level:draw()
   shadow_effect(function()
     if self.layers[Layer.ENTITY] then self.layers[Layer.ENTITY]:draw() end
   end)
+  player:draw()
 
   -- Draw entities to entity canvas (for reflection)
   love.graphics.setCanvas(self.entity_canvas)

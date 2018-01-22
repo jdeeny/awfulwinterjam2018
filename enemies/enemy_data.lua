@@ -369,10 +369,10 @@ enemy_data["homingrocketguy"] =
 }
 
 
-enemy_data["remotedude_red"] =
+enemy_data["edison"] =
 {
   kind = "edison", name = "Edison",
-  sprite = "edison", death_sound = "grunts",
+  sprite = "edison", death_sound = "unh",
   max_hp = 800,
   speed = 160,
   radius = 60,
