@@ -117,9 +117,8 @@ spawner.wave_data.second = function()
 end
 
 
+spawner.wave_data.stage1boss = function()
 
-
-spawner.wave_data.ez_lvl = function()
 	spawner.add(2,
 		function()
 			spawner.spawn_from_north_door('superlump')
