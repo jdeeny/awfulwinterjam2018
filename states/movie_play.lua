@@ -16,7 +16,10 @@ local movie_play = {
 -- type, start, update, stop, draw, run_time
 movie_play.movie_data = {
   sequence_steps = {
-    IntertitleStep("We find Nikola Tesla\nnewly arrived in America,\nworking at the \nEdison Machine works.", 2),
+    IntertitleStep("We find Nikola Tesla\n\nnewly arrived in America,",2.5),
+    IntertitleStep("working at the \n\nEdison Machine works.", 2.5),
+    
+    -- Telsa walks up tp charles batchelor who is alread standing in the room
     SequenceStep:new({
       type = "animation",
       start = function(self)
@@ -24,8 +27,10 @@ movie_play.movie_data = {
       end,
       run_time = 1,
     }),
-    IntertitleStep("Mr. Batchelor,\nI've invented the \n24 standard machines.", 2),
-    IntertitleStep("I'm here for my reward!", 2),
+    IntertitleStep("Mr. Batchelor,\n\nI've invented the\n\n24 standard machines.", 3),
+    IntertitleStep("I'm here for my reward.", 2),
+    
+    -- charles moves toward tesla
     SequenceStep:new({
       type = "animation",
       start = function(self)
@@ -33,9 +38,10 @@ movie_play.movie_data = {
       end,
       run_time = 2,
     }),
-    IntertitleStep("Ha ha ha ha ha ...", 2),
-    IntertitleStep("There was no reward you fool!", 2),
-    IntertitleStep("Thomas Alva Edison \nwill never pay!", 2),
+
+    IntertitleStep("Charles Batchelor:\n\nHa ha ha ha ha.\n\nThere was no reward.", 2),
+    IntertitleStep("You FOOL.", 2),
+    IntertitleStep("Thomas Alva Edison\n\nwill never pay.", 2),
     SequenceStep:new({
       type = "animation",
       start = function(self)
@@ -43,12 +49,12 @@ movie_play.movie_data = {
       end,
       run_time = 2,
     }),
-    IntertitleStep("Oh ... He WILL pay ..", 2),
+    IntertitleStep("Oh ... He WILL pay.", 2),
     SequenceStep:new({
       type = "animation",
       run_time = 0.5,
     }),
-    IntertitleStep("He Will PAY!", 2),
+    IntertitleStep("And so will YOU", 2),
   },
   music = {track="figleaf", volume=0.3, offset=27},
 }
@@ -123,14 +129,39 @@ movie_play.movie_data2 = {
 
 movie_play.movie_data3 = {
   sequence_steps = {
+    -- open to scene with 2 random guys facing edison
     SequenceStep:new({
       type = "animation",
       start = function(self)
-        player:start_force_move(0.5, player.speed, 0)
+        ---player:start_force_move(0.5, player.speed, 0)
       end,
       run_time = 1,
     }),
-    IntertitleStep("...", 2),
+    IntertitleStep("Congratulations\n\nMr. Tesla", 2),
+    IntertitleStep("We'd like to award\n\nyou and Mr. Edison\n\n the Nobel Prize.", 2),
+
+    -- 2 guys leave
+    SequenceStep:new({
+      type = "animation",
+      start = function(self)
+        --player:start_force_move(0.5, player.speed, 0)
+      end,
+      run_time = 1,
+    }),
+
+    -- Edison walks in
+    SequenceStep:new({
+      type = "animation",
+      start = function(self)
+        --player:start_force_move(0.5, player.speed, 0)
+      end,
+      run_time = 3,
+    }),
+
+    IntertitleStep("Edison: You'll have\n\n to kill me", 2),
+    IntertitleStep("before i ever share\n\n a nobel prize with you", 2),
+
+    -- tesla walks forward, zoom in if you can
     SequenceStep:new({
       type = "animation",
       start = function(self)
@@ -138,20 +169,13 @@ movie_play.movie_data3 = {
       end,
       run_time = 2,
     }),
-    IntertitleStep("---", 2),
+    IntertitleStep("So be it.", 2),
+
+    -- edison runs away
     SequenceStep:new({
       type = "animation",
-      start = function(self)
-        player:start_force_move(0.5, player.speed, 0)
-      end,
-      run_time = 2,
+      run_time = 1,
     }),
-    IntertitleStep("&&&", 2),
-    SequenceStep:new({
-      type = "animation",
-      run_time = 0.5,
-    }),
-    IntertitleStep("$$$", 2),
   },
   music = {track="figleaf", volume=0.3, offset=27},
 }
@@ -165,7 +189,6 @@ movie_play.credits = {
     IntertitleStep("Amy Zurko\n\namyzurko@gmail.com", 3),
     IntertitleStep("Andrew Chaniotis\n\nandreas.xaniotis@gmail.com", 3),
     IntertitleStep("Jason Nyland\n\njasonnyland@fastmail.com", 3),
-	  IntertitleStep("Michael Winterstein\n\nkangra@quirksand.net",3),
     IntertitleStep("Mason Pluimer\n\ntherealpickle@gmail.com", 3),
     IntertitleStep("Michael Winterstein\n\nkangra@quirksand.net", 3),
     --IntertitleStep("", 3),
