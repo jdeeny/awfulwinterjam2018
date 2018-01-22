@@ -12,8 +12,9 @@ stages[1] = {
 	dungeon_h = 2,
 
 	-- This is optional; any blank entry will select from all available options
-	room_files = {['start'] = {7}, ['boss'] = {10}, ['generic'] = {1,2,4,5,6,7,8,11,13,16,18}},  -- See file_io for room index
-	spawns = {['start'] = {'first'}, ['boss'] = {'stage1boss'}, ['generic'] = {'second'}},  -- See spawner for spawn names
+	room_files = {['start'] = {7}, ['boss'] = {2}, ['generic'] = {1,2,4,5,6,7,8,11,13,16,18}},  -- See file_io for room index
+	spawns = {['start'] = {'first'}, ['boss'] = {'stage1boss'},
+		['generic'] = {'easy_1', 'easy_2', 'easy_3', 'easy_4', 'easy_5', 'easy_6'}},  -- See spawner for spawn names
 	floor_tiles = {"woodFloorTile", "concreteFloor"},
 	boss_floor = "woodenFloor2",
 }
