@@ -41,4 +41,10 @@ function love.joystickadded(j)
   player_input.joystick = j
 end
 
+function love.joystickpressed(j, _)
+  if player_input.joystick ~= j then
+    player_input.joystick = j
+  end
+end
+
 return controls

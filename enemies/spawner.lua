@@ -34,30 +34,40 @@ end
 
 function spawner.spawn_from_north_door(kind, parameter)
 	current_level:open_door("north", true, 1)
+	local kind = kind
+	if not enemy_data[kind] then kind = 'rifledude' end
 	id = enemy_data.spawn(kind, current_level:pixel_width() / 2, TILESIZE * 2.5 - enemy_data[kind].speed * 2, parameter)
 	enemies[id]:start_force_move(1, 0, enemies[id].speed)
 end
 
 function spawner.spawn_from_east_door(kind, parameter)
 	current_level:open_door("east", true, 1)
+	local kind = kind
+	if not enemy_data[kind] then kind = 'rifledude' end
 	id = enemy_data.spawn(kind, current_level:pixel_width() - TILESIZE * 2.5 + enemy_data[kind].speed * 2, current_level:pixel_height() / 2, parameter)
 	enemies[id]:start_force_move(1, -enemies[id].speed, 0)
 end
 
 function spawner.spawn_from_south_door(kind, parameter)
 	current_level:open_door("south", true, 1)
+	local kind = kind
+	if not enemy_data[kind] then kind = 'rifledude' end
 	id = enemy_data.spawn(kind, current_level:pixel_width() / 2, current_level:pixel_height() - TILESIZE * 2.5 + enemy_data[kind].speed * 2, parameter)
 	enemies[id]:start_force_move(1, 0, -enemies[id].speed)
 end
 
 function spawner.spawn_from_west_door(kind, parameter)
 	current_level:open_door("west", true, 1)
+	local kind = kind
+	if not enemy_data[kind] then kind = 'rifledude' end
 	id = enemy_data.spawn(kind, TILESIZE * 2.5 - enemy_data[kind].speed * 2, current_level:pixel_height() / 2, parameter)
 	enemies[id]:start_force_move(1, enemies[id].speed, 0)
 end
 
 function spawner.spawn_from_teleporter(kind, number, parameter)
 	if #spawner.teleporters > 0 then
+		local kind = kind
+		if not enemy_data[kind] then kind = 'rifledude' end
 		n = love.math.random(#spawner.teleporters)
 		id = enemy_data.spawn(kind, (spawner.teleporters[n].x + 0.5) * TILESIZE, (spawner.teleporters[n].y + 0.5) * TILESIZE, parameter)
 		enemies[id]:start_force_move(1, 0, 0)
@@ -70,6 +80,7 @@ spawner.wave_data.first = function()
 	spawner.add(2,
 		function()
 			local angle = math.pi * 0.25
+			delay.start(4, function() spawner.spawn_from_north_door('rifledude', angle) end)
 			for i = 1, 5 do
 				delay.start(0.6 * i, function() spawner.spawn_from_north_door('remotedude_red', angle) end)
 			end
@@ -112,6 +123,7 @@ spawner.wave_data.easy_1 = function()
 		function()
 			spawner.spawn_from_west_door('rifledude')
 			spawner.spawn_from_north_door('rifledude')
+			spawner.spawn_from_east_door('bursterdude')
 			spawner.spawn_from_east_door('rifledude')
 			delay.start(0.5, function() spawner.spawn_from_west_door('rifledude')
 			spawner.spawn_from_north_door('rifledude')
@@ -157,7 +169,9 @@ spawner.wave_data.easy_3 = function()
 			end
 
 			spawner.spawn_from_north_door('lumpgoon')
+			spawner.spawn_from_north_door('bursterdude')
 			spawner.spawn_from_south_door('lumpgoon')
+			spawner.spawn_from_south_door('bursterdude')
 		end)
 	spawner.add(5,
 		function()
@@ -183,9 +197,14 @@ spawner.wave_data.easy_4 = function()
 			spawner.spawn_from_west_door('rifledude')
 			spawner.spawn_from_west_door('rifledude')
 			spawner.spawn_from_west_door('rifledude')
+			spawner.spawn_from_north_door('bursterdude')
+			spawner.spawn_from_north_door('bursterdude')
+
 			spawner.spawn_from_south_door('rifledude')
 			spawner.spawn_from_south_door('rifledude')
 			spawner.spawn_from_south_door('rifledude')
+			spawner.spawn_from_east_door('bursterdude')
+
 		end)
 	spawner.add(5,
 		function()
@@ -229,6 +248,7 @@ spawner.wave_data.easy_6 = function()
 			spawner.spawn_from_west_door('rocketguy')
 			spawner.spawn_from_east_door('rocketguy')
 			spawner.spawn_from_north_door('rifledude')
+			spawner.spawn_from_north_door('bursterdude')
 			spawner.spawn_from_south_door('rifledude')
 		end)
 end

@@ -92,10 +92,10 @@ function Sniper:update(dt)
               a = a + math.pi * 2
             end
 
-            self.scope_angle = self.scope_angle + a * (math.min(1, dt * 0.5))
+            self.scope_angle = self.scope_angle + a * (math.min(1, dt * 0.95))
 
             -- gain confidence if we're close to the target
-            if game_time > self.scope_start_time + 0.5 and math.abs(a) < 0.2 then
+            if game_time > self.scope_start_time + 0.2 and math.abs(a) < 0.25 then
               self.shot_confidence = self.shot_confidence + dt * (1 - 5 * math.abs(a))
             else
               self.shot_confidence = math.max(0, self.shot_confidence - dt)

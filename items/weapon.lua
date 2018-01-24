@@ -1,4 +1,4 @@
-
+ 
 require "math"
 item = require "items/item"
 cpml = require 'lib/cpml'
@@ -282,13 +282,13 @@ function LightningGun:_fire(targets)
     local pos_vec = cpml.vec2.new(self.owner.x, self.owner.y)
 
     local range = 50
-    local vtarg = pos_vec+aim_vec*range
+    local vtarg = pos_vec+aim_vec*self.range
 
     local newbolt = lovelightning:new(255,255,255)
 
-    newbolt.power = .5
-    newbolt.jitter_factor = 0.75
-    newbolt.fork_chance = .9
+    -- newbolt.power = .5
+    -- newbolt.jitter_factor = 0.75
+    -- newbolt.fork_chance = .9
     newbolt.max_fork_angle = math.pi
     -- newbolt:setForkTargets(electricity:nodesincircle(
     --       self.owner.x, self.owner.y, range))
