@@ -1,16 +1,17 @@
-local super = require 'enemies/ai/seeker'
-local Rifleman = class("Rifleman", super)  -- subclass seeker
+local super = require 'enemies/ai/rifleman'
+local Burster = class("Burster", super)  -- subclass seeker
 
-function Rifleman:initialize(entity)
+function Burster:initialize(entity)
   super.initialize(self, entity)
 
-  self.wake_time = game_time
-  self.state = "moving"
   self.reload_time = 1.0
   self.nextshot_time = 0
+  self.burst_count = 0
+  self.burst_size = 3
+  self.burst_time = 0.05
 end
 
-function Rifleman:update(dt)
+function Burster:update(dt)
   if not self.stun and not self.force_move then
     if game_time > self.wake_time then
       -- consider what to do
@@ -20,17 +21,22 @@ function Rifleman:update(dt)
           and (self.entity.x - player.x) * (self.entity.x - player.x) + (self.entity.y - player.y) * (self.entity.y - player.y) < 102400 + 80000 * love.math.random()
           and self.entity:canSee(player) then
           self.state = "firing"
-          self.nextshot_time = game_time + 0.05 + math.random() * 0.25
+          if self.burst_count <= self.burst_size then
+            self.nextshot_time = game_time + self.burst_time + math.random() * self.burst_time * 0.05
+          else
+            self.burst_count = 0
+            self.nextshot_time = game_time + math.random() * 0.25
+          end
         end
       else
         -- maybe we should switch to moving?
-        if love.math.random() < 0.125
+        if love.math.random() < 0.05
           or (self.entity.x - player.x) * (self.entity.x - player.x) + (self.entity.y - player.y) * (self.entity.y - player.y) > 102400 + 80000 * love.math.random()
           or not self.entity:canSee(player) then
           self.state = "moving"
         end
       end
-      self.wake_time = game_time + 0.125 + love.math.random() * 0.5
+      self.wake_time = game_time + 0.5 + love.math.random()
     end
 
     if self.state == "moving" then
@@ -67,4 +73,4 @@ function Rifleman:update(dt)
   end
 end
 
-return Rifleman
+return Burster

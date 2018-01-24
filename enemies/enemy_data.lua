@@ -169,16 +169,56 @@ enemy_data["rifledude"] =
   },
 
 
-  max_hp = 40,
+  max_hp = 60,
   speed = 80,
   radius = 30,
   value = 2,
-  touch_damage = 0,
+  touch_damage = 7,
   shot_speed = 400,
+  next_splash = game_time,
+  splash_delay = 0.12,
+  bleeds = 2,
+  weapon_type = weapon.ProjectileGun,
+  projectile_type = 'enemybullet',
+  personality = 'Rifleman',
+  drop_items = {{chance=0.025,item="max_ammo_increase"},
+                {chance=0.025,item="max_health_increase"},
+                {chance=0.025,item="damage_mult"},
+                {chance=0.025,item="charge_rate_mult"},
+                {chance=0.125,item="health_pack"},},
+}
+
+
+enemy_data["bursterdude"] =
+{
+  kind = "bursterdude", name = "Burster Dude",
+  sprite = "pinkerton", death_sound = "grunt",
+  animations = {
+    bursterdude_run_ne = animation.pinkerton_run_ne:clone(),
+    bursterdude_run_se = animation.pinkerton_run_se:clone(),
+    bursterdude_run_nw = animation.pinkerton_run_nw:clone(),
+    bursterdude_run_sw = animation.pinkerton_run_sw:clone(),
+    bursterdude_idle_ne = animation.pinkerton_idle_ne:clone(),
+    bursterdude_idle_se = animation.pinkerton_idle_se:clone(),
+    bursterdude_idle_nw = animation.pinkerton_idle_nw:clone(),
+    bursterdude_idle_sw = animation.pinkerton_idle_sw:clone(),
+    bursterdude_hurt_ne = animation.pinkerton_hurt_ne:clone(),
+    bursterdude_hurt_se = animation.pinkerton_hurt_se:clone(),
+    bursterdude_hurt_nw = animation.pinkerton_hurt_nw:clone(),
+    bursterdude_hurt_sw = animation.pinkerton_hurt_sw:clone(),
+  },
+
+
+  max_hp = 80,
+  speed = 90,
+  radius = 30,
+  value = 3,
+  touch_damage = 10,
+  shot_speed = 450,
   burst_size = 3,
   next_splash = game_time,
   splash_delay = 0.12,
-  bleeds = 1,
+  bleeds = 2,
   weapon_type = weapon.ProjectileGun,
   projectile_type = 'enemybullet',
   personality = 'Rifleman',
@@ -188,6 +228,8 @@ enemy_data["rifledude"] =
                 {chance=0.05,item="charge_rate_mult"},
                 {chance=0.25,item="health_pack"},},
 }
+
+
 
 enemy_data["sniperdude"] =
 {
