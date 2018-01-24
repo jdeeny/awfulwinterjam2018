@@ -6,7 +6,7 @@ function Rifleman:initialize(entity)
 
   self.wake_time = game_time
   self.state = "moving"
-  self.reload_time = 1.0
+  self.reload_time = 1.5
   self.nextshot_time = 0
 end
 
@@ -17,10 +17,10 @@ function Rifleman:update(dt)
       if self.state == "moving" then
         -- maybe we should switch to firing?
         if love.math.random() < (self.reliability or 0.75)
-          and (self.entity.x - player.x) * (self.entity.x - player.x) + (self.entity.y - player.y) * (self.entity.y - player.y) < 102400 + 80000 * love.math.random()
+          and (self.entity.x - player.x) * (self.entity.x - player.x) + (self.entity.y - player.y) * (self.entity.y - player.y) < 102400 + 110000 * love.math.random()
           and self.entity:canSee(player) then
           self.state = "firing"
-          self.nextshot_time = game_time + 0.05 + math.random() * 0.25
+          self.nextshot_time = game_time + 0.15 + math.random() * 0.25
         end
       else
         -- maybe we should switch to moving?
