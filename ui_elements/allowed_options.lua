@@ -140,7 +140,7 @@ local masterVolume = MasterVolumeOI:new()
 local gameSpeed = ListOptionItem:new("Game Speed",{"Super-Slow (debug)","Slow","Normal","Fast"},
                                      'gameplay_speed', nil, {0.3,0.75,1.0,1.25})
 
-local stageSelect = ListOptionItem:new("Stage Select",{"Tesla's Arrival","Edison's Folly","Test"},'gamestage','current_stage',{1,2,3})
+local stageSelect = ListOptionItem:new("Stage Select",{"Tesla's Arrival","Marconi's Mayhem", "Edison's Folly"},'gamestage','current_stage',{1,2,3})
 
 local drawCrosshairs = BinaryOptionItem:new("Draw Crosshairs for Joystick",'crosshairs','draw_cursor')
 
