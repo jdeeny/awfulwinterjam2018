@@ -567,22 +567,44 @@ end
 
 
 spawner.wave_data.stage3boss = function()
-
 	spawner.add(3,
 		function()
+			for i = 1, 8 do
+				delay.start(0.5 * i, function() spawner.spawn_from_east_door('sniperdude') end)
+			end
+			for i = 1, 6 do
+				delay.start(1.0 * i, function() spawner.spawn_from_south_door('canbot') end)
+			end
+		end
+	)
+	spawner.add(5,
+		function()
+			for i = 1, 8 do
+				delay.start(0.5 * i, function() spawner.spawn_from_west_door('bursterdude') end)
+			end
+			for i = 1, 8 do
+				delay.start(0.5 * i, function() spawner.spawn_from_east_door('bursterdude') end)
+			end
+		end
+	)
+	spawner.add(6,
+		function()
+			for i = 1, 16 do
+				delay.start(3.0 * i, function() spawner.spawn_from_south_door('sniperdude') end)
+			end
+		end
+	)	
+	spawner.add(10,
+		function()
 			spawner.spawn_from_north_door('edison')
-			--for i = 1, 16 do
-			--	delay.start(0.5 * i, function() spawner.spawn_from_east_door('canbot') end)
-			--end
-			--for i = 1,16 do
-			--	delay.start(0.5 * i, function() spawner.spawn_from_west_door('canbot') end)
-			--end
 			delay.start(2,
 				function()
 					spawner.complete = true
 					spawner.test_completion()
-				end)
-		end)
+				end
+			)
+		end
+	)
 end
 
 

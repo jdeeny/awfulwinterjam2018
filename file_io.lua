@@ -61,10 +61,10 @@ file_io.room_files = {
 	{"assets/rooms/room_z.txt", 18, 12},
 	{"assets/rooms/room_deserted_laboratory.txt", 72, 12},
 	{"assets/rooms/room_rivers.txt", 72, 12},
-	{"assets/rooms/room_hallways.txt",54,14},             --20
+	{"assets/rooms/room_hallways.txt",36,14},             --20
 	{"assets/rooms/room_watertest.txt", 16, 12},
 	{"assets/rooms/room_tiny.txt", 11, 8},
-	{"assets/rooms/room_nobelstage.txt", 54, 26},
+	{"assets/rooms/room_nobelstage.txt", 54, 30},
 }
 
 return file_io
