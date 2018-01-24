@@ -290,11 +290,11 @@ enemy_data["canbot"] =
 {
   kind = "canbot", name = "Canbot 0.8",
   sprite = "canbot",  death_sound = "crash",
-  max_hp = 60,
+  max_hp = 80,
   speed = 100,
-  radius = 30,
+  radius = 40,
   value = 1,
-  bleeds = 1,
+  bleeds = false,
   touch_damage = 20,
 
   animations = {

@@ -19,10 +19,10 @@ function Charger:update(dt)
           and self.entity:canSee(player) then
             -- DESTROY
           self.state = "preparing"
-          self.charge_start_time = game_time + 0.25
+          self.charge_start_time = game_time + 0.125 + math.random() * 0.125
         end
       end
-      self.wake_time = game_time + 0.5 + love.math.random()
+      self.wake_time = game_time + 0.25 + love.math.random() * 0.5
     end
 
     if self.state == "moving" then
@@ -59,7 +59,7 @@ function Charger:react_to_collision(normal_x, normal_y)
     end
     self.entity:be_stunned(1)
     self.entity:be_knocked_back(1, 100 * math.cos(self.entity.aim + math.pi), 100 * math.sin(self.entity.aim + math.pi))
-    self.next_charge_time = game_time + 3 + 3*love.math.random()
+    self.next_charge_time = game_time + 1 + 3*love.math.random()
   end
 end
 
