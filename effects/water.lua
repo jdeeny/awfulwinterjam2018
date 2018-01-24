@@ -36,7 +36,7 @@ Water.moonwater = function()
 
       vec4 m = Texel(texture, tc);
       m.a = m.r;
-      vec4 base = Texel(waterbase, tc);
+      vec4 base = Texel(waterbase, mapct);
 
       vec4 lightt = Texel(watershape, wct * 0.9);
       vec4 lightm = Texel(watershape, wcm * 0.8);
@@ -52,7 +52,10 @@ Water.moonwater = function()
         mix(mix(base, base * 0.9, darkl), base * 1.1, lightl),
         0.5);
 
-      return shape * m * color;
+      vec4 result = shape * m * color * 0.75;
+      result.a = result.a * 0.45;
+      result.b = result.b * 1.2;
+      return result;
     }
   ]]
 
