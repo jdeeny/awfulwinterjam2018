@@ -169,7 +169,7 @@ enemy_data["rifledude"] =
   },
 
 
-  max_hp = 60,
+  max_hp = 40,
   speed = 80,
   radius = 30,
   value = 2,
