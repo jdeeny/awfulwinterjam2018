@@ -41,6 +41,7 @@ function player.init()
   player.equipped_items = {}
   player:equip('weapon', player.weapons[player.weapon])
 
+  player.electro_time = game_time
   player.next_splash = game_time
   player.splash_delay = 0.12
 
