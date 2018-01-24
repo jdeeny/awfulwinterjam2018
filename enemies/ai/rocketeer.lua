@@ -6,7 +6,7 @@ function Rocketeer:initialize(entity)
 
   self.wake_time = game_time
   self.state = "moving"
-  self.reload_time = 4.0
+  self.reload_time = 3.0
   self.nextshot_time = 0
 end
 
@@ -20,7 +20,7 @@ function Rocketeer:update(dt)
           and (self.entity.x - player.x) * (self.entity.x - player.x) + (self.entity.y - player.y) * (self.entity.y - player.y) < 300000 + 150000 * love.math.random()
           and self.entity:canSee(player) then
           self.state = "firing"
-          self.nextshot_time = game_time + 1 + love.math.random()
+          self.nextshot_time = game_time + 0.125 + love.math.random()
         end
       else
         -- maybe we should switch to moving?
