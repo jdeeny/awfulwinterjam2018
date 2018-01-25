@@ -192,7 +192,7 @@ enemy_data["rifledude"] =
 enemy_data["bursterdude"] =
 {
   kind = "bursterdude", name = "Burster Dude",
-  sprite = "pinkerton", death_sound = "grunt",
+  sprite = "bursterdude", death_sound = "grunt",
   animations = {
     bursterdude_run_ne = animation.pinkerton_run_ne:clone(),
     bursterdude_run_se = animation.pinkerton_run_se:clone(),
@@ -366,7 +366,23 @@ enemy_data["canbot"] =
 enemy_data["rocketguy"] =
 {
   kind = "rocketguy", name = "Rocket Guy",
-  sprite = "dude", death_sound = "grunt",
+  sprite = "rocketguy", death_sound = "grunt",
+
+  animations = {
+    rocketguy_run_ne = animation.pinkerton_run_ne:clone(),
+    rocketguy_run_se = animation.pinkerton_run_se:clone(),
+    rocketguy_run_nw = animation.pinkerton_run_nw:clone(),
+    rocketguy_run_sw = animation.pinkerton_run_sw:clone(),
+    rocketguy_idle_ne = animation.pinkerton_idle_ne:clone(),
+    rocketguy_idle_se = animation.pinkerton_idle_se:clone(),
+    rocketguy_idle_nw = animation.pinkerton_idle_nw:clone(),
+    rocketguy_idle_sw = animation.pinkerton_idle_sw:clone(),
+    rocketguy_hurt_ne = animation.pinkerton_hurt_ne:clone(),
+    rocketguy_hurt_se = animation.pinkerton_hurt_se:clone(),
+    rocketguy_hurt_nw = animation.pinkerton_hurt_nw:clone(),
+    rocketguy_hurt_sw = animation.pinkerton_hurt_sw:clone(),
+  },
+
   max_hp = 80,
   speed = 80,
   radius = 30,
@@ -390,7 +406,23 @@ enemy_data["rocketguy"] =
 enemy_data["homingrocketguy"] =
 {
   kind = "homingrocketguy", name = "Homing Rocket Guy",
-  sprite = "dude", death_sound = "grunt",
+  sprite = "homingrocketguy", death_sound = "grunt",
+
+  animations = {
+    homingrocketguy_run_ne = animation.pinkerton_run_ne:clone(),
+    homingrocketguy_run_se = animation.pinkerton_run_se:clone(),
+    homingrocketguy_run_nw = animation.pinkerton_run_nw:clone(),
+    homingrocketguy_run_sw = animation.pinkerton_run_sw:clone(),
+    homingrocketguy_idle_ne = animation.pinkerton_idle_ne:clone(),
+    homingrocketguy_idle_se = animation.pinkerton_idle_se:clone(),
+    homingrocketguy_idle_nw = animation.pinkerton_idle_nw:clone(),
+    homingrocketguy_idle_sw = animation.pinkerton_idle_sw:clone(),
+    homingrocketguy_hurt_ne = animation.pinkerton_hurt_ne:clone(),
+    homingrocketguy_hurt_se = animation.pinkerton_hurt_se:clone(),
+    homingrocketguy_hurt_nw = animation.pinkerton_hurt_nw:clone(),
+    homingrocketguy_hurt_sw = animation.pinkerton_hurt_sw:clone(),
+  },
+
   max_hp = 105,
   speed = 110,
   radius = 30,

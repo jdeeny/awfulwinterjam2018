@@ -80,7 +80,7 @@ spawner.wave_data.first = function()
 	spawner.add(2,
 		function()
 			local angle = math.pi * 0.25
-			delay.start(4, function() spawner.spawn_from_north_door('rifledude', angle) end)
+			delay.start(4, function() spawner.spawn_from_north_door('sniperdude', angle) end)
 			for i = 1, 5 do
 				delay.start(0.6 * i, function() spawner.spawn_from_north_door('remotedude_red', angle) end)
 			end
@@ -593,7 +593,7 @@ spawner.wave_data.stage3boss = function()
 				delay.start(3.0 * i, function() spawner.spawn_from_south_door('sniperdude') end)
 			end
 		end
-	)	
+	)
 	spawner.add(10,
 		function()
 			spawner.spawn_from_north_door('edison')
