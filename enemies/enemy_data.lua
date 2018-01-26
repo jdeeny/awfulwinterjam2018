@@ -221,7 +221,7 @@ enemy_data["bursterdude"] =
   bleeds = 2,
   weapon_type = weapon.ProjectileGun,
   projectile_type = 'enemybullet',
-  personality = 'Rifleman',
+  personality = 'Burster',
   drop_items = {{chance=0.05,item="max_ammo_increase"},
                 {chance=0.05,item="max_health_increase"},
                 {chance=0.05,item="damage_mult"},
