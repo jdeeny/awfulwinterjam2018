@@ -9,7 +9,11 @@ function Burster:initialize(entity)
   self.reload_time = 2.0
   self.nextshot_time = 0
   self.burst_count = 0
-  self.burst_size = 5
+  if entity.burst_size then
+    self.burst_size = entity.burst_size + math.random(entity.burst_size)
+  else
+    self.burst_size = 2 + math.random(4)
+  end
   self.burst_time = 0.1
 end
 
