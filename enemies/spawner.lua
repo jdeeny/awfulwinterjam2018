@@ -80,12 +80,12 @@ spawner.wave_data.first = function()
 	spawner.add(2,
 		function()
 			local angle = math.pi * 0.25
-			delay.start(4, function() spawner.spawn_from_north_door('bursterdude', angle) end)
-			for i = 1, 5 do
+			delay.start(4, function() spawner.spawn_from_north_door('rifledude', angle) end)
+			for i = 1, 4 do
 				delay.start(0.6 * i, function() spawner.spawn_from_north_door('remotedude_red', angle) end)
 			end
 			local angle2 = math.pi * 1.4
-			for i = 1, 5 do
+			for i = 1, 4 do
 				delay.start(0.1 + 0.6 * i, function() spawner.spawn_from_south_door('remotedude_red', angle2) end)
 			end
 		end)
