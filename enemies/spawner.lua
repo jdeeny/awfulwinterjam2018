@@ -250,6 +250,11 @@ spawner.wave_data.easy_6 = function()
 			spawner.spawn_from_north_door('rifledude')
 			spawner.spawn_from_north_door('bursterdude')
 			spawner.spawn_from_south_door('rifledude')
+			delay.start(2,
+					function()
+						spawner.complete = true
+						spawner.test_completion()
+					end)
 		end)
 end
 
