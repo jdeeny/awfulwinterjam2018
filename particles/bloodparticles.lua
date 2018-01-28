@@ -2,7 +2,7 @@ local BloodParticles = class("BloodParticles", Particles)
 
 local PI = 3.14159
 
-BloodParticles.static.puffimg = love.graphics.newImage("assets/particles/smokepuff.png")
+BloodParticles.static.puffimg = love.graphics.newImage("assets/particles/blood.png")
 
 function BloodParticles:initialize(x, y, w, h, angle, force, scale, qty)
   self.qty = cpml.utils.clamp(qty or 8, 1, 16)
@@ -16,7 +16,7 @@ function BloodParticles:initialize(x, y, w, h, angle, force, scale, qty)
 end
 
 function BloodParticles:_createParticles(angle, force, scale)
-  local emitter = love.graphics.newParticleSystem(BloodParticles.puffimg, self.qty)
+  local emitter = love.graphics.newParticleSystem(BloodParticles.puffimg, self.qty * (math.random() + 1.0))
   emitter:setEmissionRate(1000)
   emitter:setEmitterLifetime(0.1)
   emitter:setDirection(angle)
@@ -28,10 +28,10 @@ function BloodParticles:_createParticles(angle, force, scale)
   local light = mid + math.random() * 30
   emitter:setColors( light,light*0.1,light*0.1, 240+ math.random()*10, mid,mid*0.1,mid*0.1,240+ math.random()*10, dark,dark*0.1,dark*0.1,240 + math.random()*10  )
   emitter:setSpread(PI/force + math.random() * PI/force *0.75 + PI/4)
-  emitter:setSizes(.05 * cpml.utils.clamp(scale,1,10), .35 *cpml.utils.clamp(scale,1,10))
+  emitter:setSizes(.05 * cpml.utils.clamp(scale,1,10), math.random() * math.random() * 0.45 + .3 *cpml.utils.clamp(scale,1,10))
   emitter:setSizeVariation(0.5)
   emitter:setSpinVariation(1)
-  emitter:setRotation(0)
+  emitter:setRotation(0, PI * 2)
   emitter:setAreaSpread('normal', self.w, self.h)
   emitter:setParticleLifetime(50000)
   self.psystem = emitter
