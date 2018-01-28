@@ -23,8 +23,8 @@ function enemy_data.spawn(kind, x, y, parameter)
     e.animation = e.animation:clone()
   end
   if e.animations then
-    for _, a in ipairs(e.animations) do
-      a = a:clone()
+    for i, a in ipairs(e.animations) do
+      e.animations[i] = e.animations[i]:clone()
     end
   end
 
@@ -328,7 +328,7 @@ enemy_data["remotedude_red"] =
   splash_force = 15,
   cornering = 0.1,
   rotspeed = 1,
-  personality = 'Bouncer',
+  personality = 'RemotedudeBouncer',
 }
 
 enemy_data["remotedude_blue"] =
