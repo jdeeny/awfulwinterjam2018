@@ -5,7 +5,8 @@ function EdisonRocketeer:initialize(entity)
   super.initialize(self, entity)
 
   self.reload_time = 2.0
-  self.next_spawn = game_time+3
+  self.next_spawn = game_time+6
+  self.next_fireball = game_time + 3
   self.nextshot_time = 0
   --self.state = 'takeoff'
   self.fly_time = game_time + 5
@@ -36,6 +37,21 @@ function EdisonRocketeer:update(dt)
         enemies[id]:be_knocked_back(t, 300 * math.cos(angle + 1.0471975512 * i), 300 * math.sin(angle + 1.0471975512 * i))
       end
     end
+  end
+
+  if self.next_fireball and self.next_fireball < game_time then
+    self.next_fireball = game_time + math.random() * 2 + 2.0
+    local destx, desty = current_level:pos_to_grid(player.x), current_level:pos_to_grid(player.y)
+    local dv = cpml.vec2.new(player.x, player.y)
+    local sv = cpml.vec2.new(self.entity.x, self.entity.y)
+    local radius, theta = (dv - sv):to_polar()
+    print("xy: "..destx.. " "..desty.." "..radius.." "..theta)
+
+    -- shoot fire as projectile
+    shot_data.spawn('rocket', self.entity.x + 48 * math.cos(theta), self.entity.y + 48 * math.sin(theta),
+        math.cos(theta)*(200),
+        math.sin(theta)*(200), self)
+
   end
 
 end
