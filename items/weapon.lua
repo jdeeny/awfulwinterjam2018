@@ -286,8 +286,6 @@ function LightningGun:_fire(targets)
 
     local newbolt = lovelightning:new(255,255,255)
 
-    newbolt.max_fork_angle = math.pi
-    
     newbolt:setSource({x=camera.view_x(self.owner), y=camera.view_y(self.owner)})
     newbolt:setPrimaryTarget({x=camera.view_x(vtarg), y=camera.view_y(vtarg)})
     newbolt:generate(function (ftarg, level)
@@ -300,7 +298,7 @@ function LightningGun:_fire(targets)
 
       local newbolt = lovelightning:new(255,255,255)
 
-      -- newbolt.power = .5
+      newbolt.power = 0.5
       -- newbolt.displacement_factor = 0.75
       -- newbolt.fork_chance = .9
       -- newbolt.max_fork_angle = math.pi

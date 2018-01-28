@@ -341,7 +341,7 @@ local function draw_path(start_vertex, color, alpha, width)
     local vrtx = start_vertex
     while vrtx.next do
         if vrtx.fork then
-            draw_path(vrtx.fork, color, alpha*0.75, width*.75)
+            draw_path(vrtx.fork, color, alpha*0.5, width*.5)
         end    
         vrtx = vrtx.next
     end
