@@ -11,7 +11,7 @@ function RemoteSmokeParticles:initialize(x, y, w, h, lifetime, scale, dir)
   self.id = self.kind .. math.random()
   self.dir = dir or -PI/2
   self.particles = self:_createParticles(self.lifetime, self.scale, self.dir)
-  current_level:_addToLayer(Layer.ENTITYNOSHADOW, self.id, self)
+  current_level:_addToLayer(Layer.SMOKE, self.id, self)
 end
 
 function RemoteSmokeParticles:_createParticles(lifetime, scale, dir)

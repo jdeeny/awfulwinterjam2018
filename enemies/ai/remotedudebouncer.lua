@@ -16,8 +16,11 @@ function RemotedudeBouncer:update(dt)
         smokex = smokex + 4
       end
       local angle  = math.atan2(self.entity.y, self.entity.x)
+      local life = 2
+      FireParticles:new(smokex, self.entity.y-25, 10, 10, life, .20 + math.random() * 0.1)
+      SmokeParticles:new(smokex, self.entity.y-65, 10, 20, life * 2.5, 0.34 + math.random() * 0.1)
 
-      RemoteSmokeParticles:new(smokex, self.entity.y-25, 2, 2, 0.014 + math.random() * 0.01, 0.4 + math.random() * 0.1, angle + PI)
+--      RemoteSmokeParticles:new(smokex, self.entity.y-25, 2, 2, 0.014 + math.random() * 0.01, 0.4 + math.random() * 0.1, angle + PI)
       self.nextsmoke = game_time + self.smoketime + math.random() * math.random() * 0.2
   end
 end

@@ -10,10 +10,11 @@ Layer.SHADOW = 7
 Layer.FXUNDER = 8
 Layer.ENTITY = 9
 Layer.ENTITYNOSHADOW = 10
-Layer.FXOVER = 11
-Layer.HUD = 12
-Layer.BROKEN = 13
-Layer.LASTLAYER = 13
+Layer.SMOKE = 11
+Layer.FXOVER = 12
+Layer.HUD = 13
+Layer.BROKEN = 14
+Layer.LASTLAYER = 14
 
 function Layer:initialize(id, effects)
   self.id = id
