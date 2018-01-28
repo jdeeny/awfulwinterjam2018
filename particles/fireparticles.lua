@@ -30,7 +30,7 @@ function FireParticles:_createParticles(lifetime, scale)
   emitter:setSpin(math.random()*2*PI)
   emitter:setRotation(0, PI * 2)
   emitter:setAreaSpread('normal', w, w/3)
-emitter:setParticleLifetime(1.75,2.25)
+emitter:setParticleLifetime(0.75,1.25)
 
 --[[  emitter:setEmissionRate(4096)
   emitter:setEmitterLifetime(lifetime)

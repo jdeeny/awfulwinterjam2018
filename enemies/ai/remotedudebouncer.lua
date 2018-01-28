@@ -3,7 +3,7 @@ local RemotedudeBouncer = class("RemotedudeBouncer", super)
 function RemotedudeBouncer:initialize(entity)
   super.initialize(self, entity)
   self.nextsmoke = game_time + math.random()
-  self.smoketime = 0.1 + math.random() * 0.2
+  self.smoketime = 10.1 + math.random() * 0.2
 end
 function RemotedudeBouncer:update(dt)
   super.update(self, dt)
@@ -16,7 +16,7 @@ function RemotedudeBouncer:update(dt)
         smokex = smokex + 4
       end
       local angle  = math.atan2(self.entity.y, self.entity.x)
-      local life = 2
+      local life = 20
       FireParticles:new(smokex, self.entity.y-25, 10, 10, life, .20 + math.random() * 0.1)
       SmokeParticles:new(smokex, self.entity.y-65, 10, 20, life * 2.5, 0.34 + math.random() * 0.1)
 
