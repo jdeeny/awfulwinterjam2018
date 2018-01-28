@@ -48,6 +48,7 @@ function Level:bounding_box(gx, gy)
 end
 
 function Level:pos_to_grid(p)
+  if not p then return 0 end
   return math.floor(p / TILESIZE)
 end
 

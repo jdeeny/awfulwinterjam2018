@@ -3,7 +3,7 @@ local Rocketeer = class("Rocketeer", super)  -- subclass seeker
 
 function Rocketeer:initialize(entity)
   super.initialize(self, entity)
-
+  
   self.wake_time = game_time
   self.state = "moving"
   self.reload_time = 3.0
