@@ -286,16 +286,11 @@ function LightningGun:_fire(targets)
 
     local newbolt = lovelightning:new(255,255,255)
 
-    -- newbolt.power = .5
-    -- newbolt.jitter_factor = 0.75
-    -- newbolt.fork_chance = .9
     newbolt.max_fork_angle = math.pi
-    -- newbolt:setForkTargets(electricity:nodesincircle(
-    --       self.owner.x, self.owner.y, range))
-
+    
     newbolt:setSource({x=camera.view_x(self.owner), y=camera.view_y(self.owner)})
     newbolt:setPrimaryTarget({x=camera.view_x(vtarg), y=camera.view_y(vtarg)})
-    newbolt:create(function (ftarg, level)
+    newbolt:generate(function (ftarg, level)
             table.insert(self.fork_targets,{target=ftarg,level=level})
           end)
 
@@ -305,15 +300,15 @@ function LightningGun:_fire(targets)
 
       local newbolt = lovelightning:new(255,255,255)
 
-      newbolt.power = .5
-      newbolt.jitter_factor = 0.75
-      newbolt.fork_chance = .9
-      newbolt.max_fork_angle = math.pi
+      -- newbolt.power = .5
+      -- newbolt.displacement_factor = 0.75
+      -- newbolt.fork_chance = .9
+      -- newbolt.max_fork_angle = math.pi
 
       local ptarg = { x = self.owner.x +math.random()*16 - 8, y = self.owner.y +math.random()*16 - 8 }
       newbolt:setSource({x=camera.view_x(self.owner), y=camera.view_y(self.owner)})
       newbolt:setPrimaryTarget({x=camera.view_x(ptarg), y=camera.view_y(ptarg)})
-      newbolt:create(function (ftarg, level)
+      newbolt:generate(function (ftarg, level)
               table.insert(self.fork_targets,{target=ftarg,level=level})
             end)
 
@@ -333,7 +328,7 @@ function LightningGun:_fire(targets)
         newbolt:setSource({x=camera.view_x(last_target), y=camera.view_y(last_target)})
         newbolt:setPrimaryTarget({x=camera.view_x(t), y=camera.view_y(t)})
 
-        newbolt:create(function (ftarg, level)
+        newbolt:generate(function (ftarg, level)
             table.insert(self.fork_targets,{target=ftarg,level=level})
           end)
         table.insert(self.bolts, newbolt)
