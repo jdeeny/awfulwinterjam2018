@@ -17,14 +17,14 @@ TileSet['opendoor']           = { function() return Tile:new('opendoor',        
 TileSet['fakedoor']           = { function() return Tile:new('fakedoor')           :setDoor(true):setSolid(true) end, }
 TileSet['floor']              = { function() return Tile:new('floor',           '-') end, }
 TileSet['teleporter']         = { function() return Tile:new('teleporter',      't') end, }
-TileSet['ballpost']           = { function() return Tile:new('ballpost',        'b'):setLayer(Layer.FURNITURE):setDestroyable('explodes', 'rubblefloor', 20 + math.random(15)) end,
+TileSet['ballpost']           = { function() return Tile:new('ballpost',        'b'):setLayer(Layer.FURNITURE):setConductive(1.0):setDestroyable('explodes', 'rubblefloor', 20 + math.random(15)) end,
                                   function() return Tile:new('floor') end, }
 
 TileSet['water_border']       = { function() return Tile:new('water_border',    'w') end,
                                   function() return Tile:new('water'):setLayer(Layer.WATER) end,
                                 }
 
-TileSet['capacitor']        = { function() return Tile:new('capacitor',          'c' ):setLayer(Layer.FURNITURE):setDestroyable('explodes', 'rubblefloor', 12):setSolid(true) end,
+TileSet['capacitor']        = { function() return Tile:new('capacitor',          'c' ):setLayer(Layer.FURNITURE):setConductive(1.0):setDestroyable('explodes', 'rubblefloor', 12):setSolid(true) end,
                                   function() return Tile:new('floor') end,
                                 }
 
