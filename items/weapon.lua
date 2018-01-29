@@ -21,8 +21,8 @@ function Weapon:initialize()
   self.firing_rate = 0.1 -- s / shot
   self.max_ammo = 100
   self.ammo = 100
-  self.ammo_cost = 10 -- per second cost of firing weapn
-  self.charge_rate = 15 -- ammo gained per second
+  self.ammo_cost = 15 -- per second cost of firing weapn (overwrite on individual guns)
+  self.charge_rate = 8 -- ammo gained per second
   self.is_firing = false
   self.min_ammo_to_fire = 10
 end
@@ -73,6 +73,7 @@ function ProjectileGun:initialize()
   self.icon = "gun_icon"
   self.projectile = "bullet"
   self.cof_multiplier = 0
+  self.ammo_cost = 13
 end
 
 function ProjectileGun:_fire(targets)
@@ -234,6 +235,7 @@ function LightningGun:initialize()
   self.chain_targets = 1
   -- self.sound = "tesla_coil_long"
   self.icon = "lightning_icon"
+  self.ammo_cost = 15
 end
 
 function LightningGun:_acquire_targets()
@@ -435,7 +437,7 @@ function RayGun:initialize()
   self.icon = "ray_icon"
   self.range = 4000
   self.firing_arc = math.pi/4
-  self.damage = 175
+  self.damage = 150
   self.beam_width = 10
   self.focus_time = 5.0
   self.min_focus = 0.1
@@ -443,6 +445,7 @@ function RayGun:initialize()
   self.sound = audiomanager.sources['buzz'].source
   self.sfx = nil
   self.spark_time = 0
+  self.ammo_cost = 15
 end
 
 function RayGun:_fire(targets)

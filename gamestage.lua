@@ -69,8 +69,8 @@ function gamestage.setup_next_stage(forced)
 
 	if ns_number > #(gamestage.stages)  then
 		-- you win!
-		movie_play.enter(movie_play.credits, function() mainmenu.enter() end)
-        ns_number = 1
+		gamestage.game_won = true
+        return 
 	end
 
 	gamestage.current_stage = ns_number
@@ -84,6 +84,13 @@ function gamestage.setup_next_stage(forced)
 end
 
 function gamestage.advance_to_play()
+	if gamestage.game_won then
+		movie_play.enter(movie_play.credits, function() mainmenu.enter() end)
+		gamestage.current_stage = allowed_options[option_index['start']]:getSetting()
+		gamestage.game_won = false
+		return
+	end
+	
     game_time = 0
 
     player.init()

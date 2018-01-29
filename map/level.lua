@@ -234,6 +234,7 @@ end
 function Level:coda()
   -- we're done in this room; open doors and let the player move on
   self.cleared = true
+  print("room cleared!") -- DBG
   if self.kind == "boss" then
 
     fade.start_fade("fadeout", 1, false)
