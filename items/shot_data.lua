@@ -3,6 +3,7 @@ shot_data = {}
 function shot_data.spawn(kind, x, y, dx, dy, owner)
   local new_id = idcounter.get_id("shot")
 
+  print("new shot "..x.. " "..y)
   shots[new_id] = shot:new()
   shots[new_id].id = new_id
   shots[new_id].x = x
@@ -206,7 +207,7 @@ shot_data["homing_rocket"] =
   damage = 10, -- will be doubled on direct hit
   sprite = "rocket_red",
   radius = 12,
-  duration = 5,
+  duration = 15,
   collides_with_map = true,
   collides_with_enemies = false,
   collides_with_player = true,
@@ -246,6 +247,65 @@ shot_data["homing_rocket"] =
     angle = angle + a * (math.min(1, 2 * dt))
     self.dx = speed * math.cos(angle)
     self.dy = speed * math.sin(angle)
+  end
+}
+
+shot_data["fireball"] =
+{
+  kind = "fireball", name = "Fireball",
+  damage = 10, -- will be doubled on direct hit
+  sprite = "rubble",
+  radius = 12,
+  duration = 5,
+  collides_with_map = true,
+  collides_with_enemies = false,
+  collides_with_player = true,
+
+  collide = function(self, hit, mx, my, mt, nx, ny)
+    print(hit[1])
+    if hit and hit[1] == "player" then
+      player:take_damage(self.damage, false, math.atan2(self.dy, self.dx), 3, true)
+    elseif hit and hit[1] == "block" then
+      local tgx = hit[2]
+      local tgy = hit[3]
+      if current_level.tiles[tgx] and current_level.tiles[tgx][tgy] then --and current_level.tiles[tgx][tgy]:takeDamage then
+        current_level.tiles[tgx][tgy]:takeDamage(self.damage)
+      end
+    end
+    for i = 1, 6 do
+      angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
+      speed = 200 + 1800 * love.math.random()
+      spark_data.spawn("spark", {r=255, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
+    end
+    for i = 1, 3 do
+      angle = math.atan2(ny, nx) + (love.math.random() - 0.5) * math.pi
+      speed = 200 + 1000 * love.math.random()
+      spark_data.spawn("spark_big", {r=255, g=255, b=255}, mx, my, speed * math.cos(angle), speed * math.sin(angle))
+    end
+
+    explosions.dynamite(self.x, self.y)
+    explosions.damage_radius(self.damage, 5, self.x, self.y, 128)
+
+    self:die()
+  end,
+
+  custom_update = function(self, dt)
+    --self.dx = self.dx + self.dx * 5 * dt
+    --self.dy = self.dy + self.dy * 5 * dt
+    print(self.x)
+    if not self.fireparticles then
+      print("%:%:%:%:%:%:")
+      self.fireparticles = FireParticles:new(self.x, self.y, 10, 10, 10, .20 + math.random() * 0.1)
+    end
+    if not self.smokeparticles then
+      self.smokeparticles = SmokeParticles:new(self.x, self.y-40, 10, 20, 10 +0.5, 0.34 + math.random() * 0.1)
+    end
+    if self.fireparticles then
+      self.fireparticles.psystem:moveTo(self.x, self.y)
+    end
+    if self.smokeparticles then
+      self.smokeparticles.psystem:moveTo(self.x, self.y)
+    end
   end
 }
 

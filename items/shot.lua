@@ -58,9 +58,11 @@ function shot:draw()
   if self.duration then
     love.graphics.setColor(255, 255, 255, 255 * math.min(1, 5.5 - 5 * self.duration:t()))
   end
-  love.graphics.draw(image[self.sprite], camera.view_x(self), camera.view_y(self), math.atan2(self.dy, self.dx), 1, 1,
-    image[self.sprite]:getWidth()/2, image[self.sprite]:getHeight()/2)
-  love.graphics.setColor(255,255,255,255)
+  if self.sprite and image[self.sprite] then
+    love.graphics.draw(image[self.sprite], camera.view_x(self), camera.view_y(self), math.atan2(self.dy, self.dx), 1, 1,
+      image[self.sprite]:getWidth()/2, image[self.sprite]:getHeight()/2)
+    love.graphics.setColor(255,255,255,255)
+  end
 end
 
 

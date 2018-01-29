@@ -45,12 +45,12 @@ function EdisonRocketeer:update(dt)
     local dv = cpml.vec2.new(player.x, player.y)
     local sv = cpml.vec2.new(self.entity.x, self.entity.y)
     local radius, theta = (dv - sv):to_polar()
-    print("xy: "..destx.. " "..desty.." "..radius.." "..theta)
+    --print("xy: "..destx.. " "..desty.." "..radius.." "..theta)
 
     -- shoot fire as projectile
-    shot_data.spawn('rocket', self.entity.x + 48 * math.cos(theta), self.entity.y + 48 * math.sin(theta),
-        math.cos(theta)*(200),
-        math.sin(theta)*(200), self)
+    shot_data.spawn('fireball', self.entity.x + 48 * math.cos(theta), self.entity.y + 48 * math.sin(theta),
+        math.cos(theta)*(150),
+        math.sin(theta)*(150), self.entity)
 
   end
 
