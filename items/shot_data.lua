@@ -3,7 +3,6 @@ shot_data = {}
 function shot_data.spawn(kind, x, y, dx, dy, owner)
   local new_id = idcounter.get_id("shot")
 
-  print("new shot "..x.. " "..y)
   shots[new_id] = shot:new()
   shots[new_id].id = new_id
   shots[new_id].x = x
@@ -292,9 +291,7 @@ shot_data["fireball"] =
   custom_update = function(self, dt)
     --self.dx = self.dx + self.dx * 5 * dt
     --self.dy = self.dy + self.dy * 5 * dt
-    print(self.x)
     if not self.fireparticles then
-      print("%:%:%:%:%:%:")
       self.fireparticles = FireParticles:new(self.x, self.y, 10, 10, 10, .20 + math.random() * 0.1)
     end
     if not self.smokeparticles then
