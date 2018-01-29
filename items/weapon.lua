@@ -22,7 +22,7 @@ function Weapon:initialize()
   self.max_ammo = 100
   self.ammo = 100
   self.ammo_cost = 15 -- per second cost of firing weapn (overwrite on individual guns)
-  self.charge_rate = 10 -- ammo gained per second
+  self.charge_rate = 8 -- ammo gained per second
   self.is_firing = false
   self.min_ammo_to_fire = 10
 end
@@ -73,7 +73,7 @@ function ProjectileGun:initialize()
   self.icon = "gun_icon"
   self.projectile = "bullet"
   self.cof_multiplier = 0
-  self.ammo_cost = 10
+  self.ammo_cost = 13
 end
 
 function ProjectileGun:_fire(targets)
