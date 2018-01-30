@@ -1,4 +1,4 @@
-local RoomDef = class("RoomDef")
+RoomDef = class("RoomDef")
 
 RoomDef.static.RANDOM = 0
 RoomDef.static.NORTH = 1
@@ -45,38 +45,15 @@ end
 function RoomDef:parse()
 end
 
-
-local room_test1 = RoomDef:new()
-room_test1:setMaptile('.', 'floor2')
-room_test1:setMaptile(',', 'floor3')
-room_test1:setFloor([[
-........,,.........
-........,,.........
-........,,.........
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-........,,.........
-........,,.........
-........,,......
-]])
-room_test1:setMap([[
-###################
-#  ww      WW     #
-#  www     WW  #  #
-#   ww         #  #
-#   www        #  #
-#   wwww   WW  #  #
-#    www   WW  ####
-################
-]])
-
-room_test1:addSpawn{ id='1N', start=0.5, mob='remotedude_red', count=5, spawn_kind='stream', door=NORTH}
-room_test1:addSpawn{ id='1S', start=0.5, mob='remotedude_red', count=5, spawn_kind='stream', door=SOUTH}
-room_test1:addSpawn{ id='1E', start=0.5, mob='remotedude_red', count=5, spawn_kind='stream', door=EAST}
-room_test1:addSpawn{ id='2', start=3.5, mob='rifledude', door=EAST}
-
 -- Put rooms in list
 RoomDef.static.rooms = {}
-RoomDef.static.rooms['test1'] = room_test1
+RoomDef.static.rooms['s1r1'] = require 'map/rooms/stage1/room1'
+RoomDef.static.rooms['s1r2a'] = require 'map/rooms/stage1/room2a'
+RoomDef.static.rooms['s1r2b'] = require 'map/rooms/stage1/room2b'
+RoomDef.static.rooms['s1r3a'] = require 'map/rooms/stage1/room3a'
+RoomDef.static.rooms['s1r3b'] = require 'map/rooms/stage1/room3b'
+RoomDef.static.rooms['s1r4a'] = require 'map/rooms/stage1/room4a'
+RoomDef.static.rooms['s1r4b'] = require 'map/rooms/stage1/room4b'
+RoomDef.static.rooms['s1r5'] = require 'map/rooms/stage1/room5'
 
 return RoomDef
