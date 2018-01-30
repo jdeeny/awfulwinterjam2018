@@ -45,7 +45,9 @@ function dungeon:move_to_room(rx, ry, from_dir)
   local room_index = self[rx][ry].file
   image.swap_floor_tile(self[rx][ry].floor_tile)
 
-  current_level = file_io.parse_room_file(room_set[room_index])
+	print("level setup")
+  current_level = RoomDef.rooms['s1r1']:parse()--file_io.parse_room_file(room_set[room_index])
+	print("done")
   current_level:setup_outer_walls()
   current_level:updatewatertiles()
   current_level:updatewalltiles()
@@ -82,7 +84,7 @@ function dungeon:move_to_room(rx, ry, from_dir)
   local spawn_set = self.spawns[self:get_room_kind(rx, ry)]
 
   local selected_wave = spawn_set[love.math.random(#(spawn_set))] -- random pick from list
-  print("spawn:",selected_wave) --DBG 
+  print("spawn:",selected_wave) --DBG
   spawner.wave_data[selected_wave]()
 end
 
