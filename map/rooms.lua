@@ -8,6 +8,8 @@ RoomDef.static.WEST = 4
 
 function RoomDef:initialize(name)
   self.name = name
+  self.floorstr = ""
+  self.mapstr = ""
   self.maptiles = {}
   self.spawns = {}
   self.doors = {}
@@ -77,17 +79,18 @@ function RoomDef:parse()
   self.h = math.max(my, self.h or 0)
 
 	local m = Level:new(self.w, self.h):setLayerEffects(Layer.WATER, water_effect)
+
+  for x = 1, self.w do
+    for y = 1, self.h do
+      m:addTile(grid.hash(x, y), x, y, m.tileset['empty'])
+    end
+  end
+
   print("parse")
   local floorlines = self.floorstr:gmatch("[^\n]+")
   local maplines = self.mapstr:gmatch("[^\n]+")
   m = self:_parse(m, floorlines)
   m = self:_parse(m, maplines)
-
-  for x = 1, self.w do
-    for y = 1, self.h do
-      m:addTile(grid.hash(x, y), x, y, m.tileset['void'])
-    end
-  end
 
   print("wh: "..self.w.." ".. self.h)
 
@@ -101,8 +104,9 @@ function RoomDef:_parse(level, lines)
   for s in lines do
 		for c in s:gmatch"." do
       --print("c: "..x.." "..y.." "..c)
-			local tilekind = self.maptiles[c] or level:find_symbol(c) or 'void'
-			level:addTile(grid.hash(x, y), x, y, level.tileset[tilekind])
+			local tilekind = self.maptiles[c] or level:find_symbol(c) or 'empty'
+      print(x..", "..y.."  "..tilekind)
+	   level:updateTile(grid.hash(x, y), x, y, level.tileset[tilekind])
 			x = x + 1
 		end
     if x > 3 then

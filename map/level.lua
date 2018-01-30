@@ -115,6 +115,26 @@ function Level:addTile(id, x, y, tile)
   self.tiles[x][y] = first
 end
 
+function Level:updateTile(id, x, y, tile)
+  local id = id or self:hash(x, y)
+  if tile == nil then
+    print("Attempted to add unknown tile")
+    return
+  end
+  local first = {}
+  for i, t in ipairs(tile) do
+    local t = t()
+    t.x, t.y = x, y
+    local e = t:toEntity(x, y)
+    if i == 1 then first = e end
+    self:_add(id, e)
+  end
+
+  if not self.tiles[x] then self.tiles[x] = {} end
+  self.tiles[x][y] = first
+end
+
+
 function Level:addMob(id, mob)
   if id == nil or mob == nil then
     print("Attempted to add unknown mob")

@@ -3,7 +3,7 @@ local TileSet = {}
 
 -- TODO: change this to have the sprite filepath in this file so you dont have to edit two places
 
-TileSet['nothing']            = { function() return Tile:new('void', ' '):setSolid(false):setLayer(Layer.SUBFLOOR) end, }
+TileSet['empty']            = { function() return Tile:new('void', ' '):setSolid(false):setLayer(Layer.BOTTOM) end, }
 TileSet['void']               = { function() return Tile:new('void'):setSolid(true):setLayer(Layer.FURNITURE) end, }
 TileSet['void_walltop']       = { function() return Tile:new('void_walltop'):setSolid(true):setLayer(Layer.FURNITURE) end, }
 TileSet['invinciblewall']     = { function() return Tile:new('invinciblewall',  '#'):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable(false) end, }
