@@ -1,6 +1,6 @@
 local Layer = class("Layer")
 
-Layer.BOTOOM = 1
+Layer.BOTTOM = 1
 Layer.SUBFLOOR = 2
 Layer.WATER = 3
 Layer.FLOOR = 4

@@ -43,7 +43,7 @@ function dungeon:move_to_room(rx, ry, from_dir)
 
   local room_set = self.room_files[self:get_room_kind(rx, ry)]
   local room_index = self[rx][ry].file
-  image.swap_floor_tile(self[rx][ry].floor_tile)
+  --image.swap_floor_tile(self[rx][ry].floor_tile)
 
 	print("level setup")
   current_level = RoomDef.rooms['s1r1']:parse()--file_io.parse_room_file(room_set[room_index])

@@ -14,7 +14,7 @@ function RoomDef:initialize(name)
   self.spawns = {}
   self.doors = {}
   -- Setup default tile/letter combos
-  self.maptiles['.'] = 'floor'
+  --self.maptiles['.'] = 'floor'
   return self
 end
 
@@ -80,24 +80,24 @@ function RoomDef:parse()
 
 	local m = Level:new(self.w, self.h):setLayerEffects(Layer.WATER, water_effect)
 
-  for x = 1, self.w do
+--[[  for x = 1, self.w do
     for y = 1, self.h do
       m:addTile(grid.hash(x, y), x, y, m.tileset['empty'])
     end
-  end
+  end]]
 
   print("parse")
   local floorlines = self.floorstr:gmatch("[^\n]+")
   local maplines = self.mapstr:gmatch("[^\n]+")
-  m = self:_parse(m, floorlines)
-  m = self:_parse(m, maplines)
+  m = self:_parse(m, maplines, m.addTile)
+  m = self:_parse(m, floorlines, m.addFloor)
 
   print("wh: "..self.w.." ".. self.h)
 
 	return m
 end
 
-function RoomDef:_parse(level, lines)
+function RoomDef:_parse(level, lines, addfunc)
   --print("lines: ")
   local x = 1
   local y = 1
@@ -106,7 +106,7 @@ function RoomDef:_parse(level, lines)
       --print("c: "..x.." "..y.." "..c)
 			local tilekind = self.maptiles[c] or level:find_symbol(c) or 'empty'
       print(x..", "..y.."  "..tilekind)
-	   level:updateTile(grid.hash(x, y), x, y, level.tileset[tilekind])
+	   addfunc(level, grid.hash(x, y), x, y, level.tileset[tilekind])
 			x = x + 1
 		end
     if x > 3 then

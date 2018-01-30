@@ -1,7 +1,7 @@
 local Tile = class("Tile")
 
 function Tile:initialize(name, mapsymbol)
-  self.layer = Layer.FLOOR
+  self.layer = Layer.SUBFLOOR
   self.id = name
   self.kind = name
   self.sprite = name

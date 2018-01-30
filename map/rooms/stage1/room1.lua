@@ -7,26 +7,27 @@ room_s1r1:setDoor(RoomDef.SOUTH, nil)
 
 -- Setup some alternate floor tiles
 room_s1r1:setMaptile('.', 'floor')
-room_s1r1:setMaptile(',', 'floor')
---[[room_s1r1:setFloor([[
-........,,.........
-........,,.........
-........,,.........
-,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-........,,.........
-........,,.........
-........,,......
-]]--)
+room_s1r1:setMaptile(',', 'concretefloor')
+
+room_s1r1:setFloor([[
+.......
+.,,,,..
+.,,,...
+.,,,...
+.,,,...
+.,,,...
+.,,,...
+.......
+]])
 room_s1r1:setMap([[
-###################
-#  ww      WW     #
-#  www     WW  #  #
-#   ww         #  #
-#   www        #  #
-#   wwww   WW  #  #
-#    www   WW  ####
-################
+#######
+# w   #
+# ww  #
+# ww  #
+#  ww #
+# w w #
+# w w #
+#######
 ]])
 
 room_s1r1:addSpawn{ id='1N', start=0.5, mob='remotedude_red', count=5, spawn_kind='stream', door=NORTH}

@@ -19,6 +19,9 @@ function image.init()
   image.sight_triangle = love.graphics.newImage("assets/crosshairs/sight_triangle.png")
   image.sight_v = love.graphics.newImage("assets/crosshairs/sight_v.png")
 
+  image.concretefloor = love.graphics.newImage("assets/tiles/concreteFloor.png")
+
+  image.empty = image.void
   image.wall = love.graphics.newImage("assets/tiles/wall_top.png")
   image.wall_southface = love.graphics.newImage("assets/tiles/wallStoneTiling.png")
   image.wall_southdoor = love.graphics.newImage("assets/tiles/door.png")
