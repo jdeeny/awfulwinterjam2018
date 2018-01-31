@@ -9,6 +9,13 @@ function Terrain:initialize(name, w, h, default)
   self.default = default
   self.tiles = {}
   self.terrains = " "
+
+  print("cw: ", self:_rotatecw("12345678"))
+  print("ccw: ", self:_rotateccw("12345678"))
+  print("h: ", self:_fliph("12345678"))
+  print("v: ", self:_flipv("12345678"))
+  print("cw h: ", self:_fliph(self:_rotatecw("12345678")))
+  print("cw v: ", self:_flipv(self:_rotatecw("12345678")))
 end
 
 -- Add a tile and all rotation/flip variations
@@ -44,11 +51,11 @@ function Terrain:addTile(terrain, tile, surroundings)
   self:_add(ccw, { function() return Tile:new(tile):setRotation(-PI/2) end } )
   self:_add(self:_flipv(cw), { function() return Tile:new(tile):setRotation(PI/2):setFlipV(true) end } )
   self:_add(self:_fliph(cw), { function() return Tile:new(tile):setRotation(PI/2):setFlipH(true) end } )
-  self:_add(self:_flipv(ccw), { function() return Tile:new(tile):setRotation(-PI/2):setFlipV(true) end } )
-  self:_add(self:_fliph(ccw), { function() return Tile:new(tile):setRotation(-PI/2):setFlipH(true) end } )
+  --self:_add(self:_flipv(ccw), { function() return Tile:new(tile):setRotation(-PI/2):setFlipV(true) end } )
+  --self:_add(self:_fliph(ccw), { function() return Tile:new(tile):setRotation(-PI/2):setFlipH(true) end } )
   self:_add(self:_flipv(surroundings), { function() return Tile:new(tile):setFlipV(true) end } )
   self:_add(self:_fliph(surroundings), { function() return Tile:new(tile):setFlipH(true) end } )
-  self:_add(self:_flipv(self:_fliph(surroundings)), { function() return Tile:new(tile):setFlipH(true):setFlipV(true) end } )
+  self:_add(self:_rotatecw(cw), { function() return Tile:new(tile):setRotation(PI) end } )
 end
 
 function Terrain:debugPrint()
@@ -76,7 +83,7 @@ end
 
 
 function Terrain:_add(surroundings, tile)
-  print("          ["..surroundings..']')
+  --print("          ["..surroundings..']')
   if not self.tiles[surroundings] then
     self.tiles[surroundings] = {}
   end
@@ -92,12 +99,11 @@ function Terrain:_rotateccw(surroundings)
   return string.sub(surroundings,3,8)..string.sub(surroundings,1,2)
 end
 
-function Terrain:_fliph(surroundings)
-  --print("flipv: "..surroundings)
+function Terrain:_flipv(surroundings)
   return string.reverse(string.sub(surroundings,1,5))..string.reverse(string.sub(surroundings,6,8))
 end
 
-function Terrain:_flipv(surroundings)
+function Terrain:_fliph(surroundings)
   return string.sub(surroundings,1,1)..string.reverse(string.sub(surroundings,2,8))
 end
 

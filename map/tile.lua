@@ -24,7 +24,6 @@ function Tile:setConductive(state)
   return self
 end
 
-
 function Tile:setRotation(state)
   self.rot = state or 0
   return self
