@@ -30,6 +30,15 @@ function Tile:setRotation(state)
   return self
 end
 
+function Tile:setFlipV(state)
+  self.flipv = state or 0
+  return self
+end
+
+function Tile:setFlipH(state)
+  self.fliph = state or 0
+  return self
+end
 
 function Tile:setDestroyable(kind, into, hp)
   self.destroyable = kind or false

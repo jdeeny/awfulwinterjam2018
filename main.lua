@@ -19,6 +19,28 @@ function love.load()
   TILESIZE = 64
   print("LOAD")
 
+  water_terrain = Terrain:new('water', 64, 64)        -- N E S W
+  water_terrain:addTile('w', 'water_open',              "wwwwwwww")
+  water_terrain:addTile('w', 'water_1side2corners',     "w w w   ")
+  water_terrain:addTile('w', 'water_2edge1',            "w   w   ")
+  water_terrain:addTile('w', 'water_2edge2',            "w   w   ")
+  water_terrain:addTile('w', 'water_3side1',            "  w     ")
+  water_terrain:addTile('w', 'water_3side2',            "  w     ")
+  water_terrain:addTile('w', '4corners',                "w w w w ")
+  water_terrain:addTile('w', '4side1',                  "        ")
+  water_terrain:addTile('w', '4side2',                  "        ")
+  water_terrain:addTile('w', 'ecorner1',                "  www   ")
+  water_terrain:addTile('w', 'ecorner2',                "  www   ")
+  water_terrain:addTile('w', 'ecorner3',                "  www   ")
+  water_terrain:addTile('w', 'ecorner4',                "  www   ")
+  water_terrain:addTile('w', 'edge1',                   "wwwww   ")
+  water_terrain:addTile('w', 'edge2',                   "wwwww   ")
+  water_terrain:addTile('w', 'edge3',                   "wwwww   ")
+  water_terrain:addTile('w', 'edge4',                   "wwwww   ")
+  water_terrain:addTile('w', 'icorner',                 "wwwwwww ")
+  water_terrain:debugPrint()
+
+
   gui_time = love.timer.getTime()
 
   image.init()
