@@ -8,6 +8,8 @@ hud.arrow_alpha_min = 16
 hud.arrow_alpha = hud.arrow_alpha_min -- set to max if flash is disabled
 hud.pulse_time = 0.9
 
+hud.top_margin = 15
+
 function hud.draw_arrows()
 	local r,g,b,a
 	local yc = image['point_yellow']:getHeight()/2
@@ -78,6 +80,8 @@ function hud.draw()
 
 	-- draw arrows if room is unlocked
 	if current_level.cleared then --and current_level.kind ~= "boss" then
+		-- draw minimap
+		hud.draw_dungeonmap()
 		if next(hud.arrows) == nil then
 			-- not currently flashing
 			if current_level.exits.north then
@@ -104,7 +108,7 @@ function hud.draw()
 
 	-- draw timer in upper right
 	love.graphics.setFont(hud.font)
-	timer.draw((window.w-255), 15)
+	timer.draw((window.w-255), hud.top_margin)
 
 	-- draw player status bars in lower right
 	local bar_dim = {x=24,y=140}
@@ -146,5 +150,43 @@ function hud.draw()
 
 end
 
+function hud.draw_dungeonmap()
+	local r,g,b,a
+	
+	local square_size = 8  -- size to draw current/target location
+	local dmap_dim = {x=114,y=80} -- background image dimensions
+	
+	local dun_origin = {x=26,y=14} -- offset from background lower left
+	local border = 1 -- dungeon room border, size in pixels
+	
+	-- This includes a 1-px border on the dungeon
+	local dun_size = {x=current_dungeon.width*(square_size+border),y=current_dungeon.height*(square_size+border)}
+	
+	-- Assumes boss room is in upper right.
+	local target_pos = {x=dun_size.x - square_size - border, y=dun_size.y - square_size - border}
+	
+	local player_pos = {x=(player.dungeon_x-1)*(square_size + border), y=(current_dungeon.height- player.dungeon_y)*(square_size + border)}
+	
+	local mm_x = (window.w - dmap_dim.x)/2
+	local mm_y = hud.top_margin
+	
+	love.graphics.draw(image['mmap_bg'], mm_x, mm_y)
+	
+	r,g,b,a = love.graphics.getColor()
+	
+	-- draw the dungeon
+	love.graphics.setColor(140,140,140)
+	love.graphics.rectangle('fill',mm_x+dun_origin.x, mm_y+(dmap_dim.y - dun_origin.y - dun_size.y), dun_size.x, dun_size.y)
+	
+	-- mark target room
+	love.graphics.setColor(225,112,126)  -- Target room color
+	love.graphics.rectangle('fill',mm_x+dun_origin.x+target_pos.x+1, mm_y+(dmap_dim.y - dun_origin.y - target_pos.y - square_size), square_size, square_size)
+	
+	-- mark player room
+	love.graphics.setColor(255,255,255,hud.arrow_alpha)   -- Player room color
+	love.graphics.rectangle('fill',mm_x+dun_origin.x+player_pos.x+1, mm_y+(dmap_dim.y - dun_origin.y - player_pos.y - square_size ), square_size, square_size)
+	
+	love.graphics.setColor(r,g,b,a)
+end
 
 return hud

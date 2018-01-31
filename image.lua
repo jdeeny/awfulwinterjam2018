@@ -72,6 +72,7 @@ function image.init()
   image.timer_bg = love.graphics.newImage("assets/icons/timer_bg.png")
   image.bar = love.graphics.newImage("assets/icons/bar.png")
   image.bar_shading = love.graphics.newImage("assets/icons/bar_shading.png")
+  image.mmap_bg = love.graphics.newImage("assets/icons/mmap_bg.png")
 
   image.arrow = love.graphics.newImage("assets/icons/arrow.png")
   image.point = love.graphics.newImage("assets/icons/point.png")
