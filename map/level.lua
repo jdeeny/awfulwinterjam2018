@@ -110,8 +110,8 @@ function Level:addTile(id, x, y, tile, layer)
     local e = t:toEntity(x, y)
     if i == 1 then first = e end
     self:_add(id, e)
-    print("added not floor "..e.kind)
-    print("on layer: "..e.layer)
+    --print("added not floor "..e.kind)
+    --print("on layer: "..e.layer)
   end
 
   if not self.tiles[x] then self.tiles[x] = {} end
