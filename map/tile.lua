@@ -31,12 +31,12 @@ function Tile:setRotation(state)
 end
 
 function Tile:setFlipV(state)
-  self.flipv = state or 0
+  self.flipv = state or false
   return self
 end
 
 function Tile:setFlipH(state)
-  self.fliph = state or 0
+  self.fliph = state or false
   return self
 end
 
@@ -83,7 +83,7 @@ end
 
 function Tile:toEntity(x, y)
   --print("sprite to entity "..self.id.." ".. self.sprite .. " " .. self.kind)
-  local e = Entity:new(self, 'sprite' .. self.id, self.id, (x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE, self.layer, image[self.sprite], self.rot or 0, 1.0, 1.0, TILESIZE / 2, TILESIZE / 2)
+  local e = Entity:new(self, 'sprite' .. self.id, self.id, (x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE, self.layer, image[self.sprite], self.rot or 0, 1.0, 1.0, TILESIZE / 2, TILESIZE / 2, self.fliph or false, self.flipv or false)
   return e
 end
 

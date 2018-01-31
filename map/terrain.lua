@@ -1,10 +1,12 @@
 local Terrain = class("Terrain")
 
 
-function Terrain:initialize(name, w, h)
+function Terrain:initialize(name, w, h, default)
+  assert(name and w and h and default, "Must pass a name, width, height, and default tile")
   self.name = name
   self.w = w
   self.h = h
+  self.default = default
   self.tiles = {}
   self.terrains = ""
 end
@@ -18,15 +20,16 @@ function Terrain:addTile(terrain, tile, surroundings)
   local ccw = self:_rotateccw(surroundings)
   print("t: "..surroundings.."/"..cw.."/"..ccw.."/")
 
-  self:_add(surroundings, tile)
-  self:_add(cw, Tile:new(tile):setRotation(PI/2))
-  self:_add(ccw, Tile:new(tile):setRotation(-PI/2))
-  self:_add(self:_flipv(cw), Tile:new(tile):setRotation(PI/2):setFlipV(true))
-  self:_add(self:_fliph(cw), Tile:new(tile):setRotation(PI/2):setFlipH(true))
-  self:_add(self:_flipv(ccw), Tile:new(tile):setRotation(-PI/2):setFlipV(true))
-  self:_add(self:_fliph(ccw), Tile:new(tile):setRotation(-PI/2):setFlipH(true))
-  self:_add(self:_flipv(surroundings), Tile:new(tile):setFlipV(true))
-  self:_add(self:_fliph(surroundings), Tile:new(tile):setFlipH(true))
+  self:_add(surroundings, { function() return Tile:new(tile) end } )
+  self:_add(cw, { function() return Tile:new(tile):setRotation(PI/2) end } )
+  self:_add(ccw, { function() return Tile:new(tile):setRotation(-PI/2) end } )
+  self:_add(self:_flipv(cw), { function() return Tile:new(tile):setRotation(PI/2):setFlipV(true) end } )
+  self:_add(self:_fliph(cw), { function() return Tile:new(tile):setRotation(PI/2):setFlipH(true) end } )
+  self:_add(self:_flipv(ccw), { function() return Tile:new(tile):setRotation(-PI/2):setFlipV(true) end } )
+  self:_add(self:_fliph(ccw), { function() return Tile:new(tile):setRotation(-PI/2):setFlipH(true) end } )
+  self:_add(self:_flipv(surroundings), { function() return Tile:new(tile):setFlipV(true) end } )
+  self:_add(self:_fliph(surroundings), { function() return Tile:new(tile):setFlipH(true) end } )
+  self:_add(self:_flipv(self:_fliph(surroundings)), { function() return Tile:new(tile):setFlipH(true):setFlipV(true) end } )
 end
 
 function Terrain:debugPrint()
@@ -40,9 +43,16 @@ function Terrain:debugPrint()
   print ("Total: "..i.."  Remain: "..256-i)
 end
 
-function Terrain:showRemaining()
-  --local permutes = self:_getpermutes(self.terrains)
+function Terrain:lookup(terrain, surroundings)
+  if not self.tiles[surroundings] then
+    print("Couldn't find: ".. surroundings.." using default" .. self.default)
+    return { function() return Tile:new(self.default) end }
+  end
 
+  -- pick a random version
+  local l = self.tiles[surroundings]
+  local sel = math.random(#l)
+  return l[sel]
 end
 
 

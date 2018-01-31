@@ -21,11 +21,11 @@ room_s1r1:setFloor([[
 ]])
 room_s1r1:setMap([[
 #######
-# w   #
 # ww  #
 # ww  #
-#  ww #
-# w w #
+# ww  #
+#     #
+#     #
 # w w #
 #######
 ]])
