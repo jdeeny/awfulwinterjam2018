@@ -141,11 +141,11 @@ RoomDef.static.rooms['s2r6'] = require 'map/rooms/stage2/room6'
 RoomDef.static.rooms['s2r7'] = require 'map/rooms/stage2/room7'
 RoomDef.static.rooms['s2r8'] = require 'map/rooms/stage2/room8'
 -- Stage 3 - Edison's Lair
-RoomDef.static.rooms['s2r1'] = require 'map/rooms/stage2/room1'   --
-RoomDef.static.rooms['s2r2'] = require 'map/rooms/stage2/room2'
-RoomDef.static.rooms['s2r3'] = require 'map/rooms/stage2/room3'
-RoomDef.static.rooms['s2r4'] = require 'map/rooms/stage2/room4'
-RoomDef.static.rooms['s2r5'] = require 'map/rooms/stage2/room5'   -- Edison's Lair
+RoomDef.static.rooms['s3r1'] = require 'map/rooms/stage3/room1'   --
+RoomDef.static.rooms['s3r2'] = require 'map/rooms/stage3/room2'
+RoomDef.static.rooms['s3r3'] = require 'map/rooms/stage3/room3'
+RoomDef.static.rooms['s3r4'] = require 'map/rooms/stage3/room4'
+RoomDef.static.rooms['s3r5'] = require 'map/rooms/stage3/room5'   -- Edison's Lair
 
 
 
