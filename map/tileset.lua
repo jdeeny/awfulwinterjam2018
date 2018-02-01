@@ -17,11 +17,25 @@ TileSet['door_southface']     = { function() return Tile:new('door_southface'):s
 TileSet['opendoor']           = { function() return Tile:new('opendoor',        'd'):setDoor(true):setSolid(false) end, }
 TileSet['fakedoor']           = { function() return Tile:new('fakedoor')           :setDoor(true):setSolid(true) end, }
 TileSet['floor']              = { function() return Tile:new('floor',           '-'):setLayer(Layer.SUBFLOOR) end, }
-TileSet['concretefloor']      = { function() return Tile:new('concretefloor'       ):setLayer(Layer.SUBFLOOR) end, }
+TileSet['floor_concrete']      = { function() return Tile:new('floor_concrete'       ):setLayer(Layer.SUBFLOOR) end, }
+TileSet['floor_checker1']      = { function() return Tile:new('floor_checker1'       ):setLayer(Layer.SUBFLOOR) end, }
+TileSet['floor_checker2']      = { function() return Tile:new('floor_checker2'       ):setLayer(Layer.SUBFLOOR) end, }
+TileSet['floor_checker3']      = { function() return Tile:new('floor_checker3'       ):setLayer(Layer.SUBFLOOR) end, }
+TileSet['floor_metal']      = { function() return Tile:new('floor_metal'       ):setLayer(Layer.SUBFLOOR) end, }
+TileSet['floor_grating']      = { function() return Tile:new('floor_grating'       ):setLayer(Layer.SUBFLOOR) end, }
+TileSet['floor_wood_light']      = { function() return Tile:new('floor_wood_light'       ):setLayer(Layer.SUBFLOOR) end, }
+TileSet['floor_wood_long']      = { function() return Tile:new('floor_wood_long'       ):setLayer(Layer.SUBFLOOR) end, }
+TileSet['floor_wood_dark']      = { function() return Tile:new('floor_wood_dark'       ):setLayer(Layer.SUBFLOOR) end, }
+
 TileSet['teleporter']         = { function() return Tile:new('teleporter',      't') end, }
 TileSet['ballpost']           = { function() return Tile:new('ballpost',        'b'):setLayer(Layer.FURNITURE):setConductive(1.0):setDestroyable('explodes', 'rubblefloor', 20 + math.random(15)) end, }
 
-TileSet['wall_teak']               = { function() return Tile:new('wall_teak',            nil):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable('crumbles', 'rubblefloor', 30+math.random(30)) end, }
+TileSet['wall_southface_teak']               = { function() return Tile:new('wall_southface_teak',            nil):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable('crumbles', 'rubblefloor', 30+math.random(30)) end, }
+TileSet['wall_southface_wood']               = { function() return Tile:new('wall_southface_wood',            nil):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable('crumbles', 'rubblefloor', 30+math.random(30)) end, }
+TileSet['wall_southface_white']               = { function() return Tile:new('wall_southface_white',            nil):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable('crumbles', 'rubblefloor', 30+math.random(30)) end, }
+TileSet['wall_southface_greystone']               = { function() return Tile:new('wall_southface_greystone',            nil):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable('crumbles', 'rubblefloor', 30+math.random(30)) end, }
+
+
 TileSet['water_border']       = { --function() return Tile:new('water_border',    'w') end,
                                   function() return Tile:new('water', 'w'):setLayer(Layer.WATER) end,
                                 }
