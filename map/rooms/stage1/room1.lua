@@ -6,8 +6,8 @@ room_s1r1:setDoor(RoomDef.SOUTH, nil)
 
 -- Setup some alternate floor tiles
 room_s1r1:setMaptile('.', 'floor')
-room_s1r1:setMaptile(',', 'concretefloor')
-room_s1r1:setMaptile('T', 'wall_teak')
+room_s1r1:setMaptile(',', 'floor_concrete')
+room_s1r1:setMaptile('T', 'wall_southface_teak')
 
 room_s1r1:setFloor([[
 ................

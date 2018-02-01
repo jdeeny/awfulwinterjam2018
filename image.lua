@@ -19,19 +19,39 @@ function image.init()
   image.sight_triangle = love.graphics.newImage("assets/crosshairs/sight_triangle.png")
   image.sight_v = love.graphics.newImage("assets/crosshairs/sight_v.png")
 
-  image.concretefloor = love.graphics.newImage("assets/tiles/concreteFloor.png")
-
   image.empty = image.void
   image.wall = love.graphics.newImage("assets/tiles/wall_top.png")
-  image.wall_southface = love.graphics.newImage("assets/tiles/wallStoneTiling.png")
   image.wall_southdoor = love.graphics.newImage("assets/tiles/door.png")
-  image.wall_teak = love.graphics.newImage("assets/tiles/fancyTeakWall.png")
+
+  image.wall_southface = love.graphics.newImage("assets/tiles/wallStoneTiling.png")
+  image.wall_southface_teak = love.graphics.newImage("assets/tiles/fancyTeakWall.png")
+  image.wall_southface_greystone = love.graphics.newImage("assets/tiles/Stonewall.png")
+  image.wall_southface_white = love.graphics.newImage("assets/tiles/whiteWall.png")
+  image.wall_southface_wood = love.graphics.newImage("assets/tiles/woodWall1.png")
+
   image.invinciblewall = image.wall
   image.invinciblewall_southface = image.wall_southface
   image.invinciblewall_southdoor = image.wall_southdoor
   image.door = love.graphics.newImage("assets/tiles/wall_top.png")
   image.door_southface = love.graphics.newImage("assets/tiles/door.png")
+
   image.floor = love.graphics.newImage("assets/tiles/woodFloorTile.png")
+  image.floor1 = love.graphics.newImage("assets/tiles/woodFloorTile2.png")
+  image.floor2 = love.graphics.newImage("assets/tiles/woodFloorTile3.png")
+
+  image.floor_concrete = love.graphics.newImage("assets/tiles/concreteFloor.png")
+  image.floor_checker1 = love.graphics.newImage("assets/tiles/checkerFloorTile1.png")
+  image.floor_checker2 = love.graphics.newImage("assets/tiles/checkerFloorTile2.png")
+  image.floor_checker3 = love.graphics.newImage("assets/tiles/checkerFloorTile3.png")
+  image.floor_metal = love.graphics.newImage("assets/tiles/metalFloor.png")
+  image.floor_grating = love.graphics.newImage("assets/tiles/metalGrating.png")
+  image.floor_wood_light = love.graphics.newImage("assets/tiles/woodenFloor.png")
+  image.floor_wood_long = love.graphics.newImage("assets/tiles/woodenFloor.png")
+  image.floor_wood_dark = love.graphics.newImage("assets/tiles/woodenFloor.png")
+
+  image.drain = love.graphics.newImage("assets/tiles/floorDrain.png")
+  image.pump = love.graphics.newImage("assets/tiles/floorPump.png")
+
   image.opendoor = image.floor
   image.fakedoor = image.floor
   image.rubble = love.graphics.newImage("assets/tiles/woodFloorTileRubble.png")
