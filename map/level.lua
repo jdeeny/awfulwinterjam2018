@@ -43,6 +43,14 @@ function Level:pixel_height()
   return (self.height + 2) * TILESIZE
 end
 
+function Level:pixel_mid_height()
+  return (self:pixel_height() - math.fmod(self.height,2)*TILESIZE)/2
+end
+
+function Level:pixel_mid_width()
+  return (self:pixel_width() - math.fmod(self.width,2)*TILESIZE)/2
+end
+
 function Level:bounding_box(gx, gy)
   return {x = TILESIZE * (gx + 0.5), y = TILESIZE * (gy + 0.5), radius = TILESIZE / 2}
 end
@@ -280,11 +288,11 @@ function Level:coda()
   else
     if self.exits.north then
       self:open_door("north", false) -- no time given, so it should stay open forever
-      doodad_data.spawn("exit_north", self:pixel_width()/2 - math.fmod(self.width,2)*TILESIZE/2, TILESIZE / 2)
+      doodad_data.spawn("exit_north", self:pixel_mid_width(), TILESIZE / 2)
     end
     if self.exits.east then
       self:open_door("east", false)
-      doodad_data.spawn("exit_east", self:pixel_width() - (TILESIZE / 2), self:pixel_height()/2 - math.fmod(self.height,2) * TILESIZE/2)
+      doodad_data.spawn("exit_east", self:pixel_width() - (TILESIZE / 2), self:pixel_mid_height())
     end
   end
 end
