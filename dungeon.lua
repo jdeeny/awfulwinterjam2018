@@ -82,7 +82,7 @@ function dungeon:move_to_room(rx, ry, from_dir)
   local spawn_set = self.spawns[self:get_room_kind(rx, ry)]
 
   local selected_wave = spawn_set[love.math.random(#(spawn_set))] -- random pick from list
-  print("spawn:",selected_wave) --DBG 
+  print("spawn:",selected_wave) --DBG
   spawner.wave_data[selected_wave]()
 end
 
@@ -110,7 +110,7 @@ function dungeon:get_exits(rx, ry)
 end
 
 function dungeon:get_room_kind(rx,ry)
-  return self[rx][ry].room_kind
+  return self[rx][ry].room_kind or 'unknown'
 end
 
 return dungeon
