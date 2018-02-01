@@ -17,10 +17,10 @@ end
 function spawner.process()
 	-- spawning is delayed if enemies are alive
 	spawner.score = game_time - enemy_value - spawner.start_time
-	for j,z in pairs(spawner.events) do
-		if spawner.score >= j then
-			z()
-			spawner.events[j] = nil
+	for threshold, spawn_func in pairs(spawner.events) do
+		if spawner.score >= threshold then
+			spawn_func()
+			spawner.events[threshold] = nil
 			spawner.wave_count = spawner.wave_count - 1
 		end
 	end

@@ -10,12 +10,12 @@ function Terrain:initialize(name, w, h, default)
   self.tiles = {}
   self.terrains = " "
 
-  print("cw: ", self:_rotatecw("12345678"))
-  print("ccw: ", self:_rotateccw("12345678"))
-  print("h: ", self:_fliph("12345678"))
-  print("v: ", self:_flipv("12345678"))
-  print("cw h: ", self:_fliph(self:_rotatecw("12345678")))
-  print("cw v: ", self:_flipv(self:_rotatecw("12345678")))
+  --print("cw: ", self:_rotatecw("12345678"))
+  --print("ccw: ", self:_rotateccw("12345678"))
+  --print("h: ", self:_fliph("12345678"))
+  --print("v: ", self:_flipv("12345678"))
+  --print("cw h: ", self:_fliph(self:_rotatecw("12345678")))
+  --print("cw v: ", self:_flipv(self:_rotatecw("12345678")))
 end
 
 -- Add a tile and all rotation/flip variations
@@ -30,9 +30,9 @@ function Terrain:addTile(terrain, tile, surroundings)
     local f = string.find(surroundings, '*', start)
     while f do
       for t in self.terrains:gmatch(".") do
-        print("f: "..f.. " t: "..t)
+        --print("f: "..f.. " t: "..t)
         local s = string.sub(surroundings, 1, f-1)..t..string.sub(surroundings,f+1)
-        print(s)
+        --print(s)
         self:addTile(terrain, tile, s)
       end
       start = f+1
@@ -43,8 +43,8 @@ function Terrain:addTile(terrain, tile, surroundings)
 
   local cw = self:_rotatecw(surroundings)
   local ccw = self:_rotateccw(surroundings)
-  print("")
-  print("add tile: ["..surroundings..']')
+  --print("")
+  --print("add tile: ["..surroundings..']')
 
   self:_add(surroundings, { function() return Tile:new(tile) end } )
   self:_add(cw, { function() return Tile:new(tile):setRotation(PI/2) end } )

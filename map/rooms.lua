@@ -40,16 +40,68 @@ function RoomDef:setDoor(door, status)
 end
 
 function RoomDef:addSpawn(spawn_data)
+  print("spawn_data id: "..spawn_data.id)
   local spawndata = {}
   spawndata.id = spawn_data.id or 'spawn'..math.random()
   spawndata.start = spawn_data.start or 0
   spawndata.mob = spawn_data.mob or 'rifledude'
   spawndata.count = spawn_data.count or 1
   spawndata.spawnkind = spawn_data.spawnkind or 'clump'
-  spawndata.spawnperiod = spawn_data.spawnperiod or 0.3
-  spawndata.door = spawn_data.door or RANDOM
+  spawndata.spawnperiod = spawn_data.spawnperiod or spawndata == 'clump' and 0.05 or 0.3
+  spawndata.door = spawn_data.door or self.RANDOM
   self.spawns[spawndata.id] = spawndata
+  print("addspawn: "..self.spawns[spawndata.id].id)
   return self
+end
+
+function RoomDef:launchSpawn(id)
+  local spawns = {}
+
+  -- if id is specified, load only that spawn
+  if id ~= nil then
+    if self.spawndata[id] then
+      spawns[id] = self.spawndata[id]
+    else
+      print("Unknown spawn id: "..id)
+      return
+    end
+  else
+    print("Spawn is spawndata")
+    spawns = self.spawns
+  end
+
+  for i, s in pairs(spawns) do
+    local f = function()
+      local door = s.door ~= RoomDef.RANDOM and s.door or math.random(4)
+      local angle = -PI + (PI/2) * s.door + (-PI/8 + math.random() * PI / 4)
+      for i = 1, s.count do
+        if s.spawnkind == 'clump' then
+          local a = angle + (-PI/8 + math.random() * PI / 4)
+        elseif s.spawnkind == 'stream' then
+          local a = angle + (-PI/32 + math.random() * PI / 16)
+        else
+          local a = angle + (-PI/32 + math.random() * PI / 16)
+        end
+        delay.start(i * s.spawnperiod + (-s.spawnperiod/10 + math.random() * s.spawnperiod/5),
+                    function()
+                      if door == RoomDef.NORTH then
+                        spawner.spawn_from_north_door(s.mob, a)
+                      elseif door == RoomDef.EAST then
+                        spawner.spawn_from_east_door(s.mob, a)
+                      elseif door == RoomDef.SOUTH then
+                        spawner.spawn_from_south_door(s.mob, a)
+                      elseif door == RoomDef.WEST then
+                        spawner.spawn_from_west_door(s.mob, a)
+                      else
+                        print("Attempt to spawn from unknown door: "..s.door)
+                      end
+                    end)
+
+      end
+    end
+    spawner.add(s.start, f)
+  end
+
 end
 
 function RoomDef:parse()

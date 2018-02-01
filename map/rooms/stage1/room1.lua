@@ -1,5 +1,11 @@
 local room_s1r1 = RoomDef:new('s1r1')
 
+local RANDOM = RoomDef.RANDOM
+local NORTH = RoomDef.NORTH
+local EAST = RoomDef.EAST
+local SOUTH = RoomDef.SOUTH
+local WEST = RoomDef.WEST
+
 room_s1r1:setDoor(RoomDef.NORTH, 's1r2a')
 room_s1r1:setDoor(RoomDef.EAST, 's1r2b')
 room_s1r1:setDoor(RoomDef.SOUTH, nil)
