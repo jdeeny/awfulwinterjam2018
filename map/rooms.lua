@@ -181,31 +181,52 @@ end
 -- Put rooms in list
 RoomDef.static.rooms = {}
 -- Stage 1 - Edison Machine Works
+
+-- Enemies: remotedude_red & rifledude
 RoomDef.static.rooms['s1r1'] = require 'map/rooms/stage1/room1'     -- Tesla's workspace
+-- Enemies: add remotedude_blue
 RoomDef.static.rooms['s1r2a'] = require 'map/rooms/stage1/room2a'   -- More workspace
 RoomDef.static.rooms['s1r2b'] = require 'map/rooms/stage1/room2b'   -- Tunnel
+-- Enemies: add bursterdude
 RoomDef.static.rooms['s1r3a'] = require 'map/rooms/stage1/room3a'   -- R&D
 RoomDef.static.rooms['s1r3b'] = require 'map/rooms/stage1/room3b'   -- Warehouse
+-- Enemies: add sniper
 RoomDef.static.rooms['s1r4a'] = require 'map/rooms/stage1/room4a'   -- Production
 RoomDef.static.rooms['s1r4b'] = require 'map/rooms/stage1/room4b'   -- Quality
+-- Enemies: add lump
 RoomDef.static.rooms['s1r5a'] = require 'map/rooms/stage1/room5a'   -- Empty edison office
 RoomDef.static.rooms['s1r5b'] = require 'map/rooms/stage1/room5b'   -- Charle's office
+-- Enemies: add Boss 1 - Charles Batchelder (special burster)
 RoomDef.static.rooms['s1r6'] = require 'map/rooms/stage1/room6'     -- Exit?
+
+
 -- Stage 2 - Wardenclyffe
+-- Enemies: add canbot
 RoomDef.static.rooms['s2r1'] = require 'map/rooms/stage2/room1'     -- Entrance / Foyer
 RoomDef.static.rooms['s2r2'] = require 'map/rooms/stage2/room2'     -- Hallway
+-- Enemies: add remotedude_green + controller (does not exist yet)
 RoomDef.static.rooms['s2r3'] = require 'map/rooms/stage2/room3'     -- Office
+-- Enemies: add rocket
 RoomDef.static.rooms['s2r4a'] = require 'map/rooms/stage2/room4a'   -- 1st floor
 RoomDef.static.rooms['s2r4b'] = require 'map/rooms/stage2/room4b'   -- 2nd floor
+-- Enemies: add superlump
 RoomDef.static.rooms['s2r5'] = require 'map/rooms/stage2/room5'     -- Tower base bldg
 RoomDef.static.rooms['s2r6'] = require 'map/rooms/stage2/room6'     -- Tower 1
+-- Enemies: add shottydude (does not exist yet)
 RoomDef.static.rooms['s2r7'] = require 'map/rooms/stage2/room7'     -- Tower 2
+-- Enemies: add Boss 2 - Megalump (== marconi, does not exist yet)
 RoomDef.static.rooms['s2r8'] = require 'map/rooms/stage2/room8'     -- Top of tower
+
+
 -- Stage 3 - Edison's Lair
+-- Enemies: add homing rocket
 RoomDef.static.rooms['s3r1'] = require 'map/rooms/stage3/room1'     -- Library 1
+-- Enemies: add burster badass
 RoomDef.static.rooms['s3r2'] = require 'map/rooms/stage3/room2'     -- Library 2
+-- Enemies: add super sniper (burst sniper, does not exist yet)
 RoomDef.static.rooms['s3r3'] = require 'map/rooms/stage3/room3'     -- Catacombs 1
 RoomDef.static.rooms['s3r4'] = require 'map/rooms/stage3/room4'     -- Catacombs 2
+-- Enemies: add Boss 3 - Edison
 RoomDef.static.rooms['s3r5'] = require 'map/rooms/stage3/room5'     -- Edison's Lair
 
 
