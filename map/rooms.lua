@@ -49,6 +49,7 @@ function RoomDef:addSpawn(spawn_data)
   spawndata.spawnkind = spawn_data.spawnkind or 'clump'
   spawndata.spawnperiod = spawn_data.spawnperiod or spawndata == 'clump' and 0.05 or 0.3
   spawndata.door = spawn_data.door or self.RANDOM
+  spawndata.complete = spawn_data.complete or false
   self.spawns[spawndata.id] = spawndata
   print("addspawn: "..self.spawns[spawndata.id].id)
   return self
@@ -94,6 +95,12 @@ function RoomDef:launchSpawn(id)
                         spawner.spawn_from_west_door(s.mob, a)
                       else
                         print("Attempt to spawn from unknown door: "..s.door)
+                      end
+                      if s.complete == true then
+                        delay.start(2, function()
+                          spawner.complete = true
+                          spawner.test_completion()
+                        end)
                       end
                     end)
 
