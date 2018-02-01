@@ -179,27 +179,30 @@ function Level:open_door(dir, fake, time)
 
   local dtype = (fake and "fakedoor") or "opendoor"
   local k = self.tileset[dtype]
+  
+  local x_middle = math.floor(self.width/2)
+  local y_middle = math.floor(self.height/2)
 
   if dir == "north" then
     --self.tiles[self.width / 2][1].kind = k
     --self.tiles[1 + self.width / 2][1].kind = k
-    self:addTile(nil, self.width/2, 1, k)
-    self:addTile(nil, 1+self.width/2, 1, k)
+    self:addTile(nil, x_middle, 1, k)
+    self:addTile(nil, 1+x_middle, 1, k)
   elseif dir == "south" then
     --self.tiles[self.width / 2][self.height].kind = k
     --self.tiles[1 + self.width / 2][self.height].kind = k
-    self:addTile(nil, self.width/2, self.height, k)
-    self:addTile(nil, 1+self.width/2, self.height, k)
+    self:addTile(nil, x_middle, self.height, k)
+    self:addTile(nil, 1+x_middle, self.height, k)
   elseif dir == "east" then
     --self.tiles[self.width][self.height / 2].kind = k
     --self.tiles[self.width][1 + self.height / 2].kind = k
-    self:addTile(nil, self.width, self.height/2, k)
-    self:addTile(nil, self.width, self.height/2 + 1, k)
+    self:addTile(nil, self.width, y_middle, k)
+    self:addTile(nil, self.width, y_middle + 1, k)
   elseif dir == "west" then
     --self.tiles[1][self.height / 2].kind = k
     --self.tiles[1][1 + self.height / 2].kind = k
-    self:addTile(nil, 1,self.height/2, k)
-    self:addTile(nil, 1,self.height/2+1, k)
+    self:addTile(nil, 1,y_middle, k)
+    self:addTile(nil, 1,y_middle+1, k)
   end
 
   self:updatewalltiles()
@@ -212,27 +215,30 @@ function Level:close_door(dir)
   if not silent then
     audiomanager:playOnce("unlatch")
   end
+  
+  local x_middle = math.floor(self.width/2)
+  local y_middle = math.floor(self.height/2)
 
   if dir == "north" then
     --self.tiles[self.width / 2][1].kind = k
     --self.tiles[1 + self.width / 2][1].kind = k
-    self:addTile(nil, self.width/2, 1, k)
-    self:addTile(nil, 1+self.width/2, 1, k)
+    self:addTile(nil, x_middle, 1, k)
+    self:addTile(nil, 1+x_middle, 1, k)
   elseif dir == "south" then
     --self.tiles[self.width / 2][self.height].kind = k
     --self.tiles[1 + self.width / 2][self.height].kind = k
-    self:addTile(nil, self.width/2, self.height, k)
-    self:addTile(nil, 1+self.width/2, self.height, k)
+    self:addTile(nil, x_middle, self.height, k)
+    self:addTile(nil, 1+x_middle, self.height, k)
   elseif dir == "east" then
     --self.tiles[self.width][self.height / 2].kind = k
     --self.tiles[self.width][1 + self.height / 2].kind = k
-    self:addTile(nil, self.width, self.height/2, k)
-    self:addTile(nil, self.width, self.height/2 + 1, k)
+    self:addTile(nil, self.width, y_middle, k)
+    self:addTile(nil, self.width, y_middle + 1, k)
   elseif dir == "west" then
     --self.tiles[1][self.height / 2].kind = k
     --self.tiles[1][1 + self.height / 2].kind = k
-    self:addTile(nil, 1,self.height/2, k)
-    self:addTile(nil, 1,self.height/2+1, k)
+    self:addTile(nil, 1,y_middle, k)
+    self:addTile(nil, 1,y_middle+1, k)
   end
 
   self:updatewalltiles()
@@ -274,11 +280,11 @@ function Level:coda()
   else
     if self.exits.north then
       self:open_door("north", false) -- no time given, so it should stay open forever
-      doodad_data.spawn("exit_north", current_level:pixel_width() / 2, TILESIZE / 2)
+      doodad_data.spawn("exit_north", self:pixel_width()/2 - math.fmod(self.width,2)*TILESIZE/2, TILESIZE / 2)
     end
     if self.exits.east then
       self:open_door("east", false)
-      doodad_data.spawn("exit_east", current_level:pixel_width() - (TILESIZE / 2), current_level:pixel_height() / 2)
+      doodad_data.spawn("exit_east", self:pixel_width() - (TILESIZE / 2), self:pixel_height()/2 - math.fmod(self.height,2) * TILESIZE/2)
     end
   end
 end
