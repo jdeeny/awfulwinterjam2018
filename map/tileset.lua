@@ -30,6 +30,10 @@ TileSet['floor_wood_dark']      = { function() return Tile:new('floor_wood_dark'
 TileSet['teleporter']         = { function() return Tile:new('teleporter',      't') end, }
 TileSet['ballpost']           = { function() return Tile:new('ballpost',        'b'):setLayer(Layer.FURNITURE):setConductive(1.0):setDestroyable('explodes', 'rubblefloor', 20 + math.random(15)) end, }
 
+TileSet['drain']           = { function() return Tile:new('drain',        'd'):setLayer(Layer.FURNITURE):setConductive(1.0):setDestroyable('explodes', 'rubblefloor', 20 + math.random(15)) end, }
+TileSet['pump']           = { function() return Tile:new('pump',        'p'):setLayer(Layer.FURNITURE):setConductive(1.0):setDestroyable('explodes', 'rubblefloor', 20 + math.random(15)) end, }
+
+
 TileSet['wall_southface_teak']               = { function() return Tile:new('wall_southface_teak',            nil):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable('crumbles', 'rubblefloor', 30+math.random(30)) end, }
 TileSet['wall_southface_wood']               = { function() return Tile:new('wall_southface_wood',            nil):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable('crumbles', 'rubblefloor', 30+math.random(30)) end, }
 TileSet['wall_southface_white']               = { function() return Tile:new('wall_southface_white',            nil):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable('crumbles', 'rubblefloor', 30+math.random(30)) end, }
