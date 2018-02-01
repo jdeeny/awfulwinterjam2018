@@ -87,7 +87,8 @@ function image.init()
   image.tesla_arm_ray = love.graphics.newImage("assets/sprites/tesla_arm_ray.png")
   image.tesla_arm_lightning = love.graphics.newImage("assets/sprites/tesla_arm_lightning.png")
 
-  image.desk = love.graphics.newImage("assets/sprites/desk.png")
+  image.deskleft = love.graphics.newImage("assets/sprites/deskleft.png")
+  image.deskright = love.graphics.newImage("assets/sprites/deskright.png")
   image.bookshelf = love.graphics.newImage("assets/sprites/shelves.png")
 
 
