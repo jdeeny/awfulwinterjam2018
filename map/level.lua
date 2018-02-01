@@ -286,6 +286,10 @@ function Level:coda()
       end)
 
   else
+	  print('drawing exits') --DBG
+	  print('room kind is',self.kind) -- DBG
+	  print(self.exits.north) -- DBG
+	  print(self.exits.east) -- DBG
     if self.exits.north then
       self:open_door("north", false) -- no time given, so it should stay open forever
       doodad_data.spawn("exit_north", self:pixel_mid_width(), TILESIZE / 2)

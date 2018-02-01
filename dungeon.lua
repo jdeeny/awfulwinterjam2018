@@ -2,31 +2,9 @@ local dungeon = class("dungeon", grid)
 
 local room_kinds = {'start','boss','generic'}
 
-function dungeon:initialize(w,h,room_files,spawns)
+function dungeon:initialize(w,h,room_layout)
 	grid:initialize(w,h)
-	self.room_files = {}
-	self.spawns = {}
-
-	-- fill in any empty sections
-	for _,t in pairs(room_kinds) do
-		if room_files and room_files[t] then
-			self.room_files[t] = room_files[t]
-		else
-			self.room_files[t] = {}
-			for i in ipairs(file_io.room_files) do
-				table.insert(self.room_files[t], i)
-			end
-		end
-
-		if spawns and spawns[t] then
-			self.spawns[t] = spawns[t]
-		else
-			self.spawns[t] = {}
-			for k,v in pairs(spawner.wave_data) do
-				table.insert(self.spawns[t],k)
-			end
-		end
-	end
+	self.room_layout = room_layout
 end
 
 function dungeon:move_to_room(rx, ry, from_dir)
@@ -41,12 +19,9 @@ function dungeon:move_to_room(rx, ry, from_dir)
   items = {}
   spawner.reset()
 
-  local room_set = self.room_files[self:get_room_kind(rx, ry)]
-  local room_index = self[rx][ry].file
-  --image.swap_floor_tile(self[rx][ry].floor_tile)
-
 	print("level setup")
-	local room = RoomDef.rooms['s1r1']
+	--local room = RoomDef.rooms['s1r1']
+  local room = self[rx][ry].room
   current_level = room:parse()--file_io.parse_room_file(room_set[room_index])
 	print("done")
   current_level:setup_outer_walls()
@@ -54,6 +29,9 @@ function dungeon:move_to_room(rx, ry, from_dir)
   current_level:updatewalltiles()
 
   current_level.exits = self:get_exits(rx, ry)
+  
+  --print("rx,ry, dung_dim",rx,ry,self.width,self.height) -- DBG
+  --print("exits:",self:get_exits(rx,ry).north,self:get_exits(rx,ry).east) -- DBG
   current_level.kind = self:get_room_kind(rx,ry)
 
   --current_level:prologue()
@@ -80,30 +58,24 @@ function dungeon:move_to_room(rx, ry, from_dir)
   current_level:open_door(from_dir, true, 1)
 
   camera.recenter()
-
-
-  --local spawn_set = self.spawns[self:get_room_kind(rx, ry)]
-
-  --local selected_wave = spawn_set[love.math.random(#(spawn_set))] -- random pick from list
-  --print("spawn:",selected_wave) --DBG
-  --spawner.wave_data[selected_wave]()
-	room:launchSpawn()	-- launch spawns as defined in room
+  
+  room:launchSpawn()	-- launch spawns as defined in room
 end
 
 function dungeon:setup_main()
   for rx=1, self.width do
     for ry=1, self.height do
+		print("room at",rx,ry) -- DBG
+		print("room is ",self.room_layout[ry][rx]) -- DBG
+		self[rx][ry].room = RoomDef.rooms[self.room_layout[ry][rx]]
       if rx == 1 and ry == self.height then
-        self[rx][ry] = {room_kind = "start", file = love.math.random(#(self.room_files['start'])) }
         self.start_x = rx
         self.start_y = ry
-        self[rx][ry].floor_tile = gamestage.get_random_floor()
+		self[rx][ry].kind = 'start'
       elseif rx == self.width and ry == 1 then
-        self[rx][ry] = {room_kind = "boss", file = love.math.random(#(self.room_files['boss'])) }
-        self[rx][ry].floor_tile = gamestage.get_boss_floor()
-      else
-        self[rx][ry] = {room_kind = "generic", file = love.math.random(#(self.room_files['generic'])) }
-        self[rx][ry].floor_tile = gamestage.get_random_floor()
+		self[rx][ry].kind = 'boss'
+     else
+         self[rx][ry].kind = 'generic'
       end
     end
   end
@@ -114,7 +86,7 @@ function dungeon:get_exits(rx, ry)
 end
 
 function dungeon:get_room_kind(rx,ry)
-  return self[rx][ry].room_kind
+  return self[rx][ry].kind
 end
 
 return dungeon

@@ -12,7 +12,10 @@ stages[1] = {
 	dungeon_w = 5,
 	dungeon_h = 2,
 
-  
+	-- Room layout is a 2D array
+	room_layout = {{'s1r2a','s1r3a','s1r4a','s1r5a','s1r6'},
+	             {'s1r1','s1r2b','s1r3b','s1r4b','s1r5b'}
+			    },
 
 	-- This is optional; any blank entry will select from all available options
 	room_files = {['start'] = {7}, ['boss'] = {10}, ['generic'] = {1,4,5,6,7,8,11,13,16}},  -- See file_io for room index
@@ -32,6 +35,10 @@ stages[2] = {
 	-- Rooms/dungeon
 	dungeon_w = 5,
 	dungeon_h = 4,
+	
+	room_layout = {{'s1r2a','s1r3a','s1r4a','s1r5a','s1r6'},
+	             {'s1r1' ,'s1r2b','s1r3b','s1r4b','s1r5b'}
+			    },
 
 	room_files = {['start'] = {14}, ['boss'] = {18}, ['generic'] = {5,4,8,10,16,17,20,22}},
 
@@ -51,6 +58,12 @@ stages[3] = {
 	-- Rooms/dungeon
 	dungeon_w = 6,
 	dungeon_h = 6,
+	
+	
+	room_layout = {{'s1r2a','s1r3a','s1r4a','s1r5a','s1r6'},
+	             {'s1r1' ,'s1r2b','s1r3b','s1r4b','s1r5b'}
+			    },
+	
 	room_files = {['start'] = {10}, ['boss'] = {23}, ['generic'] = {1,4,5,8,9,10,11,12,13,17,19,21}},
 	spawns = {['start'] = {'medium_4'},
 	          ['boss'] = {'stage3boss'},
@@ -81,7 +94,7 @@ function gamestage.setup_next_stage(forced)
 	local next_stage = gamestage.stages[gamestage.current_stage]
 
     current_dungeon = dungeon:new(next_stage.dungeon_w, next_stage.dungeon_h,
-        next_stage.room_files, next_stage.spawns)
+        next_stage.room_layout)
     current_dungeon:setup_main()
 
 end
