@@ -25,6 +25,7 @@ function image.init()
   image.wall = love.graphics.newImage("assets/tiles/wall_top.png")
   image.wall_southface = love.graphics.newImage("assets/tiles/wallStoneTiling.png")
   image.wall_southdoor = love.graphics.newImage("assets/tiles/door.png")
+  image.wall_teak = love.graphics.newImage("assets/tiles/fancyTeakWall.png")
   image.invinciblewall = image.wall
   image.invinciblewall_southface = image.wall_southface
   image.invinciblewall_southdoor = image.wall_southdoor

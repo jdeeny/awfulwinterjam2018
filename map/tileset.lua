@@ -21,7 +21,7 @@ TileSet['concretefloor']      = { function() return Tile:new('concretefloor'    
 TileSet['teleporter']         = { function() return Tile:new('teleporter',      't') end, }
 TileSet['ballpost']           = { function() return Tile:new('ballpost',        'b'):setLayer(Layer.FURNITURE):setConductive(1.0):setDestroyable('explodes', 'rubblefloor', 20 + math.random(15)) end, }
 
-
+TileSet['wall_teak']               = { function() return Tile:new('wall_teak',            nil):setSolid(true):setLayer(Layer.FURNITURE):setDestroyable('crumbles', 'rubblefloor', 30+math.random(30)) end, }
 TileSet['water_border']       = { --function() return Tile:new('water_border',    'w') end,
                                   function() return Tile:new('water', 'w'):setLayer(Layer.WATER) end,
                                 }

@@ -74,9 +74,11 @@ function RoomDef:launchSpawn(id)
   for i, s in pairs(spawns) do
     local f = function()
       local door = s.door ~= RoomDef.RANDOM and s.door or math.random(4)
-      local angle = -PI + (PI/2) * s.door + (-PI/8 + math.random() * PI / 4)
+      local angle = -PI + (PI/2) * door + (-PI/8 + math.random() * PI / 4)
       for i = 1, s.count do
-        if s.spawnkind == 'clump' then
+        if s.spawnkind == 'line' then
+          local a = angle
+        elseif s.spawnkind == 'clump' then
           local a = angle + (-PI/8 + math.random() * PI / 4)
         elseif s.spawnkind == 'stream' then
           local a = angle + (-PI/32 + math.random() * PI / 16)
