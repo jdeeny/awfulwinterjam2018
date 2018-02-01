@@ -207,8 +207,8 @@ RoomDef.static.rooms['s2r2'] = require 'map/rooms/stage2/room2'     -- Hallway
 -- Enemies: add remotedude_green + controller (does not exist yet)
 RoomDef.static.rooms['s2r3'] = require 'map/rooms/stage2/room3'     -- Office
 -- Enemies: add rocket
-RoomDef.static.rooms['s2r4a'] = require 'map/rooms/stage2/room4a'   -- 1st floor
-RoomDef.static.rooms['s2r4b'] = require 'map/rooms/stage2/room4b'   -- 2nd floor
+RoomDef.static.rooms['s2r4a'] = require 'map/rooms/stage2/room4a'   -- lab 1st floor
+RoomDef.static.rooms['s2r4b'] = require 'map/rooms/stage2/room4b'   -- lab 2nd floor
 -- Enemies: add superlump
 RoomDef.static.rooms['s2r5'] = require 'map/rooms/stage2/room5'     -- Tower base bldg
 RoomDef.static.rooms['s2r6'] = require 'map/rooms/stage2/room6'     -- Tower 1
